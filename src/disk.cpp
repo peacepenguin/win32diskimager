@@ -614,3 +614,264 @@ bool ejectDevice(HANDLE handle)
     DeviceIoControl(handle, IOCTL_STORAGE_MEDIA_REMOVAL, &pmr, sizeof(pmr), NULL, 0, &junk, NULL);
     return DeviceIoControl(handle, IOCTL_STORAGE_EJECT_MEDIA, NULL, 0, NULL, 0, &junk, NULL);
 }
+
+// ---------------------------------------------------------------------------
+// GPT repair
+// ---------------------------------------------------------------------------
+
+// Offsets within the 92-byte GPT header (UEFI 2.x, section 5.3).
+#define GPT_OFF_SIGNATURE      0
+#define GPT_OFF_HEADERSIZE    12
+#define GPT_OFF_HEADERCRC     16
+#define GPT_OFF_MYLBA         24
+#define GPT_OFF_ALTLBA        32
+#define GPT_OFF_FIRSTUSABLE   40
+#define GPT_OFF_LASTUSABLE    48
+#define GPT_OFF_ENTRYLBA      72
+#define GPT_OFF_NUMENTRIES    80
+#define GPT_OFF_ENTRYSIZE     84
+#define GPT_OFF_ENTRIESCRC    88
+
+static DWORD gptCrc32(const unsigned char *data, size_t len)
+{
+    static DWORD table[256];
+    static bool built = false;
+    if (!built)
+    {
+        for (DWORD i = 0; i < 256; ++i)
+        {
+            DWORD c = i;
+            for (int k = 0; k < 8; ++k)
+            {
+                c = (c & 1) ? (0xEDB88320u ^ (c >> 1)) : (c >> 1);
+            }
+            table[i] = c;
+        }
+        built = true;
+    }
+    DWORD crc = 0xFFFFFFFFu;
+    for (size_t i = 0; i < len; ++i)
+    {
+        crc = table[(crc ^ data[i]) & 0xFF] ^ (crc >> 8);
+    }
+    return crc ^ 0xFFFFFFFFu;
+}
+
+static DWORD rd32(const unsigned char *p, int off)
+{
+    return (DWORD)p[off] | ((DWORD)p[off+1] << 8) | ((DWORD)p[off+2] << 16) | ((DWORD)p[off+3] << 24);
+}
+
+static unsigned long long rd64(const unsigned char *p, int off)
+{
+    unsigned long long v = 0;
+    for (int i = 7; i >= 0; --i)
+    {
+        v = (v << 8) | p[off + i];
+    }
+    return v;
+}
+
+static void wr32(unsigned char *p, int off, DWORD v)
+{
+    for (int i = 0; i < 4; ++i)
+    {
+        p[off + i] = (unsigned char)((v >> (8 * i)) & 0xFF);
+    }
+}
+
+static void wr64(unsigned char *p, int off, unsigned long long v)
+{
+    for (int i = 0; i < 8; ++i)
+    {
+        p[off + i] = (unsigned char)((v >> (8 * i)) & 0xFF);
+    }
+}
+
+static bool rawSeekRead(HANDLE h, unsigned long long offset, void *buf, DWORD len)
+{
+    LARGE_INTEGER li;
+    DWORD got = 0;
+    li.QuadPart = (LONGLONG)offset;
+    if (SetFilePointer(h, li.LowPart, &li.HighPart, FILE_BEGIN) == INVALID_SET_FILE_POINTER
+        && GetLastError() != NO_ERROR)
+    {
+        return false;
+    }
+    return ReadFile(h, buf, len, &got, NULL) && got == len;
+}
+
+static bool rawSeekWrite(HANDLE h, unsigned long long offset, const void *buf, DWORD len)
+{
+    LARGE_INTEGER li;
+    DWORD put = 0;
+    li.QuadPart = (LONGLONG)offset;
+    if (SetFilePointer(h, li.LowPart, &li.HighPart, FILE_BEGIN) == INVALID_SET_FILE_POINTER
+        && GetLastError() != NO_ERROR)
+    {
+        return false;
+    }
+    return WriteFile(h, buf, len, &put, NULL) && put == len;
+}
+
+GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
+                               unsigned long long devicesectors, QString *detail)
+{
+    if (sectorsize < 512 || devicesectors < 96)
+    {
+        return GPT_FIX_NO_GPT;
+    }
+
+    QByteArray primary(sectorsize, 0);
+    unsigned char *hdr = (unsigned char *)primary.data();
+    if (!rawSeekRead(hRawDisk, sectorsize, hdr, (DWORD)sectorsize))
+    {
+        return GPT_FIX_FAILED;
+    }
+    if (memcmp(hdr + GPT_OFF_SIGNATURE, "EFI PART", 8) != 0)
+    {
+        return GPT_FIX_NO_GPT;
+    }
+
+    DWORD headersize = rd32(hdr, GPT_OFF_HEADERSIZE);
+    if (headersize < 92 || headersize > sectorsize)
+    {
+        return GPT_FIX_NO_GPT;
+    }
+
+    // Verify the header we are about to rewrite is itself intact.
+    {
+        QByteArray probe = primary.left(headersize);
+        wr32((unsigned char *)probe.data(), GPT_OFF_HEADERCRC, 0);
+        if (gptCrc32((const unsigned char *)probe.constData(), headersize) != rd32(hdr, GPT_OFF_HEADERCRC))
+        {
+            if (detail) *detail = QObject::tr("the primary GPT header checksum is invalid");
+            return GPT_FIX_NO_GPT;
+        }
+    }
+
+    unsigned long long entrylba   = rd64(hdr, GPT_OFF_ENTRYLBA);
+    unsigned long long numentries = rd32(hdr, GPT_OFF_NUMENTRIES);
+    unsigned long long entrysize  = rd32(hdr, GPT_OFF_ENTRYSIZE);
+    unsigned long long lastlba    = devicesectors - 1;
+
+    if (numentries == 0 || numentries > 65536 || entrysize < 128 || entrysize > 4096
+        || entrylba < 2 || entrylba >= devicesectors)
+    {
+        if (detail) *detail = QObject::tr("the GPT partition entry array is not where the header says");
+        return GPT_FIX_NO_GPT;
+    }
+
+    if (rd64(hdr, GPT_OFF_ALTLBA) == lastlba)
+    {
+        return GPT_FIX_NOT_NEEDED;
+    }
+
+    // Entry array, rounded up to a whole number of sectors.
+    unsigned long long entrybytes = numentries * entrysize;
+    unsigned long long entrysectors = (entrybytes + sectorsize - 1) / sectorsize;
+    QByteArray entries(entrysectors * sectorsize, 0);
+    if (!rawSeekRead(hRawDisk, entrylba * sectorsize, entries.data(), (DWORD)(entrysectors * sectorsize)))
+    {
+        return GPT_FIX_FAILED;
+    }
+
+    unsigned long long backuphdr     = lastlba;
+    unsigned long long backupentries = backuphdr - entrysectors;
+    unsigned long long firstusable   = rd64(hdr, GPT_OFF_FIRSTUSABLE);
+    unsigned long long lastusable    = backupentries - 1;
+
+    if (backupentries <= firstusable || lastusable <= firstusable)
+    {
+        return GPT_FIX_FAILED;
+    }
+
+    // No partition may extend past the new last usable LBA. Growing the usable
+    // area cannot cause that, but a malformed table could.
+    for (unsigned long long i = 0; i < numentries; ++i)
+    {
+        const unsigned char *e = (const unsigned char *)entries.constData() + i * entrysize;
+        bool empty = true;
+        for (int b = 0; b < 16; ++b)
+        {
+            if (e[b] != 0) { empty = false; break; }
+        }
+        if (empty)
+        {
+            continue;
+        }
+        if (rd64(e, 40) > lastusable)
+        {
+            if (detail) *detail = QObject::tr("a partition extends past the end of the device");
+            return GPT_FIX_FAILED;
+        }
+    }
+
+    DWORD entriescrc = gptCrc32((const unsigned char *)entries.constData(), (size_t)entrybytes);
+
+    // Rebuild the primary header in place.
+    wr64(hdr, GPT_OFF_MYLBA, 1);
+    wr64(hdr, GPT_OFF_ALTLBA, backuphdr);
+    wr64(hdr, GPT_OFF_LASTUSABLE, lastusable);
+    wr64(hdr, GPT_OFF_ENTRYLBA, 2);
+    wr32(hdr, GPT_OFF_ENTRIESCRC, entriescrc);
+    wr32(hdr, GPT_OFF_HEADERCRC, 0);
+    wr32(hdr, GPT_OFF_HEADERCRC, gptCrc32(hdr, headersize));
+
+    // The backup header is the primary with MyLBA/AlternateLBA swapped and its
+    // own copy of the entry array.
+    QByteArray backup = primary;
+    unsigned char *bhdr = (unsigned char *)backup.data();
+    wr64(bhdr, GPT_OFF_MYLBA, backuphdr);
+    wr64(bhdr, GPT_OFF_ALTLBA, 1);
+    wr64(bhdr, GPT_OFF_ENTRYLBA, backupentries);
+    wr32(bhdr, GPT_OFF_HEADERCRC, 0);
+    wr32(bhdr, GPT_OFF_HEADERCRC, gptCrc32(bhdr, headersize));
+
+    // Backup copies first: if power is lost midway the primary still describes
+    // a consistent, if stale, table.
+    if (!rawSeekWrite(hRawDisk, backupentries * sectorsize, entries.constData(),
+                      (DWORD)(entrysectors * sectorsize))
+        || !rawSeekWrite(hRawDisk, backuphdr * sectorsize, bhdr, (DWORD)sectorsize))
+    {
+        return GPT_FIX_FAILED;
+    }
+    if (entrylba != 2
+        && !rawSeekWrite(hRawDisk, 2 * sectorsize, entries.constData(),
+                         (DWORD)(entrysectors * sectorsize)))
+    {
+        return GPT_FIX_FAILED;
+    }
+    if (!rawSeekWrite(hRawDisk, sectorsize, hdr, (DWORD)sectorsize))
+    {
+        return GPT_FIX_FAILED;
+    }
+
+    // The protective MBR must span the whole device too, or Windows still sees
+    // a mismatch. Only a genuine 0xEE protective entry is touched.
+    QByteArray mbr(sectorsize, 0);
+    if (rawSeekRead(hRawDisk, 0, mbr.data(), (DWORD)sectorsize))
+    {
+        unsigned char *m = (unsigned char *)mbr.data();
+        if (m[450] == 0xEE)
+        {
+            unsigned long long span = (lastlba > 0xFFFFFFFFull) ? 0xFFFFFFFFull : lastlba;
+            if (rd32(m, 454) == 1 && rd32(m, 458) != (DWORD)span)
+            {
+                wr32(m, 458, (DWORD)span);
+                if (!rawSeekWrite(hRawDisk, 0, m, (DWORD)sectorsize))
+                {
+                    return GPT_FIX_FAILED;
+                }
+            }
+        }
+    }
+
+    FlushFileBuffers(hRawDisk);
+    if (detail)
+    {
+        *detail = QObject::tr("backup GPT moved to LBA %1; last usable LBA is now %2")
+                      .arg(backuphdr).arg(lastusable);
+    }
+    return GPT_FIX_OK;
+}

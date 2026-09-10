@@ -127,6 +127,7 @@ void MainWindow::saveSettings()
     userSettings.beginGroup("Settings");
     userSettings.setValue("ImageDir", myHomeDir);
     userSettings.setValue("FileType", myFileType);
+    userSettings.setValue("FixGpt", fixGptCheckBox->isChecked());
     userSettings.endGroup();
 }
 
@@ -136,6 +137,7 @@ void MainWindow::loadSettings()
     userSettings.beginGroup("Settings");
     myHomeDir = userSettings.value("ImageDir").toString();
     myFileType = userSettings.value("FileType").toString();
+    fixGptCheckBox->setChecked(userSettings.value("FixGpt", true).toBool());
 }
 
 void MainWindow::initializeHomeDir()
@@ -392,7 +394,8 @@ void MainWindow::on_bWrite_clicked()
                 setReadWriteButtonState();
                 return;
             }
-            hRawDisk = getHandleOnDevice(deviceID, GENERIC_WRITE);
+            // Read access is needed as well: the GPT fix reads the table back.
+            hRawDisk = getHandleOnDevice(deviceID, GENERIC_READ | GENERIC_WRITE);
             if (hRawDisk == INVALID_HANDLE_VALUE)
             {
                 locked.release();
@@ -544,6 +547,18 @@ void MainWindow::on_bWrite_clicked()
             CloseHandle(hFile);
             hFile = INVALID_HANDLE_VALUE;
 
+            // Make the table consistent with the device before anything can
+            // rescan it, so Windows finds nothing to "repair".
+            GptFixResult gptfix = GPT_FIX_NOT_NEEDED;
+            QString gptdetail;
+            if (fixGptCheckBox->isChecked() && status != STATUS_CANCELED)
+            {
+                statusbar->showMessage(tr("Fixing GPT..."));
+                QCoreApplication::processEvents();
+                gptfix = relocateBackupGPT(hRawDisk, sectorsize, availablesectors, &gptdetail);
+                flushDevice(hRawDisk);
+            }
+
             // Take the disk offline before releasing the locks so nothing is
             // remounted, then eject it. The card should be pulled without ever
             // being re-enumerated by Windows.
@@ -556,20 +571,37 @@ void MainWindow::on_bWrite_clicked()
             if (status == STATUS_CANCELED){
                 passfail = false;
             }
+            else if (gptfix == GPT_FIX_OK || gptfix == GPT_FIX_NOT_NEEDED)
+            {
+                QMessageBox::information(this, tr("Write Successful"),
+                    (gptfix == GPT_FIX_OK)
+                        ? tr("Write successful.\n\nThe GPT was made consistent with the device "
+                             "(%1), so Windows has no damaged table to repair. The device can "
+                             "be removed normally.").arg(gptdetail)
+                        : tr("Write successful."));
+            }
             else
             {
-                QString detail = (offline || ejected)
+                QString state = (offline || ejected)
                     ? tr("The device has been taken offline and ejected.")
                     : tr("The device could NOT be taken offline automatically.");
+                QString why = (gptfix == GPT_FIX_NO_GPT)
+                    ? tr("The GPT could not be fixed automatically (%1).").arg(
+                          gptdetail.isEmpty() ? tr("no valid GPT was found") : gptdetail)
+                    : (gptfix == GPT_FIX_FAILED)
+                        ? tr("Fixing the GPT failed (%1).").arg(
+                              gptdetail.isEmpty() ? tr("write error") : gptdetail)
+                        : tr("The \"Fix GPT after write\" option is not enabled.");
                 QMessageBox::warning(this, tr("Remove the device now"),
-                    tr("%1\n\n"
+                    tr("Write successful, but the partition table is at risk.\n\n"
+                       "%1\n%2\n\n"
                        "Physically remove the device NOW, before doing anything else.\n\n"
                        "Do not re-insert it into this computer. If Windows re-reads a "
                        "partition table whose backup GPT is not at the end of the device "
                        "(which is normal when the image is smaller than the card), it will "
                        "silently rewrite it. The result passes Windows' own checks but is "
                        "rejected by Linux, and the device will not boot.\n\n"
-                       "Insert it into the target hardware instead.").arg(detail));
+                       "Insert it into the target hardware instead.").arg(why).arg(state));
             }
         }
         else if (!fileinfo.exists() || !fileinfo.isFile())

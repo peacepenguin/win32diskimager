@@ -84,6 +84,23 @@ private:
     QList<HANDLE> handles;
 };
 
+// Result of relocateBackupGPT().
+enum GptFixResult
+{
+    GPT_FIX_OK,          // table rewritten to match the device
+    GPT_FIX_NOT_NEEDED,  // already consistent with the device size
+    GPT_FIX_NO_GPT,      // no valid GPT found; nothing was touched
+    GPT_FIX_FAILED       // an I/O error occurred
+};
+
+// Move the backup GPT to the true last LBA of the device and update
+// AlternateLBA/LastUsableLBA to match, the way "sgdisk -e" does. Writing an
+// image smaller than the target leaves the backup GPT stranded mid-device;
+// Windows treats that as damage and silently rewrites the table. Making the
+// table consistent ourselves removes the trigger.
+GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
+                               unsigned long long devicesectors, QString *detail);
+
 bool flushDevice(HANDLE handle);
 bool setDiskOffline(HANDLE handle, bool offline);
 bool ejectDevice(HANDLE handle);
