@@ -45,7 +45,7 @@ jobs:
           bash tools/deploy-cross.sh build dist \
             /usr/x86_64-w64-mingw32/sys-root/mingw
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: Win32DiskImager-win64
           path: dist/
