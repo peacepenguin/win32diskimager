@@ -32,16 +32,24 @@ for group in platforms styles imageformats generic; do
 done
 # Debug variants would double the size for nothing.
 find "$dist" -name '*d.dll' -delete 2>/dev/null || true
+# qminimal/qoffscreen are headless platform plugins; useless in a shipped GUI.
+rm -f "$dist/platforms/qminimal.dll" "$dist/platforms/qoffscreen.dll"
 
 # Qt's own translations, trimmed to the languages the app ships.
 LANGUAGES="es it pl nl de fr zh_CN zh_TW ta_IN ko ja"
 qttr="$sysroot/share/qt6/translations"
-if [ -d "$qttr" ]; then
-    mkdir -p "$dist/translations"
-    for l in $LANGUAGES; do
-        cp "$qttr/qt_$l.qm" "$dist/translations/" 2>/dev/null || true
-        cp "$qttr/qtbase_$l.qm" "$dist/translations/" 2>/dev/null || true
-    done
+if [ ! -d "$qttr" ]; then
+    echo "error: no Qt translations at $qttr (is mingw64-qt6-qttranslations installed?)" >&2
+    exit 1
+fi
+mkdir -p "$dist/translations"
+for l in $LANGUAGES; do
+    cp "$qttr/qt_$l.qm" "$dist/translations/" 2>/dev/null || true
+    cp "$qttr/qtbase_$l.qm" "$dist/translations/" 2>/dev/null || true
+done
+if [ -z "$(ls -A "$dist/translations")" ]; then
+    echo "error: $qttr contained none of the expected qt_*.qm files" >&2
+    exit 1
 fi
 
 # Resolve the DLL closure: scan every binary already in dist, copy in anything
@@ -57,5 +65,10 @@ while :; do
     done
     [ "$(find "$dist" -name '*.dll' | wc -l)" -eq "$before" ] && break
 done
+
+# Fedora ships its MinGW DLLs unstripped; libstdc++ alone is ~26 MB of debug
+# symbols that do nothing in a shipped build.
+find "$dist" \( -name '*.dll' -o -name '*.exe' \) \
+    -exec "${STRIP:-x86_64-w64-mingw32-strip}" --strip-unneeded {} + 2>/dev/null || true
 
 echo "dist: $(find "$dist" -type f | wc -l) files, $(du -sh "$dist" | cut -f1)"
