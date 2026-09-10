@@ -24,7 +24,7 @@ jobs:
           test -f /usr/share/mingw/toolchain-mingw64.cmake
           test -x /usr/bin/lrelease-qt6
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Configure
         run: |
