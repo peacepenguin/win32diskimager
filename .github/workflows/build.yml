@@ -11,13 +11,13 @@ jobs:
   # so the job runs in a Fedora container, which does ship them.
   windows-x86_64:
     runs-on: ubuntu-latest
-    container: fedora:42
+    container: fedora:44
 
     steps:
       - name: Install cross toolchain
         run: |
-          dnf -y install --setopt=install_weak_deps=False \
-            git cmake ninja-build file findutils \
+          dnf -y install \
+            git cmake ninja-build file findutils binutils \
             mingw64-gcc-c++ mingw64-qt6-qtbase mingw64-qt6-qttools \
             mingw64-qt6-qttranslations \
             qt6-linguist

@@ -38,3 +38,45 @@ group on MSYS2, and the exe will not start without them.
 
 Copy `dist/` anywhere and run `dist/Win32DiskImager.exe`. The app must be run
 as Administrator to access raw devices.
+
+## Cross-compiling for win64 from Linux
+
+This is what [.github/workflows/build.yml](.github/workflows/build.yml) does on
+every push; the steps below reproduce it locally.
+
+Use Fedora. Debian and Ubuntu ship no MinGW Qt6 packages, so there is nothing
+to link against there — the CI job runs `ubuntu-latest` but inside a
+`fedora:44` container for exactly this reason.
+
+```
+dnf -y install cmake ninja-build mingw64-gcc-c++ \
+  mingw64-qt6-qtbase mingw64-qt6-qttools mingw64-qt6-qttranslations \
+  qt6-linguist
+```
+
+```
+cmake -S src -B build -G Ninja \
+  -DCMAKE_TOOLCHAIN_FILE=/usr/share/mingw/toolchain-mingw64.cmake \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DLRELEASE_EXECUTABLE=/usr/bin/lrelease-qt6
+cmake --build build
+```
+
+`LRELEASE_EXECUTABLE` matters: `Qt6::lrelease` from a MinGW Qt is a Windows
+`.exe` and cannot run on the build host, so the *native* `lrelease-qt6` from
+`qt6-linguist` compiles the translations instead. Leave it unset for a normal
+Windows build.
+
+Then package:
+
+```
+bash tools/deploy-cross.sh build dist /usr/x86_64-w64-mingw32/sys-root/mingw
+```
+
+`windeployqt` is itself a Windows binary and cannot run here, so this script
+copies the Qt plugins and translations by hand and resolves the DLL closure
+with `x86_64-w64-mingw32-objdump -p`. It also strips the result, since Fedora
+ships its MinGW DLLs unstripped (`libstdc++-6.dll` alone is ~26 MB otherwise).
+
+Note the `.rc` file must reference the icon with a forward slash. Windows
+`windres` accepts a backslash there; the cross build does not.
