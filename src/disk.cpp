@@ -68,9 +68,16 @@ HANDLE getHandleOnDevice(int device, DWORD access)
 {
     HANDLE hDevice;
     QString devicename = QString("\\\\.\\PhysicalDrive%1").arg(device);
-    // Share reads only. Allowing concurrent writers lets Windows modify the
-    // partition table underneath us while the image is being written.
+    // Prefer sharing reads only: allowing concurrent writers lets Windows
+    // modify the partition table underneath us while the image is written.
+    // Fall back to the permissive mode rather than failing outright, since an
+    // exclusive open is refused if anything still holds the disk.
     hDevice = CreateFile(devicename.toLatin1().data(), access, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+    if (hDevice == INVALID_HANDLE_VALUE)
+    {
+        hDevice = CreateFile(devicename.toLatin1().data(), access,
+                             FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+    }
     if (hDevice == INVALID_HANDLE_VALUE)
     {
         wchar_t *errormessage=NULL;
@@ -517,7 +524,7 @@ bool LockedVolumes::lockAll(DWORD deviceID)
         {
             continue;
         }
-        char volumename[] = "\\.\A:";
+        char volumename[] = "\\\\.\\A:";
         volumename[4] = 'A' + i;
         HANDLE h = CreateFile(volumename, GENERIC_READ | GENERIC_WRITE,
                               FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
@@ -534,7 +541,30 @@ bool LockedVolumes::lockAll(DWORD deviceID)
             CloseHandle(h);
             continue;
         }
-        if (!getLockOnVolume(h) || !unmountVolume(h))
+        // A volume that is merely busy (indexer, antivirus, an open Explorer
+        // window) fails FSCTL_LOCK_VOLUME with ERROR_ACCESS_DENIED, so retry
+        // rather than giving up on the first refusal.
+        bool gotlock = false;
+        DWORD junk;
+        for (int attempt = 0; attempt < 20 && !gotlock; ++attempt)
+        {
+            gotlock = DeviceIoControl(h, FSCTL_LOCK_VOLUME, NULL, 0, NULL, 0, &junk, NULL);
+            if (!gotlock)
+            {
+                Sleep(100);
+            }
+        }
+        if (!gotlock)
+        {
+            QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Lock Error"),
+                                  QObject::tr("Could not lock volume %1: it is still in use.\n"
+                                              "Close any program using the device and try again.\n"
+                                              "Error %2").arg(QChar('A' + i)).arg(GetLastError()));
+            CloseHandle(h);
+            release();
+            return false;
+        }
+        if (!unmountVolume(h))
         {
             CloseHandle(h);
             release();
