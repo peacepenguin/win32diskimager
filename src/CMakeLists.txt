@@ -7,7 +7,15 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+
+# When cross-compiling, Qt6::lrelease resolves to a Windows .exe that cannot run
+# on the build host. Point LRELEASE_EXECUTABLE at the host's native lrelease
+# instead (e.g. -DLRELEASE_EXECUTABLE=/usr/bin/lrelease-qt6).
+if(NOT LRELEASE_EXECUTABLE)
+    find_package(Qt6 REQUIRED COMPONENTS LinguistTools)
+    set(LRELEASE_EXECUTABLE Qt6::lrelease)
+endif()
 
 set(LANGUAGES es it pl nl de fr zh_CN zh_TW ta_IN ko ja)
 
@@ -17,7 +25,7 @@ foreach(lang ${LANGUAGES})
     set(ts "${CMAKE_CURRENT_SOURCE_DIR}/lang/diskimager_${lang}.ts")
     set(qm "${CMAKE_CURRENT_SOURCE_DIR}/lang/diskimager_${lang}.qm")
     add_custom_command(OUTPUT ${qm}
-        COMMAND Qt6::lrelease ${ts} -qm ${qm}
+        COMMAND ${LRELEASE_EXECUTABLE} ${ts} -qm ${qm}
         DEPENDS ${ts} VERBATIM)
     list(APPEND QM_FILES ${qm})
 endforeach()

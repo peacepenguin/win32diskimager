@@ -1,0 +1,51 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # Cross-compile a win64 binary from Linux. Ubuntu has no MinGW Qt6 packages,
+  # so the job runs in a Fedora container, which does ship them.
+  windows-x86_64:
+    runs-on: ubuntu-latest
+    container: fedora:42
+
+    steps:
+      - name: Install cross toolchain
+        run: |
+          dnf -y install --setopt=install_weak_deps=False \
+            git cmake ninja-build file findutils \
+            mingw64-gcc-c++ mingw64-qt6-qtbase mingw64-qt6-qttools \
+            qt6-linguist
+          # Fail early and loudly if the layout is not what deploy-cross.sh expects.
+          test -f /usr/share/mingw/toolchain-mingw64.cmake
+          test -x /usr/bin/lrelease-qt6
+
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: |
+          cmake -S src -B build -G Ninja \
+            -DCMAKE_TOOLCHAIN_FILE=/usr/share/mingw/toolchain-mingw64.cmake \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DLRELEASE_EXECUTABLE=/usr/bin/lrelease-qt6
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Verify it is a PE binary
+        run: file build/Win32DiskImager.exe | grep -q 'PE32+'
+
+      - name: Package
+        run: |
+          bash tools/deploy-cross.sh build dist \
+            /usr/x86_64-w64-mingw32/sys-root/mingw
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Win32DiskImager-win64
+          path: dist/
+          if-no-files-found: error
