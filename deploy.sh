@@ -9,7 +9,7 @@ cd "$root"
 rm -rf dist
 mkdir -p dist
 cp build/Win32DiskImager.exe dist/
-cp Changelog.txt README.txt License.txt GPL-2 LGPL-2.1 dist/
+cp Changelog.txt README.md License.txt GPL-2 LGPL-2.1 dist/
 
 # Languages the app itself ships translations for; Qt's own translations are
 # trimmed to match instead of shipping all ~40 of them.

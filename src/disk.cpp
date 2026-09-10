@@ -68,7 +68,9 @@ HANDLE getHandleOnDevice(int device, DWORD access)
 {
     HANDLE hDevice;
     QString devicename = QString("\\\\.\\PhysicalDrive%1").arg(device);
-    hDevice = CreateFile(devicename.toLatin1().data(), access, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+    // Share reads only. Allowing concurrent writers lets Windows modify the
+    // partition table underneath us while the image is being written.
+    hDevice = CreateFile(devicename.toLatin1().data(), access, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
     if (hDevice == INVALID_HANDLE_VALUE)
     {
         wchar_t *errormessage=NULL;
@@ -501,4 +503,84 @@ bool checkDriveType(char *name, ULONG *pid)
     free(nameNoSlash);
 
     return(retVal);
+}
+
+bool LockedVolumes::lockAll(DWORD deviceID)
+{
+    // Volumes on other disks are left alone; only the target disk is locked.
+    for (int i = 0; i < 26; ++i)
+    {
+        char root[] = "A:\\";
+        root[0] = 'A' + i;
+        UINT type = GetDriveTypeA(root);
+        if (type != DRIVE_REMOVABLE && type != DRIVE_FIXED)
+        {
+            continue;
+        }
+        char volumename[] = "\\.\A:";
+        volumename[4] = 'A' + i;
+        HANDLE h = CreateFile(volumename, GENERIC_READ | GENERIC_WRITE,
+                              FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+        if (h == INVALID_HANDLE_VALUE)
+        {
+            continue;
+        }
+        VOLUME_DISK_EXTENTS sd;
+        DWORD bytesreturned;
+        if (!DeviceIoControl(h, IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS, NULL, 0,
+                             &sd, sizeof(sd), &bytesreturned, NULL)
+            || sd.Extents[0].DiskNumber != deviceID)
+        {
+            CloseHandle(h);
+            continue;
+        }
+        if (!getLockOnVolume(h) || !unmountVolume(h))
+        {
+            CloseHandle(h);
+            release();
+            return false;
+        }
+        handles.append(h);
+    }
+    return true;
+}
+
+void LockedVolumes::release()
+{
+    for (int i = 0; i < handles.size(); ++i)
+    {
+        removeLockOnVolume(handles.at(i));
+        CloseHandle(handles.at(i));
+    }
+    handles.clear();
+}
+
+bool flushDevice(HANDLE handle)
+{
+    // Deliberately no IOCTL_DISK_UPDATE_PROPERTIES here: asking Windows to
+    // re-read the partition table is what triggers the automatic GPT "repair"
+    // that rewrites the table we just wrote.
+    return FlushFileBuffers(handle);
+}
+
+bool setDiskOffline(HANDLE handle, bool offline)
+{
+    SET_DISK_ATTRIBUTES sda;
+    DWORD junk;
+    ZeroMemory(&sda, sizeof(sda));
+    sda.Version = sizeof(sda);
+    sda.Persist = FALSE;
+    sda.Attributes = offline ? DISK_ATTRIBUTE_OFFLINE : 0;
+    sda.AttributesMask = DISK_ATTRIBUTE_OFFLINE;
+    return DeviceIoControl(handle, IOCTL_DISK_SET_DISK_ATTRIBUTES, &sda, sizeof(sda),
+                           NULL, 0, &junk, NULL);
+}
+
+bool ejectDevice(HANDLE handle)
+{
+    DWORD junk;
+    PREVENT_MEDIA_REMOVAL pmr;
+    pmr.PreventMediaRemoval = FALSE;
+    DeviceIoControl(handle, IOCTL_STORAGE_MEDIA_REMOVAL, &pmr, sizeof(pmr), NULL, 0, &junk, NULL);
+    return DeviceIoControl(handle, IOCTL_STORAGE_EJECT_MEDIA, NULL, 0, NULL, 0, &junk, NULL);
 }

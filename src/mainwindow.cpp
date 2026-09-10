@@ -368,21 +368,17 @@ void MainWindow::on_bWrite_clicked()
                 return;
             }
             DWORD deviceID = getDeviceID(hVolume);
-            if (!getLockOnVolume(hVolume))
+            // Only needed to resolve the drive letter to a physical disk;
+            // LockedVolumes reopens it along with the disk's other volumes.
+            CloseHandle(hVolume);
+            hVolume = INVALID_HANDLE_VALUE;
+            // Lock and dismount every volume on the target disk. Leaving the
+            // other partitions mounted lets their filesystem drivers flush
+            // cached metadata over the image while it is being written.
+            LockedVolumes locked;
+            if (!locked.lockAll(deviceID))
             {
-                CloseHandle(hVolume);
                 status = STATUS_IDLE;
-                hVolume = INVALID_HANDLE_VALUE;
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
-                return;
-            }
-            if (!unmountVolume(hVolume))
-            {
-                removeLockOnVolume(hVolume);
-                CloseHandle(hVolume);
-                status = STATUS_IDLE;
-                hVolume = INVALID_HANDLE_VALUE;
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -390,10 +386,8 @@ void MainWindow::on_bWrite_clicked()
             hFile = getHandleOnFile(LPCWSTR(leFile->text().data()), GENERIC_READ);
             if (hFile == INVALID_HANDLE_VALUE)
             {
-                removeLockOnVolume(hVolume);
-                CloseHandle(hVolume);
+                locked.release();
                 status = STATUS_IDLE;
-                hVolume = INVALID_HANDLE_VALUE;
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -401,11 +395,9 @@ void MainWindow::on_bWrite_clicked()
             hRawDisk = getHandleOnDevice(deviceID, GENERIC_WRITE);
             if (hRawDisk == INVALID_HANDLE_VALUE)
             {
-                removeLockOnVolume(hVolume);
+                locked.release();
                 CloseHandle(hFile);
-                CloseHandle(hVolume);
                 status = STATUS_IDLE;
-                hVolume = INVALID_HANDLE_VALUE;
                 hFile = INVALID_HANDLE_VALUE;
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -416,13 +408,11 @@ void MainWindow::on_bWrite_clicked()
             {
                 //For external card readers you may not get device change notification when you remove the card/flash.
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
-                removeLockOnVolume(hVolume);
+                locked.release();
                 CloseHandle(hRawDisk);
                 CloseHandle(hFile);
-                CloseHandle(hVolume);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 hFile = INVALID_HANDLE_VALUE;
-                hVolume = INVALID_HANDLE_VALUE;
                 passfail = false;
                 status = STATUS_IDLE;
                 return;
@@ -433,13 +423,11 @@ void MainWindow::on_bWrite_clicked()
             {
                 //For external card readers you may not get device change notification when you remove the card/flash.
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
-                removeLockOnVolume(hVolume);
+                locked.release();
                 CloseHandle(hRawDisk);
                 CloseHandle(hFile);
-                CloseHandle(hVolume);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 hFile = INVALID_HANDLE_VALUE;
-                hVolume = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
                 return;
 
@@ -490,12 +478,10 @@ void MainWindow::on_bWrite_clicked()
                 }
                 else    // Cancel
                 {
-                    removeLockOnVolume(hVolume);
+                    locked.release();
                     CloseHandle(hRawDisk);
                     CloseHandle(hFile);
-                    CloseHandle(hVolume);
                     status = STATUS_IDLE;
-                    hVolume = INVALID_HANDLE_VALUE;
                     hFile = INVALID_HANDLE_VALUE;
                     hRawDisk = INVALID_HANDLE_VALUE;
                     bCancel->setEnabled(false);
@@ -513,14 +499,12 @@ void MainWindow::on_bWrite_clicked()
                 sectorData = readSectorDataFromHandle(hFile, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize);
                 if (sectorData == NULL)
                 {
-                    removeLockOnVolume(hVolume);
+                    locked.release();
                     CloseHandle(hRawDisk);
                     CloseHandle(hFile);
-                    CloseHandle(hVolume);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
                     hFile = INVALID_HANDLE_VALUE;
-                    hVolume = INVALID_HANDLE_VALUE;
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
@@ -528,15 +512,13 @@ void MainWindow::on_bWrite_clicked()
                 if (!writeSectorDataToHandle(hRawDisk, sectorData, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize))
                 {
                     delete[] sectorData;
-                    removeLockOnVolume(hVolume);
+                    locked.release();
                     CloseHandle(hRawDisk);
                     CloseHandle(hFile);
-                    CloseHandle(hVolume);
                     status = STATUS_IDLE;
                     sectorData = NULL;
                     hRawDisk = INVALID_HANDLE_VALUE;
                     hFile = INVALID_HANDLE_VALUE;
-                    hVolume = INVALID_HANDLE_VALUE;
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
@@ -555,15 +537,39 @@ void MainWindow::on_bWrite_clicked()
                 progressbar->setValue(i);
                 QCoreApplication::processEvents();
             }
-            removeLockOnVolume(hVolume);
-            CloseHandle(hRawDisk);
+            // Order matters. Flush and close the raw disk first: unlocking the
+            // volumes lets mountmgr rescan the disk immediately, and a rescan
+            // is what triggers Windows' automatic GPT "repair".
+            flushDevice(hRawDisk);
             CloseHandle(hFile);
-            CloseHandle(hVolume);
-            hRawDisk = INVALID_HANDLE_VALUE;
             hFile = INVALID_HANDLE_VALUE;
-            hVolume = INVALID_HANDLE_VALUE;
+
+            // Take the disk offline before releasing the locks so nothing is
+            // remounted, then eject it. The card should be pulled without ever
+            // being re-enumerated by Windows.
+            bool offline = setDiskOffline(hRawDisk, true);
+            bool ejected = ejectDevice(hRawDisk);
+            CloseHandle(hRawDisk);
+            hRawDisk = INVALID_HANDLE_VALUE;
+            locked.release();
+
             if (status == STATUS_CANCELED){
                 passfail = false;
+            }
+            else
+            {
+                QString detail = (offline || ejected)
+                    ? tr("The device has been taken offline and ejected.")
+                    : tr("The device could NOT be taken offline automatically.");
+                QMessageBox::warning(this, tr("Remove the device now"),
+                    tr("%1\n\n"
+                       "Physically remove the device NOW, before doing anything else.\n\n"
+                       "Do not re-insert it into this computer. If Windows re-reads a "
+                       "partition table whose backup GPT is not at the end of the device "
+                       "(which is normal when the image is smaller than the card), it will "
+                       "silently rewrite it. The result passes Windows' own checks but is "
+                       "rejected by Linux, and the device will not boot.\n\n"
+                       "Insert it into the target hardware instead.").arg(detail));
             }
         }
         else if (!fileinfo.exists() || !fileinfo.isFile())
@@ -586,7 +592,7 @@ void MainWindow::on_bWrite_clicked()
         bCancel->setEnabled(false);
         setReadWriteButtonState();
         if (passfail){
-            QMessageBox::information(this, tr("Complete"), tr("Write Successful."));
+            statusbar->showMessage(tr("Write Successful."));
         }
 
     }
