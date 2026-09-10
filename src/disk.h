@@ -84,6 +84,14 @@ private:
     QList<HANDLE> handles;
 };
 
+// Erase any existing partition tables before writing an image. A card that
+// previously held a larger image still has that image's backup GPT sitting at
+// the very end of the device; writing a smaller image over the front leaves it
+// there, and Windows then tries to reconcile the new primary header with the
+// stale backup. Zeroing both ends first removes the trace.
+bool wipePartitionTables(HANDLE hRawDisk, unsigned long long sectorsize,
+                         unsigned long long devicesectors);
+
 // Result of relocateBackupGPT().
 enum GptFixResult
 {

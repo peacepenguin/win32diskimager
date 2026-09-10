@@ -38,7 +38,13 @@ as soon as the device is rescanned after a write.
 
 ### What this fork does about it
 
-Two options, chosen with the **Fix GPT after write** checkbox:
+Every write begins by zeroing the first and last 34 sectors of the device.
+A card that previously held a larger image still carries that image's backup
+GPT at the very end; writing a smaller image over the front leaves it there,
+and Windows then tries to reconcile the new primary header against the stale
+backup. Clearing both ends first removes the trace.
+
+Beyond that, two options, chosen with the **Fix GPT after write** checkbox:
 
 **Checked (default) — fix the table.** After writing, the backup GPT is moved
 to the true last LBA of the device and the header is updated to match, the way
@@ -76,6 +82,7 @@ file or a raw device, if you want to inspect a card yourself.
  * Fixed the Windows GPT corruption described above
  * Added the "Fix GPT after write" option
  * Lock every volume on the target disk while writing; offline and eject when done
+ * Zero stale partition tables at both ends of the device before writing
  * Added a GitHub Actions workflow that cross-compiles for win64 from Linux
 
 ## Legal

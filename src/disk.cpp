@@ -875,3 +875,35 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     }
     return GPT_FIX_OK;
 }
+
+// GPT reserves 33 sectors at each end: one header plus 32 sectors of partition
+// entries. 34 covers that plus the protective MBR, with a sector to spare.
+#define GPT_RESERVED_SECTORS 34
+
+bool wipePartitionTables(HANDLE hRawDisk, unsigned long long sectorsize,
+                         unsigned long long devicesectors)
+{
+    if (sectorsize < 512 || devicesectors < (GPT_RESERVED_SECTORS * 2))
+    {
+        return false;
+    }
+
+    QByteArray zeros(GPT_RESERVED_SECTORS * sectorsize, 0);
+
+    // Front: protective MBR and primary GPT. The image overwrites this region
+    // immediately afterwards; clearing it first means a partial write cannot
+    // leave a hybrid of the old and new tables.
+    if (!rawSeekWrite(hRawDisk, 0, zeros.constData(), (DWORD)zeros.size()))
+    {
+        return false;
+    }
+
+    // Tail: wherever a backup GPT from any previous image would sit.
+    unsigned long long tail = (devicesectors - GPT_RESERVED_SECTORS) * sectorsize;
+    if (!rawSeekWrite(hRawDisk, tail, zeros.constData(), (DWORD)zeros.size()))
+    {
+        return false;
+    }
+
+    return FlushFileBuffers(hRawDisk);
+}

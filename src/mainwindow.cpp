@@ -493,6 +493,26 @@ void MainWindow::on_bWrite_clicked()
                 }
             }
 
+            // Clear any partition table left over from a previous image before
+            // laying down the new one, so no stale backup GPT survives at the
+            // end of the device for Windows to reconcile against.
+            statusbar->showMessage(tr("Clearing old partition tables..."));
+            QCoreApplication::processEvents();
+            if (!wipePartitionTables(hRawDisk, sectorsize, availablesectors))
+            {
+                QMessageBox::critical(this, tr("Write Error"),
+                    tr("Could not clear the existing partition tables on the device."));
+                locked.release();
+                CloseHandle(hRawDisk);
+                CloseHandle(hFile);
+                status = STATUS_IDLE;
+                hRawDisk = INVALID_HANDLE_VALUE;
+                hFile = INVALID_HANDLE_VALUE;
+                bCancel->setEnabled(false);
+                setReadWriteButtonState();
+                return;
+            }
+
             progressbar->setRange(0, (numsectors == 0ul) ? 100 : (int)numsectors);
             lasti = 0ul;
             update_timer.start();
