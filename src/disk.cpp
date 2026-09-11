@@ -736,7 +736,8 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     DWORD headersize = rd32(hdr, GPT_OFF_HEADERSIZE);
     if (headersize < 92 || headersize > sectorsize)
     {
-        return GPT_FIX_NO_GPT;
+        if (detail) *detail = QObject::tr("the primary GPT header size is out of range");
+        return GPT_FIX_BAD_GPT;
     }
 
     // Verify the header we are about to rewrite is itself intact.
@@ -746,7 +747,7 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
         if (gptCrc32((const unsigned char *)probe.constData(), headersize) != rd32(hdr, GPT_OFF_HEADERCRC))
         {
             if (detail) *detail = QObject::tr("the primary GPT header checksum is invalid");
-            return GPT_FIX_NO_GPT;
+            return GPT_FIX_BAD_GPT;
         }
     }
 
@@ -759,7 +760,7 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
         || entrylba < 2 || entrylba >= devicesectors)
     {
         if (detail) *detail = QObject::tr("the GPT partition entry array is not where the header says");
-        return GPT_FIX_NO_GPT;
+        return GPT_FIX_BAD_GPT;
     }
 
     if (rd64(hdr, GPT_OFF_ALTLBA) == lastlba)

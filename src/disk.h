@@ -97,7 +97,9 @@ enum GptFixResult
 {
     GPT_FIX_OK,          // table rewritten to match the device
     GPT_FIX_NOT_NEEDED,  // already consistent with the device size
-    GPT_FIX_NO_GPT,      // no valid GPT found; nothing was touched
+    GPT_FIX_DISABLED,    // not attempted; "Fix GPT after write" is unchecked
+    GPT_FIX_NO_GPT,      // the device holds no GPT at all; nothing to repair
+    GPT_FIX_BAD_GPT,     // a GPT is present but malformed; nothing was touched
     GPT_FIX_FAILED       // an I/O error occurred
 };
 

@@ -569,7 +569,7 @@ void MainWindow::on_bWrite_clicked()
 
             // Make the table consistent with the device before anything can
             // rescan it, so Windows finds nothing to "repair".
-            GptFixResult gptfix = GPT_FIX_NOT_NEEDED;
+            GptFixResult gptfix = GPT_FIX_DISABLED;
             QString gptdetail;
             if (fixGptCheckBox->isChecked() && status != STATUS_CANCELED)
             {
@@ -591,23 +591,39 @@ void MainWindow::on_bWrite_clicked()
             if (status == STATUS_CANCELED){
                 passfail = false;
             }
-            else if (gptfix == GPT_FIX_OK || gptfix == GPT_FIX_NOT_NEEDED)
+            else if (gptfix == GPT_FIX_OK || gptfix == GPT_FIX_NOT_NEEDED
+                     || gptfix == GPT_FIX_NO_GPT)
             {
-                QMessageBox::information(this, tr("Write Successful"),
-                    (gptfix == GPT_FIX_OK)
-                        ? tr("Write successful.\n\nThe GPT was made consistent with the device "
+                QString msg;
+                if (gptfix == GPT_FIX_OK)
+                {
+                    msg = tr("Write successful.\n\nThe GPT was made consistent with the device "
                              "(%1), so Windows has no damaged table to repair. The device can "
-                             "be removed normally.").arg(gptdetail)
-                        : tr("Write successful."));
+                             "be removed normally.").arg(gptdetail);
+                }
+                else if (gptfix == GPT_FIX_NO_GPT)
+                {
+                    // Nothing to relocate and nothing for Windows to "repair":
+                    // the write already zeroed the first and last 34 sectors,
+                    // so no stale backup GPT from an earlier image survives.
+                    msg = tr("Write successful.\n\nThe image contains no GPT, so there is no "
+                             "partition table for Windows to repair. The device can be removed "
+                             "normally.");
+                }
+                else
+                {
+                    msg = tr("Write successful.");
+                }
+                QMessageBox::information(this, tr("Write Successful"), msg);
             }
             else
             {
                 QString state = (offline || ejected)
                     ? tr("The device has been taken offline and ejected.")
                     : tr("The device could NOT be taken offline automatically.");
-                QString why = (gptfix == GPT_FIX_NO_GPT)
+                QString why = (gptfix == GPT_FIX_BAD_GPT)
                     ? tr("The GPT could not be fixed automatically (%1).").arg(
-                          gptdetail.isEmpty() ? tr("no valid GPT was found") : gptdetail)
+                          gptdetail.isEmpty() ? tr("the GPT is malformed") : gptdetail)
                     : (gptfix == GPT_FIX_FAILED)
                         ? tr("Fixing the GPT failed (%1).").arg(
                               gptdetail.isEmpty() ? tr("write error") : gptdetail)
