@@ -1,3 +1,28 @@
+Release 1.2.0
+=============
+Identified the actual Windows defect behind the GPT corruption: on rescan it
+  rewrites the primary GPT header's PartitionEntryLBA to FirstUsableLBA minus
+  the entry array length, instead of leaving it pointing at the array. Images
+  whose FirstUsableLBA is 34 are unaffected because that arithmetic returns
+  the correct value by coincidence; ARM board images, which reserve space
+  ahead of the first partition, are corrupted. See TESTING-GPT-BUG.md
+The post-write dialog now states whether the image just written IS or IS NOT
+  affected, computed from the image's own table rather than guessed
+Added TESTING-GPT-BUG.md: a 48 MB reproducer and a Hyper-V VHDX harness that
+  triggers the corruption on demand, without an SD card or an imaging tool
+gptdump.py follows the primary header's AlternateLBA, so a backup GPT stranded
+  mid-device is decoded instead of reported missing, and locates the entry
+  array that a wrong PartitionEntryLBA no longer points at
+Extra confirmation before writing to a device that has mounted drive letters
+Removed "Read Only Allocated Partitions": it parsed only the MBR, so it did
+  nothing useful on the GPT cards this tool is aimed at
+Renamed the hash group to "Image File Hash" and its tooltip to match, since it
+  hashes the image file and never the device
+Device and hash dropdowns size to their contents; Device moved onto its own row
+Updated all translation files for the new and changed strings
+deploy.sh empties dist/ instead of deleting it, so an open Explorer window no
+  longer breaks packaging
+
 Release 1.1.0
 =============
 Fork release. Changes against 1.0.0:

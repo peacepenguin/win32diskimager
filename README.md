@@ -1,15 +1,17 @@
-# Personal Fork of Image Writer (win32diskimager) for Microsoft Windows
-
-This utility reads and writes raw image files to SD and USB memory devices. Run
-it as Administrator, point it at your raw image, and select the device to write
-to. It cannot write CD-ROMs, and USB floppy is not supported.
-
-This fork fixes an issue where images written from Windows get their GPT
-corrupted, leaving the card unbootable — see
-[The Windows GPT problem](#the-windows-gpt-problem).
+# Image Writer (win32diskimager) for Microsoft Windows
 
 This program has no warranty. The authors take no responsibility for lost or
 damaged data.
+
+This program reads and writes raw image files to any Windows block storage device: USB Flash Drive, SD Card, SATA, NVME, mounted VHDX, USB Drive Enclosuer, etc.  
+
+Run it as Administrator, point it at your raw image, and select the device to write
+to.
+
+This fork fixes an issue where images written from Windows get their GPT
+corrupted, leaving the card unbootable.
+
+
 
 | | |
 |---|---|
@@ -23,7 +25,7 @@ damaged data.
 
 Writing an image smaller than the card leaves the backup GPT where the *image*
 ends rather than where the *device* ends. That is normal, and Linux leaves it
-alone. Windows treats it as damage and repairs it on the next rescan — which it
+alone. Windows treats it as damage and repairs it on the next rescan - which it
 does as soon as the device is re-enumerated after a write.
 
 Most of that repair is correct: the backup GPT is moved to the end of the
@@ -33,7 +35,7 @@ instead of leaving it pointing at the entry array, which has not moved.
 
 On an ordinary image `FirstUsableLBA` is 34, so `34 - 32 = 2` is accidentally
 correct and nothing breaks. ARM board images reserve space ahead of the first
-partition — rk3588 keeps idbloader and u-boot below LBA 2048 — and there
+partition - rk3588 keeps idbloader and u-boot below LBA 2048 - and there
 `2048 - 32 = 2016` points at empty space. `PartitionEntryArrayCRC32` is then
 computed over the wrong sectors:
 
@@ -52,21 +54,20 @@ The full analysis, and a 48 MB reproducer, are in
 
 The **Fix GPT after write** checkbox:
 
-**Checked (default) — fix the table.** After writing, the backup GPT is moved
+**Checked - fix the table.** After writing, the backup GPT is moved
 to the true last LBA and the header updated to match, the way `sgdisk -e` does.
 Windows finds a consistent table and has nothing to repair, which removes the
 trigger rather than racing it. It is what you want on the card anyway, and the
 device can be handled normally afterwards.
 
-**Unchecked — preserve the image byte for byte.** The disk is taken offline and
-ejected before the volume locks are released, so nothing can rescan it, and a
-dialog tells you to remove the card without re-inserting it. The card ends up
-identical to a Linux `dd`.
-
-Both paths are verified on real hardware against a Rock 5B.
+**Unchecked - preserve the image byte for byte.** The disk is taken offline and
+ejected before the volume locks are released after Writing, so nothing can rescan it, and a dialog tells you to remove the card without re-inserting it. The card ends up
+identical to a Linux `dd` if you remove it right away at this point.
+ Be aware that re-inserting the written card in Windows will
+cause the GPT to be 'fixed' by windows logic, which can corrupt the card.
 
 Two further changes to the write path: every write first zeroes the first and
-last 34 sectors, clearing any table left by a previous larger image (hygiene —
+last 34 sectors, clearing any table left by a previous larger image (hygiene -
 it does **not** prevent the repair on its own); and writes lock and dismount
 *every* volume on the target disk, open it without sharing writes, and flush
 and close before unlocking, closing the windows where another process could
@@ -80,7 +81,7 @@ points elsewhere.
 
 Devices are enumerated as physical disks (`\\.\PhysicalDriveN`), not as drive
 letters. Upstream scanned letters, so a card only appeared once Windows had
-mounted a filesystem and assigned one — which a card holding a Linux image
+mounted a filesystem and assigned one - which a card holding a Linux image
 never gets, making the card it had just written invisible. Each entry shows its
 drive letters if any, its size, and the model it reports.
 
@@ -94,13 +95,13 @@ produces no device-arrival broadcast at all.
  * Removed installer
  * Updated to QT6
  * Added build notes and scripts
- * Fixed the Windows GPT corruption described above
- * Added the "Fix GPT after write" option
+ * Added eject workaround for the Windows GPT corruption described above
+ * Added the "Fix GPT after write" option to properly fix the issue
  * Lock every volume on the target disk while writing; offline and eject when done
  * Zero stale partition tables at both ends of the device before writing
  * Enumerate physical disks instead of drive letters, so devices with no
    letter still appear
- * Added the "Show all devices" option for card readers that present as fixed
+ * Added the "Show all devices" option
  * Added a GitHub Actions workflow that cross-compiles for win64 from Linux
 
 ## Legal

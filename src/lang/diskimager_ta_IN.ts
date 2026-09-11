@@ -25,12 +25,12 @@
     </message>
     <message>
         <location line="+42"/>
-        <source>Hash</source>
+        <source>Image File Hash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+17"/>
-        <source>Select hash type for verification</source>
+        <source>Hash type to generate for image file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -60,11 +60,6 @@
     </message>
     <message>
         <location line="+55"/>
-        <source>Read Only Allocated Partitions</source>
-        <translation>ஒதுக்கப்பட்ட பகிர்வுகளை மட்டும் வாசி</translation>
-    </message>
-    <message>
-        <location line="+13"/>
         <source>Fix GPT after write</source>
         <translation type="unfinished"></translation>
     </message>
@@ -210,26 +205,42 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+21"/>
         <location line="+6"/>
-        <location line="+143"/>
+        <location line="+161"/>
         <location line="+212"/>
-        <location line="+85"/>
+        <location line="+68"/>
         <source>Write Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-446"/>
-        <location line="+361"/>
-        <location line="+192"/>
+        <location line="-447"/>
+        <location line="+379"/>
+        <location line="+175"/>
         <source>Image file cannot be located on the target device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-544"/>
+        <location line="-545"/>
         <source>Confirm overwrite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+113"/>
+        <location line="+13"/>
+        <source>Device has mounted volumes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 is mounted in Windows as %2.
+
+Everything on this device, on every one of its partitions, will be destroyed and cannot be recovered.
+
+Check that %2 is not a drive you meant to keep.
+
+Write to this device anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+117"/>
         <source>Not enough available space!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -313,12 +324,12 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-361"/>
-        <location line="+372"/>
+        <location line="-379"/>
+        <location line="+390"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+473"/>
+        <location line="+456"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -326,26 +337,26 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-520"/>
-        <location line="+497"/>
+        <location line="-503"/>
+        <location line="+480"/>
         <source>The selected file does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-492"/>
-        <location line="+497"/>
+        <location line="-475"/>
+        <location line="+480"/>
         <source>You do not have permision to read the selected file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-492"/>
-        <location line="+497"/>
+        <location line="-475"/>
+        <location line="+480"/>
         <source>The specified file contains no data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-493"/>
-        <location line="+189"/>
+        <location line="-476"/>
+        <location line="+172"/>
         <location line="+308"/>
         <source>Done.</source>
         <translation>முடிந்தது.</translation>
@@ -372,12 +383,12 @@ The image and the device differ only in the GPT, which the &quot;Fix GPT after w
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-497"/>
+        <location line="-480"/>
         <source>Write Successful.</source>
         <translation>வெற்றிகரமாக எழுது.</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-411"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -400,7 +411,7 @@ Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+274"/>
+        <location line="+292"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
@@ -432,12 +443,12 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
     </message>
     <message>
         <location line="+34"/>
-        <location line="+496"/>
+        <location line="+479"/>
         <source>Please specify an image file to use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-467"/>
+        <location line="-450"/>
         <source>Read Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -457,7 +468,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+56"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation type="unfinished"></translation>
     </message>

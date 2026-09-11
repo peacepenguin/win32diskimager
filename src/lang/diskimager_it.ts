@@ -4,22 +4,32 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="+316"/>
+        <location filename="../mainwindow.ui" line="+303"/>
         <source>%p%</source>
         <translation>%p%</translation>
     </message>
     <message>
-        <location line="-252"/>
+        <location line="-239"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="+116"/>
+        <location line="+56"/>
+        <source>Image File Hash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Hash type to generate for image file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>Copy</source>
         <translation>Copia</translation>
     </message>
     <message>
-        <location line="+221"/>
+        <location line="+208"/>
         <source>Exit</source>
         <translation>Esci</translation>
     </message>
@@ -29,19 +39,19 @@
         <translation>Leggi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+729"/>
+        <location filename="../mainwindow.cpp" line="+747"/>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Sei sicuro di voler sovrascrivere il file specificato?</translation>
     </message>
     <message>
         <location line="-45"/>
-        <location line="+189"/>
+        <location line="+172"/>
         <location line="+308"/>
         <source>Done.</source>
         <translation>Completato.</translation>
     </message>
     <message>
-        <location line="-986"/>
+        <location line="-987"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -53,17 +63,17 @@
         <translation>Scrivi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+671"/>
+        <location filename="../mainwindow.cpp" line="+672"/>
         <source>Please specify a file to save data to.</source>
         <translation>Seleziona un file dove salvare i dati.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="-346"/>
+        <location filename="../mainwindow.ui" line="-333"/>
         <source>Win32 Disk Imager</source>
         <translation>Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-681"/>
+        <location filename="../mainwindow.cpp" line="-682"/>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
         <translation>Annullare ore creerà un disco corrotto.
@@ -71,13 +81,13 @@ Sei sicuro di voler uscire?</translation>
     </message>
     <message>
         <location line="+151"/>
-        <location line="+361"/>
-        <location line="+192"/>
+        <location line="+379"/>
+        <location line="+175"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Il file immagine non è stato trovato nel dispositivo destinazione.</translation>
     </message>
     <message>
-        <location line="-249"/>
+        <location line="-232"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -99,46 +109,46 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+163"/>
+        <location line="+146"/>
         <source>File Info</source>
         <translation>Informazioni sul file</translation>
     </message>
     <message>
-        <location line="-645"/>
+        <location line="-646"/>
         <source>Select a disk image</source>
         <translation>Seleziona un file immagine</translation>
     </message>
     <message>
-        <location line="+434"/>
-        <location line="+497"/>
+        <location line="+452"/>
+        <location line="+480"/>
         <source>You do not have permision to read the selected file.</source>
         <translation>Non hai permessi per leggere il file selezionato.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="+311"/>
+        <location filename="../mainwindow.ui" line="+298"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location line="-262"/>
+        <location line="-249"/>
         <source>Device</source>
         <translation>Dispositivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-478"/>
-        <location line="+496"/>
+        <location filename="../mainwindow.cpp" line="-461"/>
+        <location line="+479"/>
         <source>Please specify an image file to use.</source>
         <translation>Specifica un file  immagine da usare.</translation>
     </message>
     <message>
-        <location line="-864"/>
+        <location line="-865"/>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
         <translation>Annullare ora creerà una destinazione corrotta.
 Sei sicuro di voler annullare?</translation>
     </message>
     <message>
-        <location line="+551"/>
+        <location line="+552"/>
         <location line="+2"/>
         <location line="+281"/>
         <location line="+25"/>
@@ -147,31 +157,31 @@ Sei sicuro di voler annullare?</translation>
 </translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="+320"/>
+        <location filename="../mainwindow.ui" line="+307"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Esci da Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-829"/>
+        <location filename="../mainwindow.cpp" line="-830"/>
         <location line="+6"/>
-        <location line="+143"/>
+        <location line="+161"/>
         <location line="+212"/>
-        <location line="+85"/>
+        <location line="+68"/>
         <source>Write Error</source>
         <translation>Errore in scrittura</translation>
     </message>
     <message>
-        <location line="-518"/>
+        <location line="-519"/>
         <source>Generating...</source>
         <translation>Generazione...</translation>
     </message>
     <message>
         <location line="+14"/>
-        <location line="+372"/>
+        <location line="+390"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+473"/>
+        <location line="+456"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -179,7 +189,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-1138"/>
+        <location line="-1139"/>
         <source>Waiting for a task.</source>
         <translation>Attesa scelta operazione</translation>
     </message>
@@ -189,20 +199,20 @@ Sei sicuro di voler annullare?</translation>
         <translation>Stato progresso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+618"/>
-        <location line="+497"/>
+        <location filename="../mainwindow.cpp" line="+636"/>
+        <location line="+480"/>
         <source>The selected file does not exist.</source>
         <translation>Il file selezionato non esiste.</translation>
     </message>
     <message>
-        <location line="-841"/>
+        <location line="-842"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Annullare?</translation>
     </message>
     <message>
-        <location line="+345"/>
-        <location line="+497"/>
+        <location line="+363"/>
+        <location line="+480"/>
         <source>The specified file contains no data.</source>
         <translation>Il file selezionato non contiene dati.</translation>
     </message>
@@ -212,29 +222,29 @@ Sei sicuro di voler annullare?</translation>
         <translation>Leggi i dati dal &apos;dispostivo&apos; e scrivili nel &apos;File immagine&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-982"/>
+        <location filename="../mainwindow.cpp" line="-983"/>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
         <translation>Annullare ora creerà un file immagine corrotto.
 Sei sicuro di voler uscire?</translation>
     </message>
     <message>
-        <location line="+684"/>
+        <location line="+685"/>
         <source>Read Successful.</source>
         <translation>Lettura completata correttamente.</translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-174"/>
         <source>Write Successful.</source>
         <translation>Scrittura completata correttamente.</translation>
     </message>
     <message>
-        <location line="-323"/>
+        <location line="-341"/>
         <source>Confirm overwrite</source>
         <translation>Conferma la sovrascrittura</translation>
     </message>
     <message>
-        <location line="+364"/>
+        <location line="+382"/>
         <source>Confirm Overwrite</source>
         <translation>Conferma la sovrascrittua</translation>
     </message>
@@ -244,47 +254,32 @@ Sei sicuro di voler uscire?</translation>
         <translation>Annulla processo attuale.</translation>
     </message>
     <message>
-        <location line="-297"/>
+        <location line="-284"/>
         <source>Image File</source>
         <translation>File immagine</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+73"/>
+        <location filename="../mainwindow.cpp" line="+56"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>Il disco non è grande a sufficienza per questo file immagine.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="+195"/>
-        <source>Read Only Allocated Partitions</source>
-        <translation>Leggi solamente le partizioni allocate</translation>
-    </message>
-    <message>
-        <location line="+137"/>
+        <location filename="../mainwindow.ui" line="+319"/>
         <source>Write data from &apos;Image File&apos; to &apos;Device&apos;</source>
         <translation>Scrivi dati del &apos;File immagine&apos; nel &apos;Dispositivo&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-324"/>
+        <location filename="../mainwindow.cpp" line="-307"/>
         <source>Not enough available space!</source>
         <translation>Spazio disponibile insufficiente!</translation>
     </message>
     <message>
-        <location line="+399"/>
+        <location line="+382"/>
         <source>Read Canceled.</source>
         <translation>Lettura annulata.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="-252"/>
-        <source>Hash</source>
-        <translation>Hash</translation>
-    </message>
-    <message>
-        <location line="+17"/>
-        <source>Select hash type for verification</source>
-        <translation>Seleziona tipo hash per verifica</translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location filename="../mainwindow.ui" line="-218"/>
         <source>None</source>
         <translation>Nessuno</translation>
     </message>
@@ -304,7 +299,7 @@ Sei sicuro di voler uscire?</translation>
         <translation>Copia hash negli Appunti</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+61"/>
         <source>Fix GPT after write</source>
         <translation type="unfinished"></translation>
     </message>
@@ -334,7 +329,7 @@ Sei sicuro di voler uscire?</translation>
         <translation>Solo verifica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-662"/>
+        <location filename="../mainwindow.cpp" line="-663"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Uscendo ora annullerai la verifica dell&apos;immagine.
@@ -371,7 +366,23 @@ Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+13"/>
+        <source>Device has mounted volumes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 is mounted in Windows as %2.
+
+Everything on this device, on every one of its partitions, will be destroyed and cannot be recovered.
+
+Check that %2 is not a drive you meant to keep.
+
+Write to this device anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+140"/>
         <source>Clearing old partition tables...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -469,7 +480,7 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+590"/>
+        <location line="+573"/>
         <source>[Disk %1]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -553,7 +564,7 @@ The device could NOT be taken offline automatically.</source>
         <translation>Verifica completata correttamente.</translation>
     </message>
     <message>
-        <location line="-1094"/>
+        <location line="-1095"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG)</source>
         <translation>Immagini disco (*.img *.IMG)</translation>

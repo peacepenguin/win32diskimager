@@ -6,8 +6,11 @@ set -euo pipefail
 root="$(cd "$(dirname "$0")" && pwd)"
 cd "$root"
 
-rm -rf dist
+# Empty dist rather than deleting it: on Windows an open Explorer window or a
+# shell sitting in the directory locks the directory node itself, while its
+# contents still delete fine.
 mkdir -p dist
+rm -rf dist/* dist/.[!.]* 2>/dev/null || true
 cp build/Win32DiskImager.exe dist/
 cp Changelog.txt README.md License.txt GPL-2 LGPL-2.1 dist/
 

@@ -246,3 +246,20 @@ whose last LBA is 203124. That gap is the setup.
 * Keep `before.txt`, `after.txt` and both VHDX copies. The two dumps side by
   side are the clearest artifact: same DiskGUID, same entries on disk, valid
   header CRC, and a `PartEntryLBA` pointing where the entries are not.
+
+#### How to create a test image that is NOT affected by the Windows GPT rewrite bug:
+
+`sgdisk` leaves `FirstUsableLBA` at the default 34, so Windows' `34 - 32` lands
+on the real entry array at LBA 2 and the rewrite does no harm. Run this image
+through the same steps 3-6 as the control.
+
+```
+dd if=/dev/zero of=example-not-affected.img bs=1000000 count=48
+
+# GPT, two partitions: 24 MB and the rest of the image. Sizes are in 512-byte
+# sectors: 46875 * 512 = 24,000,000.
+sgdisk -o example-not-affected.img
+sgdisk -n 1:2048:+46875 -t 1:8300 -c 1:"TESTPART1" example-not-affected.img
+sgdisk -n 2:0:0         -t 2:8300 -c 2:"TESTPART2" example-not-affected.img
+
+```

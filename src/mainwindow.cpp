@@ -369,6 +369,24 @@ void MainWindow::on_bWrite_clicked()
             {
                 return;
             }
+            // A target carrying mounted volumes is the shape of a mistake: a
+            // card straight from an imaging tool has no letter Windows can
+            // mount, so letters usually mean this is someone's data drive.
+            QString targetletters = driveLettersOnDevice((ULONG)deviceID);
+            if (!targetletters.isEmpty())
+            {
+                if (QMessageBox::warning(this, tr("Device has mounted volumes"),
+                        tr("%1 is mounted in Windows as %2.\n\n"
+                           "Everything on this device, on every one of its partitions, will be "
+                           "destroyed and cannot be recovered.\n\n"
+                           "Check that %2 is not a drive you meant to keep.\n\n"
+                           "Write to this device anyway?")
+                            .arg(cboxDevice->currentText()).arg(targetletters),
+                        QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No)
+                {
+                    return;
+                }
+            }
             status = STATUS_WRITING;
             bCancel->setEnabled(true);
             bWrite->setEnabled(false);
@@ -771,23 +789,6 @@ void MainWindow::on_bRead_clicked()
             return;
         }
         numsectors = getNumberOfSectors(hRawDisk, &sectorsize);
-        if(partitionCheckBox->isChecked())
-        {
-            // Read MBR partition table
-            sectorData = readSectorDataFromHandle(hRawDisk, 0, 1ul, 512ul);
-            numsectors = 1ul;
-            // Read partition information
-            for (i=0ul; i<4ul; i++)
-            {
-                uint32_t partitionStartSector = *((uint32_t*) (sectorData + 0x1BE + 8 + 16*i));
-                uint32_t partitionNumSectors = *((uint32_t*) (sectorData + 0x1BE + 12 + 16*i));
-                // Set numsectors to end of last partition
-                if (partitionStartSector + partitionNumSectors > numsectors)
-                {
-                    numsectors = partitionStartSector + partitionNumSectors;
-                }
-            }
-        }
         filesize = getFileSizeInSectors(hFile, sectorsize);
         if (filesize >= numsectors)
         {

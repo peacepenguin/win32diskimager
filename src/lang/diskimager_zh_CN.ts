@@ -25,13 +25,13 @@
     </message>
     <message>
         <location line="+42"/>
-        <source>Hash</source>
-        <translation>校验值</translation>
+        <source>Image File Hash</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+17"/>
-        <source>Select hash type for verification</source>
-        <translation>选择验证的校验值类型</translation>
+        <source>Hash type to generate for image file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
@@ -60,11 +60,6 @@
     </message>
     <message>
         <location line="+55"/>
-        <source>Read Only Allocated Partitions</source>
-        <translation>仅读取已分配分区</translation>
-    </message>
-    <message>
-        <location line="+13"/>
         <source>Fix GPT after write</source>
         <translation type="unfinished"></translation>
     </message>
@@ -190,21 +185,21 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+143"/>
+        <location line="+161"/>
         <location line="+212"/>
-        <location line="+85"/>
+        <location line="+68"/>
         <source>Write Error</source>
         <translation>写入出错</translation>
     </message>
     <message>
-        <location line="-446"/>
-        <location line="+361"/>
-        <location line="+192"/>
+        <location line="-447"/>
+        <location line="+379"/>
+        <location line="+175"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>在目标设备上找不到映像文件.</translation>
     </message>
     <message>
-        <location line="-544"/>
+        <location line="-545"/>
         <source>Confirm overwrite</source>
         <translation>确认覆盖</translation>
     </message>
@@ -234,17 +229,17 @@ Are you sure you want to cancel?</source>
 确定要取消?</translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+161"/>
         <source>Not enough available space!</source>
         <translation>磁盘空间不足！</translation>
     </message>
     <message>
-        <location line="-180"/>
-        <location line="+372"/>
+        <location line="-198"/>
+        <location line="+390"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+473"/>
+        <location line="+456"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -252,7 +247,7 @@ Are you sure you want to cancel?</source>
         <translation>文件错误</translation>
     </message>
     <message>
-        <location line="-530"/>
+        <location line="-513"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -265,25 +260,25 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
     </message>
     <message>
         <location line="+10"/>
-        <location line="+497"/>
+        <location line="+480"/>
         <source>The selected file does not exist.</source>
         <translation>文件不存在.</translation>
     </message>
     <message>
-        <location line="-492"/>
-        <location line="+497"/>
+        <location line="-475"/>
+        <location line="+480"/>
         <source>You do not have permision to read the selected file.</source>
         <translation>没有读取该文件的权限.</translation>
     </message>
     <message>
-        <location line="-492"/>
-        <location line="+497"/>
+        <location line="-475"/>
+        <location line="+480"/>
         <source>The specified file contains no data.</source>
         <translation>该文件为空文件.</translation>
     </message>
     <message>
-        <location line="-493"/>
-        <location line="+189"/>
+        <location line="-476"/>
+        <location line="+172"/>
         <location line="+308"/>
         <source>Done.</source>
         <translation>完成.</translation>
@@ -297,12 +292,12 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>完成</translation>
     </message>
     <message>
-        <location line="-497"/>
+        <location line="-480"/>
         <source>Write Successful.</source>
         <translation>写入成功.</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-411"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -325,7 +320,23 @@ Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+13"/>
+        <source>Device has mounted volumes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 is mounted in Windows as %2.
+
+Everything on this device, on every one of its partitions, will be destroyed and cannot be recovered.
+
+Check that %2 is not a drive you meant to keep.
+
+Write to this device anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+140"/>
         <source>Clearing old partition tables...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -423,18 +434,18 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+590"/>
+        <location line="+573"/>
         <source>[Disk %1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-555"/>
-        <location line="+496"/>
+        <location line="-538"/>
+        <location line="+479"/>
         <source>Please specify an image file to use.</source>
         <translation>请选中要使用的映像文件.</translation>
     </message>
     <message>
-        <location line="-467"/>
+        <location line="-450"/>
         <source>Read Error</source>
         <translation type="unfinished">读取失败</translation>
     </message>
@@ -454,7 +465,7 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
         <translation>缺认覆盖已存在的文件?</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+56"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>硬盘空间不够.</translation>
     </message>

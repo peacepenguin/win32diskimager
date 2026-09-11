@@ -25,13 +25,13 @@
     </message>
     <message>
         <location line="+42"/>
-        <source>Hash</source>
-        <translation>ハッシュ値</translation>
+        <source>Image File Hash</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+17"/>
-        <source>Select hash type for verification</source>
-        <translation>照合の方式</translation>
+        <source>Hash type to generate for image file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
@@ -60,11 +60,6 @@
     </message>
     <message>
         <location line="+55"/>
-        <source>Read Only Allocated Partitions</source>
-        <translation>定義されたパーテーションの最後までしか読み取らない</translation>
-    </message>
-    <message>
-        <location line="+13"/>
         <source>Fix GPT after write</source>
         <translation type="unfinished"></translation>
     </message>
@@ -190,21 +185,21 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+143"/>
+        <location line="+161"/>
         <location line="+212"/>
-        <location line="+85"/>
+        <location line="+68"/>
         <source>Write Error</source>
         <translation>書き込みエラー</translation>
     </message>
     <message>
-        <location line="-446"/>
-        <location line="+361"/>
-        <location line="+192"/>
+        <location line="-447"/>
+        <location line="+379"/>
+        <location line="+175"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>イメージファイルをデバイスに配置できません。</translation>
     </message>
     <message>
-        <location line="-544"/>
+        <location line="-545"/>
         <source>Confirm overwrite</source>
         <translation>上書きの確認</translation>
     </message>
@@ -234,17 +229,17 @@ Are you sure you want to cancel?</source>
 本当にキャンセルしてもよろしいですか？</translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+161"/>
         <source>Not enough available space!</source>
         <translation>空き容量が足りません！</translation>
     </message>
     <message>
-        <location line="-180"/>
-        <location line="+372"/>
+        <location line="-198"/>
+        <location line="+390"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+473"/>
+        <location line="+456"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -252,7 +247,7 @@ Are you sure you want to cancel?</source>
         <translation>ファイルエラー</translation>
     </message>
     <message>
-        <location line="-530"/>
+        <location line="-513"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -265,25 +260,25 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
     </message>
     <message>
         <location line="+10"/>
-        <location line="+497"/>
+        <location line="+480"/>
         <source>The selected file does not exist.</source>
         <translation>選択したファイルは存在しません。</translation>
     </message>
     <message>
-        <location line="-492"/>
-        <location line="+497"/>
+        <location line="-475"/>
+        <location line="+480"/>
         <source>You do not have permision to read the selected file.</source>
         <translation>選択したファイルを読み込むための権限がありません。</translation>
     </message>
     <message>
-        <location line="-492"/>
-        <location line="+497"/>
+        <location line="-475"/>
+        <location line="+480"/>
         <source>The specified file contains no data.</source>
         <translation>指定されたファイルにはデータが含まれていません。</translation>
     </message>
     <message>
-        <location line="-493"/>
-        <location line="+189"/>
+        <location line="-476"/>
+        <location line="+172"/>
         <location line="+308"/>
         <source>Done.</source>
         <translation>完了しました。</translation>
@@ -297,12 +292,12 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>完成</translation>
     </message>
     <message>
-        <location line="-497"/>
+        <location line="-480"/>
         <source>Write Successful.</source>
         <translation>書き込み成功。</translation>
     </message>
     <message>
-        <location line="-393"/>
+        <location line="-411"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -325,7 +320,23 @@ Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+13"/>
+        <source>Device has mounted volumes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 is mounted in Windows as %2.
+
+Everything on this device, on every one of its partitions, will be destroyed and cannot be recovered.
+
+Check that %2 is not a drive you meant to keep.
+
+Write to this device anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+140"/>
         <source>Clearing old partition tables...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -423,18 +434,18 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+590"/>
+        <location line="+573"/>
         <source>[Disk %1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-555"/>
-        <location line="+496"/>
+        <location line="-538"/>
+        <location line="+479"/>
         <source>Please specify an image file to use.</source>
         <translation>使用するイメージファイルを指定してください。</translation>
     </message>
     <message>
-        <location line="-467"/>
+        <location line="-450"/>
         <source>Read Error</source>
         <translation type="unfinished">読込みエラー</translation>
     </message>
@@ -454,7 +465,7 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
         <translation>ファイルを上書きしてもよろしいですか？</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+56"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>指定されたイメージに対し ディスク容量が十分ではありません。</translation>
     </message>
