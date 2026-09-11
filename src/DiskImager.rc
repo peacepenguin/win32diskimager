@@ -1,5 +1,9 @@
 // Microsoft Visual C++ generated resource script.
 //
+// Modified 2026 by peacepenguin (personal fork, not affiliated with the
+// upstream ImageWriter project): version and product strings.
+// https://github.com/peacepenguin/win32diskimager
+//
 #include "resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
@@ -70,12 +74,12 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "Comments", "Image Writer for Windows to write USB and SD images"
-            VALUE "FileDescription", "DiskImager"
+            VALUE "FileDescription", "DiskImager (peacepenguin fork)"
             VALUE "FileVersion", "1.2.0"
             VALUE "InternalName", "win32-image-writer"
-            VALUE "LegalCopyright", "Copyright (C) 2009-2017 Windows ImageWriter Team"
+            VALUE "LegalCopyright", "Copyright (C) 2009-2017 Windows ImageWriter Team; modifications Copyright (C) 2026 peacepenguin. GPL-2."
             VALUE "OriginalFilename", "Win32DiskImager"
-            VALUE "ProductName", "Win32 Image Writer"
+            VALUE "ProductName", "Win32 Image Writer (peacepenguin fork)"
             VALUE "ProductVersion", "1.2.0"
         END
     END

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Modified 2026 by peacepenguin (personal fork, not affiliated with the
+  upstream ImageWriter project): layout, device list, GPT options.
+  https://github.com/peacepenguin/win32diskimager
+-->
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">

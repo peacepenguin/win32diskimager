@@ -15,6 +15,11 @@
  *  Copyright (C) 2009, Justin Davis <tuxdavis@gmail.com>             *
  *  Copyright (C) 2009-2017 ImageWriter developers                    *
  *                 https://sourceforge.net/projects/win32diskimager/  *
+ *  ---                                                               *
+ *  Modified 2026 by peacepenguin (personal fork, not affiliated      *
+ *  with the upstream ImageWriter project):                           *
+ *  GPT repair, device enumeration, volume locking                    *
+ *  https://github.com/peacepenguin/win32diskimager                   *
  **********************************************************************/
 
 #ifndef WINVER

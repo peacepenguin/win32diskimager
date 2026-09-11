@@ -11,6 +11,13 @@ to.
 This fork fixes an issue where images written from Windows get their GPT
 corrupted, leaving the card unbootable.
 
+This is a personal fork, not affiliated with the upstream ImageWriter project
+or its maintainers. It keeps the original name because that is what people
+search for, but upstream did not write the changes described below and cannot
+support them — report anything you hit here, at
+[github.com/peacepenguin/win32diskimager](https://github.com/peacepenguin/win32diskimager/issues),
+not to SourceForge.
+
 
 
 | | |
@@ -107,7 +114,9 @@ produces no device-arrival broadcast at all.
 ## Legal
 
 Image Writer for Windows is licensed under the General Public License v2, with
-full text in [GPL-2](GPL-2).
+full text in [GPL-2](GPL-2). The modifications in this fork are released under
+the same licence, Copyright (C) 2026 peacepenguin; the files they touch carry
+notices saying what changed.
 
 This project uses and includes binaries of the MinGW runtime library
 (http://www.mingw.org) and of the Qt library (http://www.qt-project.org/),
