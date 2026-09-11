@@ -80,3 +80,36 @@ ships its MinGW DLLs unstripped (`libstdc++-6.dll` alone is ~26 MB otherwise).
 
 Note the `.rc` file must reference the icon with a forward slash. Windows
 `windres` accepts a backslash there; the cross build does not.
+
+### In a container, without installing Fedora
+
+If the host is not Fedora, run the same toolchain in a container. Build the
+image once:
+
+```
+podman build -t w32di-build -f tools/Containerfile.build .
+```
+
+Then build any time with:
+
+```
+tools/build-cross.sh
+```
+
+which mounts the repo, configures on first use, and runs `cmake --build`. Pass
+`clean` to drop `build/` and configure again. The script builds the image
+itself if it is missing, so the `podman build` above is optional.
+
+Everything it writes is gitignored — `build/` and the `lang/*.qm` files that
+`lrelease` generates *into the source tree* (`translations.qrc` references them
+relative to that directory). So the build directory persists between runs and
+ninja stays incremental: a no-op rebuild is well under a second, a one-file
+change around twenty seconds, a full build about thirty.
+
+Configuring costs more than an incremental build, so the script only configures
+when `build/CMakeCache.txt` is absent; ninja re-runs cmake on its own when
+`CMakeLists.txt` changes.
+
+This is worth running before a push. It is the same Fedora image, toolchain and
+cmake invocation as CI, so it catches a broken cross build without waiting on
+the workflow.

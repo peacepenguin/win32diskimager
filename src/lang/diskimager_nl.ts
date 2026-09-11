@@ -185,12 +185,12 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="-455"/>
         <location line="+354"/>
-        <location line="+215"/>
+        <location line="+216"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Image bestand kan niet gevonden worden op het doel apparaat.</translation>
     </message>
     <message>
-        <location line="-559"/>
+        <location line="-560"/>
         <source>Confirm overwrite</source>
         <translation>Overschrijven bevestigen</translation>
     </message>
@@ -238,7 +238,7 @@ Weet u zeker dat u wilt fabreken?</translation>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+471"/>
+        <location line="+526"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -246,39 +246,40 @@ Weet u zeker dat u wilt fabreken?</translation>
         <translation>Bestandsfout</translation>
     </message>
     <message>
-        <location line="-518"/>
-        <location line="+495"/>
+        <location line="-573"/>
+        <location line="+550"/>
         <source>The selected file does not exist.</source>
         <translation>Het gekozen bestand bestaat niet.</translation>
     </message>
     <message>
-        <location line="-490"/>
-        <location line="+495"/>
+        <location line="-545"/>
+        <location line="+550"/>
         <source>You do not have permision to read the selected file.</source>
         <translation>U heeft geen leestoegang tot het gekozen bestand.</translation>
     </message>
     <message>
-        <location line="-490"/>
-        <location line="+495"/>
+        <location line="-545"/>
+        <location line="+550"/>
         <source>The specified file contains no data.</source>
         <translation>Het gekozen bestand bevat geen data.</translation>
     </message>
     <message>
-        <location line="-491"/>
+        <location line="-546"/>
         <location line="+213"/>
-        <location line="+282"/>
+        <location line="+337"/>
         <source>Done.</source>
         <translation>Voltooid.</translation>
     </message>
     <message>
-        <location line="-278"/>
+        <location line="-333"/>
         <location line="+2"/>
-        <location line="+280"/>
+        <location line="+310"/>
+        <location line="+25"/>
         <source>Complete</source>
         <translation>Afgerond</translation>
     </message>
     <message>
-        <location line="-495"/>
+        <location line="-550"/>
         <source>Write Successful.</source>
         <translation>Schrijven is gelukt.</translation>
     </message>
@@ -377,12 +378,12 @@ Insert it into the target hardware instead.</source>
     </message>
     <message>
         <location line="+37"/>
-        <location line="+494"/>
+        <location line="+549"/>
         <source>Please specify an image file to use.</source>
         <translation>Specificeer alstublieft een image bestand om te gebruiken.</translation>
     </message>
     <message>
-        <location line="-465"/>
+        <location line="-520"/>
         <source>Confirm Overwrite</source>
         <translation>Bevestig overschrijven</translation>
     </message>
@@ -417,29 +418,75 @@ Insert it into the target hardware instead.</source>
         <translation>Specificeer alstublieft een bestand om de data te bewaren.</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>Verify Error</source>
         <translation>Fout in Controle</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+129"/>
+        <source>Size of image larger than device:
+  Image: %1 sectors
+  Device: %2 sectors
+  Sector Size: %3
+
+The extra space DOES appear to contain data
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Size of image larger than device:
+  Image: %1 sectors
+  Device: %2 sectors
+  Sector Size: %3
+
+The extra space does not appear to contain data
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Size Mismatch!</source>
         <translation>Grootte komt niet overeen!</translation>
     </message>
     <message>
-        <location line="+45"/>
-        <location line="+16"/>
+        <location line="+54"/>
+        <location line="+40"/>
         <source>Verify Failure</source>
         <translation>Controle mislukt</translation>
     </message>
     <message>
-        <location line="-16"/>
-        <location line="+16"/>
+        <location line="-40"/>
+        <location line="+41"/>
         <source>Verification failed at sector: %1</source>
         <translation>Controle mislukt in sector: %1</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+43"/>
+        <source>Verify Successful.
+
+The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>
+
+The device has been ejected. Remove it now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>
+
+The device could NOT be taken offline automatically.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-3"/>
+        <location line="+29"/>
         <source>Verify Successful.</source>
         <translation>Controle Geslaagd.</translation>
     </message>

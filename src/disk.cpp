@@ -877,6 +877,47 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     return GPT_FIX_OK;
 }
 
+bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
+                     unsigned long long devicesectors,
+                     unsigned long long *frontend, unsigned long long *tailstart)
+{
+    if (sectorsize < 512 || devicesectors < 96)
+    {
+        return false;
+    }
+
+    QByteArray primary(sectorsize, 0);
+    unsigned char *hdr = (unsigned char *)primary.data();
+    if (!rawSeekRead(hRawDisk, sectorsize, hdr, (DWORD)sectorsize))
+    {
+        return false;
+    }
+    if (memcmp(hdr + GPT_OFF_SIGNATURE, "EFI PART", 8) != 0)
+    {
+        return false;
+    }
+
+    unsigned long long numentries = rd32(hdr, GPT_OFF_NUMENTRIES);
+    unsigned long long entrysize  = rd32(hdr, GPT_OFF_ENTRYSIZE);
+    if (numentries == 0 || numentries > 65536 || entrysize < 128 || entrysize > 4096)
+    {
+        return false;
+    }
+
+    unsigned long long entrysectors =
+        (numentries * entrysize + sectorsize - 1) / sectorsize;
+    if (entrysectors + 2 >= devicesectors)
+    {
+        return false;
+    }
+
+    // Front: protective MBR, primary header, primary entry array.
+    if (frontend)  *frontend  = 2 + entrysectors;
+    // Tail: relocated backup entry array plus its header at the last LBA.
+    if (tailstart) *tailstart = devicesectors - 1 - entrysectors;
+    return true;
+}
+
 // GPT reserves 33 sectors at each end: one header plus 32 sectors of partition
 // entries. 34 covers that plus the protective MBR, with a sector to spare.
 #define GPT_RESERVED_SECTORS 34

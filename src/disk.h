@@ -111,6 +111,16 @@ enum GptFixResult
 GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
                                unsigned long long devicesectors, QString *detail);
 
+// Report the sectors that "Fix GPT after write" may rewrite, so a verify can
+// tell a deliberate GPT rewrite apart from a bad card. The front range
+// [0, *frontend) covers the protective MBR, the primary header and the primary
+// entry array; the tail range [*tailstart, devicesectors) covers the relocated
+// backup entry array and header. Returns false if the device holds no usable
+// GPT, in which case neither output is set.
+bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
+                     unsigned long long devicesectors,
+                     unsigned long long *frontend, unsigned long long *tailstart);
+
 bool flushDevice(HANDLE handle);
 bool setDiskOffline(HANDLE handle, bool offline);
 bool ejectDevice(HANDLE handle);

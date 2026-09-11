@@ -896,6 +896,7 @@ void MainWindow::on_bRead_clicked()
 void MainWindow::on_bVerify_clicked()
 {
     bool passfail = true;
+    bool verifyreported = false;
     if (!leFile->text().isEmpty())
     {
         QFileInfo fileinfo(leFile->text());
@@ -954,7 +955,9 @@ void MainWindow::on_bVerify_clicked()
                 setReadWriteButtonState();
                 return;
             }
-            hRawDisk = getHandleOnDevice(deviceID, GENERIC_READ);
+            // Read-write: verify never writes, but taking the disk offline
+            // afterwards (IOCTL_DISK_SET_DISK_ATTRIBUTES) needs write access.
+            hRawDisk = getHandleOnDevice(deviceID, GENERIC_READ | GENERIC_WRITE);
             if (hRawDisk == INVALID_HANDLE_VALUE)
             {
                 removeLockOnVolume(hVolume);
@@ -1030,16 +1033,16 @@ void MainWindow::on_bVerify_clicked()
                 // delete the allocated sectorData
                 delete[] sectorData;
                 sectorData = NULL;
-                // build the string for the warning dialog
-                std::ostringstream msg;
-                msg << "Size of image larger than device:"
-                    << "\n  Image: " << numsectors << " sectors"
-                    << "\n  Device: " << availablesectors << " sectors"
-                    << "\n  Sector Size: " << sectorsize
-                    << "\n\nThe extra space " << ((datafound) ? "DOES" : "does not") << " appear to contain data"
-                    << "\n\nContinue Anyway?";
+                QString msg = (datafound)
+                    ? tr("Size of image larger than device:\n  Image: %1 sectors\n"
+                         "  Device: %2 sectors\n  Sector Size: %3\n\n"
+                         "The extra space DOES appear to contain data\n\nContinue Anyway?")
+                    : tr("Size of image larger than device:\n  Image: %1 sectors\n"
+                         "  Device: %2 sectors\n  Sector Size: %3\n\n"
+                         "The extra space does not appear to contain data\n\nContinue Anyway?");
+                msg = msg.arg(numsectors).arg(availablesectors).arg(sectorsize);
                 if(QMessageBox::warning(this, tr("Size Mismatch!"),
-                                        tr(msg.str().c_str()), QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
+                                        msg, QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
                 {
                     // truncate the image at the device size...
                     numsectors = availablesectors;
@@ -1059,6 +1062,15 @@ void MainWindow::on_bVerify_clicked()
                     return;
                 }
             }
+            // "Fix GPT after write" deliberately rewrites the protective MBR,
+            // the primary header and the entry array, all of which sit inside
+            // the image's own range. Those sectors differing is expected, not a
+            // bad card, so they are checked against the ranges the fix owns.
+            unsigned long long gptfrontend = 0ull, gpttailstart = 0ull;
+            bool gptknown = gptOwnedSectors(hRawDisk, sectorsize, availablesectors,
+                                            &gptfrontend, &gpttailstart);
+            bool gptonly = false;
+
             progressbar->setRange(0, (numsectors == 0ul) ? 100 : (int)numsectors);
             update_timer.start();
             elapsed_timer->start();
@@ -1084,6 +1096,8 @@ void MainWindow::on_bVerify_clicked()
                 if (sectorData2 == NULL)
                 {
                     QMessageBox::critical(this, tr("Verify Failure"), tr("Verification failed at sector: %1").arg(i));
+                    delete[] sectorData;
+                    sectorData = NULL;
                     removeLockOnVolume(hVolume);
                     CloseHandle(hRawDisk);
                     CloseHandle(hFile);
@@ -1096,13 +1110,36 @@ void MainWindow::on_bVerify_clicked()
                     setReadWriteButtonState();
                     return;
                 }
-                result = memcmp(sectorData, sectorData2, ((numsectors - i >= 1024ul) ? 1024ul:(numsectors - i)) * sectorsize);
+                unsigned long chunk = (numsectors - i >= 1024ul) ? 1024ul : (unsigned long)(numsectors - i);
+                result = memcmp(sectorData, sectorData2, chunk * sectorsize);
                 if (result)
                 {
-                    QMessageBox::critical(this, tr("Verify Failure"), tr("Verification failed at sector: %1").arg(i));
-                    passfail = false;
-                    break;
-
+                    // Find the first difference the GPT fix cannot account for.
+                    bool bad = false;
+                    unsigned long long badsector = i;
+                    for (unsigned long s = 0ul; s < chunk && !bad; ++s)
+                    {
+                        if (memcmp(sectorData + s * sectorsize,
+                                   sectorData2 + s * sectorsize, sectorsize) == 0)
+                        {
+                            continue;
+                        }
+                        unsigned long long lba = i + s;
+                        if (gptknown && (lba < gptfrontend || lba >= gpttailstart))
+                        {
+                            gptonly = true;
+                            continue;
+                        }
+                        badsector = lba;
+                        bad = true;
+                    }
+                    if (bad)
+                    {
+                        QMessageBox::critical(this, tr("Verify Failure"),
+                            tr("Verification failed at sector: %1").arg(badsector));
+                        passfail = false;
+                        break;
+                    }
                 }
                 if (update_timer.elapsed() >= ONE_SEC_IN_MS)
                 {
@@ -1119,8 +1156,14 @@ void MainWindow::on_bVerify_clicked()
                 progressbar->setValue(i);
                 QCoreApplication::processEvents();
             }
-            removeLockOnVolume(hVolume);
+            // Mirror the write path: take the disk offline and eject it before
+            // the volume lock is released, so Windows cannot rescan the card
+            // and "repair" a GPT that deliberately is not at the end of the
+            // device. Verifying must not undo what the write protected.
+            bool offline = setDiskOffline(hRawDisk, true);
+            bool ejected = ejectDevice(hRawDisk);
             CloseHandle(hRawDisk);
+            removeLockOnVolume(hVolume);
             CloseHandle(hFile);
             CloseHandle(hVolume);
             delete[] sectorData;
@@ -1132,6 +1175,18 @@ void MainWindow::on_bVerify_clicked()
             hVolume = INVALID_HANDLE_VALUE;
             if (status == STATUS_CANCELED){
                 passfail = false;
+            }
+            else if (passfail)
+            {
+                QString msg = (gptonly)
+                    ? tr("Verify Successful.\n\nThe image and the device differ only in the "
+                         "GPT, which the \"Fix GPT after write\" option rewrites by design.")
+                    : tr("Verify Successful.");
+                msg += (offline || ejected)
+                    ? tr("\n\nThe device has been ejected. Remove it now.")
+                    : tr("\n\nThe device could NOT be taken offline automatically.");
+                QMessageBox::information(this, tr("Complete"), msg);
+                verifyreported = true;
             }
 
         }
@@ -1154,7 +1209,7 @@ void MainWindow::on_bVerify_clicked()
         statusbar->showMessage(tr("Done."));
         bCancel->setEnabled(false);
         setReadWriteButtonState();
-        if (passfail){
+        if (passfail && !verifyreported){
             QMessageBox::information(this, tr("Complete"), tr("Verify Successful."));
         }
     }
