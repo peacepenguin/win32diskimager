@@ -31,6 +31,13 @@ jobs:
 
       - uses: actions/checkout@v7
 
+      # The workspace is owned by a different UID than the user running these
+      # steps, so git refuses to read the repository. Anything shelling out to
+      # git -- gh, for one -- fails with "detected dubious ownership" without
+      # this.
+      - name: Trust the workspace
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Configure
         run: |
           cmake -S src -B build -G Ninja \
@@ -88,8 +95,11 @@ jobs:
 
           See `Changelog.txt` in the zip for what changed.
           EOF
+          # --repo makes gh resolve the target over the API rather than by
+          # inspecting the local git remote.
           gh release create "${GITHUB_REF_NAME}" \
             "$name.zip" "$name.zip.sha256" \
+            --repo "${GITHUB_REPOSITORY}" \
             --title "${GITHUB_REF_NAME}" \
             --notes-file notes.md \
             --generate-notes \
