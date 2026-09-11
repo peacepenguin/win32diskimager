@@ -172,8 +172,40 @@ sudo python3 win32diskimager/tools/gptdump.py "$TARGET" | tee before.txt
 sudo mount "${TARGET}1" /mnt/p1 && cat /mnt/p1/MARKER-PARTITION-1.txt; sudo umount /mnt/p1
 ```
 
-`before.txt` should show `PartEntryLBA 2` in both headers, both CRCs `OK`, and
-`AlternateLBA 93749` flagged against a device last LBA of 203124.
+Both tools complain here, and both complaints are the healthy state. `sgdisk`
+is the more alarming of the two — it ends with `Identified 1 problems!` — but
+read what it actually says:
+
+```
+Problem: The secondary header's self-pointer indicates that it doesn't reside
+at the end of the disk.
+...
+Warning: There is a gap between the secondary partition table (ending at sector
+93748) and the secondary metadata (sector 93749).
+```
+
+That is the same observation `parted` made: the backup GPT is where the *image*
+ended, not where the *device* ends. Nothing is damaged, and `sgdisk -e` — the
+"fix" it is hinting at — is exactly what this fork's **Fix GPT after write**
+option does. Do not run it here; the stranded backup GPT is the condition under
+test. The two `doesn't end on a 2048-sector boundary` cautions are unrelated
+noise from the partition sizes and can be ignored throughout.
+
+`before.txt` should show three sections, and this is what a *good* disk looks
+like:
+
+* **Primary GPT (LBA 1)** — `PartEntryLBA 2`, `HeaderCRC ... OK`, `entries CRC
+  over array: ... OK`, and `AlternateLBA 93749` flagged against a device last
+  LBA of 203124. That flag is the mid-device backup GPT, the setup for the test.
+* **Backup GPT where the primary points (LBA 93749)** — `PartEntryLBA 93717`,
+  both CRCs `OK`, listing the same two partitions with the same names. The
+  backup is intact and consistent with the primary; it is merely early.
+* **Backup GPT at device end (LBA 203124)** — `no GPT signature`. Correct: the
+  image never wrote anything out there.
+
+Both headers agreeing, with valid CRCs, is the point of the baseline. After
+step 5 the primary's `PartEntryLBA` no longer points at the entry array, and
+the entries CRC stops matching.
 
 Take a copy of the untouched disk on the host, so you can diff sector ranges
 afterwards rather than arguing from memory:
@@ -188,25 +220,34 @@ Detach from Linux, attach to the Windows VM:
 
 ```powershell
 Remove-VMHardDiskDrive -VMName 'fedora44-builder' -ControllerType SCSI -ControllerNumber 0 -ControllerLocation 1
-Add-VMHardDiskDrive -VMName 'windows' -ControllerType SCSI -Path C:\vms\gpttest.vhdx
+Add-VMHardDiskDrive -VMName 'win11-test' -ControllerType SCSI -Path C:\vms\gpttest.vhdx
+
+# or use the host instead of a windows vm:
+Mount-DiskImage -ImagePath C:\vms\gpttest.vhdx
+
+# tell windows to 'rescan' (diskpart -> rescan) 
+# disk management mmc -> action -> rescan disks
+# or powershell:
+Update-HostStorageCache
+
+# the rescan initiates the GPT 'fix'. the rescan occurs automatically
+# on removeable drives, but scsi drives like vhdx need manual rescan.
+
+
 ```
 
 (`Get-VMHardDiskDrive -VMName 'fedora44-builder'` gives the controller number and location
 to remove.)
 
-That is the whole step. **Do nothing in the Windows VM.** Do not open Disk
-Management, do not click anything, and if a "You need to format the disk" or
-"Initialize disk" prompt appears, dismiss it — accepting it would wipe the disk
-and prove nothing. Windows repairs the table as soon as it enumerates the disk.
-
-Opening Disk Management afterwards is informative, though: it shows two healthy
-unknown-filesystem partitions, because the table Windows wrote passes Windows'
-own checks. Rufus shows them too. That is why this goes unnoticed.
-
 Now detach it again:
 
 ```powershell
-Remove-VMHardDiskDrive -VMName 'windows' -ControllerType SCSI -ControllerNumber 0 -ControllerLocation 1
+Remove-VMHardDiskDrive -VMName 'win11-test' -ControllerType SCSI -ControllerNumber 0 -ControllerLocation 1
+
+# or if using the windows host:
+Dismount-DiskImage -ImagePath C:\vms\gpttest.vhdx
+
+
 Add-VMHardDiskDrive -VMName 'fedora44-builder' -ControllerType SCSI -Path C:\vms\gpttest.vhdx
 ```
 

@@ -59,16 +59,48 @@ def show_header(name, raw, disk_lba_max):
     print(f"  FirstUsableLBA   {first}")
     print(f"  LastUsableLBA    {last}")
     print(f"  DiskGUID         {uuid.UUID(bytes_le=gid)}")
-    print(f"  PartEntryLBA     {plba}   count={pnum} size={psize}")
+    span = (pnum * psize + SS - 1) // SS
+    print(f"  PartEntryLBA     {plba}   count={pnum} size={psize}"
+          f"   (array spans {span} sectors, {plba}..{plba + span - 1})")
     print(f"  HeaderCRC        {hcrc:#010x} {'OK' if crc(bytes(chk)) == hcrc else 'BAD'}")
     print(f"  EntriesCRC       {pcrc:#010x}")
     return altlba, (plba, pnum, psize, pcrc)
 
-def show_entries(f, plba, pnum, psize, pcrc):
+def find_entry_array(f, pcrc, pnum, psize, last):
+    """Where the entry array the header describes actually lives.
+
+    A header whose EntriesCRC does not match the sectors PartEntryLBA points at
+    is the signature of this bug: the table looks self-consistent to a checker
+    that only validates the header, while the array it names is somewhere else.
+    Knowing where it really is says whether the array moved or the pointer did.
+    """
+    want = pnum * psize
+    windows = [range(1, 96)]
+    if last:
+        windows.append(range(max(0, last - 96), last + 1))
+    for w in windows:
+        for lba in w:
+            f.seek(lba * SS)
+            blob = f.read(want)
+            if len(blob) == want and crc(blob) == pcrc:
+                return lba
+    return None
+
+def show_entries(f, plba, pnum, psize, pcrc, last=None):
     f.seek(plba * SS)
     blob = f.read(pnum * psize)
+    ok = crc(blob) == pcrc
     print(f"  entries CRC over array: {crc(blob):#010x} "
-          f"{'OK' if crc(blob) == pcrc else 'MISMATCH'}")
+          f"{'OK' if ok else 'MISMATCH'}")
+    if not ok:
+        found = find_entry_array(f, pcrc, pnum, psize, last)
+        if found is not None:
+            print(f"  ** the array matching EntriesCRC is at LBA {found}, "
+                  f"not {plba} -- the header's PartEntryLBA is wrong by "
+                  f"{plba - found:+d} sectors")
+        else:
+            print("  ** no array matching EntriesCRC found near either end; "
+                  "the entries themselves were changed, not just the pointer")
     for i in range(pnum):
         e = blob[i*psize:(i+1)*psize]
         tguid = e[0:16]
@@ -95,7 +127,7 @@ def main(path):
         print()
 
         h = show_header("Primary GPT (LBA 1)", read_at(f, 1), last)
-        if h: show_entries(f, *h[1])
+        if h: show_entries(f, *h[1], last)
         print()
 
         # An image written to a larger device leaves its backup GPT where the
@@ -106,12 +138,12 @@ def main(path):
         if alt is not None and alt != last:
             hb = show_header(f"Backup GPT where the primary points (LBA {alt})",
                              read_at(f, alt), last)
-            if hb: show_entries(f, *hb[1])
+            if hb: show_entries(f, *hb[1], last)
             print()
 
         if last:
             hb = show_header(f"Backup GPT at device end (LBA {last})", read_at(f, last), last)
-            if hb: show_entries(f, *hb[1])
+            if hb: show_entries(f, *hb[1], last)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
