@@ -280,7 +280,15 @@ void MainWindow::generateHash(char *filename, int hashish)
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     QFile file(filename);
-    file.open(QFile::ReadOnly);
+    if (!file.open(QFile::ReadOnly))
+    {
+        hashLabel->setText(tr("Error"));
+        bHashCopy->setEnabled(false);
+        QApplication::restoreOverrideCursor();
+        QMessageBox::critical(this, tr("File Error"),
+                              tr("Could not open the file to generate a checksum:\n%1").arg(file.errorString()));
+        return;
+    }
     filehash.addData(&file);
 
     QByteArray hash = filehash.result();
