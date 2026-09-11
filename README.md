@@ -86,6 +86,7 @@ produces no broadcast at all.
 | | |
 |---|---|
 | Building | [BUILD.md](BUILD.md) |
+| Reproducing the bug | [TESTING-GPT-BUG.md](TESTING-GPT-BUG.md) |
 | Changes | [Changelog.txt](Changelog.txt) |
 | Planned work | [TODO.txt](TODO.txt) |
 | Translating | [readme-translations.txt](readme-translations.txt) |

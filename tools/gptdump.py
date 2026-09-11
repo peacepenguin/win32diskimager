@@ -49,15 +49,20 @@ def show_header(name, raw, disk_lba_max):
     chk = bytearray(raw[:hsize]); chk[16:20] = b"\0\0\0\0"
     print(f"{name}:")
     print(f"  MyLBA            {mylba}")
-    print(f"  AlternateLBA     {altlba}"
-          + (f"   <-- device last LBA is {disk_lba_max}" if disk_lba_max is not None and altlba != disk_lba_max else "   (ok)"))
+    # Only the primary's AlternateLBA should equal the device's last LBA; in a
+    # backup header it points back at LBA 1 and means nothing is wrong.
+    if mylba == 1 and disk_lba_max is not None:
+        note = "   (ok)" if altlba == disk_lba_max else f"   <-- device last LBA is {disk_lba_max}"
+    else:
+        note = ""
+    print(f"  AlternateLBA     {altlba}{note}")
     print(f"  FirstUsableLBA   {first}")
     print(f"  LastUsableLBA    {last}")
     print(f"  DiskGUID         {uuid.UUID(bytes_le=gid)}")
     print(f"  PartEntryLBA     {plba}   count={pnum} size={psize}")
     print(f"  HeaderCRC        {hcrc:#010x} {'OK' if crc(bytes(chk)) == hcrc else 'BAD'}")
     print(f"  EntriesCRC       {pcrc:#010x}")
-    return plba, pnum, psize, pcrc
+    return altlba, (plba, pnum, psize, pcrc)
 
 def show_entries(f, plba, pnum, psize, pcrc):
     f.seek(plba * SS)
@@ -90,12 +95,23 @@ def main(path):
         print()
 
         h = show_header("Primary GPT (LBA 1)", read_at(f, 1), last)
-        if h: show_entries(f, *h)
+        if h: show_entries(f, *h[1])
         print()
 
+        # An image written to a larger device leaves its backup GPT where the
+        # image ended, not at the end of the device, so looking only at the last
+        # LBA would report "no GPT signature" and miss the table that is
+        # actually in use. Follow the primary's AlternateLBA as well.
+        alt = h[0] if h else None
+        if alt is not None and alt != last:
+            hb = show_header(f"Backup GPT where the primary points (LBA {alt})",
+                             read_at(f, alt), last)
+            if hb: show_entries(f, *hb[1])
+            print()
+
         if last:
-            hb = show_header(f"Backup GPT (LBA {last})", read_at(f, last), last)
-            if hb: show_entries(f, *hb)
+            hb = show_header(f"Backup GPT at device end (LBA {last})", read_at(f, last), last)
+            if hb: show_entries(f, *hb[1])
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
