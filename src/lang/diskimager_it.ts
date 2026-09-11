@@ -4,22 +4,22 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="+311"/>
+        <location filename="../mainwindow.ui" line="+316"/>
         <source>%p%</source>
         <translation>%p%</translation>
     </message>
     <message>
-        <location line="-233"/>
+        <location line="-252"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location line="+113"/>
+        <location line="+116"/>
         <source>Copy</source>
         <translation>Copia</translation>
     </message>
     <message>
-        <location line="+205"/>
+        <location line="+221"/>
         <source>Exit</source>
         <translation>Esci</translation>
     </message>
@@ -29,19 +29,19 @@
         <translation>Leggi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+698"/>
+        <location filename="../mainwindow.cpp" line="+729"/>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Sei sicuro di voler sovrascrivere il file specificato?</translation>
     </message>
     <message>
-        <location line="-39"/>
-        <location line="+213"/>
-        <location line="+337"/>
+        <location line="-45"/>
+        <location line="+189"/>
+        <location line="+308"/>
         <source>Done.</source>
         <translation>Completato.</translation>
     </message>
     <message>
-        <location line="-1024"/>
+        <location line="-986"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -53,110 +53,125 @@
         <translation>Scrivi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+680"/>
+        <location filename="../mainwindow.cpp" line="+671"/>
         <source>Please specify a file to save data to.</source>
         <translation>Seleziona un file dove salvare i dati.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="-341"/>
+        <location filename="../mainwindow.ui" line="-346"/>
         <source>Win32 Disk Imager</source>
         <translation>Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-690"/>
+        <location filename="../mainwindow.cpp" line="-681"/>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
         <translation>Annullare ore creerà un disco corrotto.
 Sei sicuro di voler uscire?</translation>
     </message>
     <message>
-        <location line="+143"/>
-        <location line="+354"/>
-        <location line="+216"/>
+        <location line="+151"/>
+        <location line="+361"/>
+        <location line="+192"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Il file immagine non è stato trovato nel dispositivo destinazione.</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-249"/>
+        <source>Write successful, but the partition table is at risk.
+
+%1
+%2
+
+%3
+
+Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+63"/>
+        <source>Read Error</source>
+        <translation type="unfinished">Errore in lettura</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Please select a source device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+163"/>
         <source>File Info</source>
         <translation>Informazioni sul file</translation>
     </message>
     <message>
-        <location line="-654"/>
+        <location line="-645"/>
         <source>Select a disk image</source>
         <translation>Seleziona un file immagine</translation>
     </message>
     <message>
-        <location line="+117"/>
-        <source>Writing to a physical device can corrupt the device.
-(Target Device: %1 &quot;%2&quot;)
-Are you sure you want to continue?</source>
-        <translation>Scrivere su un dispositivo fisico può corrompere il dispositivo.
-(Dispositivo destinazione: %1 &quot;%2&quot;)
-Sei sicuro di voler continuare?</translation>
-    </message>
-    <message>
-        <location line="+302"/>
-        <location line="+550"/>
+        <location line="+434"/>
+        <location line="+497"/>
         <source>You do not have permision to read the selected file.</source>
         <translation>Non hai permessi per leggere il file selezionato.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="+306"/>
+        <location filename="../mainwindow.ui" line="+311"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location line="-243"/>
+        <location line="-262"/>
         <source>Device</source>
         <translation>Dispositivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-531"/>
-        <location line="+549"/>
+        <location filename="../mainwindow.cpp" line="-478"/>
+        <location line="+496"/>
         <source>Please specify an image file to use.</source>
         <translation>Specifica un file  immagine da usare.</translation>
     </message>
     <message>
-        <location line="-910"/>
+        <location line="-864"/>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
         <translation>Annullare ora creerà una destinazione corrotta.
 Sei sicuro di voler annullare?</translation>
     </message>
     <message>
-        <location line="+568"/>
+        <location line="+551"/>
         <location line="+2"/>
-        <location line="+310"/>
+        <location line="+281"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Completa
 </translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="+301"/>
+        <location filename="../mainwindow.ui" line="+320"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Esci da Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-875"/>
-        <location line="+165"/>
-        <location line="+189"/>
-        <location line="+101"/>
+        <location filename="../mainwindow.cpp" line="-829"/>
+        <location line="+6"/>
+        <location line="+143"/>
+        <location line="+212"/>
+        <location line="+85"/>
         <source>Write Error</source>
         <translation>Errore in scrittura</translation>
     </message>
     <message>
-        <location line="-519"/>
+        <location line="-518"/>
         <source>Generating...</source>
         <translation>Generazione...</translation>
     </message>
     <message>
-        <location line="+371"/>
+        <location line="+14"/>
+        <location line="+372"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+526"/>
+        <location line="+473"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -164,7 +179,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-1165"/>
+        <location line="-1138"/>
         <source>Waiting for a task.</source>
         <translation>Attesa scelta operazione</translation>
     </message>
@@ -174,20 +189,20 @@ Sei sicuro di voler annullare?</translation>
         <translation>Stato progresso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+592"/>
-        <location line="+550"/>
+        <location filename="../mainwindow.cpp" line="+618"/>
+        <location line="+497"/>
         <source>The selected file does not exist.</source>
         <translation>Il file selezionato non esiste.</translation>
     </message>
     <message>
-        <location line="-887"/>
+        <location line="-841"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Annullare?</translation>
     </message>
     <message>
-        <location line="+338"/>
-        <location line="+550"/>
+        <location line="+345"/>
+        <location line="+497"/>
         <source>The specified file contains no data.</source>
         <translation>Il file selezionato non contiene dati.</translation>
     </message>
@@ -197,29 +212,29 @@ Sei sicuro di voler annullare?</translation>
         <translation>Leggi i dati dal &apos;dispostivo&apos; e scrivili nel &apos;File immagine&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-1020"/>
+        <location filename="../mainwindow.cpp" line="-982"/>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
         <translation>Annullare ora creerà un file immagine corrotto.
 Sei sicuro di voler uscire?</translation>
     </message>
     <message>
-        <location line="+693"/>
+        <location line="+684"/>
         <source>Read Successful.</source>
         <translation>Lettura completata correttamente.</translation>
     </message>
     <message>
-        <location line="-215"/>
+        <location line="-191"/>
         <source>Write Successful.</source>
         <translation>Scrittura completata correttamente.</translation>
     </message>
     <message>
-        <location line="-315"/>
+        <location line="-323"/>
         <source>Confirm overwrite</source>
         <translation>Conferma la sovrascrittura</translation>
     </message>
     <message>
-        <location line="+350"/>
+        <location line="+364"/>
         <source>Confirm Overwrite</source>
         <translation>Conferma la sovrascrittua</translation>
     </message>
@@ -229,42 +244,42 @@ Sei sicuro di voler uscire?</translation>
         <translation>Annulla processo attuale.</translation>
     </message>
     <message>
-        <location line="-278"/>
+        <location line="-297"/>
         <source>Image File</source>
         <translation>File immagine</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+95"/>
+        <location filename="../mainwindow.cpp" line="+73"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>Il disco non è grande a sufficienza per questo file immagine.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="+192"/>
+        <location filename="../mainwindow.ui" line="+195"/>
         <source>Read Only Allocated Partitions</source>
         <translation>Leggi solamente le partizioni allocate</translation>
     </message>
     <message>
-        <location line="+121"/>
+        <location line="+137"/>
         <source>Write data from &apos;Image File&apos; to &apos;Device&apos;</source>
         <translation>Scrivi dati del &apos;File immagine&apos; nel &apos;Dispositivo&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-317"/>
+        <location filename="../mainwindow.cpp" line="-324"/>
         <source>Not enough available space!</source>
         <translation>Spazio disponibile insufficiente!</translation>
     </message>
     <message>
-        <location line="+400"/>
+        <location line="+399"/>
         <source>Read Canceled.</source>
         <translation>Lettura annulata.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="-239"/>
+        <location filename="../mainwindow.ui" line="-252"/>
         <source>Hash</source>
         <translation>Hash</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+17"/>
         <source>Select hash type for verification</source>
         <translation>Seleziona tipo hash per verifica</translation>
     </message>
@@ -299,6 +314,16 @@ Sei sicuro di voler uscire?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+13"/>
+        <source>Show all devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+115"/>
         <source>Verify the image file with the selected drive</source>
         <translation>Verifica il file immagine con l&apos;unità selezionata</translation>
@@ -309,21 +334,44 @@ Sei sicuro di voler uscire?</translation>
         <translation>Solo verifica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-671"/>
+        <location filename="../mainwindow.cpp" line="-662"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Uscendo ora annullerai la verifica dell&apos;immagine.
 Sei sicuro di voler uscire?</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+80"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Could not open the file to generate a checksum:
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+36"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Annullamento verifica.
 Sei sicuro di voler annullare la verifica?</translation>
     </message>
     <message>
-        <location line="+182"/>
+        <location line="+27"/>
+        <source>Please select a target device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Writing to a physical device can corrupt the device.
+(Target Device: %1)
+Are you sure you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+136"/>
         <source>Clearing old partition tables...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -333,7 +381,7 @@ Sei sicuro di voler annullare la verifica?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+75"/>
         <source>Fixing GPT...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -397,31 +445,47 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
+        <source>This image IS affected by the Windows GPT rewrite bug.
+
+It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>This image is NOT affected by the Windows GPT rewrite bug.
+
+Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Remove the device now</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Write successful, but the partition table is at risk.
-
-%1
-%2
-
-Physically remove the device NOW, before doing anything else.
-
-Do not re-insert it into this computer. If Windows re-reads a partition table whose backup GPT is not at the end of the device (which is normal when the image is smaller than the card), it will silently rewrite it. The result passes Windows&apos; own checks but is rejected by Linux, and the device will not boot.
-
-Insert it into the target hardware instead.</source>
+        <location line="+590"/>
+        <source>[Disk %1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+276"/>
+        <location line="-340"/>
+        <location line="+6"/>
         <source>Verify Error</source>
         <translation>Errore durante la verifica</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+0"/>
+        <source>Please select a device to verify against.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+102"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -450,19 +514,19 @@ Continue Anyway?</source>
         <translation>Le dimensioni non coincidono!</translation>
     </message>
     <message>
-        <location line="+54"/>
-        <location line="+40"/>
+        <location line="+50"/>
+        <location line="+38"/>
         <source>Verify Failure</source>
         <translation>Verifica fallita</translation>
     </message>
     <message>
-        <location line="-40"/>
-        <location line="+41"/>
+        <location line="-38"/>
+        <location line="+39"/>
         <source>Verification failed at sector: %1</source>
         <translation>Verifica fallita al settore: %1</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+41"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
@@ -489,7 +553,7 @@ The device could NOT be taken offline automatically.</source>
         <translation>Verifica completata correttamente.</translation>
     </message>
     <message>
-        <location line="-1134"/>
+        <location line="-1094"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG)</source>
         <translation>Immagini disco (*.img *.IMG)</translation>
@@ -498,7 +562,7 @@ The device could NOT be taken offline automatically.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../disk.cpp" line="+282"/>
+        <location filename="../disk.cpp" line="+246"/>
         <source>Free Space Error</source>
         <translation>Spazio libero insufficiente</translation>
     </message>
@@ -510,64 +574,44 @@ Error %1: %2</source>
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="+189"/>
-        <source>An error occurred while getting the device number.
-This usually means something is currently accessing the device;please close all applications and try again.
-
-Error %1: %2</source>
-        <translation>Errore nel leggere il numero del dispositivo.
-Di solito significa che qualcosa sta accedendo al dispositivo. Chiudi tutte le applicazioni e riprova.
-
-Errore %1: %2</translation>
-    </message>
-    <message>
-        <location line="-306"/>
+        <location line="-81"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>Errore nell&apos;ottenere un handle per il file.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="+16"/>
-        <location line="+46"/>
-        <location line="+356"/>
-        <source>Volume Error</source>
-        <translation>Errore nel volume</translation>
-    </message>
-    <message>
-        <location line="-202"/>
+        <location line="+180"/>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
         <translation>Errore nell&apos;ottenere la dimensione di un file.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="-173"/>
-        <location line="+147"/>
+        <location line="-154"/>
+        <location line="+128"/>
         <source>Device Error</source>
         <translation>Errore nel dispositivo</translation>
     </message>
     <message>
-        <location line="-146"/>
+        <location line="-127"/>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>Errore nell&apos;ottenere un handle per il dispositivo.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+81"/>
         <source>Read Error</source>
         <translation>Errore in lettura</translation>
     </message>
     <message>
-        <location line="+275"/>
-        <source>An error occurred when attempting to get a handle on %3.
-Error %1: %2</source>
-        <translation>Errore nell&apos;ottenere un handle per %3.
-Errore %1: %2</translation>
+        <location line="+254"/>
+        <source>Unknown device</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+53"/>
         <source>Could not lock volume %1: it is still in use.
 Close any program using the device and try again.
 Error %2</source>
@@ -599,7 +643,7 @@ Error %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-715"/>
+        <location line="-649"/>
         <source>Dismount Error</source>
         <translation>Errore smontaggio volume</translation>
     </message>
@@ -609,26 +653,13 @@ Error %2</source>
         <translation>Errore in scrittura</translation>
     </message>
     <message>
-        <location line="+155"/>
-        <source>An error occurred while querying the properties.
-This usually means something is currently accessing the device; please close all applications and try again.
-
-Error %1: %2</source>
-        <translation>Errore nel leggere le proprietà.
-Di solito significa che qualcosa sta accedendo al dispositivo. Chiudi tutte le applicazioni e riprova.
-
-Errore %1: %2</translation>
-    </message>
-    <message>
-        <location line="-326"/>
-        <location line="+215"/>
-        <location line="+90"/>
-        <location line="+20"/>
+        <location line="-135"/>
+        <location line="+179"/>
         <source>File Error</source>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-227"/>
+        <location line="-117"/>
         <source>Unlock Error</source>
         <translation>Errore nello sblocco del volume</translation>
     </message>
@@ -671,29 +702,15 @@ Errore %1: %2</translation>
     </message>
     <message>
         <location line="-92"/>
-        <location line="+436"/>
+        <location line="+370"/>
         <source>Lock Error</source>
         <translation>Errore nel blocco del volume</translation>
     </message>
     <message>
-        <location line="-435"/>
+        <location line="-369"/>
         <source>An error occurred when attempting to lock the volume.
 Error %1: %2</source>
         <translation>Errore nel blocco del volume.
-Errore %1: %2</translation>
-    </message>
-    <message>
-        <location line="-18"/>
-        <source>An error occurred when attempting to get a handle on the volume.
-Error %1: %2</source>
-        <translation>Errore nell&apos;ottenere un handle per il volume.
-Errore %1: %2</translation>
-    </message>
-    <message>
-        <location line="-46"/>
-        <source>An error occurred when attempting to get information on volume.
-Error %1: %2</source>
-        <translation>Errore nell&apos;ottenere informazioni del volume.
 Errore %1: %2</translation>
     </message>
 </context>

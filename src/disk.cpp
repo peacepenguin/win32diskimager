@@ -775,6 +775,48 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     return GPT_FIX_OK;
 }
 
+GptRewriteRisk gptRewriteRisk(HANDLE hRawDisk, unsigned long long sectorsize)
+{
+    if (sectorsize < 512)
+    {
+        return GPT_RISK_UNKNOWN;
+    }
+
+    QByteArray primary(sectorsize, 0);
+    unsigned char *hdr = (unsigned char *)primary.data();
+    if (!rawSeekRead(hRawDisk, sectorsize, hdr, (DWORD)sectorsize))
+    {
+        return GPT_RISK_UNKNOWN;
+    }
+    if (memcmp(hdr + GPT_OFF_SIGNATURE, "EFI PART", 8) != 0)
+    {
+        return GPT_RISK_NO_GPT;
+    }
+
+    unsigned long long numentries  = rd32(hdr, GPT_OFF_NUMENTRIES);
+    unsigned long long entrysize   = rd32(hdr, GPT_OFF_ENTRYSIZE);
+    unsigned long long entrylba    = rd64(hdr, GPT_OFF_ENTRYLBA);
+    unsigned long long firstusable = rd64(hdr, GPT_OFF_FIRSTUSABLE);
+    if (numentries == 0 || numentries > 65536 || entrysize < 128 || entrysize > 4096)
+    {
+        return GPT_RISK_UNKNOWN;
+    }
+
+    unsigned long long entrysectors =
+        (numentries * entrysize + sectorsize - 1) / sectorsize;
+    if (firstusable < entrysectors)
+    {
+        return GPT_RISK_UNKNOWN;
+    }
+
+    // Windows recomputes the primary header's PartitionEntryLBA as
+    // FirstUsableLBA minus the length of the entry array. Where that happens to
+    // equal the real PartitionEntryLBA -- the usual layout, FirstUsableLBA 34
+    // with a 32-sector array at LBA 2 -- the rewrite is harmless. Where the
+    // image reserves space ahead of its first partition, it is not.
+    return (firstusable - entrysectors == entrylba) ? GPT_RISK_SAFE : GPT_RISK_AFFECTED;
+}
+
 bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
                      unsigned long long devicesectors,
                      unsigned long long *frontend, unsigned long long *tailstart)

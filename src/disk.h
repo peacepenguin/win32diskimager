@@ -124,6 +124,22 @@ enum GptFixResult
 GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
                                unsigned long long devicesectors, QString *detail);
 
+// Whether this table would survive Windows' rewrite if the device were
+// rescanned with the backup GPT still stranded mid-device.
+enum GptRewriteRisk
+{
+    GPT_RISK_UNKNOWN,   // could not be determined
+    GPT_RISK_NO_GPT,    // no GPT on the device; nothing to rewrite
+    GPT_RISK_SAFE,      // the rewrite would land on the correct value anyway
+    GPT_RISK_AFFECTED   // the rewrite would invalidate the primary table
+};
+
+// Compare the real PartitionEntryLBA against the value Windows computes for it,
+// FirstUsableLBA minus the length of the entry array. They differ exactly when
+// the image reserves space ahead of its first partition, which is what makes
+// ARM board images vulnerable and ordinary ones immune.
+GptRewriteRisk gptRewriteRisk(HANDLE hRawDisk, unsigned long long sectorsize);
+
 // Report the sectors that "Fix GPT after write" may rewrite, so a verify can
 // tell a deliberate GPT rewrite apart from a bad card. The front range
 // [0, *frontend) covers the protective MBR, the primary header and the primary

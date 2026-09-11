@@ -573,6 +573,9 @@ void MainWindow::on_bWrite_clicked()
             // rescan it, so Windows finds nothing to "repair".
             GptFixResult gptfix = GPT_FIX_DISABLED;
             QString gptdetail;
+            // Ask before fixing anything: the fix rewrites the very header this
+            // reads, so afterwards every image would look unaffected.
+            GptRewriteRisk gptrisk = gptRewriteRisk(hRawDisk, sectorsize);
             if (fixGptCheckBox->isChecked() && status != STATUS_CANCELED)
             {
                 statusbar->showMessage(tr("Fixing GPT..."));
@@ -630,16 +633,36 @@ void MainWindow::on_bWrite_clicked()
                         ? tr("Fixing the GPT failed (%1).").arg(
                               gptdetail.isEmpty() ? tr("write error") : gptdetail)
                         : tr("The \"Fix GPT after write\" option is not enabled.");
+                QString risk;
+                if (gptrisk == GPT_RISK_AFFECTED)
+                {
+                    risk = tr("This image IS affected by the Windows GPT rewrite bug.\n\n"
+                              "It reserves space ahead of its first partition, so a rescan "
+                              "makes Windows rewrite the primary partition table to point "
+                              "at the wrong sectors. The result still passes Windows' own "
+                              "checks, but Linux rejects it and the device will not boot.");
+                }
+                else if (gptrisk == GPT_RISK_SAFE)
+                {
+                    risk = tr("This image is NOT affected by the Windows GPT rewrite bug.\n\n"
+                              "Windows will still rewrite the table on a rescan, because the "
+                              "backup GPT is not at the end of the device, but for this "
+                              "layout the rewrite lands on the correct values. Removing the "
+                              "device now keeps it byte-identical to the image regardless.");
+                }
+                else
+                {
+                    risk = tr("Whether this image is affected by the Windows GPT rewrite bug "
+                              "could not be determined. Assume it is: a rescan can leave the "
+                              "partition table rejected by Linux and the device unbootable.");
+                }
                 QMessageBox::warning(this, tr("Remove the device now"),
                     tr("Write successful, but the partition table is at risk.\n\n"
                        "%1\n%2\n\n"
-                       "Physically remove the device NOW, before doing anything else.\n\n"
-                       "Do not re-insert it into this computer. If Windows re-reads a "
-                       "partition table whose backup GPT is not at the end of the device "
-                       "(which is normal when the image is smaller than the card), it will "
-                       "silently rewrite it. The result passes Windows' own checks but is "
-                       "rejected by Linux, and the device will not boot.\n\n"
-                       "Insert it into the target hardware instead.").arg(why).arg(state));
+                       "%3\n\n"
+                       "Physically remove the device NOW, before doing anything else, and "
+                       "do not re-insert it into this computer. Insert it into the target "
+                       "hardware instead.").arg(why).arg(state).arg(risk));
             }
         }
         else if (!fileinfo.exists() || !fileinfo.isFile())

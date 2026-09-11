@@ -9,7 +9,7 @@
         <translation>Win32 Disk Imager</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+11"/>
         <source>Image File</source>
         <translation>Archivo Imagen</translation>
     </message>
@@ -24,12 +24,12 @@
         <translation>Dispositivo</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+42"/>
         <source>Hash</source>
         <translation>Hash</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+17"/>
         <source>Select hash type for verification</source>
         <translation>Seleccionar tipo de hash para la verificación</translation>
     </message>
@@ -71,6 +71,16 @@
     <message>
         <location line="+3"/>
         <source>After writing, move the backup GPT to the end of the device and update the header to match, so Windows has nothing to &quot;repair&quot;. Leave unchecked to be warned to remove the device instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Show all devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -134,7 +144,7 @@
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+185"/>
+        <location filename="../mainwindow.cpp" line="+195"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -165,7 +175,7 @@ Are you sure you want to exit?</source>
         <translation>Generando...</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+42"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>¿Cancelar?</translation>
@@ -179,69 +189,62 @@ Are you sure you want to cancel?</source>
     </message>
     <message>
         <location line="+30"/>
-        <location line="+165"/>
-        <location line="+189"/>
-        <location line="+101"/>
+        <location line="+6"/>
+        <location line="+143"/>
+        <location line="+212"/>
+        <location line="+85"/>
         <source>Write Error</source>
         <translation>Error al Escribir</translation>
     </message>
     <message>
-        <location line="-455"/>
-        <location line="+354"/>
-        <location line="+216"/>
+        <location line="-446"/>
+        <location line="+361"/>
+        <location line="+192"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>El Archivo Imagen no se puede ubicar en el dispositivo destino.</translation>
     </message>
     <message>
-        <location line="-560"/>
+        <location line="-544"/>
         <source>Confirm overwrite</source>
         <translation>Confirmar sobrescritura</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Writing to a physical device can corrupt the device.
-(Target Device: %1 &quot;%2&quot;)
-Are you sure you want to continue?</source>
-        <translation>Escribir en un dispositivo físico puede dañar el dispositivo.
-(Dispositivo de destino: %1 &quot;%2&quot;)
-¿Estás seguro de que quieres continuar?</translation>
-    </message>
-    <message>
-        <location line="-295"/>
+        <location line="-313"/>
         <source>Waiting for a task.</source>
         <translation>Esperando una tarea.</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+39"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG)</source>
         <translation>Imágenes de Disco (*.img *.IMG)</translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location line="+122"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>El salir ahora resultará en cancelar la verificación de la imagen
 ¿Está seguro que quiere salir?</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+120"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Cancelar Verificación.
 ¿Estas seguro que quieres cancelar?</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+143"/>
         <source>Not enough available space!</source>
         <translation>¡No hay suficiente espacio disponible!</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="-180"/>
+        <location line="+372"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+526"/>
+        <location line="+473"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -249,45 +252,80 @@ Are you sure you want to cancel?</source>
         <translation>Error de Archivo</translation>
     </message>
     <message>
-        <location line="-573"/>
-        <location line="+550"/>
+        <location line="-530"/>
+        <source>Write successful, but the partition table is at risk.
+
+%1
+%2
+
+%3
+
+Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <location line="+497"/>
         <source>The selected file does not exist.</source>
         <translation>El archivo seleccionado no existe.</translation>
     </message>
     <message>
-        <location line="-545"/>
-        <location line="+550"/>
+        <location line="-492"/>
+        <location line="+497"/>
         <source>You do not have permision to read the selected file.</source>
         <translation>No tiene permision para leer el archivo seleccionado.</translation>
     </message>
     <message>
-        <location line="-545"/>
-        <location line="+550"/>
+        <location line="-492"/>
+        <location line="+497"/>
         <source>The specified file contains no data.</source>
         <translation>El archivo especificado no contiene datos.</translation>
     </message>
     <message>
-        <location line="-546"/>
-        <location line="+213"/>
-        <location line="+337"/>
+        <location line="-493"/>
+        <location line="+189"/>
+        <location line="+308"/>
         <source>Done.</source>
         <translation>Terminado.</translation>
     </message>
     <message>
-        <location line="-333"/>
+        <location line="-304"/>
         <location line="+2"/>
-        <location line="+310"/>
+        <location line="+281"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Completo</translation>
     </message>
     <message>
-        <location line="-550"/>
+        <location line="-497"/>
         <source>Write Successful.</source>
         <translation>Escritura Exitosa.</translation>
     </message>
     <message>
-        <location line="-164"/>
+        <location line="-393"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Could not open the file to generate a checksum:
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+63"/>
+        <source>Please select a target device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Writing to a physical device can corrupt the device.
+(Target Device: %1)
+Are you sure you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+136"/>
         <source>Clearing old partition tables...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -297,7 +335,7 @@ Are you sure you want to cancel?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+75"/>
         <source>Fixing GPT...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -361,32 +399,52 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
+        <source>This image IS affected by the Windows GPT rewrite bug.
+
+It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>This image is NOT affected by the Windows GPT rewrite bug.
+
+Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Remove the device now</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Write successful, but the partition table is at risk.
-
-%1
-%2
-
-Physically remove the device NOW, before doing anything else.
-
-Do not re-insert it into this computer. If Windows re-reads a partition table whose backup GPT is not at the end of the device (which is normal when the image is smaller than the card), it will silently rewrite it. The result passes Windows&apos; own checks but is rejected by Linux, and the device will not boot.
-
-Insert it into the target hardware instead.</source>
+        <location line="+590"/>
+        <source>[Disk %1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+37"/>
-        <location line="+549"/>
+        <location line="-555"/>
+        <location line="+496"/>
         <source>Please specify an image file to use.</source>
         <translation>Por favor especifique un archivo de imagen para usar.</translation>
     </message>
     <message>
-        <location line="-520"/>
+        <location line="-467"/>
+        <source>Read Error</source>
+        <translation type="unfinished">Error de Lectura</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Please select a source device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Confirm Overwrite</source>
         <translation>Confirmar sobrescritura</translation>
     </message>
@@ -396,12 +454,12 @@ Insert it into the target hardware instead.</source>
         <translation>¿Está seguro de que quiere sobrescribir el archivo especificado?</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+73"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>El disco no es lo suficientemente grande para la imagen especificada.</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+75"/>
         <source>Read Canceled.</source>
         <translation>Lectura Cancelada.</translation>
     </message>
@@ -422,11 +480,17 @@ Insert it into the target hardware instead.</source>
     </message>
     <message>
         <location line="+23"/>
+        <location line="+6"/>
         <source>Verify Error</source>
         <translation>Verificar Error </translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+0"/>
+        <source>Please select a device to verify against.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+102"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -455,19 +519,19 @@ Continue Anyway?</source>
         <translation>¡Tamaño incorrecto!</translation>
     </message>
     <message>
-        <location line="+54"/>
-        <location line="+40"/>
+        <location line="+50"/>
+        <location line="+38"/>
         <source>Verify Failure</source>
         <translation>Falló la Verificación</translation>
     </message>
     <message>
-        <location line="-40"/>
-        <location line="+41"/>
+        <location line="-38"/>
+        <location line="+39"/>
         <source>Verification failed at sector: %1</source>
         <translation>La verificación falló en el sector: %1</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+41"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
@@ -498,61 +562,38 @@ The device could NOT be taken offline automatically.</source>
     <name>QObject</name>
     <message>
         <location filename="../disk.cpp" line="+43"/>
-        <location line="+215"/>
-        <location line="+90"/>
-        <location line="+20"/>
+        <location line="+179"/>
         <source>File Error</source>
         <translation>Error de Archivo</translation>
     </message>
     <message>
-        <location line="-325"/>
+        <location line="-179"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>Se ha producido un error al intentar obtener un identificador del archivo.
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+43"/>
-        <location line="+147"/>
+        <location line="+26"/>
+        <location line="+128"/>
         <source>Device Error</source>
         <translation>Error de Dispositivo</translation>
     </message>
     <message>
-        <location line="-146"/>
+        <location line="-127"/>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>Se ha producido un error al intentar obtener un identificador del dispositivo.
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="-28"/>
-        <location line="+46"/>
-        <location line="+356"/>
-        <source>Volume Error</source>
-        <translation>Error de Volumen</translation>
-    </message>
-    <message>
-        <location line="-401"/>
-        <source>An error occurred when attempting to get information on volume.
-Error %1: %2</source>
-        <translation>Se ha producido un error al intentar obtener información sobre el volumen.
-Error %1: %2</translation>
-    </message>
-    <message>
-        <location line="+46"/>
-        <source>An error occurred when attempting to get a handle on the volume.
-Error %1: %2</source>
-        <translation>Se ha producido un error al intentar obtener un identificador del volumen.
-Error %1: %2</translation>
-    </message>
-    <message>
         <location line="+17"/>
-        <location line="+436"/>
+        <location line="+370"/>
         <source>Lock Error</source>
         <translation>Error de Bloqueo</translation>
     </message>
     <message>
-        <location line="-435"/>
+        <location line="-369"/>
         <source>An error occurred when attempting to lock the volume.
 Error %1: %2</source>
         <translation>Se ha producido un error al intentar bloquear el volumen.
@@ -635,36 +676,12 @@ Error %2:%3
 La comprobación del espacio libre será omitida.</translation>
     </message>
     <message>
-        <location line="+66"/>
-        <source>An error occurred while getting the device number.
-This usually means something is currently accessing the device;please close all applications and try again.
-
-Error %1: %2</source>
-        <translation>Se ha producido un error al obtener el número de dispositivo.
-Esto generalmente significa que algo está accediendo al dispositivo, cierre todas las aplicaciones e inténtelo de nuevo.
-
-Error %1: %2</translation>
+        <location line="+158"/>
+        <source>Unknown device</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
-        <source>An error occurred while querying the properties.
-This usually means something is currently accessing the device; please close all applications and try again.
-
-Error %1: %2</source>
-        <translation>Se ha producido un error al consultar las propiedades.
-Esto generalmente significa que algo está accediendo al dispositivo; Cierre todas las aplicaciones e inténtelo de nuevo.
-
-Error %1: %2</translation>
-    </message>
-    <message>
-        <location line="+93"/>
-        <source>An error occurred when attempting to get a handle on %3.
-Error %1: %2</source>
-        <translation>Se ha producido un error al intentar obtener un identificador en %3.
-Error %1: %2</translation>
-    </message>
-    <message>
-        <location line="+98"/>
+        <location line="+53"/>
         <source>Could not lock volume %1: it is still in use.
 Close any program using the device and try again.
 Error %2</source>
