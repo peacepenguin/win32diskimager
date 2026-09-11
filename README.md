@@ -66,6 +66,23 @@ where Windows or another process could modify the disk mid-write.
 `tools/gptdump.py` decodes and checksum-verifies both GPT headers of an image
 file or a raw device, if you want to inspect a card yourself.
 
+## The device list
+
+Devices are enumerated as physical disks (`\\.\PhysicalDriveN`), not as drive
+letters. Upstream scanned letters, so a card only appeared once Windows had
+mounted a filesystem on it and assigned one — which a card holding a Linux
+image never gets, making the card it had just written invisible. Each entry
+shows the drive letters if it has any, its size, and the model it reports.
+
+Removable and USB/SD/MMC devices are always listed. **Show all devices** adds
+fixed disks, for internal PCIe card readers that present the card as a
+non-removable system device. The disk Windows is running from is never listed,
+whatever the setting.
+
+The list also refreshes on a timer rather than only on device-arrival
+broadcasts, since inserting a card into a reader that presents no volume
+produces no broadcast at all.
+
 | | |
 |---|---|
 | Building | [BUILD.md](BUILD.md) |
@@ -81,6 +98,9 @@ file or a raw device, if you want to inspect a card yourself.
  * Added the "Fix GPT after write" option
  * Lock every volume on the target disk while writing; offline and eject when done
  * Zero stale partition tables at both ends of the device before writing
+ * Enumerate physical disks instead of drive letters, so devices with no
+   letter still appear
+ * Added the "Show all devices" option for card readers that present as fixed
  * Added a GitHub Actions workflow that cross-compiles for win64 from Linux
 
 ## Legal

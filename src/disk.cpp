@@ -46,23 +46,6 @@ HANDLE getHandleOnFile(LPCWSTR filelocation, DWORD access)
     }
     return hFile;
 }
-DWORD getDeviceID(HANDLE hVolume)
-{
-    VOLUME_DISK_EXTENTS sd;
-    DWORD bytesreturned;
-    if (!DeviceIoControl(hVolume, IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS, NULL, 0, &sd, sizeof(sd), &bytesreturned, NULL))
-    {
-        wchar_t *errormessage=NULL;
-        ::FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0,
-                         (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Volume Error"),
-                              QObject::tr("An error occurred when attempting to get information on volume.\n"
-                                          "Error %1: %2").arg(GetLastError()).arg(errText));
-        LocalFree(errormessage);
-    }
-    return sd.Extents[0].DiskNumber;
-}
 
 HANDLE getHandleOnDevice(int device, DWORD access)
 {
@@ -89,25 +72,6 @@ HANDLE getHandleOnDevice(int device, DWORD access)
         LocalFree(errormessage);
     }
     return hDevice;
-}
-
-HANDLE getHandleOnVolume(int volume, DWORD access)
-{
-    HANDLE hVolume;
-    char volumename[] = "\\\\.\\A:";
-    volumename[4] += volume;
-    hVolume = CreateFile(volumename, access, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
-    if (hVolume == INVALID_HANDLE_VALUE)
-    {
-        wchar_t *errormessage=NULL;
-        FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Volume Error"),
-                              QObject::tr("An error occurred when attempting to get a handle on the volume.\n"
-                                          "Error %1: %2").arg(GetLastError()).arg(errText));
-        LocalFree(errormessage);
-    }
-    return hVolume;
 }
 
 bool getLockOnVolume(HANDLE handle)
@@ -288,228 +252,162 @@ bool spaceAvailable(char *location, unsigned long long spaceneeded)
     return (spaceneeded <= freespace.QuadPart);
 }
 
-// given a drive letter (ending in a slash), return the label for that drive
-// TODO make this more robust by adding input verification
-QString getDriveLabel(const char *drv)
+
+
+
+// Physical disk a mounted volume lives on, or -1 if it cannot be determined.
+static int diskNumberOfVolume(char letter)
 {
-    QString retVal;
-    int szNameBuf = MAX_PATH + 1;
-    char *nameBuf = NULL;
-    if( (nameBuf = (char *)calloc(szNameBuf, sizeof(char))) != 0 )
+    char volumename[] = "\\\\.\\A:";
+    volumename[4] = letter;
+    // No access rights are requested: this only queries the volume, and asking
+    // for read access would need the volume to be readable by us.
+    HANDLE h = CreateFile(volumename, 0, FILE_SHARE_READ | FILE_SHARE_WRITE,
+                          NULL, OPEN_EXISTING, 0, NULL);
+    if (h == INVALID_HANDLE_VALUE)
     {
-        ::GetVolumeInformationA(drv, nameBuf, szNameBuf, NULL,
-                                        NULL, NULL, NULL, 0);
+        return -1;
     }
-
-    // if malloc fails, nameBuf will be NULL.
-    // if GetVolumeInfo fails, nameBuf will contain empty string
-    // if all succeeds, nameBuf will contain label
-    if(nameBuf == NULL)
+    VOLUME_DISK_EXTENTS sd;
+    DWORD bytesreturned;
+    int disk = -1;
+    if (DeviceIoControl(h, IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS, NULL, 0,
+                        &sd, sizeof(sd), &bytesreturned, NULL)
+        && sd.NumberOfDiskExtents > 0)
     {
-        retVal = QString("");
+        disk = (int)sd.Extents[0].DiskNumber;
     }
-    else
-    {
-        retVal = QString(nameBuf);
-        free(nameBuf);
-    }
-
-    return(retVal);
+    CloseHandle(h);
+    return disk;
 }
 
-BOOL GetDisksProperty(HANDLE hDevice, PSTORAGE_DEVICE_DESCRIPTOR pDevDesc,
-                      DEVICE_NUMBER *devInfo)
+QString driveLettersOnDevice(ULONG deviceID)
 {
-    STORAGE_PROPERTY_QUERY Query; // input param for query
-    DWORD dwOutBytes; // IOCTL output length
-    BOOL bResult; // IOCTL return val
-    BOOL retVal = true;
-    DWORD cbBytesReturned;
-
-    // specify the query type
-    Query.PropertyId = StorageDeviceProperty;
-    Query.QueryType = PropertyStandardQuery;
-
-    // Query using IOCTL_STORAGE_QUERY_PROPERTY
-    bResult = ::DeviceIoControl(hDevice, IOCTL_STORAGE_QUERY_PROPERTY,
-                &Query, sizeof(STORAGE_PROPERTY_QUERY), pDevDesc,
-                pDevDesc->Size, &dwOutBytes, (LPOVERLAPPED)NULL);
-    if (bResult)
+    QStringList found;
+    unsigned long driveMask = GetLogicalDrives();
+    for (int i = 0; i < 26; ++i)
     {
-        bResult = ::DeviceIoControl(hDevice, IOCTL_STORAGE_GET_DEVICE_NUMBER,
-                    NULL, 0, devInfo, sizeof(DEVICE_NUMBER), &dwOutBytes,
-                    (LPOVERLAPPED)NULL);
-        if (!bResult)
+        if (!(driveMask & (1ul << i)))
         {
-            retVal = false;
-            wchar_t *errormessage=NULL;
-            FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-            QString errText = QString::fromUtf16((const char16_t *)errormessage);
-            QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("File Error"),
-                                  QObject::tr("An error occurred while getting the device number.\n"
-                                              "This usually means something is currently accessing the device;"
-                                              "please close all applications and try again.\n\nError %1: %2").arg(GetLastError()).arg(errText));
-            LocalFree(errormessage);
+            continue;
+        }
+        char letter = 'A' + i;
+        if (diskNumberOfVolume(letter) == (int)deviceID)
+        {
+            found.append(QString("%1:").arg(QChar(letter)));
         }
     }
-    else
-    {
-        bResult = DeviceIoControl(hDevice, IOCTL_STORAGE_CHECK_VERIFY2, NULL, 0, NULL, 0, &cbBytesReturned,
-                            (LPOVERLAPPED) NULL);
-        if (bResult && GetLastError() == ERROR_INVALID_FUNCTION)
-        {
-            retVal = false;
-        }
-        else
-        {
-            wchar_t *errormessage=NULL;
-            FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-            QString errText = QString::fromUtf16((const char16_t *)errormessage);
-            QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("File Error"),
-                                  QObject::tr("An error occurred while querying the properties.\n"
-                                              "This usually means something is currently accessing the device;"
-                                              " please close all applications and try again.\n\nError %1: %2").arg(GetLastError()).arg(errText));
-            LocalFree(errormessage);
-        }
-            retVal = false;
-    }
-
-    return(retVal);
+    return found.join(", ");
 }
 
-// some routines fail if there's no trailing slash in a name,
-// 		others fail if there is.  So this routine takes a name (trailing
-// 		slash or no), and creates 2 versions - one with the slash, and one w/o
-//
-// 		CALLER MUST FREE THE 2 RETURNED STRINGS
-bool slashify(char *str, char **slash, char **noSlash)
+// Disk that holds the running Windows installation, or -1 if unknown.
+static int systemDiskNumber()
 {
-    bool retVal = false;
-    int strLen = strlen(str);
-    if ( strLen > 0 )
+    char windir[MAX_PATH + 1] = {0};
+    if (GetWindowsDirectoryA(windir, MAX_PATH) == 0)
     {
-        if ( *(str + strLen - 1) == '\\' )
-        {
-            // trailing slash exists
-            if (( (*slash = (char *)calloc( (strLen + 1), sizeof(char))) != NULL) &&
-                    ( (*noSlash = (char *)calloc(strLen, sizeof(char))) != NULL))
-            {
-                strncpy(*slash, str, strLen);
-                strncpy(*noSlash, *slash, (strLen - 1));
-                retVal = true;
-            }
-        }
-        else
-        {
-            // no trailing slash exists
-            if ( ((*slash = (char *)calloc( (strLen + 2), sizeof(char))) != NULL) &&
-                 ((*noSlash = (char *)calloc( (strLen + 1), sizeof(char))) != NULL) )
-            {
-                strncpy(*noSlash, str, strLen);
-                sprintf(*slash, "%s\\", *noSlash);
-                retVal = true;
-            }
-        }
+        return -1;
     }
-    return(retVal);
+    return diskNumberOfVolume(windir[0]);
 }
 
-bool GetMediaType(HANDLE hDevice)
+// A trailing run of spaces and NULs is normal in the descriptor strings.
+static QString descriptorString(const BYTE *buf, DWORD offset)
 {
-    DISK_GEOMETRY diskGeo;
-    DWORD cbBytesReturned;
-    if (DeviceIoControl(hDevice, IOCTL_DISK_GET_DRIVE_GEOMETRY,NULL, 0, &diskGeo, sizeof(diskGeo), &cbBytesReturned, NULL))
+    if (offset == 0)
     {
-        if ((diskGeo.MediaType == FixedMedia) || (diskGeo.MediaType == RemovableMedia))
-        {
-            return true; // Not a floppy
-        }
+        return QString();
     }
-    return false;
+    return QString::fromLatin1((const char *)buf + offset).trimmed();
 }
 
-bool checkDriveType(char *name, ULONG *pid)
+QList<PhysicalDevice> enumeratePhysicalDevices(bool includeFixed)
 {
-    HANDLE hDevice;
-    PSTORAGE_DEVICE_DESCRIPTOR pDevDesc;
-    DEVICE_NUMBER deviceInfo;
-    bool retVal = false;
-    char *nameWithSlash;
-    char *nameNoSlash;
-    int driveType;
-    DWORD cbBytesReturned;
+    QList<PhysicalDevice> devices;
+    const int systemDisk = systemDiskNumber();
 
-    // some calls require no tailing slash, some require a trailing slash...
-    if ( !(slashify(name, &nameWithSlash, &nameNoSlash)) )
+    // 128 covers anything a machine is likely to have attached; the numbers are
+    // not dense, so the loop cannot stop at the first gap.
+    for (ULONG n = 0; n < 128; ++n)
     {
-        return(retVal);
-    }
-
-    driveType = GetDriveType(nameWithSlash);
-    switch( driveType )
-    {
-    case DRIVE_REMOVABLE: // The media can be removed from the drive.
-    case DRIVE_FIXED:     // The media cannot be removed from the drive. Some USB drives report as this.
-        hDevice = CreateFile(nameNoSlash, FILE_READ_ATTRIBUTES, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+        QString devicename = QString("\\\\.\\PhysicalDrive%1").arg(n);
+        // Querying needs no access rights, so this works without the disk being
+        // readable and without disturbing whatever else has it open.
+        HANDLE hDevice = CreateFile(devicename.toLatin1().data(), 0,
+                                    FILE_SHARE_READ | FILE_SHARE_WRITE, NULL,
+                                    OPEN_EXISTING, 0, NULL);
         if (hDevice == INVALID_HANDLE_VALUE)
         {
-            // for some driver-based devices (Subst, RamDisk), AccessDenied (5) is returned.
-            // maybe that should just be skipped instead of triggering an error dialog...
-            wchar_t *errormessage=NULL;
-            FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-            QString errText = QString::fromUtf16((const char16_t *)errormessage);
-            QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Volume Error"),
-                                  QObject::tr("An error occurred when attempting to get a handle on %3.\n"
-                                              "Error %1: %2").arg(GetLastError()).arg(errText).arg(nameWithSlash));
-            LocalFree(errormessage);
+            continue;
         }
-        else
+
+        PhysicalDevice dev;
+        dev.deviceNumber = n;
+        dev.sizeBytes = 0;
+        dev.removable = false;
+
+        int arrSz = sizeof(STORAGE_DEVICE_DESCRIPTOR) + 512 - 1;
+        BYTE *buf = new BYTE[arrSz];
+        PSTORAGE_DEVICE_DESCRIPTOR pDevDesc = (PSTORAGE_DEVICE_DESCRIPTOR)buf;
+        pDevDesc->Size = arrSz;
+        STORAGE_PROPERTY_QUERY query;
+        query.PropertyId = StorageDeviceProperty;
+        query.QueryType = PropertyStandardQuery;
+        DWORD dwOutBytes;
+        bool described = DeviceIoControl(hDevice, IOCTL_STORAGE_QUERY_PROPERTY,
+                                         &query, sizeof(query), pDevDesc,
+                                         pDevDesc->Size, &dwOutBytes, NULL);
+        if (described)
         {
-            int arrSz = sizeof(STORAGE_DEVICE_DESCRIPTOR) + 512 - 1;
-            pDevDesc = (PSTORAGE_DEVICE_DESCRIPTOR)new BYTE[arrSz];
-            pDevDesc->Size = arrSz;
-
-            // get the device number if the drive is
-            // removable or (fixed AND on the usb bus, SD, or MMC (undefined in XP/mingw))
-            if(GetMediaType(hDevice) && GetDisksProperty(hDevice, pDevDesc, &deviceInfo) &&
-                    ( ((driveType == DRIVE_REMOVABLE) && (pDevDesc->BusType != BusTypeSata))
-                      || ( (driveType == DRIVE_FIXED) && ((pDevDesc->BusType == BusTypeUsb)
-                      || (pDevDesc->BusType == BusTypeSd ) || (pDevDesc->BusType == BusTypeMmc )) ) ) )
-            {
-                // ensure that the drive is actually accessible
-                // multi-card hubs were reporting "removable" even when empty
-                if(DeviceIoControl(hDevice, IOCTL_STORAGE_CHECK_VERIFY2, NULL, 0, NULL, 0, &cbBytesReturned, (LPOVERLAPPED) NULL))
-                {
-                    *pid = deviceInfo.DeviceNumber;
-                    retVal = true;
-                }
-                else
-                // IOCTL_STORAGE_CHECK_VERIFY2 fails on some devices under XP/Vista, try the other (slower) method, just in case.
-                {
-                    CloseHandle(hDevice);
-                    hDevice = CreateFile(nameNoSlash, FILE_READ_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
-                    if(DeviceIoControl(hDevice, IOCTL_STORAGE_CHECK_VERIFY, NULL, 0, NULL, 0, &cbBytesReturned, (LPOVERLAPPED) NULL))
-                    {
-                        *pid = deviceInfo.DeviceNumber;
-                        retVal = true;
-                    }
-                }
-            }
-
-            delete[] pDevDesc;
-            CloseHandle(hDevice);
+            QString vendor = descriptorString(buf, pDevDesc->VendorIdOffset);
+            QString product = descriptorString(buf, pDevDesc->ProductIdOffset);
+            dev.description = QString("%1 %2").arg(vendor).arg(product).trimmed();
+            // eSATA reports removable media but is a fixed internal disk in
+            // practice, so it is only offered when fixed disks are shown.
+            dev.removable = (pDevDesc->RemovableMedia && pDevDesc->BusType != BusTypeSata)
+                            || pDevDesc->BusType == BusTypeUsb
+                            || pDevDesc->BusType == BusTypeSd
+                            || pDevDesc->BusType == BusTypeMmc;
         }
+        delete[] buf;
 
-        break;
-    default:
-        retVal = false;
+        // A card reader with no card in it still has a PhysicalDrive node, but
+        // reports no size. Size doubles as the "media present" test that
+        // IOCTL_STORAGE_CHECK_VERIFY used to provide.
+        //
+        // Geometry rather than IOCTL_DISK_GET_LENGTH_INFO: the latter demands
+        // FILE_READ_ACCESS on the handle and returns nothing for a handle
+        // opened purely to query, which would empty the list entirely.
+        DISK_GEOMETRY_EX geometry;
+        DWORD junk;
+        if (DeviceIoControl(hDevice, IOCTL_DISK_GET_DRIVE_GEOMETRY_EX, NULL, 0,
+                            &geometry, sizeof(geometry), &junk, NULL))
+        {
+            dev.sizeBytes = (unsigned long long)geometry.DiskSize.QuadPart;
+        }
+        CloseHandle(hDevice);
+
+        if (dev.sizeBytes == 0)
+        {
+            continue;
+        }
+        // Never offer the disk Windows is running from, whatever the filter.
+        if (systemDisk >= 0 && (int)n == systemDisk)
+        {
+            continue;
+        }
+        if (!dev.removable && !includeFixed)
+        {
+            continue;
+        }
+        if (dev.description.isEmpty())
+        {
+            dev.description = QObject::tr("Unknown device");
+        }
+        dev.letters = driveLettersOnDevice(n);
+        devices.append(dev);
     }
-
-    // free the strings allocated by slashify
-    free(nameWithSlash);
-    free(nameNoSlash);
-
-    return(retVal);
+    return devices;
 }
 
 bool LockedVolumes::lockAll(DWORD deviceID)

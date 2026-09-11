@@ -59,6 +59,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void on_bVerify_clicked();
         void on_leFile_editingFinished();
         void on_bHashCopy_clicked();
+        void on_showAllDevicesCheckBox_toggled(bool checked);
 private slots:
         void on_cboxHashType_IdxChg();
         void on_bHashGen_clicked();
@@ -68,13 +69,14 @@ private:
         static MainWindow* instance;
         // find attached devices
         void getLogicalDrives();
+        int selectedDeviceID();
+        bool fileIsOnSelectedDevice(const QString &file);
         void setReadWriteButtonState();
         void saveSettings();
         void loadSettings();
         void initializeHomeDir();
         void updateHashControls();
 
-        HANDLE hVolume;
         HANDLE hFile;
         HANDLE hRawDisk;
         static const unsigned short ONE_SEC_IN_MS = 1000;
@@ -86,6 +88,8 @@ private:
         ElapsedTimer *elapsed_timer = NULL;
         QClipboard *clipboard;
         void generateHash(char *filename, int hashish);
+        QString deviceSignature;
+        QTimer *device_poll_timer = NULL;
         QString myHomeDir;
         QString myFileType;
         QStringList myFileTypeList;

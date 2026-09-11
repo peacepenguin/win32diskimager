@@ -1,3 +1,29 @@
+Release 1.1.0
+=============
+Fork release. Changes against 1.0.0:
+
+Fixed the Windows GPT corruption that left written cards unbootable, and
+  added the "Fix GPT after write" option; see README.md
+Zero stale partition tables at both ends of the device before writing
+Lock every volume on the target disk while writing, then offline and eject
+  the disk before the locks are released
+Removed the installer; updated to Qt 6
+Added build notes, deploy scripts and a GitHub Actions workflow that
+  cross-compiles for win64 from Linux
+Enumerate physical disks instead of drive letters, so a device with no
+  mounted volume — a card holding a Linux image, for one — still appears
+Added the "Show all devices" option for internal card readers that present
+  the card as a fixed, non-removable disk; the Windows system disk is never
+  listed either way
+Refresh the device list on a timer as well as on device-arrival broadcasts,
+  since a card going into a reader that exposes no volume broadcasts nothing
+Lock and dismount every volume on the disk for reads and verifies, as writes
+  already did
+Device list shows drive letters, size and model; the dropdown sizes itself to
+  fit them
+Report an error when the file for a checksum cannot be opened, rather than
+  presenting the hash of nothing as valid
+
 Release 1.0.0
 =============
 Add Verify Image function

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>303</height>
+    <width>520</width>
+    <height>360</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>425</width>
-    <height>300</height>
+    <width>460</width>
+    <height>350</height>
    </size>
   </property>
   <property name="acceptDrops">
@@ -35,24 +35,10 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
-     <layout class="QHBoxLayout">
-      <property name="leftMargin">
-       <number>2</number>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Image File</string>
       </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="title">
-         <string>Image File</string>
-        </property>
         <layout class="QHBoxLayout">
          <property name="spacing">
           <number>3</number>
@@ -84,13 +70,13 @@
           </widget>
          </item>
         </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_2">
-        <property name="title">
-         <string>Device</string>
-        </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Device</string>
+      </property>
         <layout class="QHBoxLayout">
          <property name="spacing">
           <number>0</number>
@@ -110,17 +96,23 @@
          <item>
           <widget class="QComboBox" name="cboxDevice">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>1</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <!-- Device entries carry a size and a model name, so the box needs
+                room for more than a drive letter. -->
+           <property name="minimumContentsLength">
+            <number>28</number>
+           </property>
+           <property name="sizeAdjustPolicy">
+            <enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum>
            </property>
           </widget>
          </item>
         </layout>
-       </widget>
-      </item>
-     </layout>
+     </widget>
     </item>
     <item>
      <widget class="QGroupBox" name="hashGroup">
@@ -138,11 +130,8 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>65</width>
-             <height>16777215</height>
-            </size>
+           <property name="sizeAdjustPolicy">
+            <enum>QComboBox::AdjustToContents</enum>
            </property>
            <property name="toolTip">
             <string>Select hash type for verification</string>
@@ -260,6 +249,22 @@
         </property>
         <property name="toolTip">
          <string>After writing, move the backup GPT to the end of the device and update the header to match, so Windows has nothing to &quot;repair&quot;. Leave unchecked to be warned to remove the device instead.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="showAllDevicesCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Show all devices</string>
+        </property>
+        <property name="toolTip">
+         <string>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</string>
         </property>
        </widget>
       </item>

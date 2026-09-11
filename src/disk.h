@@ -34,13 +34,6 @@
 #define FSCTL_IS_VOLUME_MOUNTED  CTL_CODE(FILE_DEVICE_FILE_SYSTEM, 10, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #endif // FSCTL_IS_VOLUME_MOUNTED
 
-typedef struct _DEVICE_NUMBER
-{
-    DEVICE_TYPE  DeviceType;
-    ULONG  DeviceNumber;
-    ULONG  PartitionNumber;
-} DEVICE_NUMBER, *PDEVICE_NUMBER;
-
 // Not declared by the MinGW headers.
 #ifndef IOCTL_DISK_SET_DISK_ATTRIBUTES
 #define IOCTL_DISK_SET_DISK_ATTRIBUTES  CTL_CODE(IOCTL_DISK_BASE, 0x003d, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS)
@@ -60,11 +53,31 @@ typedef struct _SET_DISK_ATTRIBUTES
 // IOCTL control code
 #define IOCTL_STORAGE_QUERY_PROPERTY   CTL_CODE(IOCTL_STORAGE_BASE, 0x0500, METHOD_BUFFERED, FILE_ANY_ACCESS)
 
+// One physical disk, as offered in the device list. Enumeration goes through
+// \\.\PhysicalDriveN rather than through drive letters: a card holding a Linux
+// image has no filesystem Windows can mount, so it gets no letter and a
+// letter-based scan never sees it at all.
+struct PhysicalDevice
+{
+    ULONG deviceNumber;             // N in \\.\PhysicalDriveN
+    QString description;            // vendor + product, as the device reports it
+    QString letters;                // "E:, F:", empty when nothing is mounted
+    unsigned long long sizeBytes;
+    bool removable;                 // removable media, or on the USB/SD/MMC bus
+};
+
+// Every physical disk that could plausibly be a target. Removable and
+// USB/SD/MMC devices are always listed; the rest only when includeFixed is
+// set, for internal card readers that present the card as a fixed disk. The
+// disk holding the running Windows installation is never listed.
+QList<PhysicalDevice> enumeratePhysicalDevices(bool includeFixed);
+
+// Drive letters, uppercase and without a colon, of every mounted volume on
+// physical disk deviceID.
+QString driveLettersOnDevice(ULONG deviceID);
+
 HANDLE getHandleOnFile(LPCWSTR filelocation, DWORD access);
 HANDLE getHandleOnDevice(int device, DWORD access);
-HANDLE getHandleOnVolume(int volume, DWORD access);
-QString getDriveLabel(const char *drv);
-DWORD getDeviceID(HANDLE handle);
 bool getLockOnVolume(HANDLE handle);
 bool removeLockOnVolume(HANDLE handle);
 bool unmountVolume(HANDLE handle);
@@ -130,6 +143,5 @@ bool writeSectorDataToHandle(HANDLE handle, char *data, unsigned long long start
 unsigned long long getNumberOfSectors(HANDLE handle, unsigned long long *sectorsize);
 unsigned long long getFileSizeInSectors(HANDLE handle, unsigned long long sectorsize);
 bool spaceAvailable(char *location, unsigned long long spaceneeded);
-bool checkDriveType(char *name, ULONG *pid);
 
 #endif // DISK_H
