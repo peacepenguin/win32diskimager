@@ -25,7 +25,7 @@ jobs:
           test -f /usr/share/mingw/toolchain-mingw64.cmake
           test -x /usr/bin/lrelease-qt6
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Configure
         run: |
@@ -45,7 +45,7 @@ jobs:
           bash tools/deploy-cross.sh build dist \
             /usr/x86_64-w64-mingw32/sys-root/mingw
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: Win32DiskImager-win64
           path: dist/
