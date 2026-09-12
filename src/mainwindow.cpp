@@ -423,6 +423,8 @@ void MainWindow::on_bWrite_clicked()
             if (!locked.lockAll(deviceID))
             {
                 status = STATUS_IDLE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -435,6 +437,8 @@ void MainWindow::on_bWrite_clicked()
             {
                 locked.release();
                 status = STATUS_IDLE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -452,6 +456,8 @@ void MainWindow::on_bWrite_clicked()
                 hRawDisk = INVALID_HANDLE_VALUE;
                 passfail = false;
                 status = STATUS_IDLE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -466,6 +472,8 @@ void MainWindow::on_bWrite_clicked()
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -487,6 +495,8 @@ void MainWindow::on_bWrite_clicked()
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -510,6 +520,8 @@ void MainWindow::on_bWrite_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    progressbar->reset();
+                    statusbar->showMessage(tr("Write failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
@@ -580,6 +592,8 @@ void MainWindow::on_bWrite_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    progressbar->reset();
+                    statusbar->showMessage(tr("Write cancelled."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
@@ -594,11 +608,15 @@ void MainWindow::on_bWrite_clicked()
             if (!wipePartitionTables(hRawDisk, sectorsize, availablesectors))
             {
                 QMessageBox::critical(this, tr("Write Error"),
-                    tr("Could not clear the existing partition tables on the device."));
+                    tr("Could not clear the existing partition tables on the device.")
+                    + "\n\n" + tr("The device has been partially written and no longer holds "
+                                  "a usable image. Write the image again before using it."));
                 locked.release();
                 CloseHandle(hRawDisk);
                 status = STATUS_IDLE;
                 hRawDisk = INVALID_HANDLE_VALUE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -627,11 +645,16 @@ void MainWindow::on_bWrite_clicked()
                 sectorData = image.read(i, chunk, &got);
                 if (sectorData == NULL)
                 {
-                    QMessageBox::critical(this, tr("Write Error"), image.errorString());
+                    QMessageBox::critical(this, tr("Write Error"),
+                        image.errorString()
+                        + "\n\n" + tr("The device has been partially written and no longer holds "
+                                      "a usable image. Write the image again before using it."));
                     locked.release();
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    progressbar->reset();
+                    statusbar->showMessage(tr("Write failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
@@ -646,12 +669,19 @@ void MainWindow::on_bWrite_clicked()
                 }
                 if (!writeSectorDataToHandle(hRawDisk, sectorData, i, got, sectorsize))
                 {
+                    // writeSectorDataToHandle has already reported what went
+                    // wrong; this says what it leaves behind on the device.
+                    QMessageBox::warning(this, tr("Write Error"),
+                        tr("The device has been partially written and no longer holds "
+                           "a usable image. Write the image again before using it."));
                     delete[] sectorData;
                     locked.release();
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     sectorData = NULL;
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    progressbar->reset();
+                    statusbar->showMessage(tr("Write failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
@@ -897,6 +927,8 @@ void MainWindow::on_bRead_clicked()
         if (!locked.lockAll(deviceID))
         {
             status = STATUS_IDLE;
+            progressbar->reset();
+            statusbar->showMessage(tr("Read failed."));
             bCancel->setEnabled(false);
             setReadWriteButtonState();
             return;
@@ -906,6 +938,8 @@ void MainWindow::on_bRead_clicked()
         {
             locked.release();
             status = STATUS_IDLE;
+            progressbar->reset();
+            statusbar->showMessage(tr("Read failed."));
             bCancel->setEnabled(false);
             setReadWriteButtonState();
             return;
@@ -917,6 +951,8 @@ void MainWindow::on_bRead_clicked()
             CloseHandle(hFile);
             status = STATUS_IDLE;
             hFile = INVALID_HANDLE_VALUE;
+            progressbar->reset();
+            statusbar->showMessage(tr("Read failed."));
             bCancel->setEnabled(false);
             setReadWriteButtonState();
             return;
@@ -941,6 +977,8 @@ void MainWindow::on_bRead_clicked()
             sectorData = NULL;
             hRawDisk = INVALID_HANDLE_VALUE;
             hFile = INVALID_HANDLE_VALUE;
+            progressbar->reset();
+            statusbar->showMessage(tr("Read failed."));
             bCancel->setEnabled(false);
             setReadWriteButtonState();
             return;
@@ -968,6 +1006,8 @@ void MainWindow::on_bRead_clicked()
                 status = STATUS_IDLE;
                 hRawDisk = INVALID_HANDLE_VALUE;
                 hFile = INVALID_HANDLE_VALUE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Read failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -982,6 +1022,8 @@ void MainWindow::on_bRead_clicked()
                 sectorData = NULL;
                 hRawDisk = INVALID_HANDLE_VALUE;
                 hFile = INVALID_HANDLE_VALUE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Read failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -1063,6 +1105,8 @@ void MainWindow::on_bVerify_clicked()
             if (!locked.lockAll(deviceID))
             {
                 status = STATUS_IDLE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Verify failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -1076,6 +1120,8 @@ void MainWindow::on_bVerify_clicked()
             {
                 locked.release();
                 status = STATUS_IDLE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Verify failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -1093,6 +1139,8 @@ void MainWindow::on_bVerify_clicked()
                 hRawDisk = INVALID_HANDLE_VALUE;
                 passfail = false;
                 status = STATUS_IDLE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Verify failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -1107,6 +1155,8 @@ void MainWindow::on_bVerify_clicked()
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Verify failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -1127,6 +1177,8 @@ void MainWindow::on_bVerify_clicked()
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
+                progressbar->reset();
+                statusbar->showMessage(tr("Verify failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -1150,6 +1202,8 @@ void MainWindow::on_bVerify_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    progressbar->reset();
+                    statusbar->showMessage(tr("Verify failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
@@ -1216,6 +1270,8 @@ void MainWindow::on_bVerify_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    progressbar->reset();
+                    statusbar->showMessage(tr("Verify cancelled."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
@@ -1253,6 +1309,8 @@ void MainWindow::on_bVerify_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    progressbar->reset();
+                    statusbar->showMessage(tr("Verify failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
@@ -1276,6 +1334,8 @@ void MainWindow::on_bVerify_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    progressbar->reset();
+                    statusbar->showMessage(tr("Verify failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;

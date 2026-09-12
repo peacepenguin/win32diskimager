@@ -182,23 +182,24 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+80"/>
-        <location line="+132"/>
-        <location line="+34"/>
-        <location line="+238"/>
-        <location line="+68"/>
+        <location line="+86"/>
+        <location line="+140"/>
+        <location line="+38"/>
+        <location line="+26"/>
+        <location line="+224"/>
+        <location line="+74"/>
         <source>Write Error</source>
         <translation>Erreur d&apos;écriture</translation>
     </message>
     <message>
-        <location line="-558"/>
-        <location line="+490"/>
-        <location line="+176"/>
+        <location line="-594"/>
+        <location line="+520"/>
+        <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Le fichier image n&apos;a pas été trouvé sur le périphérique cible.</translation>
     </message>
     <message>
-        <location line="-657"/>
+        <location line="-699"/>
         <source>Confirm overwrite</source>
         <translation>Confirmer l&apos;écrasement</translation>
     </message>
@@ -222,20 +223,20 @@ Are you sure you want to cancel?</source>
 Voulez-vous vraiment annuler ?</translation>
     </message>
     <message>
-        <location line="+149"/>
-        <location line="+65"/>
+        <location line="+159"/>
+        <location line="+67"/>
         <source>Not enough available space!</source>
         <translation>Espace disponible insuffisant !</translation>
     </message>
     <message>
-        <location line="-251"/>
-        <location line="+164"/>
-        <location line="+321"/>
+        <location line="-263"/>
+        <location line="+172"/>
+        <location line="+343"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+295"/>
-        <location line="+260"/>
+        <location line="+315"/>
+        <location line="+270"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -243,7 +244,7 @@ Voulez-vous vraiment annuler ?</translation>
         <translation>Erreur de fichier</translation>
     </message>
     <message>
-        <location line="-612"/>
+        <location line="-642"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -263,40 +264,40 @@ Retirez physiquement le périphérique MAINTENANT, avant toute autre chose, et n
     </message>
     <message>
         <location line="+10"/>
-        <location line="+579"/>
+        <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation>Le fichier sélectionné n&apos;existe pas.</translation>
     </message>
     <message>
-        <location line="-899"/>
+        <location line="-951"/>
+        <location line="+352"/>
         <location line="+330"/>
-        <location line="+310"/>
-        <location line="+269"/>
+        <location line="+279"/>
         <source>The specified file contains no data.</source>
         <translation>Le fichier spécifié ne contient aucune donnée.</translation>
     </message>
     <message>
-        <location line="-575"/>
-        <location line="+189"/>
-        <location line="+390"/>
+        <location line="-605"/>
+        <location line="+201"/>
+        <location line="+408"/>
         <source>Done.</source>
         <translation>Effectué.</translation>
     </message>
     <message>
-        <location line="-386"/>
+        <location line="-404"/>
         <location line="+2"/>
-        <location line="+363"/>
+        <location line="+381"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Terminé</translation>
     </message>
     <message>
-        <location line="-579"/>
+        <location line="-609"/>
         <source>Write Successful.</source>
         <translation>Ecriture réussie.</translation>
     </message>
     <message>
-        <location line="-712"/>
+        <location line="-742"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Images disque (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -355,19 +356,32 @@ Vérifiez que %2 n&apos;est pas un lecteur que vous vouliez conserver.
 Écrire quand même sur ce périphérique ?</translation>
     </message>
     <message>
-        <location line="+46"/>
-        <location line="+641"/>
+        <location line="+26"/>
+        <location line="+14"/>
+        <location line="+19"/>
+        <location line="+16"/>
+        <location line="+23"/>
+        <location line="+25"/>
+        <location line="+95"/>
+        <location line="+38"/>
+        <location line="+27"/>
+        <source>Write failed.</source>
+        <translation>Échec de l'écriture.</translation>
+    </message>
+    <message>
+        <location line="-233"/>
+        <location line="+683"/>
         <source>Device Error</source>
         <translation>Erreur de périphérique</translation>
     </message>
     <message>
-        <location line="-640"/>
-        <location line="+641"/>
+        <location line="-682"/>
+        <location line="+683"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Le périphérique indique une taille nulle. S&apos;il s&apos;agit d&apos;un lecteur de cartes, la carte a peut-être été retirée.</translation>
     </message>
     <message>
-        <location line="-589"/>
+        <location line="-625"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -376,17 +390,17 @@ Vérifiez que %2 n&apos;est pas un lecteur que vous vouliez conserver.
 The end of the image will not be written, so the device will not hold a complete image.
 
 Continue Anyway?</source>
-        <translation>Taille de l'image supérieure à celle du périphérique :
+        <translation>Taille de l&apos;image supérieure à celle du périphérique :
   Image : au moins %1 secteurs
   Disponible : %2 secteurs
   Taille de secteur : %3
 
-La fin de l'image ne sera pas écrite, le périphérique ne contiendra donc pas une image complète.
+La fin de l&apos;image ne sera pas écrite, le périphérique ne contiendra donc pas une image complète.
 
 Continuer quand même ?</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+61"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -443,7 +457,12 @@ L&apos;espace excédentaire ne semble pas contenir de données
 Continuer quand même ?</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+17"/>
+        <source>Write cancelled.</source>
+        <translation>Écriture annulée.</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Clearing old partition tables...</source>
         <translation>Effacement des anciennes tables de partitions…</translation>
     </message>
@@ -453,7 +472,14 @@ Continuer quand même ?</translation>
         <translation>Impossible d&apos;effacer les tables de partitions existantes sur le périphérique.</translation>
     </message>
     <message>
-        <location line="+110"/>
+        <location line="+1"/>
+        <location line="+38"/>
+        <location line="+25"/>
+        <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
+        <translation>Le périphérique n'a été écrit que partiellement et ne contient plus d'image utilisable. Réécrivez l'image avant de l'utiliser.</translation>
+    </message>
+    <message>
+        <location line="+62"/>
         <source>Fixing GPT...</source>
         <translation>Correction de la GPT…</translation>
     </message>
@@ -563,12 +589,12 @@ Windows réécrira tout de même la table lors d&apos;une nouvelle analyse, car 
     </message>
     <message>
         <location line="+16"/>
-        <location line="+579"/>
+        <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Vous n&apos;avez pas la permission de lire le fichier sélectionné.</translation>
     </message>
     <message>
-        <location line="-529"/>
+        <location line="-559"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -577,7 +603,29 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 Les images compressées (.img.gz, .img.xz) peuvent être écrites et vérifiées.</translation>
     </message>
     <message>
-        <location line="+280"/>
+        <location line="+41"/>
+        <location line="+11"/>
+        <location line="+13"/>
+        <location line="+26"/>
+        <location line="+29"/>
+        <location line="+16"/>
+        <source>Read failed.</source>
+        <translation>Échec de la lecture.</translation>
+    </message>
+    <message>
+        <location line="+83"/>
+        <location line="+15"/>
+        <location line="+19"/>
+        <location line="+16"/>
+        <location line="+22"/>
+        <location line="+25"/>
+        <location line="+107"/>
+        <location line="+25"/>
+        <source>Verify failed.</source>
+        <translation>Échec de la vérification.</translation>
+    </message>
+    <message>
+        <location line="-146"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -586,7 +634,7 @@ Les images compressées (.img.gz, .img.xz) peuvent être écrites et vérifiées
 Only the part that fits can be compared.
 
 Continue Anyway?</source>
-        <translation>Taille de l'image supérieure à celle du périphérique :
+        <translation>Taille de l&apos;image supérieure à celle du périphérique :
   Image : au moins %1 secteurs
   Périphérique : %2 secteurs
   Taille de secteur : %3
@@ -596,7 +644,7 @@ Seule la partie qui tient pourra être comparée.
 Continuer quand même ?</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+57"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -615,7 +663,12 @@ L&apos;espace excédentaire n&apos;a pas pu être examiné, car l&apos;image est
 Continuer quand même ?</translation>
     </message>
     <message>
-        <location line="+164"/>
+        <location line="+25"/>
+        <source>Verify cancelled.</source>
+        <translation>Vérification annulée.</translation>
+    </message>
+    <message>
+        <location line="+145"/>
         <source>Image larger than device</source>
         <translation>Image plus grande que le périphérique</translation>
     </message>
@@ -633,19 +686,19 @@ Cela n&apos;a pu être détecté qu&apos;à la fin du périphérique, car une im
         <translation>[Disque %1]</translation>
     </message>
     <message>
-        <location line="-637"/>
-        <location line="+578"/>
+        <location line="-667"/>
+        <location line="+608"/>
         <source>Please specify an image file to use.</source>
         <translation>Merci de spécifier le fichier image à utiliser.</translation>
     </message>
     <message>
-        <location line="-682"/>
+        <location line="-712"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
-        <translation>L'image est plus grande que le périphérique : sa fin n'a donc pas été écrite et le périphérique ne contient pas une image complète.
+        <translation>L&apos;image est plus grande que le périphérique : sa fin n&apos;a donc pas été écrite et le périphérique ne contient pas une image complète.
 
-Cela n'a pu être détecté qu'une fois le périphérique plein, car l'image compressée n'enregistre pas sa taille décompressée.</translation>
+Cela n&apos;a pu être détecté qu&apos;une fois le périphérique plein, car l&apos;image compressée n&apos;enregistre pas sa taille décompressée.</translation>
     </message>
     <message>
         <location line="+134"/>
@@ -669,12 +722,12 @@ Cela n'a pu être détecté qu'une fois le périphérique plein, car l'image com
         <translation>Etes-vous sur de vouloir écraser le fichier spécifié?</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+62"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>Le disque n&apos;est pas assez grand pour contenir l&apos;image spécifiée.</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+82"/>
         <source>Read Canceled.</source>
         <translation>Lecture annulée.</translation>
     </message>
@@ -696,18 +749,18 @@ Cela n'a pu être détecté qu'une fois le périphérique plein, car l'image com
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+55"/>
-        <location line="+146"/>
+        <location line="+61"/>
+        <location line="+154"/>
         <source>Verify Error</source>
         <translation>Erreur de vérification</translation>
     </message>
     <message>
-        <location line="-201"/>
+        <location line="-215"/>
         <source>Please select a device to verify against.</source>
         <translation>Veuillez sélectionner un périphérique auquel comparer.</translation>
     </message>
     <message>
-        <location line="+150"/>
+        <location line="+162"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -745,20 +798,20 @@ L&apos;espace excédentaire ne semble pas contenir de données
 Continuer quand même ?</translation>
     </message>
     <message>
-        <location line="-57"/>
-        <location line="+61"/>
+        <location line="-59"/>
+        <location line="+63"/>
         <source>Size Mismatch!</source>
         <translation>Tailles différentes !</translation>
     </message>
     <message>
-        <location line="+65"/>
-        <location line="+36"/>
+        <location line="+69"/>
+        <location line="+38"/>
         <source>Verify Failure</source>
         <translation>Échec de la vérification</translation>
     </message>
     <message>
-        <location line="-36"/>
-        <location line="+37"/>
+        <location line="-38"/>
+        <location line="+39"/>
         <source>Verification failed at sector: %1</source>
         <translation>Échec de la vérification au secteur : %1</translation>
     </message>
@@ -767,9 +820,9 @@ Continuer quand même ?</translation>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
-        <translation>L'image est plus grande que le périphérique : seule la partie qui tient a donc pu être comparée. Tout ce qui a été comparé correspond, mais le périphérique ne contient pas une image complète.
+        <translation>L&apos;image est plus grande que le périphérique : seule la partie qui tient a donc pu être comparée. Tout ce qui a été comparé correspond, mais le périphérique ne contient pas une image complète.
 
-Cela n'a pu être détecté qu'à la fin du périphérique, car l'image compressée n'enregistre pas sa taille décompressée.</translation>
+Cela n&apos;a pu être détecté qu&apos;à la fin du périphérique, car l&apos;image compressée n&apos;enregistre pas sa taille décompressée.</translation>
     </message>
     <message>
         <location line="+11"/>

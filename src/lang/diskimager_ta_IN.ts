@@ -199,23 +199,24 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+21"/>
         <location line="+6"/>
-        <location line="+80"/>
-        <location line="+132"/>
-        <location line="+34"/>
-        <location line="+238"/>
-        <location line="+68"/>
+        <location line="+86"/>
+        <location line="+140"/>
+        <location line="+38"/>
+        <location line="+26"/>
+        <location line="+224"/>
+        <location line="+74"/>
         <source>Write Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-558"/>
-        <location line="+490"/>
-        <location line="+176"/>
+        <location line="-594"/>
+        <location line="+520"/>
+        <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-657"/>
+        <location line="-699"/>
         <source>Confirm overwrite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -236,7 +237,7 @@ Write to this device anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+109"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -249,12 +250,12 @@ Continue Anyway?</source>
     </message>
     <message>
         <location line="+6"/>
-        <location line="+65"/>
+        <location line="+67"/>
         <source>Not enough available space!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+23"/>
         <source>Clearing old partition tables...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -264,7 +265,7 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+110"/>
+        <location line="+126"/>
         <source>Fixing GPT...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -340,14 +341,14 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-474"/>
-        <location line="+164"/>
-        <location line="+321"/>
+        <location line="-504"/>
+        <location line="+172"/>
+        <location line="+343"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+295"/>
-        <location line="+260"/>
+        <location line="+315"/>
+        <location line="+270"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -355,30 +356,30 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-602"/>
-        <location line="+579"/>
+        <location line="-632"/>
+        <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-899"/>
+        <location line="-951"/>
+        <location line="+352"/>
         <location line="+330"/>
-        <location line="+310"/>
-        <location line="+269"/>
+        <location line="+279"/>
         <source>The specified file contains no data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-575"/>
-        <location line="+189"/>
-        <location line="+390"/>
+        <location line="-605"/>
+        <location line="+201"/>
+        <location line="+408"/>
         <source>Done.</source>
         <translation>முடிந்தது.</translation>
     </message>
     <message>
-        <location line="-386"/>
+        <location line="-404"/>
         <location line="+2"/>
-        <location line="+363"/>
+        <location line="+381"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>முடி</translation>
@@ -404,12 +405,12 @@ The image and the device differ only in the GPT, which the &quot;Fix GPT after w
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-579"/>
+        <location line="-609"/>
         <source>Write Successful.</source>
         <translation>வெற்றிகரமாக எழுது.</translation>
     </message>
     <message>
-        <location line="-712"/>
+        <location line="-742"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation type="unfinished"></translation>
@@ -443,19 +444,32 @@ Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+60"/>
-        <location line="+641"/>
+        <location line="+40"/>
+        <location line="+14"/>
+        <location line="+19"/>
+        <location line="+16"/>
+        <location line="+23"/>
+        <location line="+25"/>
+        <location line="+95"/>
+        <location line="+38"/>
+        <location line="+27"/>
+        <source>Write failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-233"/>
+        <location line="+683"/>
         <source>Device Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-640"/>
-        <location line="+641"/>
+        <location line="-682"/>
+        <location line="+683"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-530"/>
+        <location line="-564"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -491,7 +505,19 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+17"/>
+        <source>Write cancelled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <location line="+38"/>
+        <location line="+25"/>
+        <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+79"/>
         <source>Image truncated</source>
         <translation type="unfinished"></translation>
     </message>
@@ -528,18 +554,18 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
     </message>
     <message>
         <location line="+15"/>
-        <location line="+579"/>
+        <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-560"/>
-        <location line="+578"/>
+        <location line="-590"/>
+        <location line="+608"/>
         <source>Please specify an image file to use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-548"/>
+        <location line="-578"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation type="unfinished"></translation>
@@ -567,12 +593,22 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+21"/>
+        <location line="+11"/>
+        <location line="+13"/>
+        <location line="+26"/>
+        <location line="+29"/>
+        <location line="+16"/>
+        <source>Read failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-54"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+82"/>
         <source>Read Canceled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -594,18 +630,30 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+55"/>
-        <location line="+146"/>
+        <location line="+61"/>
+        <location line="+154"/>
         <source>Verify Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-201"/>
+        <location line="-215"/>
         <source>Please select a device to verify against.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+17"/>
+        <location line="+15"/>
+        <location line="+19"/>
+        <location line="+16"/>
+        <location line="+22"/>
+        <location line="+25"/>
+        <location line="+107"/>
+        <location line="+25"/>
+        <source>Verify failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-146"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -617,7 +665,7 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+57"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -653,20 +701,25 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-57"/>
-        <location line="+61"/>
+        <location line="-59"/>
+        <location line="+63"/>
         <source>Size Mismatch!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+65"/>
-        <location line="+36"/>
+        <location line="+13"/>
+        <source>Verify cancelled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+56"/>
+        <location line="+38"/>
         <source>Verify Failure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-36"/>
-        <location line="+37"/>
+        <location line="-38"/>
+        <location line="+39"/>
         <source>Verification failed at sector: %1</source>
         <translation type="unfinished"></translation>
     </message>

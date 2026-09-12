@@ -66,7 +66,7 @@
     <message>
         <location line="+3"/>
         <source>After writing, move the backup GPT to the end of the device and update the header to match, so Windows has nothing to &quot;repair&quot;. Leave unchecked to be warned to remove the device instead.</source>
-        <translation>Po zapisie przenieś zapasowy GPT na koniec urządzenia i zaktualizuj nagłówek, aby był zgodny, dzięki czemu Windows nie ma czego "naprawiać". Pozostaw niezaznaczone, aby zamiast tego otrzymać ostrzeżenie o konieczności odłączenia urządzenia.</translation>
+        <translation>Po zapisie przenieś zapasowy GPT na koniec urządzenia i zaktualizuj nagłówek, aby był zgodny, dzięki czemu Windows nie ma czego &quot;naprawiać&quot;. Pozostaw niezaznaczone, aby zamiast tego otrzymać ostrzeżenie o konieczności odłączenia urządzenia.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -183,23 +183,24 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+80"/>
-        <location line="+132"/>
-        <location line="+34"/>
-        <location line="+238"/>
-        <location line="+68"/>
+        <location line="+86"/>
+        <location line="+140"/>
+        <location line="+38"/>
+        <location line="+26"/>
+        <location line="+224"/>
+        <location line="+74"/>
         <source>Write Error</source>
         <translation>Błąd Zapisu</translation>
     </message>
     <message>
-        <location line="-558"/>
-        <location line="+490"/>
-        <location line="+176"/>
+        <location line="-594"/>
+        <location line="+520"/>
+        <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Plik obrazu nie może zostać umieszczony na urządzeniu docelowym.</translation>
     </message>
     <message>
-        <location line="-657"/>
+        <location line="-699"/>
         <source>Confirm overwrite</source>
         <translation>Potwierdź Nadpisanie</translation>
     </message>
@@ -223,20 +224,20 @@ Are you sure you want to cancel?</source>
 Czy na pewno chcesz anulować?</translation>
     </message>
     <message>
-        <location line="+149"/>
-        <location line="+65"/>
+        <location line="+159"/>
+        <location line="+67"/>
         <source>Not enough available space!</source>
         <translation>Za mało dostępnego miejsca!</translation>
     </message>
     <message>
-        <location line="-251"/>
-        <location line="+164"/>
-        <location line="+321"/>
+        <location line="-263"/>
+        <location line="+172"/>
+        <location line="+343"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+295"/>
-        <location line="+260"/>
+        <location line="+315"/>
+        <location line="+270"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -244,7 +245,7 @@ Czy na pewno chcesz anulować?</translation>
         <translation>Błąd Pliku</translation>
     </message>
     <message>
-        <location line="-612"/>
+        <location line="-642"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -264,40 +265,40 @@ Odłącz urządzenie fizycznie TERAZ, zanim zrobisz cokolwiek innego, i nie pod�
     </message>
     <message>
         <location line="+10"/>
-        <location line="+579"/>
+        <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation>Wybrany plik nie istnieje.</translation>
     </message>
     <message>
-        <location line="-899"/>
+        <location line="-951"/>
+        <location line="+352"/>
         <location line="+330"/>
-        <location line="+310"/>
-        <location line="+269"/>
+        <location line="+279"/>
         <source>The specified file contains no data.</source>
         <translation>Wybrany plik nie zawiera danych.</translation>
     </message>
     <message>
-        <location line="-575"/>
-        <location line="+189"/>
-        <location line="+390"/>
+        <location line="-605"/>
+        <location line="+201"/>
+        <location line="+408"/>
         <source>Done.</source>
         <translation>Zrobione.</translation>
     </message>
     <message>
-        <location line="-386"/>
+        <location line="-404"/>
         <location line="+2"/>
-        <location line="+363"/>
+        <location line="+381"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Gotowe</translation>
     </message>
     <message>
-        <location line="-579"/>
+        <location line="-609"/>
         <source>Write Successful.</source>
         <translation>Zapis Pomyślny.</translation>
     </message>
     <message>
-        <location line="-712"/>
+        <location line="-742"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Obrazy dysków (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -356,19 +357,32 @@ Sprawdź, czy %2 nie jest napędem, który chcesz zachować.
 Zapisać mimo to na tym urządzeniu?</translation>
     </message>
     <message>
-        <location line="+46"/>
-        <location line="+641"/>
+        <location line="+26"/>
+        <location line="+14"/>
+        <location line="+19"/>
+        <location line="+16"/>
+        <location line="+23"/>
+        <location line="+25"/>
+        <location line="+95"/>
+        <location line="+38"/>
+        <location line="+27"/>
+        <source>Write failed.</source>
+        <translation>Zapis nie powiódł się.</translation>
+    </message>
+    <message>
+        <location line="-233"/>
+        <location line="+683"/>
         <source>Device Error</source>
         <translation>Błąd urządzenia</translation>
     </message>
     <message>
-        <location line="-640"/>
-        <location line="+641"/>
+        <location line="-682"/>
+        <location line="+683"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Urządzenie zgłasza zerowy rozmiar. Jeśli jest to czytnik kart, karta mogła zostać wyjęta.</translation>
     </message>
     <message>
-        <location line="-589"/>
+        <location line="-625"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -387,7 +401,7 @@ Końcówka obrazu nie zostanie zapisana, więc urządzenie nie będzie zawierać
 Kontynuować mimo to?</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+61"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -444,7 +458,12 @@ Dodatkowa przestrzeń najwyraźniej nie zawiera danych
 Kontynuować mimo to?</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+17"/>
+        <source>Write cancelled.</source>
+        <translation>Zapis anulowany.</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Clearing old partition tables...</source>
         <translation>Usuwanie starych tablic partycji...</translation>
     </message>
@@ -454,7 +473,14 @@ Kontynuować mimo to?</translation>
         <translation>Nie można usunąć istniejących tablic partycji na urządzeniu.</translation>
     </message>
     <message>
-        <location line="+110"/>
+        <location line="+1"/>
+        <location line="+38"/>
+        <location line="+25"/>
+        <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
+        <translation>Urządzenie zostało zapisane tylko częściowo i nie zawiera już użytecznego obrazu. Zapisz obraz ponownie przed użyciem urządzenia.</translation>
+    </message>
+    <message>
+        <location line="+62"/>
         <source>Fixing GPT...</source>
         <translation>Naprawianie GPT...</translation>
     </message>
@@ -524,7 +550,7 @@ Obraz nie zawiera GPT, więc nie ma tablicy partycji, którą Windows mógłby n
     <message>
         <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation>Opcja "Napraw GPT po zapisie" nie jest włączona.</translation>
+        <translation>Opcja &quot;Napraw GPT po zapisie&quot; nie jest włączona.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -556,12 +582,12 @@ Windows i tak przepisze tablicę przy ponownym skanowaniu, ponieważ zapasowy GP
     </message>
     <message>
         <location line="+16"/>
-        <location line="+579"/>
+        <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Nie masz uprawnień do odczytu wybranego pliku.</translation>
     </message>
     <message>
-        <location line="-529"/>
+        <location line="-559"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -570,7 +596,29 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 Skompresowane obrazy (.img.gz, .img.xz) można zapisywać i weryfikować.</translation>
     </message>
     <message>
-        <location line="+280"/>
+        <location line="+41"/>
+        <location line="+11"/>
+        <location line="+13"/>
+        <location line="+26"/>
+        <location line="+29"/>
+        <location line="+16"/>
+        <source>Read failed.</source>
+        <translation>Odczyt nie powiódł się.</translation>
+    </message>
+    <message>
+        <location line="+83"/>
+        <location line="+15"/>
+        <location line="+19"/>
+        <location line="+16"/>
+        <location line="+22"/>
+        <location line="+25"/>
+        <location line="+107"/>
+        <location line="+25"/>
+        <source>Verify failed.</source>
+        <translation>Weryfikacja nie powiodła się.</translation>
+    </message>
+    <message>
+        <location line="-146"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -589,7 +637,7 @@ Można porównać tylko tę część, która się mieści.
 Kontynuować mimo to?</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+57"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -608,7 +656,12 @@ Nie można było sprawdzić, czy dodatkowa przestrzeń zawiera dane, ponieważ o
 Kontynuować mimo to?</translation>
     </message>
     <message>
-        <location line="+164"/>
+        <location line="+25"/>
+        <source>Verify cancelled.</source>
+        <translation>Weryfikacja anulowana.</translation>
+    </message>
+    <message>
+        <location line="+145"/>
         <source>Image larger than device</source>
         <translation>Obraz większy niż urządzenie</translation>
     </message>
@@ -618,13 +671,13 @@ Kontynuować mimo to?</translation>
         <translation>[Dysk %1]</translation>
     </message>
     <message>
-        <location line="-637"/>
-        <location line="+578"/>
+        <location line="-667"/>
+        <location line="+608"/>
         <source>Please specify an image file to use.</source>
         <translation>Proszę wybrać plik obrazu do użycia.</translation>
     </message>
     <message>
-        <location line="-682"/>
+        <location line="-712"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -654,12 +707,12 @@ Można to było wykryć dopiero po zapełnieniu urządzenia, ponieważ skompreso
         <translation>Czy jesteś pewien że chcesz nadpisać wybrany plik?</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+62"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>Dysk nie jest odpowiednio wielki dla wybranego obrazu.</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+82"/>
         <source>Read Canceled.</source>
         <translation>Odczyt anulowany.</translation>
     </message>
@@ -681,18 +734,18 @@ Można to było wykryć dopiero po zapełnieniu urządzenia, ponieważ skompreso
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+55"/>
-        <location line="+146"/>
+        <location line="+61"/>
+        <location line="+154"/>
         <source>Verify Error</source>
         <translation>Błąd weryfikacji</translation>
     </message>
     <message>
-        <location line="-201"/>
+        <location line="-215"/>
         <source>Please select a device to verify against.</source>
         <translation>Proszę wybrać urządzenie do weryfikacji.</translation>
     </message>
     <message>
-        <location line="+150"/>
+        <location line="+162"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -730,20 +783,20 @@ Dodatkowa przestrzeń najwyraźniej nie zawiera danych
 Kontynuować mimo to?</translation>
     </message>
     <message>
-        <location line="-57"/>
-        <location line="+61"/>
+        <location line="-59"/>
+        <location line="+63"/>
         <source>Size Mismatch!</source>
         <translation>Niezgodność rozmiaru!</translation>
     </message>
     <message>
-        <location line="+65"/>
-        <location line="+36"/>
+        <location line="+69"/>
+        <location line="+38"/>
         <source>Verify Failure</source>
         <translation>Niepowodzenie weryfikacji</translation>
     </message>
     <message>
-        <location line="-36"/>
-        <location line="+37"/>
+        <location line="-38"/>
+        <location line="+39"/>
         <source>Verification failed at sector: %1</source>
         <translation>Weryfikacja nie powiodła się na sektorze: %1</translation>
     </message>
@@ -763,7 +816,7 @@ Można to było wykryć dopiero na końcu urządzenia, ponieważ skompresowany o
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
         <translation>Weryfikacja zakończona powodzeniem.
 
-Obraz i urządzenie różnią się wyłącznie w GPT, który opcja "Napraw GPT po zapisie" celowo przepisuje.</translation>
+Obraz i urządzenie różnią się wyłącznie w GPT, który opcja &quot;Napraw GPT po zapisie&quot; celowo przepisuje.</translation>
     </message>
     <message>
         <location line="+2"/>
