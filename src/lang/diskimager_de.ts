@@ -374,7 +374,14 @@ Trotzdem auf diesen Datenträger schreiben?</translation>
 The end of the image will not be written, so the device will not hold a complete image.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Image ist größer als der Datenträger:
+  Image: mindestens %1 Sektoren
+  Verfügbar: %2 Sektoren
+  Sektorgröße: %3
+
+Das Ende des Images wird nicht geschrieben, der Datenträger enthält dann kein vollständiges Image.
+
+Trotzdem fortfahren?</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -577,7 +584,14 @@ Komprimierte Images (.img.gz, .img.xz) können geschrieben und geprüft werden.<
 Only the part that fits can be compared.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Image ist größer als der Datenträger:
+  Image: mindestens %1 Sektoren
+  Datenträger: %2 Sektoren
+  Sektorgröße: %3
+
+Es kann nur der Teil verglichen werden, der darauf passt.
+
+Trotzdem fortfahren?</translation>
     </message>
     <message>
         <location line="+55"/>
@@ -627,7 +641,9 @@ Dies konnte erst am Ende des Datenträgers festgestellt werden, weil ein gzip-Im
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Image ist größer als der Datenträger, daher wurde sein Ende nicht geschrieben und der Datenträger enthält kein vollständiges Image.
+
+Dies konnte erst festgestellt werden, als der Datenträger voll war, weil das komprimierte Image seine unkomprimierte Größe nicht speichert.</translation>
     </message>
     <message>
         <location line="+134"/>
@@ -749,7 +765,9 @@ Trotzdem fortfahren?</translation>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Image ist größer als der Datenträger, daher konnte nur der Teil verglichen werden, der darauf passt. Alles Verglichene stimmte überein, aber der Datenträger enthält kein vollständiges Image.
+
+Dies konnte erst am Ende des Datenträgers festgestellt werden, weil das komprimierte Image seine unkomprimierte Größe nicht speichert.</translation>
     </message>
     <message>
         <location line="+11"/>

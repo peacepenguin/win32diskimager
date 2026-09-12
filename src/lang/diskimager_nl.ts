@@ -26,12 +26,12 @@
     <message>
         <location line="+42"/>
         <source>Image File Hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Hash van imagebestand</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Hash type to generate for image file</source>
-        <translation type="unfinished"></translation>
+        <translation>Hashtype dat voor het imagebestand gegenereerd wordt</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -61,22 +61,22 @@
     <message>
         <location line="+55"/>
         <source>Fix GPT after write</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT herstellen na schrijven</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>After writing, move the backup GPT to the end of the device and update the header to match, so Windows has nothing to &quot;repair&quot;. Leave unchecked to be warned to remove the device instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verplaats na het schrijven de reserve-GPT naar het einde van het apparaat en werk de header bij zodat Windows niets te "repareren" heeft. Laat dit uit om in plaats daarvan gewaarschuwd te worden het apparaat te verwijderen.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Show all devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle apparaten tonen</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon ook vaste schijven. Interne PCIe-kaartlezers presenteren de kaart vaak als een niet-verwisselbaar apparaat, dat anders verborgen blijft. De schijf waarvan Windows draait wordt nooit getoond.</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -252,7 +252,14 @@ Weet u zeker dat u wilt fabreken?</translation>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrijven geslaagd, maar de partitietabel loopt gevaar.
+
+%1
+%2
+
+%3
+
+Verwijder het apparaat NU fysiek, voordat u iets anders doet, en plaats het niet opnieuw in deze computer. Plaats het in plaats daarvan in de doelhardware.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -292,40 +299,43 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <location line="-712"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
-        <translation type="unfinished"></translation>
+        <translation>Schijf-images (*.img *.IMG *.img.gz *.img.xz)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gecomprimeerde schijf-images (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
         <location line="+203"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Could not open the file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon het bestand niet openen om een controlesom te genereren:
+%1</translation>
     </message>
     <message>
         <location line="+63"/>
         <source>Please select a target device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer een doelapparaat.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Writing to a physical device can corrupt the device.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrijven naar een fysiek apparaat kan het apparaat beschadigen.
+(Doelapparaat: %1)
+Weet u zeker dat u wilt doorgaan?</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Device has mounted volumes</source>
-        <translation type="unfinished"></translation>
+        <translation>Apparaat heeft aangekoppelde volumes</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -336,19 +346,25 @@ Everything on this device, on every one of its partitions, will be destroyed and
 Check that %2 is not a drive you meant to keep.
 
 Write to this device anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 is in Windows aangekoppeld als %2.
+
+Alles op dit apparaat, op elke partitie ervan, wordt vernietigd en kan niet worden hersteld.
+
+Controleer of %2 geen station is dat u wilde behouden.
+
+Toch naar dit apparaat schrijven?</translation>
     </message>
     <message>
         <location line="+46"/>
         <location line="+641"/>
         <source>Device Error</source>
-        <translation type="unfinished">Apparaat fout</translation>
+        <translation>Apparaatfout</translation>
     </message>
     <message>
         <location line="-640"/>
         <location line="+641"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het apparaat meldt een grootte van nul. Als het een kaartlezer is, is de kaart mogelijk verwijderd.</translation>
     </message>
     <message>
         <location line="-589"/>
@@ -360,7 +376,14 @@ Write to this device anyway?</source>
 The end of the image will not be written, so the device will not hold a complete image.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>De image is groter dan het apparaat:
+  Image: minstens %1 sectoren
+  Beschikbaar: %2 sectoren
+  Sectorgrootte: %3
+
+Het einde van de image wordt niet geschreven, dus het apparaat bevat geen volledige image.
+
+Toch doorgaan?</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -372,7 +395,14 @@ Continue Anyway?</source>
 The extra space could not be checked for data, because the image is compressed
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is meer ruimte nodig dan beschikbaar is:
+  Nodig: %1 sectoren
+  Beschikbaar: %2 sectoren
+  Sectorgrootte: %3
+
+De extra ruimte kon niet op gegevens worden gecontroleerd, omdat de image gecomprimeerd is
+
+Toch doorgaan?</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -384,7 +414,14 @@ Continue Anyway?</source>
 The extra space DOES appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is meer ruimte nodig dan beschikbaar is:
+  Nodig: %1 sectoren
+  Beschikbaar: %2 sectoren
+  Sectorgrootte: %3
+
+De extra ruimte lijkt WEL gegevens te bevatten
+
+Toch doorgaan?</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -396,123 +433,140 @@ Continue Anyway?</source>
 The extra space does not appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is meer ruimte nodig dan beschikbaar is:
+  Nodig: %1 sectoren
+  Beschikbaar: %2 sectoren
+  Sectorgrootte: %3
+
+De extra ruimte lijkt geen gegevens te bevatten
+
+Toch doorgaan?</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Clearing old partition tables...</source>
-        <translation type="unfinished"></translation>
+        <translation>Oude partitietabellen wissen...</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Could not clear the existing partition tables on the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon de bestaande partitietabellen op het apparaat niet wissen.</translation>
     </message>
     <message>
         <location line="+110"/>
         <source>Fixing GPT...</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT herstellen...</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Image truncated</source>
-        <translation type="unfinished"></translation>
+        <translation>Image afgekapt</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrijven geslaagd.
+
+De GPT is consistent gemaakt met het apparaat (%1), dus Windows heeft geen beschadigde tabel om te repareren. Het apparaat kan normaal worden verwijderd.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrijven geslaagd.
+
+De image bevat geen GPT, dus er is geen partitietabel die Windows kan repareren. Het apparaat kan normaal worden verwijderd.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Write successful.</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrijven geslaagd.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Write Successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrijven geslaagd</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het apparaat is offline gehaald en uitgeworpen.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het apparaat kon NIET automatisch offline worden gehaald.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>De GPT kon niet automatisch worden hersteld (%1).</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation type="unfinished"></translation>
+        <translation>de GPT is misvormd</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Fixing the GPT failed (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Het herstellen van de GPT is mislukt (%1).</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>write error</source>
-        <translation type="unfinished"></translation>
+        <translation>schrijffout</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>De optie "GPT herstellen na schrijven" is niet ingeschakeld.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze image WORDT getroffen door de Windows GPT-herschrijffout.
+
+Er wordt ruimte gereserveerd vóór de eerste partitie, waardoor Windows bij een herscan de primaire partitietabel herschrijft en die naar de verkeerde sectoren laat wijzen. Het resultaat doorstaat de eigen controles van Windows nog steeds, maar Linux wijst het af en het apparaat start niet op.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze image wordt NIET getroffen door de Windows GPT-herschrijffout.
+
+Windows herschrijft de tabel bij een herscan nog steeds, omdat de reserve-GPT niet aan het einde van het apparaat staat, maar bij deze indeling komt de herschrijving op de juiste waarden uit. Het apparaat nu verwijderen houdt het hoe dan ook byte-identiek aan de image.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation type="unfinished"></translation>
+        <translation>Of deze image getroffen wordt door de Windows GPT-herschrijffout kon niet worden vastgesteld. Ga ervan uit dat dit zo is: een herscan kan een partitietabel achterlaten die Linux afwijst, waarmee het apparaat niet opstart.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Remove the device now</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijder het apparaat nu</translation>
     </message>
     <message>
         <location line="+16"/>
         <location line="+579"/>
         <source>You do not have permission to read the selected file.</source>
-        <translation type="unfinished"></translation>
+        <translation>U heeft geen rechten om het geselecteerde bestand te lezen.</translation>
     </message>
     <message>
         <location line="-529"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
-        <translation type="unfinished"></translation>
+        <translation>Images kunnen alleen ongecomprimeerd worden teruggelezen. Kies een bestandsnaam zonder .gz- of .xz-extensie.
+
+Gecomprimeerde images (.img.gz, .img.xz) kunnen wel worden geschreven en geverifieerd.</translation>
     </message>
     <message>
         <location line="+280"/>
@@ -524,7 +578,14 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 Only the part that fits can be compared.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>De image is groter dan het apparaat:
+  Image: minstens %1 sectoren
+  Apparaat: %2 sectoren
+  Sectorgrootte: %3
+
+Alleen het deel dat past kan worden vergeleken.
+
+Toch doorgaan?</translation>
     </message>
     <message>
         <location line="+55"/>
@@ -536,17 +597,24 @@ Continue Anyway?</source>
 The extra space could not be checked for data, because the image is compressed
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Image groter dan apparaat:
+  Image: %1 sectoren
+  Apparaat: %2 sectoren
+  Sectorgrootte: %3
+
+De extra ruimte kon niet op gegevens worden gecontroleerd, omdat de image gecomprimeerd is
+
+Toch doorgaan?</translation>
     </message>
     <message>
         <location line="+164"/>
         <source>Image larger than device</source>
-        <translation type="unfinished"></translation>
+        <translation>Image groter dan apparaat</translation>
     </message>
     <message>
         <location line="+107"/>
         <source>[Disk %1]</source>
-        <translation type="unfinished"></translation>
+        <translation>[Schijf %1]</translation>
     </message>
     <message>
         <location line="-637"/>
@@ -559,18 +627,20 @@ Continue Anyway?</source>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>De image is groter dan het apparaat, dus het einde ervan is niet geschreven en het apparaat bevat geen volledige image.
+
+Dit kon pas worden vastgesteld toen het apparaat vol was, omdat de gecomprimeerde image zijn ongecomprimeerde grootte niet vastlegt.</translation>
     </message>
     <message>
         <location line="+134"/>
         <location line="+15"/>
         <source>Read Error</source>
-        <translation type="unfinished">Leesfout</translation>
+        <translation>Leesfout</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Please select a source device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer een bronapparaat.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -618,7 +688,7 @@ This could only be detected once the device was full, because the compressed ima
     <message>
         <location line="-201"/>
         <source>Please select a device to verify against.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer een apparaat om mee te vergelijken.</translation>
     </message>
     <message>
         <location line="+150"/>
@@ -630,7 +700,14 @@ This could only be detected once the device was full, because the compressed ima
 The extra space DOES appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Image groter dan apparaat:
+  Image: %1 sectoren
+  Apparaat: %2 sectoren
+  Sectorgrootte: %3
+
+De extra ruimte lijkt WEL gegevens te bevatten
+
+Toch doorgaan?</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -642,7 +719,14 @@ Continue Anyway?</source>
 The extra space does not appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Image groter dan apparaat:
+  Image: %1 sectoren
+  Apparaat: %2 sectoren
+  Sectorgrootte: %3
+
+De extra ruimte lijkt geen gegevens te bevatten
+
+Toch doorgaan?</translation>
     </message>
     <message>
         <location line="-57"/>
@@ -667,28 +751,36 @@ Continue Anyway?</source>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>De image is groter dan het apparaat, dus alleen het deel dat past kon worden vergeleken. Alles wat is vergeleken kwam overeen, maar het apparaat bevat geen volledige image.
+
+Dit kon pas aan het einde van het apparaat worden vastgesteld, omdat de gecomprimeerde image zijn ongecomprimeerde grootte niet vastlegt.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificatie geslaagd.
+
+De image en het apparaat verschillen alleen in de GPT, die de optie "GPT herstellen na schrijven" met opzet herschrijft.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>
 
 The device has been ejected. Remove it now.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Het apparaat is uitgeworpen. Verwijder het nu.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>
 
 The device could NOT be taken offline automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Het apparaat kon NIET automatisch offline worden gehaald.</translation>
     </message>
     <message>
         <location line="-3"/>
@@ -820,54 +912,56 @@ Controle van vrije ruimte zal worden overgeslagen.</translation>
     <message>
         <location line="+158"/>
         <source>Unknown device</source>
-        <translation type="unfinished"></translation>
+        <translation>Onbekend apparaat</translation>
     </message>
     <message>
         <location line="+53"/>
         <source>Could not lock volume %1: it is still in use.
 Close any program using the device and try again.
 Error %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon volume %1 niet vergrendelen: het is nog in gebruik.
+Sluit elk programma dat het apparaat gebruikt en probeer het opnieuw.
+Fout %2</translation>
     </message>
     <message>
         <location line="+179"/>
         <source>the primary GPT header size is out of range</source>
-        <translation type="unfinished"></translation>
+        <translation>de grootte van de primaire GPT-header ligt buiten het bereik</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>the primary GPT header checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>de controlesom van de primaire GPT-header is ongeldig</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>the GPT partition entry array is not where the header says</source>
-        <translation type="unfinished"></translation>
+        <translation>de GPT-partitietabel staat niet waar de header aangeeft</translation>
     </message>
     <message>
         <location line="+44"/>
         <source>a partition extends past the end of the device</source>
-        <translation type="unfinished"></translation>
+        <translation>een partitie loopt door tot voorbij het einde van het apparaat</translation>
     </message>
     <message>
         <location line="+68"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
-        <translation type="unfinished"></translation>
+        <translation>reserve-GPT verplaatst naar LBA %1; laatste bruikbare LBA is nu %2</translation>
     </message>
     <message>
         <location filename="../imagesource.cpp" line="+104"/>
         <source>The device reports a sector size of zero.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het apparaat meldt een sectorgrootte van nul.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The image file could not be opened (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Het imagebestand kon niet worden geopend (fout %1).</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>The size of the image file could not be read (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>De grootte van het imagebestand kon niet worden gelezen (fout %1).</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -877,48 +971,48 @@ Error %2</source>
         <location line="+24"/>
         <location line="+157"/>
         <source>The image file could not be read (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Het imagebestand kon niet worden gelezen (fout %1).</translation>
     </message>
     <message>
         <location line="-403"/>
         <source>The image file could not be rewound (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Het imagebestand kon niet worden teruggespoeld (fout %1).</translation>
     </message>
     <message>
         <location line="+181"/>
         <source>The gzip decompressor could not be started (zlib error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>De gzip-decompressor kon niet worden gestart (zlib-fout %1).</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>The xz decompressor could not be started (lzma error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>De xz-decompressor kon niet worden gestart (lzma-fout %1).</translation>
     </message>
     <message>
         <location line="+62"/>
         <location line="+84"/>
         <source>The image file ends in the middle of the compressed data. It is truncated or damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het imagebestand eindigt midden in de gecomprimeerde gegevens. Het is afgekapt of beschadigd.</translation>
     </message>
     <message>
         <location line="-37"/>
         <source>The gzip image could not be decompressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>De gzip-image kon niet worden gedecomprimeerd.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The gzip image is damaged (zlib error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>De gzip-image is beschadigd (zlib-fout %1).</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>The xz image is damaged (lzma error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>De xz-image is beschadigd (lzma-fout %1).</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>A compressed image can only be read forwards.</source>
-        <translation type="unfinished"></translation>
+        <translation>Een gecomprimeerde image kan alleen voorwaarts worden gelezen.</translation>
     </message>
 </context>
 </TS>

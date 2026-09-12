@@ -16,7 +16,7 @@
     <message>
         <location line="+24"/>
         <source>...</source>
-        <translation></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -376,7 +376,14 @@ Vérifiez que %2 n&apos;est pas un lecteur que vous vouliez conserver.
 The end of the image will not be written, so the device will not hold a complete image.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille de l'image supérieure à celle du périphérique :
+  Image : au moins %1 secteurs
+  Disponible : %2 secteurs
+  Taille de secteur : %3
+
+La fin de l'image ne sera pas écrite, le périphérique ne contiendra donc pas une image complète.
+
+Continuer quand même ?</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -579,7 +586,14 @@ Les images compressées (.img.gz, .img.xz) peuvent être écrites et vérifiées
 Only the part that fits can be compared.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille de l'image supérieure à celle du périphérique :
+  Image : au moins %1 secteurs
+  Périphérique : %2 secteurs
+  Taille de secteur : %3
+
+Seule la partie qui tient pourra être comparée.
+
+Continuer quand même ?</translation>
     </message>
     <message>
         <location line="+55"/>
@@ -629,7 +643,9 @@ Cela n&apos;a pu être détecté qu&apos;à la fin du périphérique, car une im
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>L'image est plus grande que le périphérique : sa fin n'a donc pas été écrite et le périphérique ne contient pas une image complète.
+
+Cela n'a pu être détecté qu'une fois le périphérique plein, car l'image compressée n'enregistre pas sa taille décompressée.</translation>
     </message>
     <message>
         <location line="+134"/>
@@ -751,7 +767,9 @@ Continuer quand même ?</translation>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>L'image est plus grande que le périphérique : seule la partie qui tient a donc pu être comparée. Tout ce qui a été comparé correspond, mais le périphérique ne contient pas une image complète.
+
+Cela n'a pu être détecté qu'à la fin du périphérique, car l'image compressée n'enregistre pas sa taille décompressée.</translation>
     </message>
     <message>
         <location line="+11"/>

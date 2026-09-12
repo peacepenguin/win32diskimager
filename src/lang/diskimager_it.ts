@@ -91,7 +91,9 @@ Sei sicuro di voler uscire?</translation>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>L'immagine è più grande del dispositivo, quindi la sua parte finale non è stata scritta e il dispositivo non contiene un'immagine completa.
+
+È stato possibile rilevarlo solo quando il dispositivo si è riempito, perché l'immagine compressa non registra la propria dimensione non compressa.</translation>
     </message>
     <message>
         <location line="+70"/>
@@ -428,7 +430,14 @@ Scrivere comunque su questo dispositivo?</translation>
 The end of the image will not be written, so the device will not hold a complete image.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimensione dell'immagine maggiore di quella del dispositivo:
+  Immagine: almeno %1 settori
+  Disponibili: %2 settori
+  Dimensione settore: %3
+
+La parte finale dell'immagine non verrà scritta, quindi il dispositivo non conterrà un'immagine completa.
+
+Continuare comunque?</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -631,7 +640,14 @@ Le immagini compresse (.img.gz, .img.xz) possono essere scritte e verificate.</t
 Only the part that fits can be compared.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimensione dell'immagine maggiore di quella del dispositivo:
+  Immagine: almeno %1 settori
+  Dispositivo: %2 settori
+  Dimensione settore: %3
+
+È possibile confrontare solo la parte che ci sta.
+
+Continuare comunque?</translation>
     </message>
     <message>
         <location line="+55"/>
@@ -755,7 +771,9 @@ Continuare comunque?</translation>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>L'immagine è più grande del dispositivo, quindi è stato possibile confrontare solo la parte che ci sta. Tutto ciò che è stato confrontato corrisponde, ma il dispositivo non contiene un'immagine completa.
+
+È stato possibile rilevarlo solo alla fine del dispositivo, perché l'immagine compressa non registra la propria dimensione non compressa.</translation>
     </message>
     <message>
         <location line="+11"/>

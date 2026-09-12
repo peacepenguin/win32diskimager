@@ -26,12 +26,12 @@
     <message>
         <location line="+42"/>
         <source>Image File Hash</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージファイルのハッシュ</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Hash type to generate for image file</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージファイルに対して生成するハッシュの種類</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -61,22 +61,22 @@
     <message>
         <location line="+55"/>
         <source>Fix GPT after write</source>
-        <translation type="unfinished"></translation>
+        <translation>書き込み後に GPT を修正する</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>After writing, move the backup GPT to the end of the device and update the header to match, so Windows has nothing to &quot;repair&quot;. Leave unchecked to be warned to remove the device instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>書き込み後、バックアップ GPT をデバイスの末尾へ移動し、ヘッダーを一致するよう更新して、Windows が「修復」するものを残しません。チェックを外すと、代わりにデバイスを取り外すよう警告します。</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Show all devices</source>
-        <translation type="unfinished"></translation>
+        <translation>すべてのデバイスを表示</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</source>
-        <translation type="unfinished"></translation>
+        <translation>固定ディスクも一覧に表示します。内蔵 PCIe カードリーダーはカードをリムーバブルでないデバイスとして見せることが多く、その場合は通常表示されません。Windows が起動しているディスクが一覧に出ることはありません。</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -255,7 +255,14 @@ Are you sure you want to cancel?</source>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>書き込みは成功しましたが、パーティションテーブルが危険な状態です。
+
+%1
+%2
+
+%3
+
+他の操作を行う前に、今すぐデバイスを物理的に取り外してください。このコンピューターに再度挿入せず、目的のハードウェアに挿入してください。</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -295,40 +302,43 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <location line="-712"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
-        <translation type="unfinished"></translation>
+        <translation>ディスクイメージ (*.img *.IMG *.img.gz *.img.xz)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)</source>
-        <translation type="unfinished"></translation>
+        <translation>圧縮ディスクイメージ (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
         <location line="+203"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>エラー</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Could not open the file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>チェックサムを生成するためにファイルを開けませんでした:
+%1</translation>
     </message>
     <message>
         <location line="+63"/>
         <source>Please select a target device.</source>
-        <translation type="unfinished"></translation>
+        <translation>書き込み先のデバイスを選択してください。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Writing to a physical device can corrupt the device.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>物理デバイスへの書き込みは、デバイスを破損させる可能性があります。
+(書き込み先デバイス: %1)
+本当に続行してもよろしいですか？</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Device has mounted volumes</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスにマウント済みのボリュームがあります</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -339,19 +349,25 @@ Everything on this device, on every one of its partitions, will be destroyed and
 Check that %2 is not a drive you meant to keep.
 
 Write to this device anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 は Windows で %2 としてマウントされています。
+
+このデバイス上のすべてのパーティションのデータはすべて破棄され、復元できません。
+
+%2 が残しておきたいドライブでないことを確認してください。
+
+それでもこのデバイスに書き込みますか？</translation>
     </message>
     <message>
         <location line="+46"/>
         <location line="+641"/>
         <source>Device Error</source>
-        <translation type="unfinished">デバイスエラー</translation>
+        <translation>デバイスエラー</translation>
     </message>
     <message>
         <location line="-640"/>
         <location line="+641"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスがサイズ 0 を報告しています。カードリーダーの場合、カードが取り外された可能性があります。</translation>
     </message>
     <message>
         <location line="-589"/>
@@ -363,7 +379,14 @@ Write to this device anyway?</source>
 The end of the image will not be written, so the device will not hold a complete image.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージがデバイスより大きいです:
+  イメージ: 少なくとも %1 セクタ
+  使用可能: %2 セクタ
+  セクタサイズ: %3
+
+イメージの末尾は書き込まれないため、デバイスには完全なイメージが入りません。
+
+それでも続行しますか？</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -375,7 +398,14 @@ Continue Anyway?</source>
 The extra space could not be checked for data, because the image is compressed
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>使用可能な容量を超える容量が必要です:
+  必要: %1 セクタ
+  使用可能: %2 セクタ
+  セクタサイズ: %3
+
+イメージが圧縮されているため、超過部分にデータがあるか確認できませんでした
+
+それでも続行しますか？</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -387,7 +417,14 @@ Continue Anyway?</source>
 The extra space DOES appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>使用可能な容量を超える容量が必要です:
+  必要: %1 セクタ
+  使用可能: %2 セクタ
+  セクタサイズ: %3
+
+超過部分にはデータが含まれているようです
+
+それでも続行しますか？</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -399,123 +436,140 @@ Continue Anyway?</source>
 The extra space does not appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>使用可能な容量を超える容量が必要です:
+  必要: %1 セクタ
+  使用可能: %2 セクタ
+  セクタサイズ: %3
+
+超過部分にデータは含まれていないようです
+
+それでも続行しますか？</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Clearing old partition tables...</source>
-        <translation type="unfinished"></translation>
+        <translation>古いパーティションテーブルを消去しています...</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Could not clear the existing partition tables on the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイス上の既存のパーティションテーブルを消去できませんでした。</translation>
     </message>
     <message>
         <location line="+110"/>
         <source>Fixing GPT...</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT を修正しています...</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Image truncated</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージが途中で切れています</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation type="unfinished"></translation>
+        <translation>書き込みに成功しました。
+
+GPT をデバイス (%1) と整合するようにしたため、Windows が修復すべき壊れたテーブルはありません。デバイスは通常どおり取り外せます。</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation type="unfinished"></translation>
+        <translation>書き込みに成功しました。
+
+イメージに GPT が含まれていないため、Windows が修復するパーティションテーブルはありません。デバイスは通常どおり取り外せます。</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Write successful.</source>
-        <translation type="unfinished"></translation>
+        <translation>書き込みに成功しました。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Write Successful</source>
-        <translation type="unfinished"></translation>
+        <translation>書き込み成功</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスをオフラインにして取り出しました。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスを自動的にオフラインにできませんでした。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT を自動的に修正できませんでした (%1)。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT の形式が不正です</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Fixing the GPT failed (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT の修正に失敗しました (%1)。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>write error</source>
-        <translation type="unfinished"></translation>
+        <translation>書き込みエラー</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>「書き込み後に GPT を修正する」オプションが有効になっていません。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation type="unfinished"></translation>
+        <translation>このイメージは Windows の GPT 書き換え不具合の影響を受けます。
+
+最初のパーティションの前に領域を確保しているため、再スキャン時に Windows がプライマリパーティションテーブルを書き換え、誤ったセクタを指すようになります。その結果は Windows 自身の検査は通りますが、Linux では拒否され、デバイスは起動しません。</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation type="unfinished"></translation>
+        <translation>このイメージは Windows の GPT 書き換え不具合の影響を受けません。
+
+バックアップ GPT がデバイスの末尾にないため、再スキャン時に Windows はテーブルを書き換えますが、この配置では書き換え後も正しい値になります。いずれにせよ、今デバイスを取り外せばイメージとバイト単位で同一のまま保てます。</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation type="unfinished"></translation>
+        <translation>このイメージが Windows の GPT 書き換え不具合の影響を受けるかどうかを判定できませんでした。影響を受けるものとして扱ってください。再スキャンにより、Linux が拒否するパーティションテーブルが残り、デバイスが起動しなくなる可能性があります。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Remove the device now</source>
-        <translation type="unfinished"></translation>
+        <translation>今すぐデバイスを取り外してください</translation>
     </message>
     <message>
         <location line="+16"/>
         <location line="+579"/>
         <source>You do not have permission to read the selected file.</source>
-        <translation type="unfinished"></translation>
+        <translation>選択したファイルを読み取る権限がありません。</translation>
     </message>
     <message>
         <location line="-529"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージは非圧縮でのみ読み出せます。.gz や .xz の拡張子を付けないファイル名を選んでください。
+
+圧縮イメージ (.img.gz、.img.xz) は書き込みと検証には使用できます。</translation>
     </message>
     <message>
         <location line="+280"/>
@@ -527,7 +581,14 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 Only the part that fits can be compared.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージがデバイスより大きいです:
+  イメージ: 少なくとも %1 セクタ
+  デバイス: %2 セクタ
+  セクタサイズ: %3
+
+収まる部分のみ比較できます。
+
+それでも続行しますか？</translation>
     </message>
     <message>
         <location line="+55"/>
@@ -539,17 +600,24 @@ Continue Anyway?</source>
 The extra space could not be checked for data, because the image is compressed
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージのサイズがデバイスより大きいです:
+  イメージ: %1 セクタ
+  デバイス: %2 セクタ
+  セクタサイズ: %3
+
+イメージが圧縮されているため、超過部分にデータがあるか確認できませんでした
+
+それでも続行しますか？</translation>
     </message>
     <message>
         <location line="+164"/>
         <source>Image larger than device</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージがデバイスより大きいです</translation>
     </message>
     <message>
         <location line="+107"/>
         <source>[Disk %1]</source>
-        <translation type="unfinished"></translation>
+        <translation>[ディスク %1]</translation>
     </message>
     <message>
         <location line="-637"/>
@@ -562,18 +630,20 @@ Continue Anyway?</source>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージがデバイスより大きいため、末尾は書き込まれず、デバイスには完全なイメージが入っていません。
+
+圧縮イメージは非圧縮サイズを記録しないため、デバイスがいっぱいになるまでこれを検出できませんでした。</translation>
     </message>
     <message>
         <location line="+134"/>
         <location line="+15"/>
         <source>Read Error</source>
-        <translation type="unfinished">読込みエラー</translation>
+        <translation>読み込みエラー</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Please select a source device.</source>
-        <translation type="unfinished"></translation>
+        <translation>読み込み元のデバイスを選択してください。</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -621,7 +691,7 @@ This could only be detected once the device was full, because the compressed ima
     <message>
         <location line="-201"/>
         <source>Please select a device to verify against.</source>
-        <translation type="unfinished"></translation>
+        <translation>照合するデバイスを選択してください。</translation>
     </message>
     <message>
         <location line="+150"/>
@@ -633,7 +703,14 @@ This could only be detected once the device was full, because the compressed ima
 The extra space DOES appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージのサイズがデバイスより大きいです:
+  イメージ: %1 セクタ
+  デバイス: %2 セクタ
+  セクタサイズ: %3
+
+超過部分にはデータが含まれているようです
+
+それでも続行しますか？</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -645,7 +722,14 @@ Continue Anyway?</source>
 The extra space does not appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージのサイズがデバイスより大きいです:
+  イメージ: %1 セクタ
+  デバイス: %2 セクタ
+  セクタサイズ: %3
+
+超過部分にデータは含まれていないようです
+
+それでも続行しますか？</translation>
     </message>
     <message>
         <location line="-57"/>
@@ -670,28 +754,36 @@ Continue Anyway?</source>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージがデバイスより大きいため、収まる部分のみ比較できました。比較した範囲はすべて一致しましたが、デバイスには完全なイメージが入っていません。
+
+圧縮イメージは非圧縮サイズを記録しないため、デバイスの末尾に達するまでこれを検出できませんでした。</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
-        <translation type="unfinished"></translation>
+        <translation>検証に成功しました。
+
+イメージとデバイスの違いは GPT のみで、これは「書き込み後に GPT を修正する」オプションが意図的に書き換えたものです。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>
 
 The device has been ejected. Remove it now.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+デバイスを取り出しました。今すぐ取り外してください。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>
 
 The device could NOT be taken offline automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+デバイスを自動的にオフラインにできませんでした。</translation>
     </message>
     <message>
         <location line="-3"/>
@@ -820,54 +912,56 @@ Checking of free space will be skipped.</source>
     <message>
         <location line="+158"/>
         <source>Unknown device</source>
-        <translation type="unfinished"></translation>
+        <translation>不明なデバイス</translation>
     </message>
     <message>
         <location line="+53"/>
         <source>Could not lock volume %1: it is still in use.
 Close any program using the device and try again.
 Error %2</source>
-        <translation type="unfinished"></translation>
+        <translation>ボリューム %1 をロックできませんでした: まだ使用中です。
+デバイスを使用しているプログラムをすべて閉じて、もう一度お試しください。
+エラー %2</translation>
     </message>
     <message>
         <location line="+179"/>
         <source>the primary GPT header size is out of range</source>
-        <translation type="unfinished"></translation>
+        <translation>プライマリ GPT ヘッダーのサイズが範囲外です</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>the primary GPT header checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>プライマリ GPT ヘッダーのチェックサムが不正です</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>the GPT partition entry array is not where the header says</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT パーティションエントリ配列がヘッダーの示す位置にありません</translation>
     </message>
     <message>
         <location line="+44"/>
         <source>a partition extends past the end of the device</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションがデバイスの末尾を超えて広がっています</translation>
     </message>
     <message>
         <location line="+68"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
-        <translation type="unfinished"></translation>
+        <translation>バックアップ GPT を LBA %1 に移動しました。最終使用可能 LBA は %2 になりました</translation>
     </message>
     <message>
         <location filename="../imagesource.cpp" line="+104"/>
         <source>The device reports a sector size of zero.</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスがセクタサイズ 0 を報告しています。</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The image file could not be opened (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージファイルを開けませんでした (エラー %1)。</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>The size of the image file could not be read (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージファイルのサイズを読み取れませんでした (エラー %1)。</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -877,48 +971,48 @@ Error %2</source>
         <location line="+24"/>
         <location line="+157"/>
         <source>The image file could not be read (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージファイルを読み取れませんでした (エラー %1)。</translation>
     </message>
     <message>
         <location line="-403"/>
         <source>The image file could not be rewound (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージファイルを先頭に戻せませんでした (エラー %1)。</translation>
     </message>
     <message>
         <location line="+181"/>
         <source>The gzip decompressor could not be started (zlib error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>gzip 展開処理を開始できませんでした (zlib エラー %1)。</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>The xz decompressor could not be started (lzma error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>xz 展開処理を開始できませんでした (lzma エラー %1)。</translation>
     </message>
     <message>
         <location line="+62"/>
         <location line="+84"/>
         <source>The image file ends in the middle of the compressed data. It is truncated or damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>イメージファイルが圧縮データの途中で終わっています。切り詰められているか破損しています。</translation>
     </message>
     <message>
         <location line="-37"/>
         <source>The gzip image could not be decompressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>gzip イメージを展開できませんでした。</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The gzip image is damaged (zlib error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>gzip イメージが破損しています (zlib エラー %1)。</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>The xz image is damaged (lzma error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>xz イメージが破損しています (lzma エラー %1)。</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>A compressed image can only be read forwards.</source>
-        <translation type="unfinished"></translation>
+        <translation>圧縮イメージは前方向にしか読み取れません。</translation>
     </message>
 </context>
 </TS>

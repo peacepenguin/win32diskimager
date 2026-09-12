@@ -26,12 +26,12 @@
     <message>
         <location line="+42"/>
         <source>Image File Hash</source>
-        <translation type="unfinished"></translation>
+        <translation>映像文件哈希</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Hash type to generate for image file</source>
-        <translation type="unfinished"></translation>
+        <translation>为映像文件生成的哈希类型</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -61,22 +61,22 @@
     <message>
         <location line="+55"/>
         <source>Fix GPT after write</source>
-        <translation type="unfinished"></translation>
+        <translation>写入后修复 GPT</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>After writing, move the backup GPT to the end of the device and update the header to match, so Windows has nothing to &quot;repair&quot;. Leave unchecked to be warned to remove the device instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>写入后, 将备份 GPT 移到设备末尾并相应更新头部, 使 Windows 没有可"修复"的内容. 不勾选则改为提示您移除设备.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Show all devices</source>
-        <translation type="unfinished"></translation>
+        <translation>显示所有设备</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</source>
-        <translation type="unfinished"></translation>
+        <translation>同时列出固定磁盘. 内置 PCIe 读卡器常把存储卡显示为不可移动设备, 否则将被隐藏. 运行 Windows 的磁盘永远不会被列出.</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -255,7 +255,14 @@ Are you sure you want to cancel?</source>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>写入成功, 但分区表存在风险.
+
+%1
+%2
+
+%3
+
+请立即物理移除该设备, 不要进行任何其他操作, 也不要将其重新插入本计算机. 请将其插入目标硬件.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -295,40 +302,43 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <location line="-712"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
-        <translation type="unfinished"></translation>
+        <translation>磁盘映像 (*.img *.IMG *.img.gz *.img.xz)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)</source>
-        <translation type="unfinished"></translation>
+        <translation>压缩磁盘映像 (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
         <location line="+203"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Could not open the file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>无法打开文件以生成校验和:
+%1</translation>
     </message>
     <message>
         <location line="+63"/>
         <source>Please select a target device.</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择目标设备.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Writing to a physical device can corrupt the device.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>写入物理设备可能会损坏该设备.
+(目标设备: %1)
+确定要继续吗?</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Device has mounted volumes</source>
-        <translation type="unfinished"></translation>
+        <translation>设备上有已挂载的卷</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -339,19 +349,25 @@ Everything on this device, on every one of its partitions, will be destroyed and
 Check that %2 is not a drive you meant to keep.
 
 Write to this device anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 在 Windows 中挂载为 %2.
+
+该设备上所有分区中的全部内容都将被销毁且无法恢复.
+
+请确认 %2 不是您想要保留的驱动器.
+
+仍要写入此设备?</translation>
     </message>
     <message>
         <location line="+46"/>
         <location line="+641"/>
         <source>Device Error</source>
-        <translation type="unfinished">设备错误</translation>
+        <translation>设备错误</translation>
     </message>
     <message>
         <location line="-640"/>
         <location line="+641"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>设备报告的容量为零. 如果这是读卡器, 存储卡可能已被取出.</translation>
     </message>
     <message>
         <location line="-589"/>
@@ -363,7 +379,14 @@ Write to this device anyway?</source>
 The end of the image will not be written, so the device will not hold a complete image.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>映像大于设备:
+  映像: 至少 %1 个扇区
+  可用: %2 个扇区
+  扇区大小: %3
+
+映像的末尾将不会被写入, 因此设备中不会包含完整的映像.
+
+仍然继续?</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -375,7 +398,14 @@ Continue Anyway?</source>
 The extra space could not be checked for data, because the image is compressed
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>所需空间超过可用空间:
+  需要: %1 个扇区
+  可用: %2 个扇区
+  扇区大小: %3
+
+由于映像已压缩, 无法检查多出的空间中是否含有数据
+
+仍然继续?</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -387,7 +417,14 @@ Continue Anyway?</source>
 The extra space DOES appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>所需空间超过可用空间:
+  需要: %1 个扇区
+  可用: %2 个扇区
+  扇区大小: %3
+
+多出的空间中似乎含有数据
+
+仍然继续?</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -399,123 +436,140 @@ Continue Anyway?</source>
 The extra space does not appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>所需空间超过可用空间:
+  需要: %1 个扇区
+  可用: %2 个扇区
+  扇区大小: %3
+
+多出的空间中似乎不含数据
+
+仍然继续?</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Clearing old partition tables...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在清除旧的分区表...</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Could not clear the existing partition tables on the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法清除设备上已有的分区表.</translation>
     </message>
     <message>
         <location line="+110"/>
         <source>Fixing GPT...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在修复 GPT...</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Image truncated</source>
-        <translation type="unfinished"></translation>
+        <translation>映像被截断</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation type="unfinished"></translation>
+        <translation>写入成功.
+
+GPT 已与设备 (%1) 保持一致, 因此 Windows 没有损坏的分区表需要修复. 可以正常移除设备.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation type="unfinished"></translation>
+        <translation>写入成功.
+
+映像中不含 GPT, 因此没有分区表需要 Windows 修复. 可以正常移除设备.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Write successful.</source>
-        <translation type="unfinished"></translation>
+        <translation>写入成功.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Write Successful</source>
-        <translation type="unfinished"></translation>
+        <translation>写入成功</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation type="unfinished"></translation>
+        <translation>设备已脱机并弹出.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法自动将设备脱机.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>无法自动修复 GPT (%1).</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 格式有误</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Fixing the GPT failed (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>修复 GPT 失败 (%1).</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>write error</source>
-        <translation type="unfinished"></translation>
+        <translation>写入错误</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>未启用"写入后修复 GPT"选项.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation type="unfinished"></translation>
+        <translation>此映像会受 Windows GPT 重写缺陷的影响.
+
+它在第一个分区之前保留了空间, 因此重新扫描时 Windows 会重写主分区表, 使其指向错误的扇区. 重写结果仍能通过 Windows 自身的检查, 但 Linux 会拒绝它, 设备也无法引导.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation type="unfinished"></translation>
+        <translation>此映像不会受 Windows GPT 重写缺陷的影响.
+
+由于备份 GPT 不在设备末尾, 重新扫描时 Windows 仍会重写分区表, 但对于这种布局, 重写得到的值是正确的. 无论如何, 现在移除设备可使其与映像保持逐字节一致.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法确定此映像是否受 Windows GPT 重写缺陷的影响. 请按受影响处理: 重新扫描后, 分区表可能会被 Linux 拒绝, 设备也可能无法引导.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Remove the device now</source>
-        <translation type="unfinished"></translation>
+        <translation>请立即移除设备</translation>
     </message>
     <message>
         <location line="+16"/>
         <location line="+579"/>
         <source>You do not have permission to read the selected file.</source>
-        <translation type="unfinished"></translation>
+        <translation>您没有读取所选文件的权限.</translation>
     </message>
     <message>
         <location line="-529"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
-        <translation type="unfinished"></translation>
+        <translation>映像只能以未压缩的形式读出. 请选择不带 .gz 或 .xz 扩展名的文件名.
+
+压缩映像 (.img.gz, .img.xz) 可以用于写入和校验.</translation>
     </message>
     <message>
         <location line="+280"/>
@@ -527,7 +581,14 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 Only the part that fits can be compared.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>映像大于设备:
+  映像: 至少 %1 个扇区
+  设备: %2 个扇区
+  扇区大小: %3
+
+只能校验能够容纳的部分.
+
+仍然继续?</translation>
     </message>
     <message>
         <location line="+55"/>
@@ -539,17 +600,24 @@ Continue Anyway?</source>
 The extra space could not be checked for data, because the image is compressed
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>映像大小超过设备:
+  映像: %1 个扇区
+  设备: %2 个扇区
+  扇区大小: %3
+
+由于映像已压缩, 无法检查多出的空间中是否含有数据
+
+仍然继续?</translation>
     </message>
     <message>
         <location line="+164"/>
         <source>Image larger than device</source>
-        <translation type="unfinished"></translation>
+        <translation>映像大于设备</translation>
     </message>
     <message>
         <location line="+107"/>
         <source>[Disk %1]</source>
-        <translation type="unfinished"></translation>
+        <translation>[磁盘 %1]</translation>
     </message>
     <message>
         <location line="-637"/>
@@ -562,18 +630,20 @@ Continue Anyway?</source>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>映像大于设备, 因此其末尾未被写入, 设备中没有完整的映像.
+
+由于压缩映像不记录其未压缩大小, 只有在设备写满后才能发现这一点.</translation>
     </message>
     <message>
         <location line="+134"/>
         <location line="+15"/>
         <source>Read Error</source>
-        <translation type="unfinished">读取失败</translation>
+        <translation>读取错误</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Please select a source device.</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择源设备.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -621,7 +691,7 @@ This could only be detected once the device was full, because the compressed ima
     <message>
         <location line="-201"/>
         <source>Please select a device to verify against.</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择用于校验的设备.</translation>
     </message>
     <message>
         <location line="+150"/>
@@ -633,7 +703,14 @@ This could only be detected once the device was full, because the compressed ima
 The extra space DOES appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>映像大小超过设备:
+  映像: %1 个扇区
+  设备: %2 个扇区
+  扇区大小: %3
+
+多出的空间中似乎含有数据
+
+仍然继续?</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -645,7 +722,14 @@ Continue Anyway?</source>
 The extra space does not appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>映像大小超过设备:
+  映像: %1 个扇区
+  设备: %2 个扇区
+  扇区大小: %3
+
+多出的空间中似乎不含数据
+
+仍然继续?</translation>
     </message>
     <message>
         <location line="-57"/>
@@ -670,28 +754,36 @@ Continue Anyway?</source>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>映像大于设备, 因此只能校验能够容纳的部分. 已校验的部分全部一致, 但设备中没有完整的映像.
+
+由于压缩映像不记录其未压缩大小, 只有到达设备末尾时才能发现这一点.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
-        <translation type="unfinished"></translation>
+        <translation>校验成功.
+
+映像与设备仅在 GPT 上存在差异, 而"写入后修复 GPT"选项本就会重写这一部分.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>
 
 The device has been ejected. Remove it now.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+设备已弹出. 请立即移除.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>
 
 The device could NOT be taken offline automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+无法自动将设备脱机.</translation>
     </message>
     <message>
         <location line="-3"/>
@@ -820,54 +912,56 @@ Checking of free space will be skipped.</source>
     <message>
         <location line="+158"/>
         <source>Unknown device</source>
-        <translation type="unfinished"></translation>
+        <translation>未知设备</translation>
     </message>
     <message>
         <location line="+53"/>
         <source>Could not lock volume %1: it is still in use.
 Close any program using the device and try again.
 Error %2</source>
-        <translation type="unfinished"></translation>
+        <translation>无法锁定卷 %1: 它仍在使用中.
+请关闭所有正在使用该设备的程序后重试.
+错误 %2</translation>
     </message>
     <message>
         <location line="+179"/>
         <source>the primary GPT header size is out of range</source>
-        <translation type="unfinished"></translation>
+        <translation>主 GPT 头部的大小超出范围</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>the primary GPT header checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>主 GPT 头部的校验和无效</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>the GPT partition entry array is not where the header says</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 分区表项数组不在头部所指示的位置</translation>
     </message>
     <message>
         <location line="+44"/>
         <source>a partition extends past the end of the device</source>
-        <translation type="unfinished"></translation>
+        <translation>有分区超出了设备的末尾</translation>
     </message>
     <message>
         <location line="+68"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
-        <translation type="unfinished"></translation>
+        <translation>备份 GPT 已移至 LBA %1; 最后可用 LBA 现为 %2</translation>
     </message>
     <message>
         <location filename="../imagesource.cpp" line="+104"/>
         <source>The device reports a sector size of zero.</source>
-        <translation type="unfinished"></translation>
+        <translation>设备报告的扇区大小为零.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>The image file could not be opened (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>无法打开映像文件 (错误 %1).</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>The size of the image file could not be read (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>无法读取映像文件的大小 (错误 %1).</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -877,48 +971,48 @@ Error %2</source>
         <location line="+24"/>
         <location line="+157"/>
         <source>The image file could not be read (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>无法读取映像文件 (错误 %1).</translation>
     </message>
     <message>
         <location line="-403"/>
         <source>The image file could not be rewound (error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>无法将映像文件回退到开头 (错误 %1).</translation>
     </message>
     <message>
         <location line="+181"/>
         <source>The gzip decompressor could not be started (zlib error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>无法启动 gzip 解压程序 (zlib 错误 %1).</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>The xz decompressor could not be started (lzma error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>无法启动 xz 解压程序 (lzma 错误 %1).</translation>
     </message>
     <message>
         <location line="+62"/>
         <location line="+84"/>
         <source>The image file ends in the middle of the compressed data. It is truncated or damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>映像文件在压缩数据中间结束. 它已被截断或损坏.</translation>
     </message>
     <message>
         <location line="-37"/>
         <source>The gzip image could not be decompressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法解压该 gzip 映像.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The gzip image is damaged (zlib error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>该 gzip 映像已损坏 (zlib 错误 %1).</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>The xz image is damaged (lzma error %1).</source>
-        <translation type="unfinished"></translation>
+        <translation>该 xz 映像已损坏 (lzma 错误 %1).</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>A compressed image can only be read forwards.</source>
-        <translation type="unfinished"></translation>
+        <translation>压缩映像只能向前读取.</translation>
     </message>
 </context>
 </TS>
