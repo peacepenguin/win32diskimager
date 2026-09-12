@@ -297,9 +297,19 @@ target larger than 4.1 GiB
                                catches, and it will look like a clean write.
   test-over4g.img.xz           the same image in xz, where the size IS known
 
-After flashing, confirm the tail of the image reached the device:
-  sudo dd if=/dev/sdX bs=512 \\
-      skip=\$(( \$(sudo blockdev --getsz /dev/sdX) - 1 )) count=1 | head -c 64
+After flashing, compare the device against the image byte for byte.  This
+covers every case below, including the short final sector and the >4 GiB pair:
+  tools/verify-flashed.sh test-64m.img.gz /dev/sdX
+
+To check the tail by hand instead, seek by the size of the IMAGE, not of the
+device -- the card is larger than every image here, so the last sector of the
+card is old data, not the end of what was written:
+  size=\$(xz -dc test-64m.img.xz | wc -c)      # or: stat -c%s test-64m.img
+  sudo dd if=/dev/sdX bs=512 skip=\$(( (size + 511) / 512 - 1 )) count=1 |
+      head -c 64
+The marker there is ENDOFIMAGE-... for every image except test-unaligned.*,
+whose final sector is the short one and reads TAIL-511-BYTES-NOT-A-FULL-SECTOR
+followed by zero padding.
 EOF
 
 echo
