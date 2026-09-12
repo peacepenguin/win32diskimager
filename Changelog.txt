@@ -1,3 +1,15 @@
+Unreleased
+==========
+Write and verify compressed images directly: a .img.gz or .img.xz is
+  decompressed as it is written to the device, so no expanded copy is ever put
+  on disk. Reading a device back still produces an uncompressed .img
+The uncompressed size comes from the xz index, which is exact. gzip records it
+  only modulo 4 GiB, so where it cannot be trusted the write runs until the
+  stream ends and reports if the image did not fit
+Format is decided by the file's magic bytes, not its name
+A truncated or damaged compressed image is reported instead of being written
+  out as far as it goes
+
 Release 1.2.0
 =============
 Identified the actual Windows defect behind the GPT corruption: on rescan it

@@ -9,6 +9,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
+# Compressed images (.img.gz / .img.xz) are decompressed as they are written,
+# so no expanded copy is ever put on disk.
+find_package(ZLIB REQUIRED)
+find_package(LibLZMA REQUIRED)
+
 # When cross-compiling, Qt6::lrelease resolves to a Windows .exe that cannot run
 # on the build host. Point LRELEASE_EXECUTABLE at the host's native lrelease
 # instead (e.g. -DLRELEASE_EXECUTABLE=/usr/bin/lrelease-qt6).
@@ -33,6 +38,7 @@ add_custom_target(translations DEPENDS ${QM_FILES})
 
 qt_add_executable(Win32DiskImager WIN32
     disk.cpp
+    imagesource.cpp
     main.cpp
     mainwindow.cpp
     droppablelineedit.cpp
@@ -50,7 +56,7 @@ target_compile_definitions(Win32DiskImager PRIVATE
     _WIN32_WINNT=0x0601
 )
 
-target_link_libraries(Win32DiskImager PRIVATE Qt6::Widgets)
+target_link_libraries(Win32DiskImager PRIVATE Qt6::Widgets ZLIB::ZLIB LibLZMA::LibLZMA)
 
 # This code uses the ANSI Win32 API; Qt6 turns UNICODE on by default.
 qt6_disable_unicode_defines(Win32DiskImager)

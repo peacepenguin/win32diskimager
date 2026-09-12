@@ -11,6 +11,7 @@ RUN dnf -y install \
         cmake ninja-build file findutils binutils \
         mingw64-gcc-c++ mingw64-qt6-qtbase mingw64-qt6-qttools \
         mingw64-qt6-qttranslations \
+        mingw64-zlib mingw64-xz \
         qt6-linguist \
     && dnf clean all
 

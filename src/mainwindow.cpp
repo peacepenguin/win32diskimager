@@ -42,6 +42,7 @@
 
 #include "disk.h"
 #include "mainwindow.h"
+#include "imagesource.h"
 #include "elapsedtimer.h"
 
 MainWindow* MainWindow::instance = NULL;
@@ -93,9 +94,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     }
 
     if (myFileType.isEmpty()) {
-        myFileType = tr("Disk Images (*.img *.IMG)");
+        myFileType = tr("Disk Images (*.img *.IMG *.img.gz *.img.xz)");
     }
-    myFileTypeList << tr("Disk Images (*.img *.IMG)") << "*.*";
+    myFileTypeList << tr("Disk Images (*.img *.IMG *.img.gz *.img.xz)")
+                   << tr("Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)")
+                   << "*.*";
 }
 
 MainWindow::~MainWindow()
@@ -410,23 +413,14 @@ void MainWindow::on_bWrite_clicked()
                 setReadWriteButtonState();
                 return;
             }
-            hFile = getHandleOnFile(LPCWSTR(leFile->text().data()), GENERIC_READ);
-            if (hFile == INVALID_HANDLE_VALUE)
-            {
-                locked.release();
-                status = STATUS_IDLE;
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
-                return;
-            }
+            // The device is opened first: the image reader needs the sector
+            // size to hand out whole sectors, compressed or not.
             // Read access is needed as well: the GPT fix reads the table back.
             hRawDisk = getHandleOnDevice(deviceID, GENERIC_READ | GENERIC_WRITE);
             if (hRawDisk == INVALID_HANDLE_VALUE)
             {
                 locked.release();
-                CloseHandle(hFile);
                 status = STATUS_IDLE;
-                hFile = INVALID_HANDLE_VALUE;
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -438,66 +432,93 @@ void MainWindow::on_bWrite_clicked()
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
                 locked.release();
                 CloseHandle(hRawDisk);
-                CloseHandle(hFile);
                 hRawDisk = INVALID_HANDLE_VALUE;
-                hFile = INVALID_HANDLE_VALUE;
                 passfail = false;
                 status = STATUS_IDLE;
                 return;
 
             }
-            numsectors = getFileSizeInSectors(hFile, sectorsize);
+            // A .img.gz or .img.xz is decompressed on the fly as it is written,
+            // so the machine never needs room for the expanded image.
+            ImageSource image;
+            if (!image.open(leFile->text(), sectorsize))
+            {
+                QMessageBox::critical(this, tr("Write Error"), image.errorString());
+                locked.release();
+                CloseHandle(hRawDisk);
+                hRawDisk = INVALID_HANDLE_VALUE;
+                status = STATUS_IDLE;
+                bCancel->setEnabled(false);
+                setReadWriteButtonState();
+                return;
+            }
+            // gzip only records the uncompressed size modulo 4 GiB, so it can
+            // be unknown. The write then runs until the stream ends, with the
+            // device size standing in for the total.
+            numsectors = image.sizeKnown() ? image.sizeInSectors() : availablesectors;
             if (!numsectors)
             {
                 //For external card readers you may not get device change notification when you remove the card/flash.
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
                 locked.release();
                 CloseHandle(hRawDisk);
-                CloseHandle(hFile);
                 hRawDisk = INVALID_HANDLE_VALUE;
-                hFile = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
                 return;
 
             }
             if (numsectors > availablesectors)
             {
+                // A compressed image is read forwards only: scanning its tail
+                // would mean decompressing the whole image just to decide
+                // whether to start, so the tail is reported as unexamined.
+                bool tailchecked = !image.isCompressed();
                 bool datafound = false;
-                i = availablesectors;
-                unsigned long nextchunksize = 0;
-                while ( (i < numsectors) && (datafound == false) )
+                if (tailchecked)
                 {
-                    nextchunksize = ((numsectors - i) >= 1024ul) ? 1024ul : (numsectors - i);
-                    sectorData = readSectorDataFromHandle(hFile, i, nextchunksize, sectorsize);
-                    if(sectorData == NULL)
+                    i = availablesectors;
+                    unsigned long nextchunksize = 0;
+                    while ( (i < numsectors) && (datafound == false) )
                     {
-                        // if there's an error verifying the truncated data, just move on to the
-                        //  write, as we don't care about an error in a section that we're not writing...
-                        i = numsectors + 1;
-                    } else {
-                        unsigned int j = 0;
-                        unsigned limit = nextchunksize * sectorsize;
-                        while ( (datafound == false) && ( j < limit ) )
+                        nextchunksize = ((numsectors - i) >= 1024ul) ? 1024ul : (numsectors - i);
+                        sectorData = image.read(i, nextchunksize, NULL);
+                        if(sectorData == NULL)
                         {
-                            if(sectorData[j++] != 0)
+                            // if there's an error verifying the truncated data, just move on to the
+                            //  write, as we don't care about an error in a section that we're not writing...
+                            i = numsectors + 1;
+                        } else {
+                            unsigned int j = 0;
+                            unsigned limit = nextchunksize * sectorsize;
+                            while ( (datafound == false) && ( j < limit ) )
                             {
-                                datafound = true;
+                                if(sectorData[j++] != 0)
+                                {
+                                    datafound = true;
+                                }
                             }
+                            i += nextchunksize;
                         }
-                        i += nextchunksize;
+                        // delete the allocated sectorData
+                        delete[] sectorData;
+                        sectorData = NULL;
                     }
                 }
-                // delete the allocated sectorData
-                delete[] sectorData;
-                sectorData = NULL;
                 // build the string for the warning dialog
                 std::ostringstream msg;
                 msg << "More space required than is available:"
                     << "\n  Required: " << numsectors << " sectors"
                     << "\n  Available: " << availablesectors << " sectors"
-                    << "\n  Sector Size: " << sectorsize
-                    << "\n\nThe extra space " << ((datafound) ? "DOES" : "does not") << " appear to contain data"
-                    << "\n\nContinue Anyway?";
+                    << "\n  Sector Size: " << sectorsize;
+                if (tailchecked)
+                {
+                    msg << "\n\nThe extra space " << ((datafound) ? "DOES" : "does not") << " appear to contain data";
+                }
+                else
+                {
+                    msg << "\n\nThe extra space could not be checked for data, because the image is compressed";
+                }
+                msg << "\n\nContinue Anyway?";
                 if(QMessageBox::warning(this, tr("Not enough available space!"),
                                         tr(msg.str().c_str()), QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
                 {
@@ -508,9 +529,7 @@ void MainWindow::on_bWrite_clicked()
                 {
                     locked.release();
                     CloseHandle(hRawDisk);
-                    CloseHandle(hFile);
                     status = STATUS_IDLE;
-                    hFile = INVALID_HANDLE_VALUE;
                     hRawDisk = INVALID_HANDLE_VALUE;
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
@@ -529,10 +548,8 @@ void MainWindow::on_bWrite_clicked()
                     tr("Could not clear the existing partition tables on the device."));
                 locked.release();
                 CloseHandle(hRawDisk);
-                CloseHandle(hFile);
                 status = STATUS_IDLE;
                 hRawDisk = INVALID_HANDLE_VALUE;
-                hFile = INVALID_HANDLE_VALUE;
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -542,37 +559,53 @@ void MainWindow::on_bWrite_clicked()
             lasti = 0ul;
             update_timer.start();
             elapsed_timer->start();
+            bool imagetruncated = false;
             for (i = 0ul; i < numsectors && status == STATUS_WRITING; i += 1024ul)
             {
-                sectorData = readSectorDataFromHandle(hFile, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize);
+                unsigned long long chunk = (numsectors - i >= 1024ul) ? 1024ul : (numsectors - i);
+                unsigned long long got = 0ull;
+                sectorData = image.read(i, chunk, &got);
                 if (sectorData == NULL)
                 {
+                    QMessageBox::critical(this, tr("Write Error"), image.errorString());
                     locked.release();
                     CloseHandle(hRawDisk);
-                    CloseHandle(hFile);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    hFile = INVALID_HANDLE_VALUE;
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
                 }
-                if (!writeSectorDataToHandle(hRawDisk, sectorData, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize))
+                if (got == 0ull)
+                {
+                    // The image ended exactly on the previous chunk.
+                    delete[] sectorData;
+                    sectorData = NULL;
+                    numsectors = i;
+                    break;
+                }
+                if (!writeSectorDataToHandle(hRawDisk, sectorData, i, got, sectorsize))
                 {
                     delete[] sectorData;
                     locked.release();
                     CloseHandle(hRawDisk);
-                    CloseHandle(hFile);
                     status = STATUS_IDLE;
                     sectorData = NULL;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    hFile = INVALID_HANDLE_VALUE;
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
                 }
                 delete[] sectorData;
                 sectorData = NULL;
+                if (got < chunk)
+                {
+                    // Short read: the image ended inside this chunk.
+                    numsectors = i + got;
+                    progressbar->setValue(numsectors);
+                    QCoreApplication::processEvents();
+                    break;
+                }
                 QCoreApplication::processEvents();
                 if (update_timer.elapsed() >= ONE_SEC_IN_MS)
                 {
@@ -585,12 +618,20 @@ void MainWindow::on_bWrite_clicked()
                 progressbar->setValue(i);
                 QCoreApplication::processEvents();
             }
+            // With an unknown uncompressed size the loop stops at the device
+            // size, so ask the stream whether anything was left over.
+            if (!image.sizeKnown() && status == STATUS_WRITING)
+            {
+                unsigned long long leftover = 0ull;
+                char *extra = image.read(numsectors, 1ull, &leftover);
+                delete[] extra;
+                imagetruncated = (leftover > 0ull);
+            }
             // Order matters. Flush and close the raw disk first: unlocking the
             // volumes lets mountmgr rescan the disk immediately, and a rescan
             // is what triggers Windows' automatic GPT "repair".
             flushDevice(hRawDisk);
-            CloseHandle(hFile);
-            hFile = INVALID_HANDLE_VALUE;
+            image.close();
 
             // Make the table consistent with the device before anything can
             // rescan it, so Windows finds nothing to "repair".
@@ -616,7 +657,16 @@ void MainWindow::on_bWrite_clicked()
             hRawDisk = INVALID_HANDLE_VALUE;
             locked.release();
 
-            if (status == STATUS_CANCELED){
+            if (imagetruncated && status != STATUS_CANCELED)
+            {
+                QMessageBox::critical(this, tr("Image truncated"),
+                    tr("The image is larger than the device, so the end of it was not "
+                       "written and the device does not hold a complete image.\n\n"
+                       "This could only be detected once the device was full, because a "
+                       "gzip image does not record its uncompressed size."));
+                passfail = false;
+            }
+            else if (status == STATUS_CANCELED){
                 passfail = false;
             }
             else if (gptfix == GPT_FIX_OK || gptfix == GPT_FIX_NOT_NEEDED
@@ -733,6 +783,17 @@ void MainWindow::on_bRead_clicked()
         QFileInfo fileinfo(myFile);
         if (fileinfo.path()=="."){
             myFile=(myHomeDir + "/" + leFile->text());
+        }
+        // Reading writes a raw image; compressing on the way out is not
+        // supported, and a raw image under a .gz or .xz name would mislead
+        // every other tool that opens it.
+        if (ImageSource::nameLooksCompressed(myFile))
+        {
+            QMessageBox::critical(this, tr("Read Error"),
+                tr("Images can only be read back uncompressed. Choose a file name "
+                   "without a .gz or .xz extension.\n\n"
+                   "Compressed images (.img.gz, .img.xz) can be written and verified."));
+            return;
         }
         // check whether source and target device is the same...
         if (fileIsOnSelectedDevice(myFile))
@@ -938,24 +999,15 @@ void MainWindow::on_bVerify_clicked()
                 setReadWriteButtonState();
                 return;
             }
-            hFile = getHandleOnFile(LPCWSTR(leFile->text().data()), GENERIC_READ);
-            if (hFile == INVALID_HANDLE_VALUE)
-            {
-                locked.release();
-                status = STATUS_IDLE;
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
-                return;
-            }
+            // The device is opened first: the image reader needs the sector
+            // size to hand out whole sectors, compressed or not.
             // Read-write: verify never writes, but taking the disk offline
             // afterwards (IOCTL_DISK_SET_DISK_ATTRIBUTES) needs write access.
             hRawDisk = getHandleOnDevice(deviceID, GENERIC_READ | GENERIC_WRITE);
             if (hRawDisk == INVALID_HANDLE_VALUE)
             {
                 locked.release();
-                CloseHandle(hFile);
                 status = STATUS_IDLE;
-                hFile = INVALID_HANDLE_VALUE;
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
@@ -967,65 +1019,88 @@ void MainWindow::on_bVerify_clicked()
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
                 locked.release();
                 CloseHandle(hRawDisk);
-                CloseHandle(hFile);
                 hRawDisk = INVALID_HANDLE_VALUE;
-                hFile = INVALID_HANDLE_VALUE;
                 passfail = false;
                 status = STATUS_IDLE;
                 return;
 
             }
-            numsectors = getFileSizeInSectors(hFile, sectorsize);
+            // A compressed image is decompressed on the fly and compared as it
+            // comes out, exactly like a raw one.
+            ImageSource image;
+            if (!image.open(leFile->text(), sectorsize))
+            {
+                QMessageBox::critical(this, tr("Verify Error"), image.errorString());
+                locked.release();
+                CloseHandle(hRawDisk);
+                hRawDisk = INVALID_HANDLE_VALUE;
+                status = STATUS_IDLE;
+                bCancel->setEnabled(false);
+                setReadWriteButtonState();
+                return;
+            }
+            // gzip only records the uncompressed size modulo 4 GiB, so it can
+            // be unknown; the comparison then runs until the stream ends.
+            numsectors = image.sizeKnown() ? image.sizeInSectors() : availablesectors;
             if (!numsectors)
             {
                 //For external card readers you may not get device change notification when you remove the card/flash.
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
                 locked.release();
                 CloseHandle(hRawDisk);
-                CloseHandle(hFile);
                 hRawDisk = INVALID_HANDLE_VALUE;
-                hFile = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
                 return;
 
             }
             if (numsectors > availablesectors)
             {
+                // A compressed image is read forwards only, so its tail cannot
+                // be examined without decompressing everything first.
+                bool tailchecked = !image.isCompressed();
                 bool datafound = false;
-                i = availablesectors;
-                unsigned long nextchunksize = 0;
-                while ( (i < numsectors) && (datafound == false) )
+                if (tailchecked)
                 {
-                    nextchunksize = ((numsectors - i) >= 1024ul) ? 1024ul : (numsectors - i);
-                    sectorData = readSectorDataFromHandle(hFile, i, nextchunksize, sectorsize);
-                    if(sectorData == NULL)
+                    i = availablesectors;
+                    unsigned long nextchunksize = 0;
+                    while ( (i < numsectors) && (datafound == false) )
                     {
-                        // if there's an error verifying the truncated data, just move on to the
-                        //  write, as we don't care about an error in a section that we're not writing...
-                        i = numsectors + 1;
-                    } else {
-                        unsigned int j = 0;
-                        unsigned limit = nextchunksize * sectorsize;
-                        while ( (datafound == false) && ( j < limit ) )
+                        nextchunksize = ((numsectors - i) >= 1024ul) ? 1024ul : (numsectors - i);
+                        sectorData = image.read(i, nextchunksize, NULL);
+                        if(sectorData == NULL)
                         {
-                            if(sectorData[j++] != 0)
+                            // if there's an error verifying the truncated data, just move on to the
+                            //  write, as we don't care about an error in a section that we're not writing...
+                            i = numsectors + 1;
+                        } else {
+                            unsigned int j = 0;
+                            unsigned limit = nextchunksize * sectorsize;
+                            while ( (datafound == false) && ( j < limit ) )
                             {
-                                datafound = true;
+                                if(sectorData[j++] != 0)
+                                {
+                                    datafound = true;
+                                }
                             }
+                            i += nextchunksize;
                         }
-                        i += nextchunksize;
+                        // delete the allocated sectorData
+                        delete[] sectorData;
+                        sectorData = NULL;
                     }
                 }
-                // delete the allocated sectorData
-                delete[] sectorData;
-                sectorData = NULL;
-                QString msg = (datafound)
+                QString msg = (!tailchecked)
                     ? tr("Size of image larger than device:\n  Image: %1 sectors\n"
                          "  Device: %2 sectors\n  Sector Size: %3\n\n"
-                         "The extra space DOES appear to contain data\n\nContinue Anyway?")
-                    : tr("Size of image larger than device:\n  Image: %1 sectors\n"
-                         "  Device: %2 sectors\n  Sector Size: %3\n\n"
-                         "The extra space does not appear to contain data\n\nContinue Anyway?");
+                         "The extra space could not be checked for data, because the image "
+                         "is compressed\n\nContinue Anyway?")
+                    : (datafound)
+                        ? tr("Size of image larger than device:\n  Image: %1 sectors\n"
+                             "  Device: %2 sectors\n  Sector Size: %3\n\n"
+                             "The extra space DOES appear to contain data\n\nContinue Anyway?")
+                        : tr("Size of image larger than device:\n  Image: %1 sectors\n"
+                             "  Device: %2 sectors\n  Sector Size: %3\n\n"
+                             "The extra space does not appear to contain data\n\nContinue Anyway?");
                 msg = msg.arg(numsectors).arg(availablesectors).arg(sectorsize);
                 if(QMessageBox::warning(this, tr("Size Mismatch!"),
                                         msg, QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
@@ -1037,9 +1112,7 @@ void MainWindow::on_bVerify_clicked()
                 {
                     locked.release();
                     CloseHandle(hRawDisk);
-                    CloseHandle(hFile);
                     status = STATUS_IDLE;
-                    hFile = INVALID_HANDLE_VALUE;
                     hRawDisk = INVALID_HANDLE_VALUE;
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
@@ -1061,20 +1134,29 @@ void MainWindow::on_bVerify_clicked()
             lasti = 0ul;
             for (i = 0ul; i < numsectors && status == STATUS_VERIFYING; i += 1024ul)
             {
-                sectorData = readSectorDataFromHandle(hFile, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize);
+                unsigned long long got = 0ull;
+                sectorData = image.read(i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), &got);
                 if (sectorData == NULL)
                 {
+                    QMessageBox::critical(this, tr("Verify Error"), image.errorString());
                     locked.release();
                     CloseHandle(hRawDisk);
-                    CloseHandle(hFile);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    hFile = INVALID_HANDLE_VALUE;
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
                 }
-                sectorData2 = readSectorDataFromHandle(hRawDisk, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize);
+                if (got == 0ull)
+                {
+                    // The image ended on the previous chunk; there is nothing
+                    // left to compare.
+                    delete[] sectorData;
+                    sectorData = NULL;
+                    numsectors = i;
+                    break;
+                }
+                sectorData2 = readSectorDataFromHandle(hRawDisk, i, got, sectorsize);
                 if (sectorData2 == NULL)
                 {
                     QMessageBox::critical(this, tr("Verify Failure"), tr("Verification failed at sector: %1").arg(i));
@@ -1082,15 +1164,13 @@ void MainWindow::on_bVerify_clicked()
                     sectorData = NULL;
                     locked.release();
                     CloseHandle(hRawDisk);
-                    CloseHandle(hFile);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    hFile = INVALID_HANDLE_VALUE;
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
                     return;
                 }
-                unsigned long chunk = (numsectors - i >= 1024ul) ? 1024ul : (unsigned long)(numsectors - i);
+                unsigned long chunk = (unsigned long)got;
                 result = memcmp(sectorData, sectorData2, chunk * sectorsize);
                 if (result)
                 {
@@ -1144,13 +1224,12 @@ void MainWindow::on_bVerify_clicked()
             bool ejected = ejectDevice(hRawDisk);
             CloseHandle(hRawDisk);
             locked.release();
-            CloseHandle(hFile);
+            image.close();
             delete[] sectorData;
             delete[] sectorData2;
             sectorData = NULL;
             sectorData2 = NULL;
             hRawDisk = INVALID_HANDLE_VALUE;
-            hFile = INVALID_HANDLE_VALUE;
             if (status == STATUS_CANCELED){
                 passfail = false;
             }

@@ -11,7 +11,7 @@ winget install --id MSYS2.MSYS2 -e
 Then in the **MSYS2 UCRT64** shell:
 
 ```
-pacman -S --needed mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja mingw-w64-ucrt-x86_64-qt6-base mingw-w64-ucrt-x86_64-qt6-tools mingw-w64-ucrt-x86_64-qt6-translations
+pacman -S --needed mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja mingw-w64-ucrt-x86_64-qt6-base mingw-w64-ucrt-x86_64-qt6-tools mingw-w64-ucrt-x86_64-qt6-translations mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-xz
 ```
 
 ## 2. Compile
@@ -51,6 +51,7 @@ to link against there — the CI job runs `ubuntu-latest` but inside a
 ```
 dnf -y install cmake ninja-build mingw64-gcc-c++ \
   mingw64-qt6-qtbase mingw64-qt6-qttools mingw64-qt6-qttranslations \
+  mingw64-zlib mingw64-xz \
   qt6-linguist
 ```
 

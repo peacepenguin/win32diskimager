@@ -8,6 +8,11 @@ This program reads and writes raw image files to any Windows block storage devic
 Run it as Administrator, point it at your raw image, and select the device to write
 to.
 
+Compressed images are written directly: a `.img.gz` or `.img.xz` is
+decompressed as it goes to the device, so there is never an expanded copy on
+disk and nothing to unpack first. Verify reads them the same way. Reading a
+device back always produces an uncompressed `.img`.
+
 This fork fixes an issue where images written from Windows get their GPT
 corrupted, leaving the card unbootable.
 
@@ -109,6 +114,7 @@ produces no device-arrival broadcast at all.
  * Enumerate physical disks instead of drive letters, so devices with no
    letter still appear
  * Added the "Show all devices" option
+ * Write and verify `.img.gz` and `.img.xz` directly, decompressing on the fly
  * Added a GitHub Actions workflow that cross-compiles for win64 from Linux
 
 ## Legal
