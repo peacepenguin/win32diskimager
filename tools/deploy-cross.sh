@@ -16,6 +16,15 @@ objdump=${OBJDUMP:-x86_64-w64-mingw32-objdump}
 root="$(cd "$(dirname "$0")/.." && pwd)"
 bin="$sysroot/bin"
 
+# A build made with -DTEST_NO_ADMIN=ON asks for no elevation and cannot open a
+# device for writing. It is for looking at the GUI, never for shipping, and the
+# difference is invisible once the exe is in a folder of its own.
+if grep -aq 'level="asInvoker"' "$build/Win32DiskImager.exe"; then
+    echo "error: $build/Win32DiskImager.exe was built with TEST_NO_ADMIN=ON and" >&2
+    echo "       cannot write to a device. Reconfigure without it before packaging." >&2
+    exit 1
+fi
+
 rm -rf "$dist"
 mkdir -p "$dist"
 cp "$build/Win32DiskImager.exe" "$dist/"
@@ -30,13 +39,20 @@ for group in platforms styles imageformats generic; do
         cp "$qtplugins/$group"/*.dll "$dist/$group/" 2>/dev/null || true
     fi
 done
-# Debug variants would double the size for nothing.
-find "$dist" -name '*d.dll' -delete 2>/dev/null || true
+# Debug variants of the plugins would double the size for nothing. Scoped to
+# the plugin directories: at the top level "*d.dll" would also match innocent
+# names such as libzstd.dll.
+for group in platforms styles imageformats generic; do
+    [ -d "$dist/$group" ] && find "$dist/$group" -name '*d.dll' -delete 2>/dev/null
+done
+true
 # qminimal/qoffscreen are headless platform plugins; useless in a shipped GUI.
 rm -f "$dist/platforms/qminimal.dll" "$dist/platforms/qoffscreen.dll"
 
-# Qt's own translations, trimmed to the languages the app ships.
-LANGUAGES="es it pl nl de fr zh_CN zh_TW ta_IN ko ja"
+# Qt's own translations, trimmed to the languages the app ships. Read from
+# CMakeLists so this list cannot drift from the one the build compiles.
+LANGUAGES=$(sed -n 's/^set(LANGUAGES \(.*\))$/\1/p' "$root/src/CMakeLists.txt")
+[ -n "$LANGUAGES" ] || { echo "error: no LANGUAGES in src/CMakeLists.txt" >&2; exit 1; }
 qttr="$sysroot/share/qt6/translations"
 if [ ! -d "$qttr" ]; then
     echo "error: no Qt translations at $qttr (is mingw64-qt6-qttranslations installed?)" >&2

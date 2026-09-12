@@ -2,3 +2,5 @@ build/
 dist/
 src/lang/*.qm
 test-images/
+build-gpttest/
+gpttest.img
