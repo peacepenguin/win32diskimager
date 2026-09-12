@@ -15,7 +15,15 @@ RUN dnf -y install \
         qt6-linguist \
     && dnf clean all
 
+# qt6-linguist is the *native* build of the Linguist tools, and carries both
+# halves of the translation workflow: lrelease-qt6, which the build runs to
+# compile lang/*.ts into the .qm files translations.qrc embeds, and lupdate-qt6,
+# which tools/lupdate-cross.sh runs to refresh those .ts files from the sources.
+# Neither can come from mingw64-qt6-qttools: those are Windows .exe files.
+
 # Fail early and loudly if the layout is not what the build expects.
-RUN test -f /usr/share/mingw/toolchain-mingw64.cmake && test -x /usr/bin/lrelease-qt6
+RUN test -f /usr/share/mingw/toolchain-mingw64.cmake \
+    && test -x /usr/bin/lrelease-qt6 \
+    && test -x /usr/bin/lupdate-qt6
 
 WORKDIR /src

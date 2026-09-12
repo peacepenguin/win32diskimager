@@ -183,22 +183,22 @@ Are you sure you want to cancel?</source>
         <location line="+30"/>
         <location line="+6"/>
         <location line="+80"/>
-        <location line="+111"/>
+        <location line="+132"/>
         <location line="+34"/>
-        <location line="+239"/>
+        <location line="+238"/>
         <location line="+68"/>
         <source>Write Error</source>
         <translation>Fehler beim Schreiben</translation>
     </message>
     <message>
-        <location line="-538"/>
-        <location line="+470"/>
+        <location line="-558"/>
+        <location line="+490"/>
         <location line="+176"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Image-Datei kann nicht auf dem Zielgerät gefunden werden.</translation>
     </message>
     <message>
-        <location line="-637"/>
+        <location line="-657"/>
         <source>Confirm overwrite</source>
         <translation>Überschreiben bestätigen</translation>
     </message>
@@ -220,19 +220,20 @@ Are you sure you want to cancel?</source>
         <translation>Überprüfung abbrechen. Sind Sie sicher, dass Sie abbrechen wollen?</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+149"/>
+        <location line="+65"/>
         <source>Not enough available space!</source>
         <translation>Nicht genug verfügbarer Speicherplatz!</translation>
     </message>
     <message>
-        <location line="-229"/>
-        <location line="+162"/>
-        <location line="+303"/>
+        <location line="-251"/>
+        <location line="+164"/>
+        <location line="+321"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+293"/>
-        <location line="+241"/>
+        <location line="+295"/>
+        <location line="+260"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -240,7 +241,7 @@ Are you sure you want to cancel?</source>
         <translation>Dateifehler</translation>
     </message>
     <message>
-        <location line="-591"/>
+        <location line="-612"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -260,40 +261,40 @@ Entfernen Sie den Datenträger JETZT physisch, bevor Sie irgendetwas anderes tun
     </message>
     <message>
         <location line="+10"/>
-        <location line="+558"/>
+        <location line="+579"/>
         <source>The selected file does not exist.</source>
         <translation>Die ausgewählte Datei ist nicht vorhanden.</translation>
     </message>
     <message>
-        <location line="-860"/>
-        <location line="+312"/>
-        <location line="+308"/>
-        <location line="+250"/>
+        <location line="-899"/>
+        <location line="+330"/>
+        <location line="+310"/>
+        <location line="+269"/>
         <source>The specified file contains no data.</source>
         <translation>Die angegebene Datei enthält keine Daten.</translation>
     </message>
     <message>
-        <location line="-554"/>
+        <location line="-575"/>
         <location line="+189"/>
-        <location line="+369"/>
+        <location line="+390"/>
         <source>Done.</source>
         <translation>Erledigt.</translation>
     </message>
     <message>
-        <location line="-365"/>
+        <location line="-386"/>
         <location line="+2"/>
-        <location line="+342"/>
+        <location line="+363"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Abschließen</translation>
     </message>
     <message>
-        <location line="-558"/>
+        <location line="-579"/>
         <source>Write Successful.</source>
         <translation>Schreiben war erfolgreich.</translation>
     </message>
     <message>
-        <location line="-692"/>
+        <location line="-712"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Datenträger-Images (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -353,18 +354,30 @@ Trotzdem auf diesen Datenträger schreiben?</translation>
     </message>
     <message>
         <location line="+46"/>
-        <location line="+621"/>
+        <location line="+641"/>
         <source>Device Error</source>
         <translation>Datenträgerfehler</translation>
     </message>
     <message>
-        <location line="-620"/>
-        <location line="+621"/>
+        <location line="-640"/>
+        <location line="+641"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Der Datenträger meldet eine Größe von null. Falls es sich um einen Kartenleser handelt, wurde die Karte möglicherweise entfernt.</translation>
     </message>
     <message>
-        <location line="-532"/>
+        <location line="-589"/>
+        <source>The image is larger than the device:
+  Image: at least %1 sectors
+  Available: %2 sectors
+  Sector Size: %3
+
+The end of the image will not be written, so the device will not hold a complete image.
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+59"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -421,7 +434,7 @@ Der zusätzliche Bereich scheint keine Daten zu enthalten
 Trotzdem fortfahren?</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+25"/>
         <source>Clearing old partition tables...</source>
         <translation>Alte Partitionstabellen werden gelöscht …</translation>
     </message>
@@ -431,7 +444,7 @@ Trotzdem fortfahren?</translation>
         <translation>Die vorhandenen Partitionstabellen auf dem Datenträger konnten nicht gelöscht werden.</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+110"/>
         <source>Fixing GPT...</source>
         <translation>GPT wird repariert …</translation>
     </message>
@@ -441,16 +454,15 @@ Trotzdem fortfahren?</translation>
         <translation>Image abgeschnitten</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because a gzip image does not record its uncompressed size.</source>
-        <translation>Das Image ist größer als der Datenträger, daher wurde sein Ende nicht geschrieben und der Datenträger enthält kein vollständiges Image.
+        <translation type="vanished">Das Image ist größer als der Datenträger, daher wurde sein Ende nicht geschrieben und der Datenträger enthält kein vollständiges Image.
 
 Dies konnte erst festgestellt werden, als der Datenträger voll war, weil ein gzip-Image seine unkomprimierte Größe nicht speichert.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
@@ -542,12 +554,12 @@ Windows schreibt die Tabelle bei einem erneuten Einlesen trotzdem um, weil die S
     </message>
     <message>
         <location line="+16"/>
-        <location line="+558"/>
+        <location line="+579"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Sie haben keine Berechtigung, die ausgewählte Datei zu lesen.</translation>
     </message>
     <message>
-        <location line="-508"/>
+        <location line="-529"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -556,7 +568,19 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 Komprimierte Images (.img.gz, .img.xz) können geschrieben und geprüft werden.</translation>
     </message>
     <message>
-        <location line="+312"/>
+        <location line="+280"/>
+        <source>The image is larger than the device:
+  Image: at least %1 sectors
+  Device: %2 sectors
+  Sector Size: %3
+
+Only the part that fits can be compared.
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+55"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -575,32 +599,38 @@ Der zusätzliche Bereich konnte nicht auf Daten geprüft werden, weil das Image 
 Trotzdem fortfahren?</translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+164"/>
         <source>Image larger than device</source>
         <translation>Image größer als der Datenträger</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because a gzip image does not record its uncompressed size.</source>
-        <translation>Das Image ist größer als der Datenträger, daher konnte nur der Teil verglichen werden, der darauf passt. Alles Verglichene stimmte überein, aber der Datenträger enthält kein vollständiges Image.
+        <translation type="vanished">Das Image ist größer als der Datenträger, daher konnte nur der Teil verglichen werden, der darauf passt. Alles Verglichene stimmte überein, aber der Datenträger enthält kein vollständiges Image.
 
 Dies konnte erst am Ende des Datenträgers festgestellt werden, weil ein gzip-Image seine unkomprimierte Größe nicht speichert.</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+107"/>
         <source>[Disk %1]</source>
         <translation>[Datenträger %1]</translation>
     </message>
     <message>
-        <location line="-616"/>
-        <location line="+557"/>
+        <location line="-637"/>
+        <location line="+578"/>
         <source>Please specify an image file to use.</source>
         <translation>Bitte geben Sie eine Image-Datei an, die Sie verwenden wollen.</translation>
     </message>
     <message>
-        <location line="-527"/>
+        <location line="-682"/>
+        <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
+
+This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+134"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>Lesefehler</translation>
@@ -649,17 +679,17 @@ Dies konnte erst am Ende des Datenträgers festgestellt werden, weil ein gzip-Im
         <location line="+23"/>
         <location line="+6"/>
         <location line="+55"/>
-        <location line="+124"/>
+        <location line="+146"/>
         <source>Verify Error</source>
         <translation>Fehler beim Überprüfen</translation>
     </message>
     <message>
-        <location line="-179"/>
+        <location line="-201"/>
         <source>Please select a device to verify against.</source>
         <translation>Bitte wählen Sie einen Datenträger zum Vergleichen aus.</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+150"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -697,12 +727,13 @@ Der zusätzliche Bereich scheint keine Daten zu enthalten
 Trotzdem fortfahren?</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-57"/>
+        <location line="+61"/>
         <source>Size Mismatch!</source>
         <translation>Größe stimmt nicht überein!</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+65"/>
         <location line="+36"/>
         <source>Verify Failure</source>
         <translation>Überprüfung fehlgeschlagen</translation>
@@ -714,7 +745,14 @@ Trotzdem fortfahren?</translation>
         <translation>Überprüfung fehlgeschlagen bei Sektor: %1</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+51"/>
+        <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
+
+This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
@@ -893,7 +931,7 @@ Fehler %2</translation>
         <translation>Sicherungs-GPT nach LBA %1 verschoben; letzte nutzbare LBA ist jetzt %2</translation>
     </message>
     <message>
-        <location filename="../imagesource.cpp" line="+103"/>
+        <location filename="../imagesource.cpp" line="+104"/>
         <source>The device reports a sector size of zero.</source>
         <translation>Der Datenträger meldet eine Sektorgröße von null.</translation>
     </message>
@@ -909,18 +947,21 @@ Fehler %2</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+242"/>
+        <location line="+71"/>
+        <location line="+7"/>
+        <location line="+190"/>
+        <location line="+24"/>
         <location line="+157"/>
         <source>The image file could not be read (error %1).</source>
         <translation>Die Image-Datei konnte nicht gelesen werden (Fehler %1).</translation>
     </message>
     <message>
-        <location line="-356"/>
+        <location line="-403"/>
         <source>The image file could not be rewound (error %1).</source>
         <translation>Die Image-Datei konnte nicht zurückgespult werden (Fehler %1).</translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+181"/>
         <source>The gzip decompressor could not be started (zlib error %1).</source>
         <translation>Die gzip-Dekomprimierung konnte nicht gestartet werden (zlib-Fehler %1).</translation>
     </message>
@@ -930,7 +971,7 @@ Fehler %2</translation>
         <translation>Die xz-Dekomprimierung konnte nicht gestartet werden (lzma-Fehler %1).</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+62"/>
         <location line="+84"/>
         <source>The image file ends in the middle of the compressed data. It is truncated or damaged.</source>
         <translation>Die Image-Datei endet mitten in den komprimierten Daten. Sie ist abgeschnitten oder beschädigt.</translation>

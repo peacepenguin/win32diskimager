@@ -200,22 +200,22 @@ Are you sure you want to cancel?</source>
         <location line="+21"/>
         <location line="+6"/>
         <location line="+80"/>
-        <location line="+111"/>
+        <location line="+132"/>
         <location line="+34"/>
-        <location line="+239"/>
+        <location line="+238"/>
         <location line="+68"/>
         <source>Write Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-538"/>
-        <location line="+470"/>
+        <location line="-558"/>
+        <location line="+490"/>
         <location line="+176"/>
         <source>Image file cannot be located on the target device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-637"/>
+        <location line="-657"/>
         <source>Confirm overwrite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -236,12 +236,25 @@ Write to this device anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+99"/>
+        <source>The image is larger than the device:
+  Image: at least %1 sectors
+  Available: %2 sectors
+  Sector Size: %3
+
+The end of the image will not be written, so the device will not hold a complete image.
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+65"/>
         <source>Not enough available space!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+21"/>
         <source>Clearing old partition tables...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -251,12 +264,19 @@ Write to this device anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+110"/>
         <source>Fixing GPT...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+18"/>
+        <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
+
+This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
@@ -320,14 +340,14 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-454"/>
-        <location line="+162"/>
-        <location line="+303"/>
+        <location line="-474"/>
+        <location line="+164"/>
+        <location line="+321"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+293"/>
-        <location line="+241"/>
+        <location line="+295"/>
+        <location line="+260"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -335,36 +355,43 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-581"/>
-        <location line="+558"/>
+        <location line="-602"/>
+        <location line="+579"/>
         <source>The selected file does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-860"/>
-        <location line="+312"/>
-        <location line="+308"/>
-        <location line="+250"/>
+        <location line="-899"/>
+        <location line="+330"/>
+        <location line="+310"/>
+        <location line="+269"/>
         <source>The specified file contains no data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-554"/>
+        <location line="-575"/>
         <location line="+189"/>
-        <location line="+369"/>
+        <location line="+390"/>
         <source>Done.</source>
         <translation>முடிந்தது.</translation>
     </message>
     <message>
-        <location line="-365"/>
+        <location line="-386"/>
         <location line="+2"/>
-        <location line="+342"/>
+        <location line="+363"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>முடி</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-42"/>
+        <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
+
+This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
@@ -377,12 +404,12 @@ The image and the device differ only in the GPT, which the &quot;Fix GPT after w
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-558"/>
+        <location line="-579"/>
         <source>Write Successful.</source>
         <translation>வெற்றிகரமாக எழுது.</translation>
     </message>
     <message>
-        <location line="-692"/>
+        <location line="-712"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation type="unfinished"></translation>
@@ -417,18 +444,18 @@ Are you sure you want to continue?</source>
     </message>
     <message>
         <location line="+60"/>
-        <location line="+621"/>
+        <location line="+641"/>
         <source>Device Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-620"/>
-        <location line="+621"/>
+        <location line="-640"/>
+        <location line="+641"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-532"/>
+        <location line="-530"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -464,19 +491,12 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+157"/>
         <source>Image truncated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
-
-This could only be detected once the device was full, because a gzip image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+49"/>
+        <location line="+50"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
@@ -508,18 +528,18 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
     </message>
     <message>
         <location line="+15"/>
-        <location line="+558"/>
+        <location line="+579"/>
         <source>You do not have permission to read the selected file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-539"/>
-        <location line="+557"/>
+        <location line="-560"/>
+        <location line="+578"/>
         <source>Please specify an image file to use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-527"/>
+        <location line="-548"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation type="unfinished"></translation>
@@ -575,17 +595,29 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
         <location line="+23"/>
         <location line="+6"/>
         <location line="+55"/>
-        <location line="+124"/>
+        <location line="+146"/>
         <source>Verify Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-179"/>
+        <location line="-201"/>
         <source>Please select a device to verify against.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+90"/>
+        <source>The image is larger than the device:
+  Image: at least %1 sectors
+  Device: %2 sectors
+  Sector Size: %3
+
+Only the part that fits can be compared.
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+55"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -621,12 +653,13 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-57"/>
+        <location line="+61"/>
         <source>Size Mismatch!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+65"/>
         <location line="+36"/>
         <source>Verify Failure</source>
         <translation type="unfinished"></translation>
@@ -638,19 +671,12 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+50"/>
         <source>Image larger than device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
-
-This could only be detected at the end of the device, because a gzip image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>
 
 The device has been ejected. Remove it now.</source>
@@ -813,7 +839,7 @@ Error %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imagesource.cpp" line="+103"/>
+        <location filename="../imagesource.cpp" line="+104"/>
         <source>The device reports a sector size of zero.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -829,18 +855,21 @@ Error %2</source>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+242"/>
+        <location line="+71"/>
+        <location line="+7"/>
+        <location line="+190"/>
+        <location line="+24"/>
         <location line="+157"/>
         <source>The image file could not be read (error %1).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-356"/>
+        <location line="-403"/>
         <source>The image file could not be rewound (error %1).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+181"/>
         <source>The gzip decompressor could not be started (zlib error %1).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -850,7 +879,7 @@ Error %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+62"/>
         <location line="+84"/>
         <source>The image file ends in the middle of the compressed data. It is truncated or damaged.</source>
         <translation type="unfinished"></translation>

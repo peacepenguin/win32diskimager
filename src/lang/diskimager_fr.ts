@@ -183,22 +183,22 @@ Are you sure you want to cancel?</source>
         <location line="+30"/>
         <location line="+6"/>
         <location line="+80"/>
-        <location line="+111"/>
+        <location line="+132"/>
         <location line="+34"/>
-        <location line="+239"/>
+        <location line="+238"/>
         <location line="+68"/>
         <source>Write Error</source>
         <translation>Erreur d&apos;écriture</translation>
     </message>
     <message>
-        <location line="-538"/>
-        <location line="+470"/>
+        <location line="-558"/>
+        <location line="+490"/>
         <location line="+176"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Le fichier image n&apos;a pas été trouvé sur le périphérique cible.</translation>
     </message>
     <message>
-        <location line="-637"/>
+        <location line="-657"/>
         <source>Confirm overwrite</source>
         <translation>Confirmer l&apos;écrasement</translation>
     </message>
@@ -222,19 +222,20 @@ Are you sure you want to cancel?</source>
 Voulez-vous vraiment annuler ?</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+149"/>
+        <location line="+65"/>
         <source>Not enough available space!</source>
         <translation>Espace disponible insuffisant !</translation>
     </message>
     <message>
-        <location line="-229"/>
-        <location line="+162"/>
-        <location line="+303"/>
+        <location line="-251"/>
+        <location line="+164"/>
+        <location line="+321"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+293"/>
-        <location line="+241"/>
+        <location line="+295"/>
+        <location line="+260"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -242,7 +243,7 @@ Voulez-vous vraiment annuler ?</translation>
         <translation>Erreur de fichier</translation>
     </message>
     <message>
-        <location line="-591"/>
+        <location line="-612"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -262,40 +263,40 @@ Retirez physiquement le périphérique MAINTENANT, avant toute autre chose, et n
     </message>
     <message>
         <location line="+10"/>
-        <location line="+558"/>
+        <location line="+579"/>
         <source>The selected file does not exist.</source>
         <translation>Le fichier sélectionné n&apos;existe pas.</translation>
     </message>
     <message>
-        <location line="-860"/>
-        <location line="+312"/>
-        <location line="+308"/>
-        <location line="+250"/>
+        <location line="-899"/>
+        <location line="+330"/>
+        <location line="+310"/>
+        <location line="+269"/>
         <source>The specified file contains no data.</source>
         <translation>Le fichier spécifié ne contient aucune donnée.</translation>
     </message>
     <message>
-        <location line="-554"/>
+        <location line="-575"/>
         <location line="+189"/>
-        <location line="+369"/>
+        <location line="+390"/>
         <source>Done.</source>
         <translation>Effectué.</translation>
     </message>
     <message>
-        <location line="-365"/>
+        <location line="-386"/>
         <location line="+2"/>
-        <location line="+342"/>
+        <location line="+363"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Terminé</translation>
     </message>
     <message>
-        <location line="-558"/>
+        <location line="-579"/>
         <source>Write Successful.</source>
         <translation>Ecriture réussie.</translation>
     </message>
     <message>
-        <location line="-692"/>
+        <location line="-712"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Images disque (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -355,18 +356,30 @@ Vérifiez que %2 n&apos;est pas un lecteur que vous vouliez conserver.
     </message>
     <message>
         <location line="+46"/>
-        <location line="+621"/>
+        <location line="+641"/>
         <source>Device Error</source>
         <translation>Erreur de périphérique</translation>
     </message>
     <message>
-        <location line="-620"/>
-        <location line="+621"/>
+        <location line="-640"/>
+        <location line="+641"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Le périphérique indique une taille nulle. S&apos;il s&apos;agit d&apos;un lecteur de cartes, la carte a peut-être été retirée.</translation>
     </message>
     <message>
-        <location line="-532"/>
+        <location line="-589"/>
+        <source>The image is larger than the device:
+  Image: at least %1 sectors
+  Available: %2 sectors
+  Sector Size: %3
+
+The end of the image will not be written, so the device will not hold a complete image.
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+59"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -423,7 +436,7 @@ L&apos;espace excédentaire ne semble pas contenir de données
 Continuer quand même ?</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+25"/>
         <source>Clearing old partition tables...</source>
         <translation>Effacement des anciennes tables de partitions…</translation>
     </message>
@@ -433,7 +446,7 @@ Continuer quand même ?</translation>
         <translation>Impossible d&apos;effacer les tables de partitions existantes sur le périphérique.</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+110"/>
         <source>Fixing GPT...</source>
         <translation>Correction de la GPT…</translation>
     </message>
@@ -443,16 +456,15 @@ Continuer quand même ?</translation>
         <translation>Image tronquée</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because a gzip image does not record its uncompressed size.</source>
-        <translation>L&apos;image est plus grande que le périphérique : sa fin n&apos;a donc pas été écrite et le périphérique ne contient pas une image complète.
+        <translation type="vanished">L&apos;image est plus grande que le périphérique : sa fin n&apos;a donc pas été écrite et le périphérique ne contient pas une image complète.
 
 Cela n&apos;a pu être détecté qu&apos;une fois le périphérique plein, car une image gzip n&apos;enregistre pas sa taille décompressée.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
@@ -544,12 +556,12 @@ Windows réécrira tout de même la table lors d&apos;une nouvelle analyse, car 
     </message>
     <message>
         <location line="+16"/>
-        <location line="+558"/>
+        <location line="+579"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Vous n&apos;avez pas la permission de lire le fichier sélectionné.</translation>
     </message>
     <message>
-        <location line="-508"/>
+        <location line="-529"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -558,7 +570,19 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 Les images compressées (.img.gz, .img.xz) peuvent être écrites et vérifiées.</translation>
     </message>
     <message>
-        <location line="+312"/>
+        <location line="+280"/>
+        <source>The image is larger than the device:
+  Image: at least %1 sectors
+  Device: %2 sectors
+  Sector Size: %3
+
+Only the part that fits can be compared.
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+55"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -577,32 +601,38 @@ L&apos;espace excédentaire n&apos;a pas pu être examiné, car l&apos;image est
 Continuer quand même ?</translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+164"/>
         <source>Image larger than device</source>
         <translation>Image plus grande que le périphérique</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because a gzip image does not record its uncompressed size.</source>
-        <translation>L&apos;image est plus grande que le périphérique : seule la partie qui tient a donc pu être comparée. Tout ce qui a été comparé correspond, mais le périphérique ne contient pas une image complète.
+        <translation type="vanished">L&apos;image est plus grande que le périphérique : seule la partie qui tient a donc pu être comparée. Tout ce qui a été comparé correspond, mais le périphérique ne contient pas une image complète.
 
 Cela n&apos;a pu être détecté qu&apos;à la fin du périphérique, car une image gzip n&apos;enregistre pas sa taille décompressée.</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+107"/>
         <source>[Disk %1]</source>
         <translation>[Disque %1]</translation>
     </message>
     <message>
-        <location line="-616"/>
-        <location line="+557"/>
+        <location line="-637"/>
+        <location line="+578"/>
         <source>Please specify an image file to use.</source>
         <translation>Merci de spécifier le fichier image à utiliser.</translation>
     </message>
     <message>
-        <location line="-527"/>
+        <location line="-682"/>
+        <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
+
+This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+134"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>Erreur de lecture</translation>
@@ -651,17 +681,17 @@ Cela n&apos;a pu être détecté qu&apos;à la fin du périphérique, car une im
         <location line="+23"/>
         <location line="+6"/>
         <location line="+55"/>
-        <location line="+124"/>
+        <location line="+146"/>
         <source>Verify Error</source>
         <translation>Erreur de vérification</translation>
     </message>
     <message>
-        <location line="-179"/>
+        <location line="-201"/>
         <source>Please select a device to verify against.</source>
         <translation>Veuillez sélectionner un périphérique auquel comparer.</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+150"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -699,12 +729,13 @@ L&apos;espace excédentaire ne semble pas contenir de données
 Continuer quand même ?</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-57"/>
+        <location line="+61"/>
         <source>Size Mismatch!</source>
         <translation>Tailles différentes !</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+65"/>
         <location line="+36"/>
         <source>Verify Failure</source>
         <translation>Échec de la vérification</translation>
@@ -716,7 +747,14 @@ Continuer quand même ?</translation>
         <translation>Échec de la vérification au secteur : %1</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+51"/>
+        <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
+
+This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
@@ -906,7 +944,7 @@ Erreur %2</translation>
         <translation>GPT de secours déplacée vers le LBA %1 ; le dernier LBA utilisable est maintenant %2</translation>
     </message>
     <message>
-        <location filename="../imagesource.cpp" line="+103"/>
+        <location filename="../imagesource.cpp" line="+104"/>
         <source>The device reports a sector size of zero.</source>
         <translation>Le périphérique indique une taille de secteur nulle.</translation>
     </message>
@@ -922,18 +960,21 @@ Erreur %2</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+242"/>
+        <location line="+71"/>
+        <location line="+7"/>
+        <location line="+190"/>
+        <location line="+24"/>
         <location line="+157"/>
         <source>The image file could not be read (error %1).</source>
         <translation>Le fichier image n&apos;a pas pu être lu (erreur %1).</translation>
     </message>
     <message>
-        <location line="-356"/>
+        <location line="-403"/>
         <source>The image file could not be rewound (error %1).</source>
         <translation>Le fichier image n&apos;a pas pu être rembobiné (erreur %1).</translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+181"/>
         <source>The gzip decompressor could not be started (zlib error %1).</source>
         <translation>Le décompresseur gzip n&apos;a pas pu être démarré (erreur zlib %1).</translation>
     </message>
@@ -943,7 +984,7 @@ Erreur %2</translation>
         <translation>Le décompresseur xz n&apos;a pas pu être démarré (erreur lzma %1).</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+62"/>
         <location line="+84"/>
         <source>The image file ends in the middle of the compressed data. It is truncated or damaged.</source>
         <translation>Le fichier image s&apos;arrête au milieu des données compressées. Il est tronqué ou endommagé.</translation>

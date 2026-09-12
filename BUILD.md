@@ -66,7 +66,8 @@ cmake --build build
 `LRELEASE_EXECUTABLE` matters: `Qt6::lrelease` from a MinGW Qt is a Windows
 `.exe` and cannot run on the build host, so the *native* `lrelease-qt6` from
 `qt6-linguist` compiles the translations instead. Leave it unset for a normal
-Windows build.
+Windows build. The same package provides `lupdate-qt6`, for the other half of
+the translation workflow — see [Updating the translations](#updating-the-translations).
 
 Then package:
 
@@ -114,3 +115,32 @@ when `build/CMakeCache.txt` is absent; ninja re-runs cmake on its own when
 This is worth running before a push. It is the same Fedora image, toolchain and
 cmake invocation as CI, so it catches a broken cross build without waiting on
 the workflow.
+
+## Updating the translations
+
+`src/lang/*.ts` hold the translations; the build compiles them to `.qm` with
+`lrelease` and embeds those through `translations.qrc`. Adding or changing a
+`tr()` string in the source does not reach the `.ts` files on its own — until
+they are refreshed, the new string simply falls back to English at runtime, and
+a *reworded* string silently loses the translation it used to have.
+
+Refresh them with:
+
+```
+tools/lupdate-cross.sh              # every language
+tools/lupdate-cross.sh de fr        # only those
+```
+
+This runs the native `lupdate-qt6` from the same container the cross build
+uses, so it needs no Qt on the host. Unlike `tools/build-cross.sh`, it rewrites
+files that are tracked in git, so review the diff:
+
+- **New strings** arrive as `<translation type="unfinished"></translation>`.
+  `lrelease` skips them and the app shows English until someone fills them in.
+- **Reworded strings** turn up as a new unfinished entry, while the old
+  translation is kept next to it as `type="vanished"` rather than deleted — so
+  a translator can see what the wording was and adapt it. Nothing is lost.
+- Most of the diff is `<location>` line numbers moving with the source. That
+  churn is expected and harmless.
+
+Run it before a release, or after any commit that touches user-visible text.
