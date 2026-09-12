@@ -83,6 +83,9 @@ private:
     // Decompresses up to len bytes, returning the number produced. Short only
     // at the end of the stream.
     bool fill(char *buf, unsigned long long len, unsigned long long *produced);
+    // gzip: true when a further member starts where the last one ended, rather
+    // than padding or a trailer that is not ours to decode.
+    bool nextMemberFollows(bool *follows);
     bool skipTo(unsigned long long startsector);
     bool readAt(unsigned long long offset, void *buf, unsigned long len);
     bool readGzipSize(unsigned long long filesize);

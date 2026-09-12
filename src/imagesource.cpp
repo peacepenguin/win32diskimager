@@ -86,6 +86,7 @@ void ImageSource::close()
     myNextIn = NULL;
     myAvailIn = 0ull;
     myFormat = FORMAT_RAW;
+    mySectorSize = 0ull;
     mySectors = 0ull;
     myCompressedSize = 0ull;
     myPos = 0ull;
@@ -160,6 +161,9 @@ bool ImageSource::open(const QString &path, unsigned long long sectorsize)
         return true;
     }
 
+    // A false return only means the size could not be worked out, which is
+    // recoverable -- the write runs until the stream ends. myError is set only
+    // when the file itself could not be read, which is not.
     bool gotsize = (myFormat == FORMAT_GZIP) ? readGzipSize(myCompressedSize)
                                              : readXzSize(myCompressedSize);
     if (!myError.isEmpty())
@@ -187,16 +191,29 @@ bool ImageSource::open(const QString &path, unsigned long long sectorsize)
     return true;
 }
 
+// Every caller computes an offset it has already checked to be inside the file,
+// so a failure here is a real I/O problem rather than a fact about the format.
+// It is recorded as one: without that, a disk error while probing for the size
+// would be silently downgraded to "size unknown" and the write would run to the
+// end of the device instead of stopping.
 bool ImageSource::readAt(unsigned long long offset, void *buf, DWORD len)
 {
     LARGE_INTEGER pos;
     pos.QuadPart = (LONGLONG)offset;
     if (!SetFilePointerEx(myHandle, pos, NULL, FILE_BEGIN))
     {
+        myError = QObject::tr("The image file could not be read (error %1).")
+                      .arg(GetLastError());
         return false;
     }
     DWORD got = 0;
-    return ReadFile(myHandle, buf, len, &got, NULL) && got == len;
+    if (!ReadFile(myHandle, buf, len, &got, NULL) || got != len)
+    {
+        myError = QObject::tr("The image file could not be read (error %1).")
+                      .arg(GetLastError());
+        return false;
+    }
+    return true;
 }
 
 // gzip stores the uncompressed size in the last four bytes of the file, but
@@ -218,6 +235,8 @@ bool ImageSource::readGzipSize(unsigned long long filesize)
 {
     if (filesize < 18ull)
     {
+        // Too small to hold a header and a trailer. Not an error: the stream is
+        // still decoded, its size is simply not known in advance.
         return false;
     }
     unsigned char isize[4];
@@ -362,6 +381,38 @@ bool ImageSource::initDecoder()
     return true;
 }
 
+// Looks at the two bytes after the member that just ended, refilling the input
+// buffer if it holds fewer than that, and says whether they are a gzip header.
+// Returns false only on a read error; a file that simply ran out reports that
+// no member follows.
+bool ImageSource::nextMemberFollows(bool *follows)
+{
+    *follows = false;
+    if (myAvailIn < 2ull)
+    {
+        // Keep the odd leftover byte: it may be the first half of the header.
+        if (myAvailIn == 1ull)
+        {
+            myInput[0] = myNextIn[0];
+        }
+        size_t kept = (size_t)myAvailIn;
+        DWORD got = 0;
+        if (!ReadFile(myHandle, &myInput[kept], (DWORD)(myInput.size() - kept), &got, NULL))
+        {
+            myError = QObject::tr("The image file could not be read (error %1).")
+                          .arg(GetLastError());
+            return false;
+        }
+        myNextIn = &myInput[0];
+        myAvailIn = (unsigned long long)kept + got;
+    }
+    if (myAvailIn >= 2ull)
+    {
+        *follows = (myNextIn[0] == 0x1f && myNextIn[1] == 0x8b);
+    }
+    return true;
+}
+
 bool ImageSource::fill(char *buf, unsigned long long len, unsigned long long *produced)
 {
     *produced = 0ull;
@@ -413,19 +464,19 @@ bool ImageSource::fill(char *buf, unsigned long long len, unsigned long long *pr
             myNextIn = (unsigned char *)zs->next_in;
             if (ret == Z_STREAM_END)
             {
-                // Members can be concatenated; start the next one if any input
-                // is left, otherwise the image is complete.
-                if (myAvailIn == 0ull)
+                // Members can be concatenated, so another one may follow -- but
+                // so may padding. A writer working in fixed-size blocks leaves
+                // zero bytes after the last member, and anything that is not a
+                // gzip header is not ours to decode either way. Feeding that to
+                // the decoder would report a perfectly written image as damaged
+                // once the whole of it had already gone to the device, so the
+                // image ends here unless a real member header follows.
+                bool another = false;
+                if (!nextMemberFollows(&another))
                 {
-                    DWORD got = 0;
-                    if (ReadFile(myHandle, &myInput[0], (DWORD)myInput.size(), &got, NULL) &&
-                        got > 0)
-                    {
-                        myNextIn = &myInput[0];
-                        myAvailIn = got;
-                    }
+                    return false;
                 }
-                if (myAvailIn == 0ull)
+                if (!another)
                 {
                     myEof = true;
                 }

@@ -474,7 +474,9 @@ void MainWindow::on_bWrite_clicked()
             // real image it is a lower bound rather than a size. The write then
             // runs until the stream ends, with the device size as the loop
             // bound, and the leftover check below says whether it all fitted.
-            numsectors = image.sizeKnown() ? image.sizeInSectors() : availablesectors;
+            const bool sizeisestimate = !image.sizeKnown();
+            const unsigned long long imagesectors = image.sizeInSectors();
+            numsectors = sizeisestimate ? availablesectors : imagesectors;
             if (!numsectors)
             {
                 //For external card readers you may not get device change notification when you remove the card/flash.
@@ -488,6 +490,30 @@ void MainWindow::on_bWrite_clicked()
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
+            }
+            // An estimated size is only a lower bound, but a lower bound that
+            // already exceeds the device is enough to say the image will not
+            // fit. Saying so here beats finding out at the end of the card,
+            // which is the only other moment it can be detected.
+            if (sizeisestimate && imagesectors > availablesectors)
+            {
+                QString msg = tr("The image is larger than the device:\n"
+                                 "  Image: at least %1 sectors\n"
+                                 "  Available: %2 sectors\n  Sector Size: %3\n\n"
+                                 "The end of the image will not be written, so the device "
+                                 "will not hold a complete image.\n\nContinue Anyway?");
+                msg = msg.arg(imagesectors).arg(availablesectors).arg(sectorsize);
+                if (QMessageBox::warning(this, tr("Not enough available space!"), msg,
+                                         QMessageBox::Ok, QMessageBox::Cancel) != QMessageBox::Ok)
+                {
+                    locked.release();
+                    CloseHandle(hRawDisk);
+                    status = STATUS_IDLE;
+                    hRawDisk = INVALID_HANDLE_VALUE;
+                    bCancel->setEnabled(false);
+                    setReadWriteButtonState();
+                    return;
+                }
             }
             if (numsectors > availablesectors)
             {
@@ -636,7 +662,8 @@ void MainWindow::on_bWrite_clicked()
                 {
                     // Short read: the image ended inside this chunk.
                     numsectors = i + got;
-                    progressbar->setValue((int)(numsectors >> progshift));
+                    progressbar->setValue(
+                        (int)((numsectors > progresstotal ? progresstotal : numsectors) >> progshift));
                     QCoreApplication::processEvents();
                     break;
                 }
@@ -649,7 +676,7 @@ void MainWindow::on_bWrite_clicked()
                     update_timer.start();
                     lasti = i;
                 }
-                progressbar->setValue((int)(i >> progshift));
+                progressbar->setValue((int)((i > progresstotal ? progresstotal : i) >> progshift));
                 QCoreApplication::processEvents();
             }
             // Without an exact size the loop bound came from the device, not
@@ -697,8 +724,8 @@ void MainWindow::on_bWrite_clicked()
                 QMessageBox::critical(this, tr("Image truncated"),
                     tr("The image is larger than the device, so the end of it was not "
                        "written and the device does not hold a complete image.\n\n"
-                       "This could only be detected once the device was full, because a "
-                       "gzip image does not record its uncompressed size."));
+                       "This could only be detected once the device was full, because "
+                       "the compressed image does not record its uncompressed size."));
                 passfail = false;
             }
             else if (status == STATUS_CANCELED){
@@ -1087,7 +1114,9 @@ void MainWindow::on_bVerify_clicked()
             // gzip only records the uncompressed size modulo 4 GiB, so for any
             // real image it is a lower bound; the comparison then runs to the
             // device size and stops when the stream ends.
-            numsectors = image.sizeKnown() ? image.sizeInSectors() : availablesectors;
+            const bool sizeisestimate = !image.sizeKnown();
+            const unsigned long long imagesectors = image.sizeInSectors();
+            numsectors = sizeisestimate ? availablesectors : imagesectors;
             if (!numsectors)
             {
                 //For external card readers you may not get device change notification when you remove the card/flash.
@@ -1101,6 +1130,30 @@ void MainWindow::on_bVerify_clicked()
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
                 return;
+            }
+            // An estimated size is only a lower bound, but a lower bound that
+            // already exceeds the device is enough to say the image will not
+            // fit. Saying so here beats finding out at the end of the card,
+            // which is the only other moment it can be detected.
+            if (sizeisestimate && imagesectors > availablesectors)
+            {
+                QString msg = tr("The image is larger than the device:\n"
+                                 "  Image: at least %1 sectors\n"
+                                 "  Device: %2 sectors\n  Sector Size: %3\n\n"
+                                 "Only the part that fits can be compared.\n\n"
+                                 "Continue Anyway?");
+                msg = msg.arg(imagesectors).arg(availablesectors).arg(sectorsize);
+                if (QMessageBox::warning(this, tr("Size Mismatch!"), msg,
+                                         QMessageBox::Ok, QMessageBox::Cancel) != QMessageBox::Ok)
+                {
+                    locked.release();
+                    CloseHandle(hRawDisk);
+                    status = STATUS_IDLE;
+                    hRawDisk = INVALID_HANDLE_VALUE;
+                    bCancel->setEnabled(false);
+                    setReadWriteButtonState();
+                    return;
+                }
             }
             if (numsectors > availablesectors)
             {
@@ -1270,7 +1323,7 @@ void MainWindow::on_bVerify_clicked()
                 delete[] sectorData2;
                 sectorData = NULL;
                 sectorData2 = NULL;
-                progressbar->setValue((int)(i >> progshift));
+                progressbar->setValue((int)((i > progresstotal ? progresstotal : i) >> progshift));
                 QCoreApplication::processEvents();
             }
             // Same reasoning as the write path: without an exact size the loop
@@ -1307,8 +1360,8 @@ void MainWindow::on_bVerify_clicked()
                     tr("The image is larger than the device, so only the part that fits "
                        "could be compared. Everything compared matched, but the device "
                        "does not hold a complete image.\n\n"
-                       "This could only be detected at the end of the device, because a "
-                       "gzip image does not record its uncompressed size."));
+                       "This could only be detected at the end of the device, because "
+                       "the compressed image does not record its uncompressed size."));
                 passfail = false;
                 verifyreported = true;
             }
