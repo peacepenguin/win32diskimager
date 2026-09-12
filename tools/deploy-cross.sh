@@ -8,13 +8,21 @@
 # closure is resolved with objdump.
 set -euo pipefail
 
-build=${1:?usage: deploy-cross.sh <build-dir> <dist-dir> <mingw-sysroot>}
+build=${1:?usage: deploy-cross.sh <build-dir> <dist-dir> [mingw-sysroot]}
 dist=${2:?}
-sysroot=${3:?}
-objdump=${OBJDUMP:-x86_64-w64-mingw32-objdump}
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
+# Toolchain paths shared with the build scripts, CI and the container image.
+. "$root/tools/build-env.sh"
+
+sysroot=${3:-$CROSS_SYSROOT}
+objdump=${OBJDUMP:-x86_64-w64-mingw32-objdump}
 bin="$sysroot/bin"
+
+[ -f "$build/Win32DiskImager.exe" ] || {
+    echo "error: no $build/Win32DiskImager.exe -- build it first" >&2
+    exit 1
+}
 
 # A build made with -DTEST_NO_ADMIN=ON asks for no elevation and cannot open a
 # device for writing. It is for looking at the GUI, never for shipping, and the

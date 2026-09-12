@@ -2,28 +2,17 @@
 # .github/workflows/build.yml uses. Debian and Ubuntu ship no MinGW Qt6
 # packages, so the build has to happen on Fedora.
 #
-#   podman build -t w32di-build -f tools/Containerfile.build
+#   podman build -t w32di-build -f tools/Containerfile.build .
+#
+# The package list and the paths it checks come from tools/build-env.sh, which
+# CI and the build scripts read too, so there is one copy of them. That file is
+# the build context's only input here, so editing it rebuilds this layer and
+# editing anything else does not.
 #
 # See BUILD.md, "Cross-compiling ... in a container".
 FROM fedora:44
 
-RUN dnf -y install \
-        cmake ninja-build file findutils binutils \
-        mingw64-gcc-c++ mingw64-qt6-qtbase mingw64-qt6-qttools \
-        mingw64-qt6-qttranslations \
-        mingw64-zlib mingw64-xz \
-        qt6-linguist \
-    && dnf clean all
-
-# qt6-linguist is the *native* build of the Linguist tools, and carries both
-# halves of the translation workflow: lrelease-qt6, which the build runs to
-# compile lang/*.ts into the .qm files translations.qrc embeds, and lupdate-qt6,
-# which tools/lupdate-cross.sh runs to refresh those .ts files from the sources.
-# Neither can come from mingw64-qt6-qttools: those are Windows .exe files.
-
-# Fail early and loudly if the layout is not what the build expects.
-RUN test -f /usr/share/mingw/toolchain-mingw64.cmake \
-    && test -x /usr/bin/lrelease-qt6 \
-    && test -x /usr/bin/lupdate-qt6
+COPY tools/build-env.sh /usr/local/lib/build-env.sh
+RUN bash /usr/local/lib/build-env.sh install && dnf clean all
 
 WORKDIR /src

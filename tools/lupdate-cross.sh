@@ -34,10 +34,12 @@ else
 fi
 
 podman run --rm -v "$REPO:/src" -e TSFILES="$TSFILES" "$IMAGE" bash -c '
-set -e
+set -euo pipefail
+# Toolchain paths shared with the build scripts, CI and the container image.
+. /src/tools/build-env.sh
 # Run from src/ so the <location> paths lupdate writes stay relative to the .ts
 # files the way the existing ones are ("../mainwindow.ui").
 cd /src/src
 [ -n "$TSFILES" ] || TSFILES=$(ls lang/*.ts)
-lupdate-qt6 -locations relative *.cpp *.h *.ui -ts $TSFILES
+"$CROSS_LUPDATE" -locations relative *.cpp *.h *.ui -ts $TSFILES
 '

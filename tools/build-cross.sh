@@ -24,14 +24,14 @@ if [ "${1:-}" = "clean" ]; then
 fi
 
 podman run --rm -v "$REPO:/src" "$IMAGE" bash -c '
-set -e
+set -euo pipefail
+# The toolchain paths and the cmake invocation live in one place, shared with
+# CI and the container image.
+. /src/tools/build-env.sh
 # Configuring takes far longer than an incremental build, so only do it when
 # there is no cache yet. ninja re-runs cmake itself if CMakeLists.txt changes.
 if [ ! -f /src/build/CMakeCache.txt ]; then
-    cmake -S /src/src -B /src/build -G Ninja \
-      -DCMAKE_TOOLCHAIN_FILE=/usr/share/mingw/toolchain-mingw64.cmake \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DLRELEASE_EXECUTABLE=/usr/bin/lrelease-qt6
+    cross_configure /src/src /src/build
 fi
 cmake --build /src/build
 file /src/build/Win32DiskImager.exe

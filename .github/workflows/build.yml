@@ -18,19 +18,19 @@ jobs:
       contents: write
 
     steps:
-      - name: Install cross toolchain
-        run: |
-          dnf -y install \
-            git cmake ninja-build file findutils binutils zip gh \
-            mingw64-gcc-c++ mingw64-qt6-qtbase mingw64-qt6-qttools \
-            mingw64-qt6-qttranslations \
-            mingw64-zlib mingw64-xz \
-            qt6-linguist
-          # Fail early and loudly if the layout is not what deploy-cross.sh expects.
-          test -f /usr/share/mingw/toolchain-mingw64.cmake
-          test -x /usr/bin/lrelease-qt6
+      # git first and on its own: actions/checkout needs it, and the toolchain
+      # list it would otherwise come from is in the repository being checked out.
+      - name: Install git
+        run: dnf -y install git
 
       - uses: actions/checkout@v7
+
+      # One list of packages and one set of toolchain paths, shared with
+      # tools/Containerfile.build and the build scripts. "install ci" adds the
+      # few things only this job needs (zip and gh, to publish a release), and
+      # fails loudly if the toolchain is not laid out the way the build expects.
+      - name: Install cross toolchain
+        run: bash tools/build-env.sh install ci
 
       # The workspace is owned by a different UID than the user running these
       # steps, so git refuses to read the repository. Anything shelling out to
@@ -40,11 +40,7 @@ jobs:
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Configure
-        run: |
-          cmake -S src -B build -G Ninja \
-            -DCMAKE_TOOLCHAIN_FILE=/usr/share/mingw/toolchain-mingw64.cmake \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DLRELEASE_EXECUTABLE=/usr/bin/lrelease-qt6
+        run: bash tools/build-env.sh configure src build
 
       - name: Build
         run: cmake --build build
@@ -52,10 +48,9 @@ jobs:
       - name: Verify it is a PE binary
         run: file build/Win32DiskImager.exe | grep -q 'PE32+'
 
+      # The sysroot defaults to the one in tools/build-env.sh.
       - name: Package
-        run: |
-          bash tools/deploy-cross.sh build dist \
-            /usr/x86_64-w64-mingw32/sys-root/mingw
+        run: bash tools/deploy-cross.sh build dist
 
       - uses: actions/upload-artifact@v7
         with:

@@ -3,8 +3,13 @@
 # Run from the repo root in the MSYS2 UCRT64 shell.
 set -euo pipefail
 
-root="$(cd "$(dirname "$0")" && pwd)"
+root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$root"
+
+[ -f build/Win32DiskImager.exe ] || {
+    echo "error: no build/Win32DiskImager.exe -- build it first" >&2
+    exit 1
+}
 
 # A build made with -DTEST_NO_ADMIN=ON asks for no elevation and cannot open a
 # device for writing. It is for looking at the GUI, never for shipping, and the
