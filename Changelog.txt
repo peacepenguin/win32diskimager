@@ -1,5 +1,5 @@
-Unreleased
-==========
+Release 1.3.0
+=============
 Write and verify compressed images directly: a .img.gz or .img.xz is
   decompressed as it is written to the device, so no expanded copy is ever put
   on disk. Reading a device back still produces an uncompressed .img
@@ -9,6 +9,16 @@ The uncompressed size comes from the xz index, which is exact. gzip records it
 Format is decided by the file's magic bytes, not its name
 A truncated or damaged compressed image is reported instead of being written
   out as far as it goes
+A failed or cancelled write, read or verify now says so in the status bar and
+  resets the progress bar, instead of leaving the last message on screen
+An aborted write warns that the device holds a partial image and should be
+  written again, which a decoder error on its own did not make clear
+Added tools/make-test-images.sh, which builds raw, gzip and xz test images
+  covering multi-member gzip, multi-stream xz, trailing padding, an image that
+  is not a whole number of sectors, sizes past the 4 GiB gzip limit, and
+  truncated and corrupt streams
+Added tools/verify-flashed.sh, which compares a flashed device against its
+  image byte for byte, whatever format it was written from
 
 Release 1.2.0
 =============
