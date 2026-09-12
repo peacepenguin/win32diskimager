@@ -1,3 +1,4 @@
 build/
 dist/
 src/lang/*.qm
+test-images/
