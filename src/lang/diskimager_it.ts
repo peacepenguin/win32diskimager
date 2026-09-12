@@ -31,7 +31,7 @@
     <message>
         <location line="+189"/>
         <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
-        <translation>Confronta i dati del 'Dispositivo' con il 'File immagine'</translation>
+        <translation>Confronta i dati del &apos;Dispositivo&apos; con il &apos;File immagine&apos;</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -850,7 +850,7 @@ Questa immagine non ha una tabella delle partizioni, quindi il bug di riscrittur
     <message>
         <location line="+4"/>
         <source>&quot;Fix GPT after write&quot; is off.</source>
-        <translation>"Correggi la GPT dopo la scrittura" è disattivato.</translation>
+        <translation>&quot;Correggi la GPT dopo la scrittura&quot; è disattivato.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -860,7 +860,7 @@ Questa immagine non ha una tabella delle partizioni, quindi il bug di riscrittur
     <message>
         <location line="+7"/>
         <source>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</source>
-        <translation>Questa immagine NON è interessata: una nuova scansione riscrive comunque la tabella, ma con questo layout scrive i valori corretti. Rimuovere ora il dispositivo lo mantiene identico all'immagine in ogni caso.</translation>
+        <translation>Questa immagine NON è interessata: una nuova scansione riscrive comunque la tabella, ma con questo layout scrive i valori corretti. Rimuovere ora il dispositivo lo mantiene identico all&apos;immagine in ogni caso.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -882,7 +882,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 
 %3
 
-Rimuovere il dispositivo ORA e non reinserirlo qui. Inserirlo direttamente nell'hardware di destinazione.</translation>
+Rimuovere il dispositivo ORA e non reinserirlo qui. Inserirlo direttamente nell&apos;hardware di destinazione.</translation>
     </message>
     <message>
         <location line="+504"/>
@@ -1015,17 +1015,22 @@ Errore %2</translation>
         <translation>l&apos;array delle voci di partizione GPT non si trova dove indica l&apos;intestazione</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>a partition extends past the end of the device</source>
         <translation>una partizione si estende oltre la fine del dispositivo</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+139"/>
+        <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
+        <translation>GPT di riserva spostata all'LBA %1; l'ultimo LBA utilizzabile è ora %2; la copia obsoleta all'LBA %3 è stata cancellata</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>GPT di riserva spostata all&apos;LBA %1; l&apos;ultimo LBA utilizzabile è ora %2</translation>
     </message>
     <message>
-        <location line="-649"/>
+        <location line="-726"/>
         <source>Dismount Error</source>
         <translation>Errore smontaggio volume</translation>
     </message>

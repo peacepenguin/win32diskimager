@@ -1069,12 +1069,17 @@ Error %2</source>
         <translation>GPT パーティションエントリ配列がヘッダーの示す位置にありません</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>a partition extends past the end of the device</source>
         <translation>パーティションがデバイスの末尾を超えて広がっています</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+139"/>
+        <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
+        <translation>バックアップ GPT を LBA %1 に移動しました。最終使用可能 LBA は %2 になりました。LBA %3 の古いコピーは消去しました</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>バックアップ GPT を LBA %1 に移動しました。最終使用可能 LBA は %2 になりました</translation>
     </message>

@@ -741,7 +741,7 @@ Dieses Image hat keine Partitionstabelle, der Windows-GPT-Fehler kann es also ni
     <message>
         <location line="+4"/>
         <source>&quot;Fix GPT after write&quot; is off.</source>
-        <translation>"GPT nach dem Schreiben reparieren" ist deaktiviert.</translation>
+        <translation>&quot;GPT nach dem Schreiben reparieren&quot; ist deaktiviert.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1069,12 +1069,17 @@ Fehler %2</translation>
         <translation>das GPT-Partitionseintragsfeld liegt nicht dort, wo der Header es angibt</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>a partition extends past the end of the device</source>
         <translation>eine Partition reicht über das Ende des Datenträgers hinaus</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+139"/>
+        <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
+        <translation>Sicherungs-GPT nach LBA %1 verschoben; letzte nutzbare LBA ist jetzt %2; die veraltete Kopie bei LBA %3 wurde gelöscht</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>Sicherungs-GPT nach LBA %1 verschoben; letzte nutzbare LBA ist jetzt %2</translation>
     </message>

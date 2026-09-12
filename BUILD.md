@@ -7,7 +7,8 @@ why; the details are in the scripts themselves.
 | --- | --- |
 | `tools/build.sh` | build on Windows, in the MSYS2 UCRT64 shell |
 | `tools/deploy.sh` | package that build into a standalone `dist/` |
-| `tools/build-cross.sh` | build for Windows from Linux, in a container |
+| `tools/build-cross.sh` | build for Windows from Linux |
+| `tools/build-container.sh` | the same, run inside the container |
 | `tools/deploy-cross.sh` | package a cross build |
 | `tools/lupdate-cross.sh` | refresh `src/lang/*.ts` after changing any text |
 | `tools/gpttest/` | test the GPT repair without a card |
@@ -61,31 +62,49 @@ grep -ac 'level="asInvoker"' build/Win32DiskImager.exe    # 1 = test build
 
 ## Windows, cross-compiled from Linux
 
-This is what [.github/workflows/build.yml](.github/workflows/build.yml) does on
-every push. Locally it needs podman; the image builds itself on first use:
-
-```
-tools/build-cross.sh           # into build/
-tools/deploy-cross.sh build dist
-```
-
-`tools/build-cross.sh clean` starts over. Everything the container writes is
-gitignored, so the build directory persists and ninja stays incremental between
-runs: a no-op rebuild is well under a second, a one-file change around twenty.
-
-Worth running before a push — same image, toolchain and cmake invocation as CI,
-so it catches a broken cross build without waiting on the workflow.
-
 It has to be Fedora: Debian and Ubuntu ship no MinGW Qt6 packages, so there is
-nothing to link against there. That is why the CI job runs `ubuntu-latest` but
-inside a `fedora:44` container. Without podman, install the toolchain on a Fedora
-box directly and skip the container:
+nothing to link against there. That is why CI runs `ubuntu-latest` but inside a
+`fedora:44` container. Two ways in, same toolchain and flags either way, since
+both are driven by `tools/build-env.sh`.
+
+**On a Fedora host.** Install the toolchain once:
 
 ```
 sudo bash tools/build-env.sh install
-bash tools/build-env.sh configure src build
-cmake --build build
 ```
+
+then:
+
+```
+tools/build-cross.sh              # into build-cross/
+tools/deploy-cross.sh build-cross dist
+```
+
+**Anywhere podman runs**, including a Fedora host that would rather not install
+the toolchain. The image builds itself on first use:
+
+```
+tools/build-container.sh          # into build/
+tools/deploy-cross.sh build dist
+```
+
+That script is a wrapper: it starts the container and runs `build-cross.sh`
+inside it, where the toolchain is already installed. So the build is the same
+code either way, and both take the same arguments — `clean` to start over,
+`test` for a no-elevation build.
+
+This is what [.github/workflows/build.yml](.github/workflows/build.yml) does on
+every push, so running it before pushing catches a broken cross build without
+waiting on the workflow.
+
+Everything they write is gitignored, so the build directory persists and ninja
+stays incremental: a no-op rebuild is well under a second, a one-file change
+around twenty.
+
+They use **different build directories on purpose**. A cmake cache records the
+absolute path it was generated for, and the container sees this tree as `/src`,
+so one shared directory would make every switch between them fail. Override with
+`BUILD_DIR=...` if the defaults are inconvenient.
 
 ## Testing the GPT repair
 
@@ -121,9 +140,11 @@ tools/lupdate-cross.sh              # every language
 tools/lupdate-cross.sh de fr        # only those
 ```
 
-This runs the native `lupdate-qt6` in the same container the cross build uses, so
-it needs no Qt on the host. Unlike the build scripts it rewrites tracked files,
-so review the diff:
+It runs `lupdate` directly when the toolchain is installed on this host, and in
+the container when it is not — the same two routes as building, and the same
+result either way, so it needs no Qt on the host.
+
+Unlike the build scripts it rewrites tracked files, so review the diff:
 
 - **New strings** arrive as `<translation type="unfinished"></translation>`.
   `lrelease` skips them and the app shows English until someone fills them in.
@@ -141,10 +162,16 @@ Two lists would otherwise be written down in several places, so each has one hom
 and everything else reads it from there.
 
 **The toolchain** — Fedora packages, the MinGW sysroot, the paths to
-`lrelease-qt6` and `lupdate-qt6`, the cmake flags, and the MSYS2 package list —
-lives in [tools/build-env.sh](tools/build-env.sh). The container image, CI and
-every cross script read it, so a local container build and the CI job cannot end
-up on different toolchains.
+`lrelease-qt6` and `lupdate-qt6`, the cmake flags, the MSYS2 package list, and
+the podman plumbing every container run goes through — lives in
+[tools/build-env.sh](tools/build-env.sh). The container image, CI and every cross
+script read it, so a local container build and the CI job cannot end up on
+different toolchains. Each path can be pointed elsewhere for a host that lays
+them out differently:
+
+```
+CROSS_LUPDATE=/usr/bin/lupdate-qt6 tools/lupdate-cross.sh
+```
 
 ```
 tools/build-env.sh packages ci      # what CI installs

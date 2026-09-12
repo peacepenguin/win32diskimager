@@ -3,9 +3,9 @@
 # needs, where that toolchain lives, and how cmake is invoked against it.
 #
 # Everything that cross-builds reads this file, so none of it is written down
-# twice: tools/Containerfile.build, tools/build-cross.sh, tools/lupdate-cross.sh,
-# tools/deploy-cross.sh and .github/workflows/build.yml. BUILD.md quotes the
-# commands below rather than repeating the values.
+# twice: tools/Containerfile.build, tools/build-cross.sh, tools/build-container.sh,
+# tools/lupdate-cross.sh, tools/deploy-cross.sh and .github/workflows/build.yml.
+# BUILD.md points here rather than repeating the values.
 #
 # Use it either way. As a library:
 #
@@ -54,10 +54,19 @@ MSYS2_PACKAGES="mingw-w64-ucrt-x86_64-gcc
                 mingw-w64-ucrt-x86_64-zlib
                 mingw-w64-ucrt-x86_64-xz"
 
-CROSS_TOOLCHAIN="/usr/share/mingw/toolchain-mingw64.cmake"
-CROSS_LRELEASE="/usr/bin/lrelease-qt6"
-CROSS_LUPDATE="/usr/bin/lupdate-qt6"
-CROSS_SYSROOT="/usr/x86_64-w64-mingw32/sys-root/mingw"
+# Where Fedora's mingw64 packages put things. Overridable for a host that lays
+# them out differently, and so a single piece can be pointed elsewhere without
+# editing this file.
+CROSS_TOOLCHAIN="${CROSS_TOOLCHAIN:-/usr/share/mingw/toolchain-mingw64.cmake}"
+CROSS_LRELEASE="${CROSS_LRELEASE:-/usr/bin/lrelease-qt6}"
+CROSS_LUPDATE="${CROSS_LUPDATE:-/usr/bin/lupdate-qt6}"
+CROSS_SYSROOT="${CROSS_SYSROOT:-/usr/x86_64-w64-mingw32/sys-root/mingw}"
+
+# The image tools/Containerfile.build produces. Override with IMAGE=...
+CROSS_IMAGE="${IMAGE:-w32di-build}"
+
+# Extra "podman run" arguments a caller wants, as an array.
+CONTAINER_ENV=()
 
 # ---------------------------------------------------------------- functions ---
 
@@ -104,6 +113,36 @@ cross_configure()
         -DCMAKE_BUILD_TYPE=Release \
         -DLRELEASE_EXECUTABLE="$CROSS_LRELEASE" \
         "$@"
+}
+
+# container_run REPO COMMAND...
+#
+# Runs COMMAND in the Fedora image with REPO mounted at /src, building the image
+# first if it is not there yet. The one copy of the podman plumbing: everything
+# that needs a container goes through here.
+#
+# W32DI_IN_CONTAINER lets the script on the inside tell where it is, so a script
+# that falls back to the container cannot end up calling itself forever when the
+# image is missing something.
+container_run()
+{
+    local repo=${1:?usage: container_run REPO COMMAND...}
+    shift
+
+    command -v podman >/dev/null 2>&1 || {
+        echo "error: podman not found, and this needs a container." >&2
+        echo "       On Fedora you can install the toolchain instead:" >&2
+        echo "         sudo bash tools/build-env.sh install" >&2
+        return 1
+    }
+    if ! podman image exists "$CROSS_IMAGE"; then
+        echo "building $CROSS_IMAGE (one time)..." >&2
+        podman build -t "$CROSS_IMAGE" -f "$repo/tools/Containerfile.build" "$repo"
+    fi
+    podman run --rm -v "$repo:/src" -w /src \
+        -e W32DI_IN_CONTAINER=1 \
+        "${CONTAINER_ENV[@]}" \
+        "$CROSS_IMAGE" "$@"
 }
 
 # ------------------------------------------------------------------ command ---

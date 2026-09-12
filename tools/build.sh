@@ -7,8 +7,9 @@
 #                               # elevation, for working on the interface
 #   tools/build.sh test clean
 #
-# The cross-compiled counterpart is tools/build-cross.sh. Package what this
-# produces with tools/deploy.sh.
+# Package what this produces with tools/deploy.sh. To build for Windows from
+# Linux instead: tools/build-cross.sh on a Fedora host, or
+# tools/build-container.sh anywhere podman runs.
 #
 # Copyright (C) 2026 peacepenguin, GPL-2.0-or-later.
 set -euo pipefail

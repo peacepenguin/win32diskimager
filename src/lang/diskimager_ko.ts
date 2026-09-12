@@ -121,7 +121,7 @@
     <message>
         <location line="+7"/>
         <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
-        <translation>'기기'와 '이미지 파일' 비교</translation>
+        <translation>&apos;기기&apos;와 &apos;이미지 파일&apos; 비교</translation>
     </message>
     <message>
         <source>Verify the image file with the selected drive</source>
@@ -730,7 +730,7 @@ This image has no partition table, so the Windows GPT rewrite bug cannot affect 
     <message>
         <location line="+4"/>
         <source>&quot;Fix GPT after write&quot; is off.</source>
-        <translation>"쓰기 후 GPT 수정"이 꺼져 있습니다.</translation>
+        <translation>&quot;쓰기 후 GPT 수정&quot;이 꺼져 있습니다.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1069,12 +1069,17 @@ Error %2</source>
         <translation>GPT 파티션 항목 배열이 헤더가 가리키는 위치에 없습니다</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>a partition extends past the end of the device</source>
         <translation>파티션이 장치의 끝을 넘어갑니다</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+139"/>
+        <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
+        <translation>백업 GPT를 LBA %1(으)로 옮겼습니다. 마지막 사용 가능 LBA는 이제 %2입니다. LBA %3의 오래된 사본은 지웠습니다</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>백업 GPT를 LBA %1(으)로 옮겼습니다. 마지막 사용 가능 LBA는 이제 %2입니다</translation>
     </message>

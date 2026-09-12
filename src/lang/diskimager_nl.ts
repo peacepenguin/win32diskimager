@@ -727,7 +727,7 @@ Deze image heeft geen partitietabel, dus de GPT-herschrijffout van Windows kan e
     <message>
         <location line="+4"/>
         <source>&quot;Fix GPT after write&quot; is off.</source>
-        <translation>"GPT herstellen na schrijven" staat uit.</translation>
+        <translation>&quot;GPT herstellen na schrijven&quot; staat uit.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1069,12 +1069,17 @@ Fout %2</translation>
         <translation>de GPT-partitietabel staat niet waar de header aangeeft</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>a partition extends past the end of the device</source>
         <translation>een partitie loopt door tot voorbij het einde van het apparaat</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+139"/>
+        <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
+        <translation>reserve-GPT verplaatst naar LBA %1; laatste bruikbare LBA is nu %2; de verouderde kopie op LBA %3 is gewist</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>reserve-GPT verplaatst naar LBA %1; laatste bruikbare LBA is nu %2</translation>
     </message>

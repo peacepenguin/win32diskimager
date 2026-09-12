@@ -121,7 +121,7 @@
     <message>
         <location line="+7"/>
         <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
-        <translation>Comparar datos del 'Dispositivo' con el 'Archivo Imagen'</translation>
+        <translation>Comparar datos del &apos;Dispositivo&apos; con el &apos;Archivo Imagen&apos;</translation>
     </message>
     <message>
         <source>Verify the image file with the selected drive</source>
@@ -746,7 +746,7 @@ Esta imagen no tiene tabla de particiones, por lo que el error de reescritura de
     <message>
         <location line="+4"/>
         <source>&quot;Fix GPT after write&quot; is off.</source>
-        <translation>"Corregir la GPT después de escribir" está desactivado.</translation>
+        <translation>&quot;Corregir la GPT después de escribir&quot; está desactivado.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1085,12 +1085,17 @@ Error %2</translation>
         <translation>la matriz de entradas de partición GPT no está donde indica la cabecera</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>a partition extends past the end of the device</source>
         <translation>una partición se extiende más allá del final del dispositivo</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+139"/>
+        <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
+        <translation>GPT de respaldo movida al LBA %1; el último LBA utilizable es ahora %2; la copia obsoleta en el LBA %3 se borró</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>GPT de respaldo movida al LBA %1; el último LBA utilizable es ahora %2</translation>
     </message>

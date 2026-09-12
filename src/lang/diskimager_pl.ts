@@ -122,7 +122,7 @@
     <message>
         <location line="+7"/>
         <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
-        <translation>Porównaj dane w "Urządzenie" z "Plik Obrazu"</translation>
+        <translation>Porównaj dane w &quot;Urządzenie&quot; z &quot;Plik Obrazu&quot;</translation>
     </message>
     <message>
         <source>Verify the image file with the selected drive</source>
@@ -728,7 +728,7 @@ Ten obraz nie ma tablicy partycji, więc błąd nadpisywania GPT w systemie Wind
     <message>
         <location line="+4"/>
         <source>&quot;Fix GPT after write&quot; is off.</source>
-        <translation>Opcja "Napraw GPT po zapisie" jest wyłączona.</translation>
+        <translation>Opcja &quot;Napraw GPT po zapisie&quot; jest wyłączona.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1068,12 +1068,17 @@ Błąd %2</translation>
         <translation>tablica wpisów partycji GPT nie znajduje się tam, gdzie wskazuje nagłówek</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>a partition extends past the end of the device</source>
         <translation>partycja wykracza poza koniec urządzenia</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+139"/>
+        <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
+        <translation>zapasowy GPT przeniesiony na LBA %1; ostatni użyteczny LBA to teraz %2; nieaktualna kopia na LBA %3 została wymazana</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>zapasowy GPT przeniesiony na LBA %1; ostatni użyteczny LBA to teraz %2</translation>
     </message>

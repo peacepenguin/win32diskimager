@@ -121,7 +121,7 @@
     <message>
         <location line="+7"/>
         <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
-        <translation>Comparer les données du 'Périphérique' avec le 'fichier image'</translation>
+        <translation>Comparer les données du &apos;Périphérique&apos; avec le &apos;fichier image&apos;</translation>
     </message>
     <message>
         <source>Verify the image file with the selected drive</source>
@@ -700,7 +700,7 @@ Cela n&apos;a pu être détecté qu&apos;une fois le périphérique plein, car l
 The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
         <translation>Écriture réussie.
 
-La GPT correspond maintenant au périphérique (%1), Windows n'a donc rien à réparer. Retirez le périphérique normalement.</translation>
+La GPT correspond maintenant au périphérique (%1), Windows n&apos;a donc rien à réparer. Retirez le périphérique normalement.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -709,7 +709,7 @@ La GPT correspond maintenant au périphérique (%1), Windows n'a donc rien à r�
 This image uses an MBR partition table, not a GPT, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
         <translation>Écriture réussie.
 
-Cette image utilise une table de partitions MBR et non GPT ; le bogue de réécriture GPT de Windows ne peut donc pas l'affecter. Retirez le périphérique normalement.</translation>
+Cette image utilise une table de partitions MBR et non GPT ; le bogue de réécriture GPT de Windows ne peut donc pas l&apos;affecter. Retirez le périphérique normalement.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -718,7 +718,7 @@ Cette image utilise une table de partitions MBR et non GPT ; le bogue de réécr
 This image has no partition table, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
         <translation>Écriture réussie.
 
-Cette image n'a pas de table de partitions ; le bogue de réécriture GPT de Windows ne peut donc pas l'affecter. Retirez le périphérique normalement.</translation>
+Cette image n&apos;a pas de table de partitions ; le bogue de réécriture GPT de Windows ne peut donc pas l&apos;affecter. Retirez le périphérique normalement.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -728,12 +728,12 @@ Cette image n'a pas de table de partitions ; le bogue de réécriture GPT de Win
     <message>
         <location line="+1"/>
         <source>The device could NOT be taken offline.</source>
-        <translation>Le périphérique n'a PAS pu être mis hors ligne.</translation>
+        <translation>Le périphérique n&apos;a PAS pu être mis hors ligne.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The GPT could not be fixed (%1).</source>
-        <translation>La GPT n'a pas pu être corrigée (%1).</translation>
+        <translation>La GPT n&apos;a pas pu être corrigée (%1).</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -743,17 +743,17 @@ Cette image n'a pas de table de partitions ; le bogue de réécriture GPT de Win
     <message>
         <location line="+4"/>
         <source>&quot;Fix GPT after write&quot; is off.</source>
-        <translation>« Corriger la GPT après l'écriture » est désactivé.</translation>
+        <translation>« Corriger la GPT après l&apos;écriture » est désactivé.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</source>
-        <translation>Cette image EST affectée : elle réserve de l'espace avant sa première partition, de sorte qu'une nouvelle analyse fait pointer la table primaire vers les mauvais secteurs. Windows accepte encore le résultat, Linux non, et le périphérique ne démarrera pas.</translation>
+        <translation>Cette image EST affectée : elle réserve de l&apos;espace avant sa première partition, de sorte qu&apos;une nouvelle analyse fait pointer la table primaire vers les mauvais secteurs. Windows accepte encore le résultat, Linux non, et le périphérique ne démarrera pas.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</source>
-        <translation>Cette image n'est PAS affectée : une nouvelle analyse réécrit toujours la table, mais pour cette disposition elle écrit les bonnes valeurs. Retirer le périphérique maintenant le laisse de toute façon identique à l'image.</translation>
+        <translation>Cette image n&apos;est PAS affectée : une nouvelle analyse réécrit toujours la table, mais pour cette disposition elle écrit les bonnes valeurs. Retirer le périphérique maintenant le laisse de toute façon identique à l&apos;image.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1082,12 +1082,17 @@ Erreur %2</translation>
         <translation>le tableau des entrées de partition GPT ne se trouve pas là où l&apos;en-tête l&apos;indique</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>a partition extends past the end of the device</source>
         <translation>une partition dépasse la fin du périphérique</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+139"/>
+        <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
+        <translation>GPT de secours déplacée vers le LBA %1 ; le dernier LBA utilisable est maintenant %2 ; l'ancienne copie au LBA %3 a été effacée</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>GPT de secours déplacée vers le LBA %1 ; le dernier LBA utilisable est maintenant %2</translation>
     </message>
