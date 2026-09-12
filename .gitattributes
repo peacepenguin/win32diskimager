@@ -1,0 +1,17 @@
+# Line endings are LF in the repository and LF in the working tree, on every
+# platform. The sources are built both natively on Windows and cross-compiled
+# on Linux, and the shell scripts under tools/ run inside a Fedora container,
+# where a CRLF shebang fails with "bad interpreter: /usr/bin/env bash^M".
+#
+# Keeping the working tree LF on Windows too, rather than converting on
+# checkout, means a file has the same bytes wherever it is opened: MinGW's sed
+# and awk silently rewrite CRLF to LF on output, so a mixed-ending file turns a
+# one-line edit into a whole-file diff.
+* text=auto eol=lf
+
+# Never touched, whatever they contain.
+*.png binary
+*.ico binary
+*.qm  binary
+*.exe binary
+*.dll binary
