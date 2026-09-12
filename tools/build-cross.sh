@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Cross-compile a win64 binary in the Fedora container, the way CI does.
 #
 #   tools/build-cross.sh          # configure (if needed) and build
@@ -9,7 +9,7 @@
 #
 # build/ and src/lang/*.qm are gitignored, so building straight into the work
 # tree is safe and keeps ninja incremental between runs.
-set -e
+set -euo pipefail
 
 IMAGE=${IMAGE:-w32di-build}
 REPO=$(cd "$(dirname "$0")/.." && pwd)
@@ -19,7 +19,7 @@ if ! podman image exists "$IMAGE"; then
     podman build -t "$IMAGE" -f "$REPO/tools/Containerfile.build" "$REPO"
 fi
 
-if [ "$1" = "clean" ]; then
+if [ "${1:-}" = "clean" ]; then
     rm -rf "$REPO/build"
 fi
 

@@ -684,6 +684,9 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     unsigned long long backupentries = backuphdr - entrysectors;
     unsigned long long firstusable   = rd64(hdr, GPT_OFF_FIRSTUSABLE);
     unsigned long long lastusable    = backupentries - 1;
+    // Where the image left its backup GPT. Kept before the header is rewritten
+    // so the stale copy can be cleared once the new one is in place.
+    unsigned long long oldbackuphdr  = rd64(hdr, GPT_OFF_ALTLBA);
 
     if (backupentries <= firstusable || lastusable <= firstusable)
     {
@@ -771,11 +774,85 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
         }
     }
 
+    // The image's own backup GPT is still sitting where the image ended, in the
+    // middle of the device. Nothing reads it -- both Windows and Linux follow
+    // the pointers in the primary header, which now lead to the copy at the end
+    // -- but a stray "EFI PART" signature mid-device is exactly the kind of
+    // thing a later scan, clone or recovery tool picks up and acts on. Clear it
+    // now that the relocated pair is on the disk.
+    //
+    // Only a sector that really is the stale backup header is touched, and only
+    // once every location involved has been checked. Failing to clear it does
+    // not fail the repair: the table on the device is already correct.
+    bool stalecleared = false;
+    if (oldbackuphdr >= 2 && oldbackuphdr < backupentries)
+    {
+        QByteArray stale(sectorsize, 0);
+        unsigned char *shdr = (unsigned char *)stale.data();
+        if (rawSeekRead(hRawDisk, oldbackuphdr * sectorsize, shdr, (DWORD)sectorsize)
+            && memcmp(shdr + GPT_OFF_SIGNATURE, "EFI PART", 8) == 0
+            && rd64(shdr, GPT_OFF_MYLBA) == oldbackuphdr)
+        {
+            // Its entry array, as that header itself describes it, rather than
+            // an assumption about where it ought to be.
+            unsigned long long staleentrylba = rd64(shdr, GPT_OFF_ENTRYLBA);
+            unsigned long long stalefirst = staleentrylba;
+            unsigned long long stalelast  = oldbackuphdr;
+            if (staleentrylba < 2 || staleentrylba > oldbackuphdr
+                || oldbackuphdr - staleentrylba != entrysectors)
+            {
+                // Not the layout this code understands; clear the header sector
+                // alone, which is what carries the signature.
+                stalefirst = oldbackuphdr;
+            }
+
+            // Never touch anything a partition claims, nor the area the new
+            // table occupies.
+            // At or past FirstUsableLBA keeps it clear of LBA 0/1 and the
+            // primary entry array; below the new entry array keeps it clear of
+            // the table just written.
+            bool safe = (stalefirst >= firstusable) && (stalelast < backupentries);
+            for (unsigned long long i = 0; safe && i < numentries; ++i)
+            {
+                const unsigned char *e =
+                    (const unsigned char *)entries.constData() + i * entrysize;
+                bool empty = true;
+                for (int b = 0; b < 16; ++b)
+                {
+                    if (e[b] != 0) { empty = false; break; }
+                }
+                if (empty)
+                {
+                    continue;
+                }
+                unsigned long long pstart = rd64(e, 32);
+                unsigned long long pend   = rd64(e, 40);
+                if (pstart <= stalelast && stalefirst <= pend)
+                {
+                    safe = false;
+                }
+            }
+
+            if (safe)
+            {
+                unsigned long long count = stalelast - stalefirst + 1;
+                QByteArray zeros(count * sectorsize, 0);
+                stalecleared = rawSeekWrite(hRawDisk, stalefirst * sectorsize,
+                                            zeros.constData(),
+                                            (DWORD)(count * sectorsize));
+            }
+        }
+    }
+
     FlushFileBuffers(hRawDisk);
     if (detail)
     {
-        *detail = QObject::tr("backup GPT moved to LBA %1; last usable LBA is now %2")
-                      .arg(backuphdr).arg(lastusable);
+        *detail = stalecleared
+            ? QObject::tr("backup GPT moved to LBA %1; last usable LBA is now %2; "
+                          "the stale copy at LBA %3 was cleared")
+                  .arg(backuphdr).arg(lastusable).arg(oldbackuphdr)
+            : QObject::tr("backup GPT moved to LBA %1; last usable LBA is now %2")
+                  .arg(backuphdr).arg(lastusable);
     }
     return GPT_FIX_OK;
 }

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Refresh src/lang/*.ts from the current sources, in the Fedora container.
 #
 #   tools/lupdate-cross.sh           # update every .ts in src/lang
@@ -12,7 +12,7 @@
 # arrive untranslated, and strings that no longer appear in the source are
 # marked "vanished" rather than deleted, so translators keep their history.
 # Review the diff before committing.
-set -e
+set -euo pipefail
 
 IMAGE=${IMAGE:-w32di-build}
 REPO=$(cd "$(dirname "$0")/.." && pwd)
