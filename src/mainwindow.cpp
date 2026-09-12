@@ -60,9 +60,40 @@ static int progressShift(unsigned long long total)
     return shift;
 }
 
+// Qt turns word wrap on for a tooltip only when the text looks like rich text
+// (Qt::mightBeRichText). A long plain tooltip therefore becomes one enormous
+// line, which Qt then clamps against the edges of the screen: the beginning and
+// the end are both cut off. Wrapping the text in a table cell of a fixed width
+// turns wrapping on and gives it a column to wrap into.
+//
+// Applied here rather than in the .ui so the translated strings are wrapped
+// too -- a translation is often longer than the English -- and so the strings
+// the translators work from stay free of markup.
+static void wrapLongToolTips(QWidget *root)
+{
+    const int wrapAboveChars = 60;
+    const int wrapWidthPx = 360;
+
+    const QList<QWidget *> widgets = root->findChildren<QWidget *>();
+    for (QWidget *w : widgets)
+    {
+        const QString tip = w->toolTip();
+        // Short tips read better left on one line, and anything already marked
+        // up is the author's business.
+        if (tip.length() <= wrapAboveChars || Qt::mightBeRichText(tip))
+        {
+            continue;
+        }
+        w->setToolTip(QString("<table><tr><td width=\"%1\">%2</td></tr></table>")
+                          .arg(wrapWidthPx)
+                          .arg(tip.toHtmlEscaped()));
+    }
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
+    wrapLongToolTips(this);
     elapsed_timer = new ElapsedTimer();
     statusbar->addPermanentWidget(elapsed_timer);   // "addpermanent" puts it on the RHS of the statusbar
     status = STATUS_IDLE;
@@ -732,6 +763,10 @@ void MainWindow::on_bWrite_clicked()
             // Ask before fixing anything: the fix rewrites the very header this
             // reads, so afterwards every image would look unaffected.
             GptRewriteRisk gptrisk = gptRewriteRisk(hRawDisk, sectorsize);
+            // Only to word the message: with no GPT, say whether what was
+            // written is an MBR image or has no table at all. Read here while
+            // the handle is still open.
+            bool mbr = deviceHasMbrTable(hRawDisk, sectorsize);
             if (fixGptCheckBox->isChecked() && status != STATUS_CANCELED)
             {
                 statusbar->showMessage(tr("Fixing GPT..."));
@@ -761,23 +796,30 @@ void MainWindow::on_bWrite_clicked()
             else if (status == STATUS_CANCELED){
                 passfail = false;
             }
+            // No GPT means nothing for Windows to "repair", whether or not the
+            // fix was asked for: the write already zeroed the first and last 34
+            // sectors, so no stale backup GPT from an earlier image survives.
+            // Reporting that as a risk, purely because the checkbox was off,
+            // warned about a bug the image cannot have.
             else if (gptfix == GPT_FIX_OK || gptfix == GPT_FIX_NOT_NEEDED
-                     || gptfix == GPT_FIX_NO_GPT)
+                     || gptfix == GPT_FIX_NO_GPT
+                     || (gptrisk == GPT_RISK_NO_GPT && gptfix == GPT_FIX_DISABLED))
             {
                 QString msg;
                 if (gptfix == GPT_FIX_OK)
                 {
-                    msg = tr("Write successful.\n\nThe GPT was made consistent with the device "
-                             "(%1), so Windows has no damaged table to repair. The device can "
-                             "be removed normally.").arg(gptdetail);
+                    msg = tr("Write successful.\n\nThe GPT now matches the device (%1), so "
+                             "Windows has nothing to repair. Remove the device normally.")
+                              .arg(gptdetail);
                 }
-                else if (gptfix == GPT_FIX_NO_GPT)
+                else if (gptfix == GPT_FIX_NO_GPT || gptrisk == GPT_RISK_NO_GPT)
                 {
-                    // Nothing to relocate and nothing for Windows to "repair":
-                    // the write already zeroed the first and last 34 sectors,
-                    // so no stale backup GPT from an earlier image survives.
-                    msg = tr("Write successful.\n\nThe image contains no GPT, so there is no "
-                             "partition table for Windows to repair. The device can be removed "
+                    msg = mbr
+                        ? tr("Write successful.\n\nThis image uses an MBR partition table, not "
+                             "a GPT, so the Windows GPT rewrite bug cannot affect it. Remove "
+                             "the device normally.")
+                        : tr("Write successful.\n\nThis image has no partition table, so the "
+                             "Windows GPT rewrite bug cannot affect it. Remove the device "
                              "normally.");
                 }
                 else
@@ -789,45 +831,41 @@ void MainWindow::on_bWrite_clicked()
             else
             {
                 QString state = (offline || ejected)
-                    ? tr("The device has been taken offline and ejected.")
-                    : tr("The device could NOT be taken offline automatically.");
+                    ? tr("The device is offline and ejected.")
+                    : tr("The device could NOT be taken offline.");
                 QString why = (gptfix == GPT_FIX_BAD_GPT)
-                    ? tr("The GPT could not be fixed automatically (%1).").arg(
-                          gptdetail.isEmpty() ? tr("the GPT is malformed") : gptdetail)
+                    ? tr("The GPT could not be fixed (%1).").arg(
+                          gptdetail.isEmpty() ? tr("malformed GPT") : gptdetail)
                     : (gptfix == GPT_FIX_FAILED)
                         ? tr("Fixing the GPT failed (%1).").arg(
                               gptdetail.isEmpty() ? tr("write error") : gptdetail)
-                        : tr("The \"Fix GPT after write\" option is not enabled.");
+                        : tr("\"Fix GPT after write\" is off.");
                 QString risk;
                 if (gptrisk == GPT_RISK_AFFECTED)
                 {
-                    risk = tr("This image IS affected by the Windows GPT rewrite bug.\n\n"
-                              "It reserves space ahead of its first partition, so a rescan "
-                              "makes Windows rewrite the primary partition table to point "
-                              "at the wrong sectors. The result still passes Windows' own "
-                              "checks, but Linux rejects it and the device will not boot.");
+                    risk = tr("This image IS affected: it reserves space ahead of its first "
+                              "partition, so a rescan points the primary table at the wrong "
+                              "sectors. Windows still accepts the result; Linux does not, and "
+                              "the device will not boot.");
                 }
                 else if (gptrisk == GPT_RISK_SAFE)
                 {
-                    risk = tr("This image is NOT affected by the Windows GPT rewrite bug.\n\n"
-                              "Windows will still rewrite the table on a rescan, because the "
-                              "backup GPT is not at the end of the device, but for this "
-                              "layout the rewrite lands on the correct values. Removing the "
-                              "device now keeps it byte-identical to the image regardless.");
+                    risk = tr("This image is NOT affected: a rescan still rewrites the table, "
+                              "but for this layout it writes the correct values. Removing the "
+                              "device now keeps it identical to the image either way.");
                 }
                 else
                 {
-                    risk = tr("Whether this image is affected by the Windows GPT rewrite bug "
-                              "could not be determined. Assume it is: a rescan can leave the "
-                              "partition table rejected by Linux and the device unbootable.");
+                    risk = tr("Whether this image is affected could not be determined. Assume "
+                              "it is: a rescan can leave a table that Linux rejects and the "
+                              "device will not boot.");
                 }
                 QMessageBox::warning(this, tr("Remove the device now"),
                     tr("Write successful, but the partition table is at risk.\n\n"
-                       "%1\n%2\n\n"
+                       "%1 %2\n\n"
                        "%3\n\n"
-                       "Physically remove the device NOW, before doing anything else, and "
-                       "do not re-insert it into this computer. Insert it into the target "
-                       "hardware instead.").arg(why).arg(state).arg(risk));
+                       "Remove the device NOW and do not re-insert it here. Put it straight "
+                       "into the target hardware.").arg(why).arg(state).arg(risk));
             }
         }
         else if (!fileinfo.exists() || !fileinfo.isFile())

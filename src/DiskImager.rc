@@ -30,7 +30,14 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // RT_MANIFEST
 //
 
+#ifdef TEST_NO_ADMIN
+// A build for testing the GUI, which asks for no elevation so the app can be
+// started and poked at without a UAC prompt each time. Generated into the build
+// directory by CMake's TEST_NO_ADMIN option; it cannot write to a device.
+1                       RT_MANIFEST             "DiskImager-asinvoker.manifest"
+#else
 1                       RT_MANIFEST             "DiskImager.manifest"
+#endif
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////

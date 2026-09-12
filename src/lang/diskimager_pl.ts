@@ -121,8 +121,12 @@
     </message>
     <message>
         <location line="+7"/>
+        <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
+        <translation>Porównaj dane w "Urządzenie" z "Plik Obrazu"</translation>
+    </message>
+    <message>
         <source>Verify the image file with the selected drive</source>
-        <translation>Porównaj plik obrazu z wybranym napędem</translation>
+        <translation type="vanished">Porównaj plik obrazu z wybranym napędem</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -140,7 +144,7 @@
         <translation>Wyjdź</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+217"/>
+        <location filename="../mainwindow.cpp" line="+248"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -187,20 +191,20 @@ Are you sure you want to cancel?</source>
         <location line="+140"/>
         <location line="+38"/>
         <location line="+26"/>
-        <location line="+224"/>
+        <location line="+231"/>
         <location line="+74"/>
         <source>Write Error</source>
         <translation>Błąd Zapisu</translation>
     </message>
     <message>
-        <location line="-594"/>
-        <location line="+520"/>
+        <location line="-601"/>
+        <location line="+527"/>
         <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Plik obrazu nie może zostać umieszczony na urządzeniu docelowym.</translation>
     </message>
     <message>
-        <location line="-699"/>
+        <location line="-706"/>
         <source>Confirm overwrite</source>
         <translation>Potwierdź Nadpisanie</translation>
     </message>
@@ -232,7 +236,7 @@ Czy na pewno chcesz anulować?</translation>
     <message>
         <location line="-263"/>
         <location line="+172"/>
-        <location line="+343"/>
+        <location line="+350"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
@@ -245,7 +249,6 @@ Czy na pewno chcesz anulować?</translation>
         <translation>Błąd Pliku</translation>
     </message>
     <message>
-        <location line="-642"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -254,7 +257,7 @@ Czy na pewno chcesz anulować?</translation>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation>Zapis zakończony powodzeniem, ale tablica partycji jest zagrożona.
+        <translation type="vanished">Zapis zakończony powodzeniem, ale tablica partycji jest zagrożona.
 
 %1
 %2
@@ -264,14 +267,14 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Odłącz urządzenie fizycznie TERAZ, zanim zrobisz cokolwiek innego, i nie podłączaj go ponownie do tego komputera. Podłącz je zamiast tego do urządzenia docelowego.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-632"/>
         <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation>Wybrany plik nie istnieje.</translation>
     </message>
     <message>
-        <location line="-951"/>
-        <location line="+352"/>
+        <location line="-958"/>
+        <location line="+359"/>
         <location line="+330"/>
         <location line="+279"/>
         <source>The specified file contains no data.</source>
@@ -298,7 +301,7 @@ Odłącz urządzenie fizycznie TERAZ, zanim zrobisz cokolwiek innego, i nie pod�
         <translation>Zapis Pomyślny.</translation>
     </message>
     <message>
-        <location line="-742"/>
+        <location line="-749"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Obrazy dysków (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -371,18 +374,18 @@ Zapisać mimo to na tym urządzeniu?</translation>
     </message>
     <message>
         <location line="-233"/>
-        <location line="+683"/>
+        <location line="+690"/>
         <source>Device Error</source>
         <translation>Błąd urządzenia</translation>
     </message>
     <message>
-        <location line="-682"/>
-        <location line="+683"/>
+        <location line="-689"/>
+        <location line="+690"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Urządzenie zgłasza zerowy rozmiar. Jeśli jest to czytnik kart, karta mogła zostać wyjęta.</translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="-632"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -480,7 +483,7 @@ Kontynuować mimo to?</translation>
         <translation>Urządzenie zostało zapisane tylko częściowo i nie zawiera już użytecznego obrazu. Zapisz obraz ponownie przed użyciem urządzenia.</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+66"/>
         <source>Fixing GPT...</source>
         <translation>Naprawianie GPT...</translation>
     </message>
@@ -490,25 +493,23 @@ Kontynuować mimo to?</translation>
         <translation>Obraz obcięty</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation>Zapis zakończony powodzeniem.
+        <translation type="vanished">Zapis zakończony powodzeniem.
 
 GPT został uzgodniony z urządzeniem (%1), więc Windows nie ma uszkodzonej tablicy do naprawienia. Urządzenie można odłączyć w zwykły sposób.</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation>Zapis zakończony powodzeniem.
+        <translation type="vanished">Zapis zakończony powodzeniem.
 
 Obraz nie zawiera GPT, więc nie ma tablicy partycji, którą Windows mógłby naprawiać. Urządzenie można odłączyć w zwykły sposób.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+38"/>
         <source>Write successful.</source>
         <translation>Zapis zakończony powodzeniem.</translation>
     </message>
@@ -518,27 +519,23 @@ Obraz nie zawiera GPT, więc nie ma tablicy partycji, którą Windows mógłby n
         <translation>Zapis zakończony powodzeniem</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation>Urządzenie zostało przełączone w tryb offline i wysunięte.</translation>
+        <translation type="vanished">Urządzenie zostało przełączone w tryb offline i wysunięte.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation>NIE udało się automatycznie przełączyć urządzenia w tryb offline.</translation>
+        <translation type="vanished">NIE udało się automatycznie przełączyć urządzenia w tryb offline.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation>Nie udało się automatycznie naprawić GPT (%1).</translation>
+        <translation type="vanished">Nie udało się automatycznie naprawić GPT (%1).</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation>GPT jest nieprawidłowo zbudowany</translation>
+        <translation type="vanished">GPT jest nieprawidłowo zbudowany</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+11"/>
         <source>Fixing the GPT failed (%1).</source>
         <translation>Naprawa GPT nie powiodła się (%1).</translation>
     </message>
@@ -548,40 +545,36 @@ Obraz nie zawiera GPT, więc nie ma tablicy partycji, którą Windows mógłby n
         <translation>błąd zapisu</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation>Opcja &quot;Napraw GPT po zapisie&quot; nie jest włączona.</translation>
+        <translation type="vanished">Opcja &quot;Napraw GPT po zapisie&quot; nie jest włączona.</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation>Ten obraz JEST podatny na błąd przepisywania GPT w systemie Windows.
+        <translation type="vanished">Ten obraz JEST podatny na błąd przepisywania GPT w systemie Windows.
 
 Rezerwuje miejsce przed pierwszą partycją, więc ponowne skanowanie sprawia, że Windows przepisuje główną tablicę partycji tak, by wskazywała niewłaściwe sektory. Wynik nadal przechodzi własne testy systemu Windows, ale Linux go odrzuca i urządzenie nie uruchomi się.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation>Ten obraz NIE jest podatny na błąd przepisywania GPT w systemie Windows.
+        <translation type="vanished">Ten obraz NIE jest podatny na błąd przepisywania GPT w systemie Windows.
 
 Windows i tak przepisze tablicę przy ponownym skanowaniu, ponieważ zapasowy GPT nie znajduje się na końcu urządzenia, ale przy tym układzie przepisane wartości są poprawne. Niezależnie od tego odłączenie urządzenia teraz zachowa je w postaci identycznej co do bajtu z obrazem.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation>Nie udało się ustalić, czy ten obraz jest podatny na błąd przepisywania GPT w systemie Windows. Przyjmij, że jest: ponowne skanowanie może pozostawić tablicę partycji odrzucaną przez Linuksa, a urządzenie niezdatne do uruchomienia.</translation>
+        <translation type="vanished">Nie udało się ustalić, czy ten obraz jest podatny na błąd przepisywania GPT w systemie Windows. Przyjmij, że jest: ponowne skanowanie może pozostawić tablicę partycji odrzucaną przez Linuksa, a urządzenie niezdatne do uruchomienia.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+22"/>
         <source>Remove the device now</source>
         <translation>Odłącz urządzenie teraz</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Nie masz uprawnień do odczytu wybranego pliku.</translation>
@@ -677,7 +670,7 @@ Kontynuować mimo to?</translation>
         <translation>Proszę wybrać plik obrazu do użycia.</translation>
     </message>
     <message>
-        <location line="-712"/>
+        <location line="-715"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -686,7 +679,91 @@ This could only be detected once the device was full, because the compressed ima
 Można to było wykryć dopiero po zapełnieniu urządzenia, ponieważ skompresowany obraz nie zapisuje swojego rozmiaru po dekompresji.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+21"/>
+        <source>Write successful.
+
+The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
+        <translation>Zapis zakończony powodzeniem.
+
+GPT odpowiada teraz urządzeniu (%1), więc Windows nie ma czego naprawiać. Wyjmij urządzenie w zwykły sposób.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Write successful.
+
+This image uses an MBR partition table, not a GPT, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>Zapis zakończony powodzeniem.
+
+Ten obraz używa tablicy partycji MBR, a nie GPT, więc błąd nadpisywania GPT w systemie Windows nie może go dotyczyć. Wyjmij urządzenie w zwykły sposób.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Write successful.
+
+This image has no partition table, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>Zapis zakończony powodzeniem.
+
+Ten obraz nie ma tablicy partycji, więc błąd nadpisywania GPT w systemie Windows nie może go dotyczyć. Wyjmij urządzenie w zwykły sposób.</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The device is offline and ejected.</source>
+        <translation>Urządzenie jest w trybie offline i wysunięte.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The device could NOT be taken offline.</source>
+        <translation>NIE udało się przełączyć urządzenia w tryb offline.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The GPT could not be fixed (%1).</source>
+        <translation>Nie udało się naprawić GPT (%1).</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>malformed GPT</source>
+        <translation>uszkodzona tablica GPT</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&quot;Fix GPT after write&quot; is off.</source>
+        <translation>Opcja "Napraw GPT po zapisie" jest wyłączona.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</source>
+        <translation>Ten obraz JEST podatny: rezerwuje miejsce przed pierwszą partycją, więc ponowne skanowanie kieruje tablicę główną na niewłaściwe sektory. Windows nadal akceptuje wynik, Linux nie, a urządzenie się nie uruchomi.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</source>
+        <translation>Ten obraz NIE jest podatny: ponowne skanowanie nadal nadpisuje tablicę, ale przy tym układzie zapisuje poprawne wartości. Wyjęcie urządzenia teraz i tak zachowa je identyczne z obrazem.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Whether this image is affected could not be determined. Assume it is: a rescan can leave a table that Linux rejects and the device will not boot.</source>
+        <translation>Nie udało się ustalić, czy ten obraz jest podatny. Załóż, że tak: ponowne skanowanie może pozostawić tablicę odrzucaną przez Linuksa, a urządzenie się nie uruchomi.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Write successful, but the partition table is at risk.
+
+%1 %2
+
+%3
+
+Remove the device NOW and do not re-insert it here. Put it straight into the target hardware.</source>
+        <translation>Zapis zakończony powodzeniem, ale tablica partycji jest zagrożona.
+
+%1 %2
+
+%3
+
+Wyjmij urządzenie TERAZ i nie wkładaj go ponownie tutaj. Włóż je bezpośrednio do urządzenia docelowego.</translation>
+    </message>
+    <message>
+        <location line="+63"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>Błąd odczytu</translation>

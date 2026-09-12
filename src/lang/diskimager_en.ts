@@ -120,8 +120,12 @@
     </message>
     <message>
         <location line="+7"/>
+        <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
+        <translation>Compare data in &apos;Device&apos; against &apos;Image File&apos;</translation>
+    </message>
+    <message>
         <source>Verify the image file with the selected drive</source>
-        <translation>Verify the image file with the selected drive</translation>
+        <translation type="vanished">Verify the image file with the selected drive</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -139,7 +143,7 @@
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+217"/>
+        <location filename="../mainwindow.cpp" line="+248"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -189,20 +193,20 @@ Are you sure you want to cancel?</translation>
         <location line="+140"/>
         <location line="+38"/>
         <location line="+26"/>
-        <location line="+224"/>
+        <location line="+231"/>
         <location line="+74"/>
         <source>Write Error</source>
         <translation>Write Error</translation>
     </message>
     <message>
-        <location line="-594"/>
-        <location line="+520"/>
+        <location line="-601"/>
+        <location line="+527"/>
         <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Image file cannot be located on the target device.</translation>
     </message>
     <message>
-        <location line="-699"/>
+        <location line="-706"/>
         <source>Confirm overwrite</source>
         <translation>Confirm overwrite</translation>
     </message>
@@ -234,7 +238,7 @@ Are you sure you want to cancel?</translation>
     <message>
         <location line="-263"/>
         <location line="+172"/>
-        <location line="+343"/>
+        <location line="+350"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
@@ -247,7 +251,6 @@ Are you sure you want to cancel?</translation>
         <translation>File Error</translation>
     </message>
     <message>
-        <location line="-642"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -256,7 +259,7 @@ Are you sure you want to cancel?</translation>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation>Write successful, but the partition table is at risk.
+        <translation type="vanished">Write successful, but the partition table is at risk.
 
 %1
 %2
@@ -266,14 +269,14 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-632"/>
         <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation>The selected file does not exist.</translation>
     </message>
     <message>
-        <location line="-951"/>
-        <location line="+352"/>
+        <location line="-958"/>
+        <location line="+359"/>
         <location line="+330"/>
         <location line="+279"/>
         <source>The specified file contains no data.</source>
@@ -300,7 +303,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>Write Successful.</translation>
     </message>
     <message>
-        <location line="-536"/>
+        <location line="-543"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -362,18 +365,18 @@ Write to this device anyway?</translation>
     </message>
     <message>
         <location line="-233"/>
-        <location line="+683"/>
+        <location line="+690"/>
         <source>Device Error</source>
         <translation>Device Error</translation>
     </message>
     <message>
-        <location line="-682"/>
-        <location line="+683"/>
+        <location line="-689"/>
+        <location line="+690"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>The device reports a size of zero. If it is a card reader, the card may have been removed.</translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="-632"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -382,7 +385,14 @@ Write to this device anyway?</translation>
 The end of the image will not be written, so the device will not hold a complete image.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>The image is larger than the device:
+  Image: at least %1 sectors
+  Available: %2 sectors
+  Sector Size: %3
+
+The end of the image will not be written, so the device will not hold a complete image.
+
+Continue Anyway?</translation>
     </message>
     <message>
         <location line="+61"/>
@@ -464,7 +474,7 @@ Continue Anyway?</translation>
         <translation>The device has been partially written and no longer holds a usable image. Write the image again before using it.</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+66"/>
         <source>Fixing GPT...</source>
         <translation>Fixing GPT...</translation>
     </message>
@@ -482,25 +492,23 @@ This could only be detected once the device was full, because a gzip image does 
 This could only be detected once the device was full, because a gzip image does not record its uncompressed size.</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation>Write successful.
+        <translation type="vanished">Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation>Write successful.
+        <translation type="vanished">Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+38"/>
         <source>Write successful.</source>
         <translation>Write successful.</translation>
     </message>
@@ -510,27 +518,23 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation>Write Successful</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation>The device has been taken offline and ejected.</translation>
+        <translation type="vanished">The device has been taken offline and ejected.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation>The device could NOT be taken offline automatically.</translation>
+        <translation type="vanished">The device could NOT be taken offline automatically.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation>The GPT could not be fixed automatically (%1).</translation>
+        <translation type="vanished">The GPT could not be fixed automatically (%1).</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation>the GPT is malformed</translation>
+        <translation type="vanished">the GPT is malformed</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+11"/>
         <source>Fixing the GPT failed (%1).</source>
         <translation>Fixing the GPT failed (%1).</translation>
     </message>
@@ -540,40 +544,36 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation>write error</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation>The &quot;Fix GPT after write&quot; option is not enabled.</translation>
+        <translation type="vanished">The &quot;Fix GPT after write&quot; option is not enabled.</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation>This image IS affected by the Windows GPT rewrite bug.
+        <translation type="vanished">This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation>This image is NOT affected by the Windows GPT rewrite bug.
+        <translation type="vanished">This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</translation>
+        <translation type="vanished">Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+22"/>
         <source>Remove the device now</source>
         <translation>Remove the device now</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>You do not have permission to read the selected file.</translation>
@@ -619,7 +619,14 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</translation>
 Only the part that fits can be compared.
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>The image is larger than the device:
+  Image: at least %1 sectors
+  Device: %2 sectors
+  Sector Size: %3
+
+Only the part that fits can be compared.
+
+Continue Anyway?</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -670,7 +677,7 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Please specify an image file to use.</translation>
     </message>
     <message>
-        <location line="-1356"/>
+        <location line="-1363"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Disk Images (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -681,14 +688,100 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+641"/>
+        <location line="+645"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
+
+This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+21"/>
+        <source>Write successful.
+
+The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
+        <translation>Write successful.
+
+The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Write successful.
+
+This image uses an MBR partition table, not a GPT, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>Write successful.
+
+This image uses an MBR partition table, not a GPT, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Write successful.
+
+This image has no partition table, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>Write successful.
+
+This image has no partition table, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The device is offline and ejected.</source>
+        <translation>The device is offline and ejected.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The device could NOT be taken offline.</source>
+        <translation>The device could NOT be taken offline.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The GPT could not be fixed (%1).</source>
+        <translation>The GPT could not be fixed (%1).</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>malformed GPT</source>
+        <translation>malformed GPT</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&quot;Fix GPT after write&quot; is off.</source>
+        <translation>&quot;Fix GPT after write&quot; is off.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</source>
+        <translation>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</source>
+        <translation>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Whether this image is affected could not be determined. Assume it is: a rescan can leave a table that Linux rejects and the device will not boot.</source>
+        <translation>Whether this image is affected could not be determined. Assume it is: a rescan can leave a table that Linux rejects and the device will not boot.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Write successful, but the partition table is at risk.
+
+%1 %2
+
+%3
+
+Remove the device NOW and do not re-insert it here. Put it straight into the target hardware.</source>
+        <translation>Write successful, but the partition table is at risk.
+
+%1 %2
+
+%3
+
+Remove the device NOW and do not re-insert it here. Put it straight into the target hardware.</translation>
+    </message>
+    <message>
+        <location line="+63"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>Read Error</translation>
@@ -807,7 +900,9 @@ Continue Anyway?</translation>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
-        <translation type="unfinished"></translation>
+        <translation>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
+
+This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</translation>
     </message>
     <message>
         <location line="+11"/>

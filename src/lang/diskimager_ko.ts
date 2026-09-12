@@ -120,8 +120,12 @@
     </message>
     <message>
         <location line="+7"/>
+        <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
+        <translation>'기기'와 '이미지 파일' 비교</translation>
+    </message>
+    <message>
         <source>Verify the image file with the selected drive</source>
-        <translation>선택된 드라이브의 이미지 파일 검증하기</translation>
+        <translation type="vanished">선택된 드라이브의 이미지 파일 검증하기</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -139,7 +143,7 @@
         <translation>종료</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+217"/>
+        <location filename="../mainwindow.cpp" line="+248"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -189,20 +193,20 @@ Are you sure you want to cancel?</source>
         <location line="+140"/>
         <location line="+38"/>
         <location line="+26"/>
-        <location line="+224"/>
+        <location line="+231"/>
         <location line="+74"/>
         <source>Write Error</source>
         <translation>쓰기 오류</translation>
     </message>
     <message>
-        <location line="-594"/>
-        <location line="+520"/>
+        <location line="-601"/>
+        <location line="+527"/>
         <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>이미지 파일을 대상 기기에 위치시킬 수 없습니다.</translation>
     </message>
     <message>
-        <location line="-699"/>
+        <location line="-706"/>
         <source>Confirm overwrite</source>
         <translation>중복쓰기 확인</translation>
     </message>
@@ -234,7 +238,7 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="-263"/>
         <location line="+172"/>
-        <location line="+343"/>
+        <location line="+350"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
@@ -247,7 +251,6 @@ Are you sure you want to cancel?</source>
         <translation>파일 오류</translation>
     </message>
     <message>
-        <location line="-642"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -256,7 +259,7 @@ Are you sure you want to cancel?</source>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation>쓰기에 성공했지만 파티션 테이블이 위험한 상태입니다.
+        <translation type="vanished">쓰기에 성공했지만 파티션 테이블이 위험한 상태입니다.
 
 %1
 %2
@@ -266,14 +269,14 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 다른 작업을 하기 전에 지금 바로 장치를 물리적으로 제거하고, 이 컴퓨터에 다시 꽂지 마십시오. 대상 하드웨어에 꽂으십시오.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-632"/>
         <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation>선택된 파일이 존재하지 않습니다.</translation>
     </message>
     <message>
-        <location line="-951"/>
-        <location line="+352"/>
+        <location line="-958"/>
+        <location line="+359"/>
         <location line="+330"/>
         <location line="+279"/>
         <source>The specified file contains no data.</source>
@@ -300,7 +303,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>쓰기 성공.</translation>
     </message>
     <message>
-        <location line="-742"/>
+        <location line="-749"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>디스크 이미지 (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -373,18 +376,18 @@ Write to this device anyway?</source>
     </message>
     <message>
         <location line="-233"/>
-        <location line="+683"/>
+        <location line="+690"/>
         <source>Device Error</source>
         <translation>장치 오류</translation>
     </message>
     <message>
-        <location line="-682"/>
-        <location line="+683"/>
+        <location line="-689"/>
+        <location line="+690"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>장치가 크기를 0으로 보고합니다. 카드 리더라면 카드가 제거되었을 수 있습니다.</translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="-632"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -482,7 +485,7 @@ Continue Anyway?</source>
         <translation>장치에 이미지가 일부만 기록되어 사용할 수 없습니다. 사용하기 전에 이미지를 다시 기록하십시오.</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+66"/>
         <source>Fixing GPT...</source>
         <translation>GPT 수정 중...</translation>
     </message>
@@ -492,25 +495,23 @@ Continue Anyway?</source>
         <translation>이미지가 잘림</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation>쓰기에 성공했습니다.
+        <translation type="vanished">쓰기에 성공했습니다.
 
 GPT를 장치(%1)와 일치하도록 만들었으므로, Windows가 복구할 손상된 테이블이 없습니다. 장치를 정상적으로 제거할 수 있습니다.</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation>쓰기에 성공했습니다.
+        <translation type="vanished">쓰기에 성공했습니다.
 
 이미지에 GPT가 없으므로 Windows가 복구할 파티션 테이블도 없습니다. 장치를 정상적으로 제거할 수 있습니다.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+38"/>
         <source>Write successful.</source>
         <translation>쓰기에 성공했습니다.</translation>
     </message>
@@ -520,27 +521,23 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation>쓰기 성공</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation>장치를 오프라인으로 전환하고 꺼냈습니다.</translation>
+        <translation type="vanished">장치를 오프라인으로 전환하고 꺼냈습니다.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation>장치를 자동으로 오프라인 전환할 수 없었습니다.</translation>
+        <translation type="vanished">장치를 자동으로 오프라인 전환할 수 없었습니다.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation>GPT를 자동으로 수정할 수 없었습니다 (%1).</translation>
+        <translation type="vanished">GPT를 자동으로 수정할 수 없었습니다 (%1).</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation>GPT 형식이 올바르지 않습니다</translation>
+        <translation type="vanished">GPT 형식이 올바르지 않습니다</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+11"/>
         <source>Fixing the GPT failed (%1).</source>
         <translation>GPT 수정에 실패했습니다 (%1).</translation>
     </message>
@@ -550,40 +547,36 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation>쓰기 오류</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation>&quot;쓰기 후 GPT 수정&quot; 옵션이 켜져 있지 않습니다.</translation>
+        <translation type="vanished">&quot;쓰기 후 GPT 수정&quot; 옵션이 켜져 있지 않습니다.</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation>이 이미지는 Windows GPT 재작성 버그의 영향을 받습니다.
+        <translation type="vanished">이 이미지는 Windows GPT 재작성 버그의 영향을 받습니다.
 
 첫 파티션 앞에 공간을 예약해 두기 때문에, 다시 검사할 때 Windows가 주 파티션 테이블을 다시 써서 잘못된 섹터를 가리키게 만듭니다. 그 결과는 Windows 자체 검사는 통과하지만 Linux는 이를 거부하며, 장치도 부팅되지 않습니다.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation>이 이미지는 Windows GPT 재작성 버그의 영향을 받지 않습니다.
+        <translation type="vanished">이 이미지는 Windows GPT 재작성 버그의 영향을 받지 않습니다.
 
 백업 GPT가 장치 끝에 있지 않으므로 다시 검사할 때 Windows가 테이블을 다시 쓰기는 하지만, 이 배치에서는 다시 쓴 값이 올바릅니다. 어느 쪽이든 지금 장치를 제거하면 이미지와 바이트 단위로 동일하게 유지됩니다.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation>이 이미지가 Windows GPT 재작성 버그의 영향을 받는지 판단할 수 없었습니다. 영향을 받는 것으로 가정하십시오. 다시 검사하면 Linux가 거부하는 파티션 테이블이 남아 장치가 부팅되지 않을 수 있습니다.</translation>
+        <translation type="vanished">이 이미지가 Windows GPT 재작성 버그의 영향을 받는지 판단할 수 없었습니다. 영향을 받는 것으로 가정하십시오. 다시 검사하면 Linux가 거부하는 파티션 테이블이 남아 장치가 부팅되지 않을 수 있습니다.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+22"/>
         <source>Remove the device now</source>
         <translation>지금 장치를 제거하십시오</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>선택한 파일을 읽을 권한이 없습니다.</translation>
@@ -679,7 +672,7 @@ Continue Anyway?</source>
         <translation>사용하기 위한 이미지 파일을 지정해주세요.</translation>
     </message>
     <message>
-        <location line="-712"/>
+        <location line="-715"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -688,7 +681,91 @@ This could only be detected once the device was full, because the compressed ima
 압축 이미지는 압축 해제 후의 크기를 기록하지 않기 때문에, 장치가 가득 찬 뒤에야 이를 확인할 수 있었습니다.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+21"/>
+        <source>Write successful.
+
+The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
+        <translation>쓰기에 성공했습니다.
+
+GPT가 이제 장치(%1)와 일치하므로 Windows가 복구할 것이 없습니다. 장치를 정상적으로 제거하십시오.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Write successful.
+
+This image uses an MBR partition table, not a GPT, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>쓰기에 성공했습니다.
+
+이 이미지는 GPT가 아닌 MBR 파티션 테이블을 사용하므로 Windows의 GPT 덮어쓰기 문제의 영향을 받지 않습니다. 장치를 정상적으로 제거하십시오.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Write successful.
+
+This image has no partition table, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>쓰기에 성공했습니다.
+
+이 이미지에는 파티션 테이블이 없으므로 Windows의 GPT 덮어쓰기 문제의 영향을 받지 않습니다. 장치를 정상적으로 제거하십시오.</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The device is offline and ejected.</source>
+        <translation>장치가 오프라인 상태이며 꺼내졌습니다.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The device could NOT be taken offline.</source>
+        <translation>장치를 오프라인으로 전환하지 못했습니다.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The GPT could not be fixed (%1).</source>
+        <translation>GPT를 고치지 못했습니다(%1).</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>malformed GPT</source>
+        <translation>형식이 잘못된 GPT</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&quot;Fix GPT after write&quot; is off.</source>
+        <translation>"쓰기 후 GPT 수정"이 꺼져 있습니다.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</source>
+        <translation>이 이미지는 영향을 받습니다. 첫 파티션 앞에 공간을 예약하므로 다시 검사하면 기본 테이블이 잘못된 섹터를 가리킵니다. Windows는 그 결과를 받아들이지만 Linux는 그렇지 않으며 장치가 부팅되지 않습니다.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</source>
+        <translation>이 이미지는 영향을 받지 않습니다. 다시 검사하면 테이블을 다시 쓰지만 이 배치에서는 올바른 값을 씁니다. 지금 장치를 제거하면 어느 쪽이든 이미지와 동일하게 유지됩니다.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Whether this image is affected could not be determined. Assume it is: a rescan can leave a table that Linux rejects and the device will not boot.</source>
+        <translation>이 이미지가 영향을 받는지 확인할 수 없었습니다. 영향을 받는다고 가정하십시오. 다시 검사하면 Linux가 거부하는 테이블이 남아 장치가 부팅되지 않을 수 있습니다.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Write successful, but the partition table is at risk.
+
+%1 %2
+
+%3
+
+Remove the device NOW and do not re-insert it here. Put it straight into the target hardware.</source>
+        <translation>쓰기에 성공했지만 파티션 테이블이 위험합니다.
+
+%1 %2
+
+%3
+
+지금 장치를 제거하고 이 컴퓨터에 다시 꽂지 마십시오. 대상 하드웨어에 바로 꽂으십시오.</translation>
+    </message>
+    <message>
+        <location line="+63"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>읽기 오류</translation>

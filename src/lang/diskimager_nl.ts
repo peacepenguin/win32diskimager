@@ -120,8 +120,12 @@
     </message>
     <message>
         <location line="+7"/>
+        <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
+        <translation>Vergelijk het doelapparaat met de image</translation>
+    </message>
+    <message>
         <source>Verify the image file with the selected drive</source>
-        <translation>Controleer het image met de geselecteerde schijf</translation>
+        <translation type="vanished">Controleer het image met de geselecteerde schijf</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -139,7 +143,7 @@
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+217"/>
+        <location filename="../mainwindow.cpp" line="+248"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -186,20 +190,20 @@ Are you sure you want to cancel?</source>
         <location line="+140"/>
         <location line="+38"/>
         <location line="+26"/>
-        <location line="+224"/>
+        <location line="+231"/>
         <location line="+74"/>
         <source>Write Error</source>
         <translation>Schrijffout</translation>
     </message>
     <message>
-        <location line="-594"/>
-        <location line="+520"/>
+        <location line="-601"/>
+        <location line="+527"/>
         <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Image bestand kan niet gevonden worden op het doel apparaat.</translation>
     </message>
     <message>
-        <location line="-699"/>
+        <location line="-706"/>
         <source>Confirm overwrite</source>
         <translation>Overschrijven bevestigen</translation>
     </message>
@@ -231,7 +235,7 @@ Weet u zeker dat u wilt fabreken?</translation>
     <message>
         <location line="-263"/>
         <location line="+172"/>
-        <location line="+343"/>
+        <location line="+350"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
@@ -244,7 +248,6 @@ Weet u zeker dat u wilt fabreken?</translation>
         <translation>Bestandsfout</translation>
     </message>
     <message>
-        <location line="-642"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -253,7 +256,7 @@ Weet u zeker dat u wilt fabreken?</translation>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation>Schrijven geslaagd, maar de partitietabel loopt gevaar.
+        <translation type="vanished">Schrijven geslaagd, maar de partitietabel loopt gevaar.
 
 %1
 %2
@@ -263,14 +266,14 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Verwijder het apparaat NU fysiek, voordat u iets anders doet, en plaats het niet opnieuw in deze computer. Plaats het in plaats daarvan in de doelhardware.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-632"/>
         <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation>Het gekozen bestand bestaat niet.</translation>
     </message>
     <message>
-        <location line="-951"/>
-        <location line="+352"/>
+        <location line="-958"/>
+        <location line="+359"/>
         <location line="+330"/>
         <location line="+279"/>
         <source>The specified file contains no data.</source>
@@ -297,7 +300,7 @@ Verwijder het apparaat NU fysiek, voordat u iets anders doet, en plaats het niet
         <translation>Schrijven is gelukt.</translation>
     </message>
     <message>
-        <location line="-742"/>
+        <location line="-749"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Schijf-images (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -370,18 +373,18 @@ Toch naar dit apparaat schrijven?</translation>
     </message>
     <message>
         <location line="-233"/>
-        <location line="+683"/>
+        <location line="+690"/>
         <source>Device Error</source>
         <translation>Apparaatfout</translation>
     </message>
     <message>
-        <location line="-682"/>
-        <location line="+683"/>
+        <location line="-689"/>
+        <location line="+690"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Het apparaat meldt een grootte van nul. Als het een kaartlezer is, is de kaart mogelijk verwijderd.</translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="-632"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -479,7 +482,7 @@ Toch doorgaan?</translation>
         <translation>Het apparaat is gedeeltelijk beschreven en bevat geen bruikbare image meer. Schrijf de image opnieuw voordat u het apparaat gebruikt.</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+66"/>
         <source>Fixing GPT...</source>
         <translation>GPT herstellen...</translation>
     </message>
@@ -489,25 +492,23 @@ Toch doorgaan?</translation>
         <translation>Image afgekapt</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation>Schrijven geslaagd.
+        <translation type="vanished">Schrijven geslaagd.
 
 De GPT is consistent gemaakt met het apparaat (%1), dus Windows heeft geen beschadigde tabel om te repareren. Het apparaat kan normaal worden verwijderd.</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation>Schrijven geslaagd.
+        <translation type="vanished">Schrijven geslaagd.
 
 De image bevat geen GPT, dus er is geen partitietabel die Windows kan repareren. Het apparaat kan normaal worden verwijderd.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+38"/>
         <source>Write successful.</source>
         <translation>Schrijven geslaagd.</translation>
     </message>
@@ -517,27 +518,23 @@ De image bevat geen GPT, dus er is geen partitietabel die Windows kan repareren.
         <translation>Schrijven geslaagd</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation>Het apparaat is offline gehaald en uitgeworpen.</translation>
+        <translation type="vanished">Het apparaat is offline gehaald en uitgeworpen.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation>Het apparaat kon NIET automatisch offline worden gehaald.</translation>
+        <translation type="vanished">Het apparaat kon NIET automatisch offline worden gehaald.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation>De GPT kon niet automatisch worden hersteld (%1).</translation>
+        <translation type="vanished">De GPT kon niet automatisch worden hersteld (%1).</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation>de GPT is misvormd</translation>
+        <translation type="vanished">de GPT is misvormd</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+11"/>
         <source>Fixing the GPT failed (%1).</source>
         <translation>Het herstellen van de GPT is mislukt (%1).</translation>
     </message>
@@ -547,40 +544,36 @@ De image bevat geen GPT, dus er is geen partitietabel die Windows kan repareren.
         <translation>schrijffout</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation>De optie &quot;GPT herstellen na schrijven&quot; is niet ingeschakeld.</translation>
+        <translation type="vanished">De optie &quot;GPT herstellen na schrijven&quot; is niet ingeschakeld.</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation>Deze image WORDT getroffen door de Windows GPT-herschrijffout.
+        <translation type="vanished">Deze image WORDT getroffen door de Windows GPT-herschrijffout.
 
 Er wordt ruimte gereserveerd vóór de eerste partitie, waardoor Windows bij een herscan de primaire partitietabel herschrijft en die naar de verkeerde sectoren laat wijzen. Het resultaat doorstaat de eigen controles van Windows nog steeds, maar Linux wijst het af en het apparaat start niet op.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation>Deze image wordt NIET getroffen door de Windows GPT-herschrijffout.
+        <translation type="vanished">Deze image wordt NIET getroffen door de Windows GPT-herschrijffout.
 
 Windows herschrijft de tabel bij een herscan nog steeds, omdat de reserve-GPT niet aan het einde van het apparaat staat, maar bij deze indeling komt de herschrijving op de juiste waarden uit. Het apparaat nu verwijderen houdt het hoe dan ook byte-identiek aan de image.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation>Of deze image getroffen wordt door de Windows GPT-herschrijffout kon niet worden vastgesteld. Ga ervan uit dat dit zo is: een herscan kan een partitietabel achterlaten die Linux afwijst, waarmee het apparaat niet opstart.</translation>
+        <translation type="vanished">Of deze image getroffen wordt door de Windows GPT-herschrijffout kon niet worden vastgesteld. Ga ervan uit dat dit zo is: een herscan kan een partitietabel achterlaten die Linux afwijst, waarmee het apparaat niet opstart.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+22"/>
         <source>Remove the device now</source>
         <translation>Verwijder het apparaat nu</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>U heeft geen rechten om het geselecteerde bestand te lezen.</translation>
@@ -676,7 +669,7 @@ Toch doorgaan?</translation>
         <translation>Specificeer alstublieft een image bestand om te gebruiken.</translation>
     </message>
     <message>
-        <location line="-712"/>
+        <location line="-715"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -685,7 +678,91 @@ This could only be detected once the device was full, because the compressed ima
 Dit kon pas worden vastgesteld toen het apparaat vol was, omdat de gecomprimeerde image zijn ongecomprimeerde grootte niet vastlegt.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+21"/>
+        <source>Write successful.
+
+The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
+        <translation>Schrijven geslaagd.
+
+De GPT komt nu overeen met het apparaat (%1), dus Windows heeft niets te repareren. Verwijder het apparaat normaal.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Write successful.
+
+This image uses an MBR partition table, not a GPT, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>Schrijven geslaagd.
+
+Deze image gebruikt een MBR-partitietabel, geen GPT, dus de GPT-herschrijffout van Windows kan er geen invloed op hebben. Verwijder het apparaat normaal.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Write successful.
+
+This image has no partition table, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>Schrijven geslaagd.
+
+Deze image heeft geen partitietabel, dus de GPT-herschrijffout van Windows kan er geen invloed op hebben. Verwijder het apparaat normaal.</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The device is offline and ejected.</source>
+        <translation>Het apparaat is offline en uitgeworpen.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The device could NOT be taken offline.</source>
+        <translation>Het apparaat kon NIET offline worden gezet.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The GPT could not be fixed (%1).</source>
+        <translation>De GPT kon niet worden hersteld (%1).</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>malformed GPT</source>
+        <translation>onjuiste GPT</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&quot;Fix GPT after write&quot; is off.</source>
+        <translation>"GPT herstellen na schrijven" staat uit.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</source>
+        <translation>Deze image IS getroffen: er wordt ruimte vóór de eerste partitie gereserveerd, waardoor een herscan de primaire tabel naar de verkeerde sectoren laat wijzen. Windows accepteert het resultaat nog wel, Linux niet, en het apparaat start niet op.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</source>
+        <translation>Deze image is NIET getroffen: een herscan herschrijft de tabel nog steeds, maar bij deze indeling met de juiste waarden. Het apparaat nu verwijderen houdt het hoe dan ook identiek aan de image.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Whether this image is affected could not be determined. Assume it is: a rescan can leave a table that Linux rejects and the device will not boot.</source>
+        <translation>Of deze image getroffen is, kon niet worden vastgesteld. Ga ervan uit van wel: een herscan kan een tabel achterlaten die Linux weigert en het apparaat start niet op.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Write successful, but the partition table is at risk.
+
+%1 %2
+
+%3
+
+Remove the device NOW and do not re-insert it here. Put it straight into the target hardware.</source>
+        <translation>Schrijven geslaagd, maar de partitietabel loopt risico.
+
+%1 %2
+
+%3
+
+Verwijder het apparaat NU en plaats het hier niet opnieuw. Steek het meteen in de doelhardware.</translation>
+    </message>
+    <message>
+        <location line="+63"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>Leesfout</translation>

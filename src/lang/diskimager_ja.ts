@@ -120,8 +120,12 @@
     </message>
     <message>
         <location line="+7"/>
+        <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
+        <translation>デバイスとファイルを照合</translation>
+    </message>
+    <message>
         <source>Verify the image file with the selected drive</source>
-        <translation>イメージとドライブの照合</translation>
+        <translation type="vanished">イメージとドライブの照合</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -139,7 +143,7 @@
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+217"/>
+        <location filename="../mainwindow.cpp" line="+248"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -189,20 +193,20 @@ Are you sure you want to cancel?</source>
         <location line="+140"/>
         <location line="+38"/>
         <location line="+26"/>
-        <location line="+224"/>
+        <location line="+231"/>
         <location line="+74"/>
         <source>Write Error</source>
         <translation>書き込みエラー</translation>
     </message>
     <message>
-        <location line="-594"/>
-        <location line="+520"/>
+        <location line="-601"/>
+        <location line="+527"/>
         <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>イメージファイルをデバイスに配置できません。</translation>
     </message>
     <message>
-        <location line="-699"/>
+        <location line="-706"/>
         <source>Confirm overwrite</source>
         <translation>上書きの確認</translation>
     </message>
@@ -234,7 +238,7 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="-263"/>
         <location line="+172"/>
-        <location line="+343"/>
+        <location line="+350"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
@@ -247,7 +251,6 @@ Are you sure you want to cancel?</source>
         <translation>ファイルエラー</translation>
     </message>
     <message>
-        <location line="-642"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -256,7 +259,7 @@ Are you sure you want to cancel?</source>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation>書き込みは成功しましたが、パーティションテーブルが危険な状態です。
+        <translation type="vanished">書き込みは成功しましたが、パーティションテーブルが危険な状態です。
 
 %1
 %2
@@ -266,14 +269,14 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 他の操作を行う前に、今すぐデバイスを物理的に取り外してください。このコンピューターに再度挿入せず、目的のハードウェアに挿入してください。</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-632"/>
         <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation>選択したファイルは存在しません。</translation>
     </message>
     <message>
-        <location line="-951"/>
-        <location line="+352"/>
+        <location line="-958"/>
+        <location line="+359"/>
         <location line="+330"/>
         <location line="+279"/>
         <source>The specified file contains no data.</source>
@@ -300,7 +303,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>書き込み成功。</translation>
     </message>
     <message>
-        <location line="-742"/>
+        <location line="-749"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>ディスクイメージ (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -373,18 +376,18 @@ Write to this device anyway?</source>
     </message>
     <message>
         <location line="-233"/>
-        <location line="+683"/>
+        <location line="+690"/>
         <source>Device Error</source>
         <translation>デバイスエラー</translation>
     </message>
     <message>
-        <location line="-682"/>
-        <location line="+683"/>
+        <location line="-689"/>
+        <location line="+690"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>デバイスがサイズ 0 を報告しています。カードリーダーの場合、カードが取り外された可能性があります。</translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="-632"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -482,7 +485,7 @@ Continue Anyway?</source>
         <translation>デバイスへの書き込みが途中で終わったため、使用できるイメージが含まれていません。使用する前にイメージを書き込み直してください。</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+66"/>
         <source>Fixing GPT...</source>
         <translation>GPT を修正しています...</translation>
     </message>
@@ -492,25 +495,23 @@ Continue Anyway?</source>
         <translation>イメージが途中で切れています</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation>書き込みに成功しました。
+        <translation type="vanished">書き込みに成功しました。
 
 GPT をデバイス (%1) と整合するようにしたため、Windows が修復すべき壊れたテーブルはありません。デバイスは通常どおり取り外せます。</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation>書き込みに成功しました。
+        <translation type="vanished">書き込みに成功しました。
 
 イメージに GPT が含まれていないため、Windows が修復するパーティションテーブルはありません。デバイスは通常どおり取り外せます。</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+38"/>
         <source>Write successful.</source>
         <translation>書き込みに成功しました。</translation>
     </message>
@@ -520,27 +521,23 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation>書き込み成功</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation>デバイスをオフラインにして取り出しました。</translation>
+        <translation type="vanished">デバイスをオフラインにして取り出しました。</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation>デバイスを自動的にオフラインにできませんでした。</translation>
+        <translation type="vanished">デバイスを自動的にオフラインにできませんでした。</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation>GPT を自動的に修正できませんでした (%1)。</translation>
+        <translation type="vanished">GPT を自動的に修正できませんでした (%1)。</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation>GPT の形式が不正です</translation>
+        <translation type="vanished">GPT の形式が不正です</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+11"/>
         <source>Fixing the GPT failed (%1).</source>
         <translation>GPT の修正に失敗しました (%1)。</translation>
     </message>
@@ -550,40 +547,36 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation>書き込みエラー</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation>「書き込み後に GPT を修正する」オプションが有効になっていません。</translation>
+        <translation type="vanished">「書き込み後に GPT を修正する」オプションが有効になっていません。</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation>このイメージは Windows の GPT 書き換え不具合の影響を受けます。
+        <translation type="vanished">このイメージは Windows の GPT 書き換え不具合の影響を受けます。
 
 最初のパーティションの前に領域を確保しているため、再スキャン時に Windows がプライマリパーティションテーブルを書き換え、誤ったセクタを指すようになります。その結果は Windows 自身の検査は通りますが、Linux では拒否され、デバイスは起動しません。</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation>このイメージは Windows の GPT 書き換え不具合の影響を受けません。
+        <translation type="vanished">このイメージは Windows の GPT 書き換え不具合の影響を受けません。
 
 バックアップ GPT がデバイスの末尾にないため、再スキャン時に Windows はテーブルを書き換えますが、この配置では書き換え後も正しい値になります。いずれにせよ、今デバイスを取り外せばイメージとバイト単位で同一のまま保てます。</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation>このイメージが Windows の GPT 書き換え不具合の影響を受けるかどうかを判定できませんでした。影響を受けるものとして扱ってください。再スキャンにより、Linux が拒否するパーティションテーブルが残り、デバイスが起動しなくなる可能性があります。</translation>
+        <translation type="vanished">このイメージが Windows の GPT 書き換え不具合の影響を受けるかどうかを判定できませんでした。影響を受けるものとして扱ってください。再スキャンにより、Linux が拒否するパーティションテーブルが残り、デバイスが起動しなくなる可能性があります。</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+22"/>
         <source>Remove the device now</source>
         <translation>今すぐデバイスを取り外してください</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>選択したファイルを読み取る権限がありません。</translation>
@@ -679,7 +672,7 @@ Continue Anyway?</source>
         <translation>使用するイメージファイルを指定してください。</translation>
     </message>
     <message>
-        <location line="-712"/>
+        <location line="-715"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -688,7 +681,91 @@ This could only be detected once the device was full, because the compressed ima
 圧縮イメージは非圧縮サイズを記録しないため、デバイスがいっぱいになるまでこれを検出できませんでした。</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+21"/>
+        <source>Write successful.
+
+The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
+        <translation>書き込みに成功しました。
+
+GPT がデバイス (%1) と一致したため、Windows が修復するものはありません。通常どおり取り外せます。</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Write successful.
+
+This image uses an MBR partition table, not a GPT, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>書き込みに成功しました。
+
+このイメージは GPT ではなく MBR パーティションテーブルを使用しているため、Windows の GPT 書き換えの不具合の影響を受けません。通常どおり取り外せます。</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Write successful.
+
+This image has no partition table, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>書き込みに成功しました。
+
+このイメージにはパーティションテーブルがないため、Windows の GPT 書き換えの不具合の影響を受けません。通常どおり取り外せます。</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The device is offline and ejected.</source>
+        <translation>デバイスはオフラインにされ、取り出されました。</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The device could NOT be taken offline.</source>
+        <translation>デバイスをオフラインにできませんでした。</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The GPT could not be fixed (%1).</source>
+        <translation>GPT を修正できませんでした (%1)。</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>malformed GPT</source>
+        <translation>不正な GPT</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&quot;Fix GPT after write&quot; is off.</source>
+        <translation>「書き込み後に GPT を修正する」はオフです。</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</source>
+        <translation>このイメージは影響を受けます。最初のパーティションの前に領域を確保しているため、再スキャンによりプライマリテーブルが誤ったセクタを指します。Windows は結果を受け入れますが Linux は受け入れず、デバイスは起動しません。</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</source>
+        <translation>このイメージは影響を受けません。再スキャンではテーブルが書き換えられますが、このレイアウトでは正しい値が書き込まれます。今取り外せば、いずれにせよイメージと同一のままです。</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Whether this image is affected could not be determined. Assume it is: a rescan can leave a table that Linux rejects and the device will not boot.</source>
+        <translation>このイメージが影響を受けるかどうかは判別できませんでした。影響を受けるものとして扱ってください。再スキャンにより Linux が拒否するテーブルが残り、デバイスは起動しません。</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Write successful, but the partition table is at risk.
+
+%1 %2
+
+%3
+
+Remove the device NOW and do not re-insert it here. Put it straight into the target hardware.</source>
+        <translation>書き込みに成功しましたが、パーティションテーブルが危険な状態です。
+
+%1 %2
+
+%3
+
+今すぐデバイスを取り外し、このパソコンに再挿入しないでください。そのまま対象のハードウェアに差し込んでください。</translation>
+    </message>
+    <message>
+        <location line="+63"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>読み込みエラー</translation>

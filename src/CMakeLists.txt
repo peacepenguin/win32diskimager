@@ -50,6 +50,24 @@ qt_add_executable(Win32DiskImager WIN32
 )
 add_dependencies(Win32DiskImager translations)
 
+# -DTEST_NO_ADMIN=ON builds an executable that asks for no elevation, so the GUI
+# can be started and looked at without a UAC prompt every time. Such a build
+# cannot open a device for writing: it is for working on the interface, never
+# for imaging or for release.
+option(TEST_NO_ADMIN "Build without the requireAdministrator manifest (GUI testing only)" OFF)
+if(TEST_NO_ADMIN)
+    message(WARNING
+        "TEST_NO_ADMIN is on: this build requests no elevation and cannot write "
+        "to a device. Do not ship it.")
+    file(READ "${CMAKE_CURRENT_SOURCE_DIR}/DiskImager.manifest" _manifest)
+    string(REPLACE "requireAdministrator" "asInvoker" _manifest "${_manifest}")
+    file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/DiskImager-asinvoker.manifest" "${_manifest}")
+    # windres looks for the referenced file along its include path.
+    set_property(SOURCE DiskImager.rc APPEND PROPERTY COMPILE_DEFINITIONS TEST_NO_ADMIN)
+    target_include_directories(Win32DiskImager PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+    target_compile_definitions(Win32DiskImager PRIVATE TEST_NO_ADMIN)
+endif()
+
 target_compile_definitions(Win32DiskImager PRIVATE
     VER="${PROJECT_VERSION}"
     WINVER=0x0601

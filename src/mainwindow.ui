@@ -370,8 +370,8 @@
       </item>
       <item>
        <widget class="QPushButton" name="bVerify">
-        <property name="toolTip">
-         <string>Verify the image file with the selected drive</string>
+        <property name="statusTip">
+         <string>Compare data in 'Device' against 'Image File'</string>
         </property>
         <property name="text">
          <string>Verify Only</string>

@@ -120,8 +120,12 @@
     </message>
     <message>
         <location line="+7"/>
+        <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
+        <translation>比對「裝置」中的資料與「映像檔」</translation>
+    </message>
+    <message>
         <source>Verify the image file with the selected drive</source>
-        <translation>驗證選定磁碟的映像檔</translation>
+        <translation type="vanished">驗證選定磁碟的映像檔</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -139,7 +143,7 @@
         <translation>離開</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+217"/>
+        <location filename="../mainwindow.cpp" line="+248"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -189,20 +193,20 @@ Are you sure you want to cancel?</source>
         <location line="+140"/>
         <location line="+38"/>
         <location line="+26"/>
-        <location line="+224"/>
+        <location line="+231"/>
         <location line="+74"/>
         <source>Write Error</source>
         <translation>寫入錯誤</translation>
     </message>
     <message>
-        <location line="-594"/>
-        <location line="+520"/>
+        <location line="-601"/>
+        <location line="+527"/>
         <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>在目標裝置上找不到映像檔。</translation>
     </message>
     <message>
-        <location line="-699"/>
+        <location line="-706"/>
         <source>Confirm overwrite</source>
         <translation>確認覆寫</translation>
     </message>
@@ -234,7 +238,7 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="-263"/>
         <location line="+172"/>
-        <location line="+343"/>
+        <location line="+350"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
@@ -247,7 +251,6 @@ Are you sure you want to cancel?</source>
         <translation>檔案錯誤</translation>
     </message>
     <message>
-        <location line="-642"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -256,7 +259,7 @@ Are you sure you want to cancel?</source>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation>寫入成功，但分割表有風險。
+        <translation type="vanished">寫入成功，但分割表有風險。
 
 %1
 %2
@@ -266,14 +269,14 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 請立刻將裝置實體移除，在此之前不要進行任何其他操作，也不要將它重新插入這台電腦。請將它插入目標硬體。</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-632"/>
         <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation>選取的檔案不存在。</translation>
     </message>
     <message>
-        <location line="-951"/>
-        <location line="+352"/>
+        <location line="-958"/>
+        <location line="+359"/>
         <location line="+330"/>
         <location line="+279"/>
         <source>The specified file contains no data.</source>
@@ -300,7 +303,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>寫入成功。</translation>
     </message>
     <message>
-        <location line="-742"/>
+        <location line="-749"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>磁碟映像檔 (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -373,18 +376,18 @@ Write to this device anyway?</source>
     </message>
     <message>
         <location line="-233"/>
-        <location line="+683"/>
+        <location line="+690"/>
         <source>Device Error</source>
         <translation>裝置錯誤</translation>
     </message>
     <message>
-        <location line="-682"/>
-        <location line="+683"/>
+        <location line="-689"/>
+        <location line="+690"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>裝置回報的大小為零。若這是讀卡機，記憶卡可能已被取出。</translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="-632"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -482,7 +485,7 @@ Continue Anyway?</source>
         <translation>裝置僅被部分寫入，不再包含可用的映像檔。請在使用前重新寫入映像檔。</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+66"/>
         <source>Fixing GPT...</source>
         <translation>正在修正 GPT...</translation>
     </message>
@@ -492,25 +495,23 @@ Continue Anyway?</source>
         <translation>映像檔遭截斷</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation>寫入成功。
+        <translation type="vanished">寫入成功。
 
 GPT 已與裝置 (%1) 保持一致，因此 Windows 沒有損壞的分割表需要修復。可以正常移除裝置。</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation>寫入成功。
+        <translation type="vanished">寫入成功。
 
 映像檔中不含 GPT，因此沒有分割表需要 Windows 修復。可以正常移除裝置。</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+38"/>
         <source>Write successful.</source>
         <translation>寫入成功。</translation>
     </message>
@@ -520,27 +521,23 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation>寫入成功</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation>裝置已離線並退出。</translation>
+        <translation type="vanished">裝置已離線並退出。</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation>無法自動將裝置離線。</translation>
+        <translation type="vanished">無法自動將裝置離線。</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation>無法自動修正 GPT (%1)。</translation>
+        <translation type="vanished">無法自動修正 GPT (%1)。</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation>GPT 格式不正確</translation>
+        <translation type="vanished">GPT 格式不正確</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+11"/>
         <source>Fixing the GPT failed (%1).</source>
         <translation>修正 GPT 失敗 (%1)。</translation>
     </message>
@@ -550,40 +547,36 @@ The image contains no GPT, so there is no partition table for Windows to repair.
         <translation>寫入錯誤</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation>未啟用「寫入後修正 GPT」選項。</translation>
+        <translation type="vanished">未啟用「寫入後修正 GPT」選項。</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation>此映像檔會受到 Windows GPT 重寫錯誤的影響。
+        <translation type="vanished">此映像檔會受到 Windows GPT 重寫錯誤的影響。
 
 它在第一個分割區之前保留了空間，因此重新掃描時 Windows 會重寫主要分割表，使其指向錯誤的磁區。重寫的結果仍能通過 Windows 自身的檢查，但 Linux 會拒絕它，裝置也無法開機。</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation>此映像檔不會受到 Windows GPT 重寫錯誤的影響。
+        <translation type="vanished">此映像檔不會受到 Windows GPT 重寫錯誤的影響。
 
 由於備份 GPT 不在裝置結尾，重新掃描時 Windows 仍會重寫分割表，但以這種配置而言，重寫得到的值是正確的。無論如何，現在移除裝置都能讓它與映像檔保持逐位元組相同。</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation>無法判斷此映像檔是否受到 Windows GPT 重寫錯誤的影響。請假設它會受影響：重新掃描可能導致分割表被 Linux 拒絕，裝置也無法開機。</translation>
+        <translation type="vanished">無法判斷此映像檔是否受到 Windows GPT 重寫錯誤的影響。請假設它會受影響：重新掃描可能導致分割表被 Linux 拒絕，裝置也無法開機。</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+22"/>
         <source>Remove the device now</source>
         <translation>請立即移除裝置</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>您沒有讀取所選檔案的權限。</translation>
@@ -679,7 +672,7 @@ Continue Anyway?</source>
         <translation>請指定所要使用的映像檔。</translation>
     </message>
     <message>
-        <location line="-712"/>
+        <location line="-715"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -688,7 +681,91 @@ This could only be detected once the device was full, because the compressed ima
 由於壓縮映像檔不會記錄其未壓縮大小，直到裝置寫滿時才能發現這一點。</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+21"/>
+        <source>Write successful.
+
+The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
+        <translation>寫入成功。
+
+GPT 現已與裝置 (%1) 一致，Windows 沒有需要修復的項目。可正常移除裝置。</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Write successful.
+
+This image uses an MBR partition table, not a GPT, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>寫入成功。
+
+此映像檔使用 MBR 分割表而非 GPT，因此不會受 Windows GPT 重寫缺陷影響。可正常移除裝置。</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Write successful.
+
+This image has no partition table, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>寫入成功。
+
+此映像檔沒有分割表，因此不會受 Windows GPT 重寫缺陷影響。可正常移除裝置。</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The device is offline and ejected.</source>
+        <translation>裝置已離線並退出。</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The device could NOT be taken offline.</source>
+        <translation>無法將裝置離線。</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The GPT could not be fixed (%1).</source>
+        <translation>無法修復 GPT (%1)。</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>malformed GPT</source>
+        <translation>GPT 格式錯誤</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&quot;Fix GPT after write&quot; is off.</source>
+        <translation>「寫入後修正 GPT」未啟用。</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</source>
+        <translation>此映像檔會受影響：它在第一個分割區之前保留了空間，因此重新掃描會使主分割表指向錯誤的磁區。Windows 仍會接受該結果，Linux 不會，裝置將無法開機。</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</source>
+        <translation>此映像檔不受影響：重新掃描仍會重寫分割表，但對這種配置寫入的是正確的值。現在移除裝置，無論如何都與映像檔保持一致。</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Whether this image is affected could not be determined. Assume it is: a rescan can leave a table that Linux rejects and the device will not boot.</source>
+        <translation>無法確定此映像檔是否受影響。請按受影響處理：重新掃描可能留下 Linux 拒絕的分割表，裝置將無法開機。</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Write successful, but the partition table is at risk.
+
+%1 %2
+
+%3
+
+Remove the device NOW and do not re-insert it here. Put it straight into the target hardware.</source>
+        <translation>寫入成功，但分割表存在風險。
+
+%1 %2
+
+%3
+
+請立即移除裝置，不要再插入本機。直接插入目標硬體。</translation>
+    </message>
+    <message>
+        <location line="+63"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>讀取錯誤</translation>

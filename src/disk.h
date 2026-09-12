@@ -129,6 +129,11 @@ enum GptFixResult
 GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
                                unsigned long long devicesectors, QString *detail);
 
+// True when sector 0 carries an MBR boot signature and at least one partition
+// entry with a type. Used only to tell "this image is MBR" from "this image has
+// no partition table at all" when reporting that there is no GPT to repair.
+bool deviceHasMbrTable(HANDLE hRawDisk, unsigned long long sectorsize);
+
 // Whether this table would survive Windows' rewrite if the device were
 // rescanned with the backup GPT still stranded mid-device.
 enum GptRewriteRisk

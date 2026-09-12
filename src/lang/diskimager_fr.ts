@@ -120,8 +120,12 @@
     </message>
     <message>
         <location line="+7"/>
+        <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
+        <translation>Comparer les données du 'Périphérique' avec le 'fichier image'</translation>
+    </message>
+    <message>
         <source>Verify the image file with the selected drive</source>
-        <translation>Comparer le fichier image avec le lecteur sélectionné</translation>
+        <translation type="vanished">Comparer le fichier image avec le lecteur sélectionné</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -139,7 +143,7 @@
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+217"/>
+        <location filename="../mainwindow.cpp" line="+248"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -186,20 +190,20 @@ Are you sure you want to cancel?</source>
         <location line="+140"/>
         <location line="+38"/>
         <location line="+26"/>
-        <location line="+224"/>
+        <location line="+231"/>
         <location line="+74"/>
         <source>Write Error</source>
         <translation>Erreur d&apos;écriture</translation>
     </message>
     <message>
-        <location line="-594"/>
-        <location line="+520"/>
+        <location line="-601"/>
+        <location line="+527"/>
         <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Le fichier image n&apos;a pas été trouvé sur le périphérique cible.</translation>
     </message>
     <message>
-        <location line="-699"/>
+        <location line="-706"/>
         <source>Confirm overwrite</source>
         <translation>Confirmer l&apos;écrasement</translation>
     </message>
@@ -231,7 +235,7 @@ Voulez-vous vraiment annuler ?</translation>
     <message>
         <location line="-263"/>
         <location line="+172"/>
-        <location line="+343"/>
+        <location line="+350"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
@@ -244,7 +248,6 @@ Voulez-vous vraiment annuler ?</translation>
         <translation>Erreur de fichier</translation>
     </message>
     <message>
-        <location line="-642"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -253,7 +256,7 @@ Voulez-vous vraiment annuler ?</translation>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation>Écriture réussie, mais la table de partitions est en danger.
+        <translation type="vanished">Écriture réussie, mais la table de partitions est en danger.
 
 %1
 %2
@@ -263,14 +266,14 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Retirez physiquement le périphérique MAINTENANT, avant toute autre chose, et ne le réinsérez pas dans cet ordinateur. Insérez-le plutôt dans le matériel cible.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-632"/>
         <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation>Le fichier sélectionné n&apos;existe pas.</translation>
     </message>
     <message>
-        <location line="-951"/>
-        <location line="+352"/>
+        <location line="-958"/>
+        <location line="+359"/>
         <location line="+330"/>
         <location line="+279"/>
         <source>The specified file contains no data.</source>
@@ -297,7 +300,7 @@ Retirez physiquement le périphérique MAINTENANT, avant toute autre chose, et n
         <translation>Ecriture réussie.</translation>
     </message>
     <message>
-        <location line="-742"/>
+        <location line="-749"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Images disque (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -366,22 +369,22 @@ Vérifiez que %2 n&apos;est pas un lecteur que vous vouliez conserver.
         <location line="+38"/>
         <location line="+27"/>
         <source>Write failed.</source>
-        <translation>Échec de l'écriture.</translation>
+        <translation>Échec de l&apos;écriture.</translation>
     </message>
     <message>
         <location line="-233"/>
-        <location line="+683"/>
+        <location line="+690"/>
         <source>Device Error</source>
         <translation>Erreur de périphérique</translation>
     </message>
     <message>
-        <location line="-682"/>
-        <location line="+683"/>
+        <location line="-689"/>
+        <location line="+690"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Le périphérique indique une taille nulle. S&apos;il s&apos;agit d&apos;un lecteur de cartes, la carte a peut-être été retirée.</translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="-632"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -476,10 +479,10 @@ Continuer quand même ?</translation>
         <location line="+38"/>
         <location line="+25"/>
         <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
-        <translation>Le périphérique n'a été écrit que partiellement et ne contient plus d'image utilisable. Réécrivez l'image avant de l'utiliser.</translation>
+        <translation>Le périphérique n&apos;a été écrit que partiellement et ne contient plus d&apos;image utilisable. Réécrivez l&apos;image avant de l&apos;utiliser.</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+66"/>
         <source>Fixing GPT...</source>
         <translation>Correction de la GPT…</translation>
     </message>
@@ -497,25 +500,23 @@ This could only be detected once the device was full, because a gzip image does 
 Cela n&apos;a pu être détecté qu&apos;une fois le périphérique plein, car une image gzip n&apos;enregistre pas sa taille décompressée.</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation>Écriture réussie.
+        <translation type="vanished">Écriture réussie.
 
 La GPT a été mise en cohérence avec le périphérique (%1), si bien que Windows n&apos;a aucune table endommagée à réparer. Le périphérique peut être retiré normalement.</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation>Écriture réussie.
+        <translation type="vanished">Écriture réussie.
 
 L&apos;image ne contient pas de GPT, il n&apos;y a donc aucune table de partitions que Windows puisse réparer. Le périphérique peut être retiré normalement.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+38"/>
         <source>Write successful.</source>
         <translation>Écriture réussie.</translation>
     </message>
@@ -525,27 +526,23 @@ L&apos;image ne contient pas de GPT, il n&apos;y a donc aucune table de partitio
         <translation>Écriture réussie</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation>Le périphérique a été mis hors ligne et éjecté.</translation>
+        <translation type="vanished">Le périphérique a été mis hors ligne et éjecté.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation>Le périphérique n&apos;a PAS pu être mis hors ligne automatiquement.</translation>
+        <translation type="vanished">Le périphérique n&apos;a PAS pu être mis hors ligne automatiquement.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation>La GPT n&apos;a pas pu être corrigée automatiquement (%1).</translation>
+        <translation type="vanished">La GPT n&apos;a pas pu être corrigée automatiquement (%1).</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation>la GPT est mal formée</translation>
+        <translation type="vanished">la GPT est mal formée</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+11"/>
         <source>Fixing the GPT failed (%1).</source>
         <translation>La correction de la GPT a échoué (%1).</translation>
     </message>
@@ -555,40 +552,36 @@ L&apos;image ne contient pas de GPT, il n&apos;y a donc aucune table de partitio
         <translation>erreur d&apos;écriture</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation>L&apos;option « Corriger la GPT après l&apos;écriture » n&apos;est pas activée.</translation>
+        <translation type="vanished">L&apos;option « Corriger la GPT après l&apos;écriture » n&apos;est pas activée.</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation>Cette image EST concernée par le bogue de réécriture de la GPT sous Windows.
+        <translation type="vanished">Cette image EST concernée par le bogue de réécriture de la GPT sous Windows.
 
 Elle réserve de l&apos;espace avant sa première partition : lors d&apos;une nouvelle analyse, Windows réécrit donc la table de partitions primaire de façon à ce qu&apos;elle pointe vers les mauvais secteurs. Le résultat passe toujours les contrôles de Windows, mais Linux le rejette et le périphérique ne démarrera pas.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation>Cette image n&apos;est PAS concernée par le bogue de réécriture de la GPT sous Windows.
+        <translation type="vanished">Cette image n&apos;est PAS concernée par le bogue de réécriture de la GPT sous Windows.
 
 Windows réécrira tout de même la table lors d&apos;une nouvelle analyse, car la GPT de secours n&apos;est pas à la fin du périphérique, mais avec cette disposition la réécriture tombe sur les bonnes valeurs. Retirer le périphérique maintenant le laisse de toute façon identique à l&apos;image, octet pour octet.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation>Impossible de déterminer si cette image est concernée par le bogue de réécriture de la GPT sous Windows. Partez du principe qu&apos;elle l&apos;est : une nouvelle analyse peut faire rejeter la table de partitions par Linux et rendre le périphérique non amorçable.</translation>
+        <translation type="vanished">Impossible de déterminer si cette image est concernée par le bogue de réécriture de la GPT sous Windows. Partez du principe qu&apos;elle l&apos;est : une nouvelle analyse peut faire rejeter la table de partitions par Linux et rendre le périphérique non amorçable.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+22"/>
         <source>Remove the device now</source>
         <translation>Retirez le périphérique maintenant</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Vous n&apos;avez pas la permission de lire le fichier sélectionné.</translation>
@@ -692,7 +685,7 @@ Cela n&apos;a pu être détecté qu&apos;à la fin du périphérique, car une im
         <translation>Merci de spécifier le fichier image à utiliser.</translation>
     </message>
     <message>
-        <location line="-712"/>
+        <location line="-715"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -701,7 +694,91 @@ This could only be detected once the device was full, because the compressed ima
 Cela n&apos;a pu être détecté qu&apos;une fois le périphérique plein, car l&apos;image compressée n&apos;enregistre pas sa taille décompressée.</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+21"/>
+        <source>Write successful.
+
+The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
+        <translation>Écriture réussie.
+
+La GPT correspond maintenant au périphérique (%1), Windows n'a donc rien à réparer. Retirez le périphérique normalement.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Write successful.
+
+This image uses an MBR partition table, not a GPT, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>Écriture réussie.
+
+Cette image utilise une table de partitions MBR et non GPT ; le bogue de réécriture GPT de Windows ne peut donc pas l'affecter. Retirez le périphérique normalement.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Write successful.
+
+This image has no partition table, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>Écriture réussie.
+
+Cette image n'a pas de table de partitions ; le bogue de réécriture GPT de Windows ne peut donc pas l'affecter. Retirez le périphérique normalement.</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The device is offline and ejected.</source>
+        <translation>Le périphérique est hors ligne et éjecté.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The device could NOT be taken offline.</source>
+        <translation>Le périphérique n'a PAS pu être mis hors ligne.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The GPT could not be fixed (%1).</source>
+        <translation>La GPT n'a pas pu être corrigée (%1).</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>malformed GPT</source>
+        <translation>GPT mal formée</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&quot;Fix GPT after write&quot; is off.</source>
+        <translation>« Corriger la GPT après l'écriture » est désactivé.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</source>
+        <translation>Cette image EST affectée : elle réserve de l'espace avant sa première partition, de sorte qu'une nouvelle analyse fait pointer la table primaire vers les mauvais secteurs. Windows accepte encore le résultat, Linux non, et le périphérique ne démarrera pas.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</source>
+        <translation>Cette image n'est PAS affectée : une nouvelle analyse réécrit toujours la table, mais pour cette disposition elle écrit les bonnes valeurs. Retirer le périphérique maintenant le laisse de toute façon identique à l'image.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Whether this image is affected could not be determined. Assume it is: a rescan can leave a table that Linux rejects and the device will not boot.</source>
+        <translation>Impossible de déterminer si cette image est affectée. Partez du principe que oui : une nouvelle analyse peut laisser une table que Linux refuse et le périphérique ne démarrera pas.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Write successful, but the partition table is at risk.
+
+%1 %2
+
+%3
+
+Remove the device NOW and do not re-insert it here. Put it straight into the target hardware.</source>
+        <translation>Écriture réussie, mais la table de partitions est menacée.
+
+%1 %2
+
+%3
+
+Retirez le périphérique MAINTENANT et ne le réinsérez pas ici. Placez-le directement dans le matériel cible.</translation>
+    </message>
+    <message>
+        <location line="+63"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>Erreur de lecture</translation>

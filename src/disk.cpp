@@ -780,6 +780,38 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     return GPT_FIX_OK;
 }
 
+bool deviceHasMbrTable(HANDLE hRawDisk, unsigned long long sectorsize)
+{
+    if (sectorsize < 512)
+    {
+        return false;
+    }
+
+    QByteArray sector(sectorsize, 0);
+    unsigned char *mbr = (unsigned char *)sector.data();
+    if (!rawSeekRead(hRawDisk, 0ull, mbr, (DWORD)sectorsize))
+    {
+        return false;
+    }
+    if (mbr[510] != 0x55 || mbr[511] != 0xAA)
+    {
+        return false;
+    }
+    // Four 16-byte entries at 446; byte 4 of each is the partition type. 0xEE
+    // is the protective entry that fronts a GPT, which is not an MBR table in
+    // the sense meant here: a device whose GPT header is missing or damaged
+    // would otherwise be reported as an MBR image.
+    for (int i = 0; i < 4; ++i)
+    {
+        unsigned char type = mbr[446 + i * 16 + 4];
+        if (type != 0x00 && type != 0xEE)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 GptRewriteRisk gptRewriteRisk(HANDLE hRawDisk, unsigned long long sectorsize)
 {
     if (sectorsize < 512)

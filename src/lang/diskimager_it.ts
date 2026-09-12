@@ -29,7 +29,12 @@
         <translation>Copia</translation>
     </message>
     <message>
-        <location line="+208"/>
+        <location line="+189"/>
+        <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
+        <translation>Confronta i dati del 'Dispositivo' con il 'File immagine'</translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>Exit</source>
         <translation>Esci</translation>
     </message>
@@ -39,7 +44,7 @@
         <translation>Leggi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+910"/>
+        <location filename="../mainwindow.cpp" line="+948"/>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Sei sicuro di voler sovrascrivere il file specificato?</translation>
     </message>
@@ -51,7 +56,7 @@
         <translation>Completato.</translation>
     </message>
     <message>
-        <location line="-1241"/>
+        <location line="-1248"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -63,7 +68,7 @@
         <translation>Scrivi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+826"/>
+        <location filename="../mainwindow.cpp" line="+833"/>
         <source>Please specify a file to save data to.</source>
         <translation>Seleziona un file dove salvare i dati.</translation>
     </message>
@@ -73,7 +78,7 @@
         <translation>Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-836"/>
+        <location filename="../mainwindow.cpp" line="-843"/>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
         <translation>Annullare ore creerà un disco corrotto.
@@ -81,13 +86,13 @@ Sei sicuro di voler uscire?</translation>
     </message>
     <message>
         <location line="+151"/>
-        <location line="+520"/>
+        <location line="+527"/>
         <location line="+188"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Il file immagine non è stato trovato nel dispositivo destinazione.</translation>
     </message>
     <message>
-        <location line="-331"/>
+        <location line="-334"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -96,7 +101,6 @@ This could only be detected once the device was full, because the compressed ima
 È stato possibile rilevarlo solo quando il dispositivo si è riempito, perché l&apos;immagine compressa non registra la propria dimensione non compressa.</translation>
     </message>
     <message>
-        <location line="+70"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -105,7 +109,7 @@ This could only be detected once the device was full, because the compressed ima
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation>Scrittura riuscita, ma la tabella delle partizioni è a rischio.
+        <translation type="vanished">Scrittura riuscita, ma la tabella delle partizioni è a rischio.
 
 %1
 %2
@@ -115,7 +119,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Rimuovi fisicamente il dispositivo ADESSO, prima di fare qualsiasi altra cosa, e non reinserirlo in questo computer. Inseriscilo invece nell&apos;hardware di destinazione.</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+137"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>Errore di lettura</translation>
@@ -131,7 +135,7 @@ Rimuovi fisicamente il dispositivo ADESSO, prima di fare qualsiasi altra cosa, e
         <translation>Informazioni sul file</translation>
     </message>
     <message>
-        <location line="-800"/>
+        <location line="-807"/>
         <source>Select a disk image</source>
         <translation>Seleziona un file immagine</translation>
     </message>
@@ -146,20 +150,20 @@ Rimuovi fisicamente il dispositivo ADESSO, prima di fare qualsiasi altra cosa, e
         <translation>Dispositivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+596"/>
+        <location filename="../mainwindow.cpp" line="+603"/>
         <location line="+608"/>
         <source>Please specify an image file to use.</source>
         <translation>Specifica un file  immagine da usare.</translation>
     </message>
     <message>
-        <location line="-1119"/>
+        <location line="-1126"/>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
         <translation>Annullare ora creerà una destinazione corrotta.
 Sei sicuro di voler annullare?</translation>
     </message>
     <message>
-        <location line="+706"/>
+        <location line="+713"/>
         <location line="+2"/>
         <location line="+381"/>
         <location line="+25"/>
@@ -173,26 +177,26 @@ Sei sicuro di voler annullare?</translation>
         <translation>Esci da Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-1084"/>
+        <location filename="../mainwindow.cpp" line="-1091"/>
         <location line="+6"/>
         <location line="+86"/>
         <location line="+140"/>
         <location line="+38"/>
         <location line="+26"/>
-        <location line="+224"/>
+        <location line="+231"/>
         <location line="+74"/>
         <source>Write Error</source>
         <translation>Errore in scrittura</translation>
     </message>
     <message>
-        <location line="-666"/>
+        <location line="-673"/>
         <source>Generating...</source>
         <translation>Generazione...</translation>
     </message>
     <message>
         <location line="+14"/>
         <location line="+172"/>
-        <location line="+343"/>
+        <location line="+350"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
@@ -205,7 +209,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-1396"/>
+        <location line="-1403"/>
         <source>Waiting for a task.</source>
         <translation>Attesa scelta operazione</translation>
     </message>
@@ -215,20 +219,20 @@ Sei sicuro di voler annullare?</translation>
         <translation>Stato progresso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+764"/>
+        <location filename="../mainwindow.cpp" line="+771"/>
         <location line="+609"/>
         <source>The selected file does not exist.</source>
         <translation>Il file selezionato non esiste.</translation>
     </message>
     <message>
-        <location line="-1096"/>
+        <location line="-1103"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Annullare?</translation>
     </message>
     <message>
         <location line="+136"/>
-        <location line="+352"/>
+        <location line="+359"/>
         <location line="+330"/>
         <location line="+279"/>
         <source>The specified file contains no data.</source>
@@ -240,14 +244,14 @@ Sei sicuro di voler annullare?</translation>
         <translation>Leggi i dati dal &apos;dispostivo&apos; e scrivili nel &apos;File immagine&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-1237"/>
+        <location filename="../mainwindow.cpp" line="-1244"/>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
         <translation>Annullare ora creerà un file immagine corrotto.
 Sei sicuro di voler uscire?</translation>
     </message>
     <message>
-        <location line="+839"/>
+        <location line="+846"/>
         <source>Read Successful.</source>
         <translation>Lettura completata correttamente.</translation>
     </message>
@@ -257,12 +261,12 @@ Sei sicuro di voler uscire?</translation>
         <translation>Scrittura completata correttamente.</translation>
     </message>
     <message>
-        <location line="-466"/>
+        <location line="-473"/>
         <source>Confirm overwrite</source>
         <translation>Conferma la sovrascrittura</translation>
     </message>
     <message>
-        <location line="+523"/>
+        <location line="+530"/>
         <source>Confirm Overwrite</source>
         <translation>Conferma la sovrascrittua</translation>
     </message>
@@ -287,13 +291,13 @@ Sei sicuro di voler uscire?</translation>
         <translation>Scrivi dati del &apos;File immagine&apos; nel &apos;Dispositivo&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-456"/>
+        <location filename="../mainwindow.cpp" line="-463"/>
         <location line="+67"/>
         <source>Not enough available space!</source>
         <translation>Spazio disponibile insufficiente!</translation>
     </message>
     <message>
-        <location line="+471"/>
+        <location line="+478"/>
         <source>Read Canceled.</source>
         <translation>Lettura annulata.</translation>
     </message>
@@ -338,17 +342,16 @@ Sei sicuro di voler uscire?</translation>
         <translation>Elenca anche i dischi fissi. I lettori di schede PCIe interni spesso presentano la scheda come dispositivo non rimovibile, che altrimenti resta nascosto. Il disco da cui è in esecuzione Windows non viene mai elencato.</translation>
     </message>
     <message>
-        <location line="+115"/>
         <source>Verify the image file with the selected drive</source>
-        <translation>Verifica il file immagine con l&apos;unità selezionata</translation>
+        <translation type="vanished">Verifica il file immagine con l&apos;unità selezionata</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+118"/>
         <source>Verify Only</source>
         <translation>Solo verifica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-817"/>
+        <location filename="../mainwindow.cpp" line="-824"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Uscendo ora annullerai la verifica dell&apos;immagine.
@@ -424,18 +427,18 @@ Scrivere comunque su questo dispositivo?</translation>
     </message>
     <message>
         <location line="-233"/>
-        <location line="+683"/>
+        <location line="+690"/>
         <source>Device Error</source>
         <translation>Errore del dispositivo</translation>
     </message>
     <message>
-        <location line="-682"/>
-        <location line="+683"/>
+        <location line="-689"/>
+        <location line="+690"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Il dispositivo segnala dimensione zero. Se si tratta di un lettore di schede, la scheda potrebbe essere stata rimossa.</translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="-632"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -530,10 +533,10 @@ Continuare comunque?</translation>
         <location line="+38"/>
         <location line="+25"/>
         <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
-        <translation>Il dispositivo è stato scritto solo parzialmente e non contiene più un'immagine utilizzabile. Riscrivere l'immagine prima di utilizzarlo.</translation>
+        <translation>Il dispositivo è stato scritto solo parzialmente e non contiene più un&apos;immagine utilizzabile. Riscrivere l&apos;immagine prima di utilizzarlo.</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+66"/>
         <source>Fixing GPT...</source>
         <translation>Correzione della GPT…</translation>
     </message>
@@ -551,25 +554,23 @@ This could only be detected once the device was full, because a gzip image does 
 È stato possibile rilevarlo solo quando il dispositivo si è riempito, perché un&apos;immagine gzip non registra la propria dimensione non compressa.</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation>Scrittura riuscita.
+        <translation type="vanished">Scrittura riuscita.
 
 La GPT è stata resa coerente con il dispositivo (%1), quindi Windows non ha alcuna tabella danneggiata da riparare. Il dispositivo può essere rimosso normalmente.</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation>Scrittura riuscita.
+        <translation type="vanished">Scrittura riuscita.
 
 L&apos;immagine non contiene alcuna GPT, quindi non c&apos;è alcuna tabella delle partizioni che Windows possa riparare. Il dispositivo può essere rimosso normalmente.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+38"/>
         <source>Write successful.</source>
         <translation>Scrittura riuscita.</translation>
     </message>
@@ -579,27 +580,23 @@ L&apos;immagine non contiene alcuna GPT, quindi non c&apos;è alcuna tabella del
         <translation>Scrittura riuscita</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation>Il dispositivo è stato messo offline ed espulso.</translation>
+        <translation type="vanished">Il dispositivo è stato messo offline ed espulso.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation>NON è stato possibile mettere offline il dispositivo automaticamente.</translation>
+        <translation type="vanished">NON è stato possibile mettere offline il dispositivo automaticamente.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation>Non è stato possibile correggere automaticamente la GPT (%1).</translation>
+        <translation type="vanished">Non è stato possibile correggere automaticamente la GPT (%1).</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation>la GPT è malformata</translation>
+        <translation type="vanished">la GPT è malformata</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+11"/>
         <source>Fixing the GPT failed (%1).</source>
         <translation>La correzione della GPT non è riuscita (%1).</translation>
     </message>
@@ -609,40 +606,36 @@ L&apos;immagine non contiene alcuna GPT, quindi non c&apos;è alcuna tabella del
         <translation>errore di scrittura</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation>L&apos;opzione «Correggi la GPT dopo la scrittura» non è attiva.</translation>
+        <translation type="vanished">L&apos;opzione «Correggi la GPT dopo la scrittura» non è attiva.</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation>Questa immagine È interessata dal bug di riscrittura della GPT di Windows.
+        <translation type="vanished">Questa immagine È interessata dal bug di riscrittura della GPT di Windows.
 
 Riserva spazio prima della sua prima partizione, quindi a una nuova scansione Windows riscrive la tabella delle partizioni primaria facendola puntare ai settori sbagliati. Il risultato supera comunque i controlli di Windows, ma Linux lo rifiuta e il dispositivo non si avvierà.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation>Questa immagine NON è interessata dal bug di riscrittura della GPT di Windows.
+        <translation type="vanished">Questa immagine NON è interessata dal bug di riscrittura della GPT di Windows.
 
 Windows riscriverà comunque la tabella a una nuova scansione, perché la GPT di riserva non si trova alla fine del dispositivo, ma con questa disposizione la riscrittura arriva ai valori corretti. Rimuovere ora il dispositivo lo mantiene in ogni caso identico all&apos;immagine byte per byte.</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation>Non è stato possibile stabilire se questa immagine sia interessata dal bug di riscrittura della GPT di Windows. Dai per scontato che lo sia: una nuova scansione può far sì che Linux rifiuti la tabella delle partizioni e che il dispositivo non si avvii.</translation>
+        <translation type="vanished">Non è stato possibile stabilire se questa immagine sia interessata dal bug di riscrittura della GPT di Windows. Dai per scontato che lo sia: una nuova scansione può far sì che Linux rifiuti la tabella delle partizioni e che il dispositivo non si avvii.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+22"/>
         <source>Remove the device now</source>
         <translation>Rimuovi subito il dispositivo</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <location line="+609"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Non hai i permessi per leggere il file selezionato.</translation>
@@ -748,7 +741,7 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Errore durante la verifica</translation>
     </message>
     <message>
-        <location line="-1196"/>
+        <location line="-1203"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Immagini disco (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -759,7 +752,7 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Immagini disco compresse (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+978"/>
+        <location line="+985"/>
         <source>Please select a device to verify against.</source>
         <translation>Seleziona un dispositivo con cui confrontare.</translation>
     </message>
@@ -808,7 +801,91 @@ Continuare comunque?</translation>
         <translation>Le dimensioni non coincidono!</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="-488"/>
+        <source>Write successful.
+
+The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
+        <translation>Scrittura riuscita.
+
+La GPT ora corrisponde al dispositivo (%1), quindi Windows non ha nulla da riparare. Rimuovere il dispositivo normalmente.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Write successful.
+
+This image uses an MBR partition table, not a GPT, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>Scrittura riuscita.
+
+Questa immagine usa una tabella delle partizioni MBR, non GPT, quindi il bug di riscrittura GPT di Windows non può interessarla. Rimuovere il dispositivo normalmente.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Write successful.
+
+This image has no partition table, so the Windows GPT rewrite bug cannot affect it. Remove the device normally.</source>
+        <translation>Scrittura riuscita.
+
+Questa immagine non ha una tabella delle partizioni, quindi il bug di riscrittura GPT di Windows non può interessarla. Rimuovere il dispositivo normalmente.</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>The device is offline and ejected.</source>
+        <translation>Il dispositivo è offline ed espulso.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The device could NOT be taken offline.</source>
+        <translation>NON è stato possibile portare offline il dispositivo.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The GPT could not be fixed (%1).</source>
+        <translation>Non è stato possibile correggere la GPT (%1).</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>malformed GPT</source>
+        <translation>GPT non valida</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&quot;Fix GPT after write&quot; is off.</source>
+        <translation>"Correggi la GPT dopo la scrittura" è disattivato.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</source>
+        <translation>Questa immagine È interessata: riserva spazio prima della prima partizione, quindi una nuova scansione fa puntare la tabella primaria ai settori sbagliati. Windows accetta comunque il risultato, Linux no, e il dispositivo non si avvierà.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>This image is NOT affected: a rescan still rewrites the table, but for this layout it writes the correct values. Removing the device now keeps it identical to the image either way.</source>
+        <translation>Questa immagine NON è interessata: una nuova scansione riscrive comunque la tabella, ma con questo layout scrive i valori corretti. Rimuovere ora il dispositivo lo mantiene identico all'immagine in ogni caso.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Whether this image is affected could not be determined. Assume it is: a rescan can leave a table that Linux rejects and the device will not boot.</source>
+        <translation>Non è stato possibile determinare se questa immagine è interessata. Darlo per scontato: una nuova scansione può lasciare una tabella che Linux rifiuta e il dispositivo non si avvierà.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Write successful, but the partition table is at risk.
+
+%1 %2
+
+%3
+
+Remove the device NOW and do not re-insert it here. Put it straight into the target hardware.</source>
+        <translation>Scrittura riuscita, ma la tabella delle partizioni è a rischio.
+
+%1 %2
+
+%3
+
+Rimuovere il dispositivo ORA e non reinserirlo qui. Inserirlo direttamente nell'hardware di destinazione.</translation>
+    </message>
+    <message>
+        <location line="+504"/>
         <location line="+38"/>
         <source>Verify Failure</source>
         <translation>Verifica fallita</translation>
