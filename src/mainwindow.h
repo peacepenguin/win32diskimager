@@ -92,7 +92,7 @@ private:
         QElapsedTimer update_timer;
         ElapsedTimer *elapsed_timer = NULL;
         QClipboard *clipboard;
-        void generateHash(char *filename, int hashish);
+        void generateHash(const QString &filename, int hashish);
         QString deviceSignature;
         QTimer *device_poll_timer = NULL;
         QString myHomeDir;

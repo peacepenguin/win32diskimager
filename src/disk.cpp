@@ -713,11 +713,15 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
 
     DWORD entriescrc = gptCrc32((const unsigned char *)entries.constData(), (size_t)entrybytes);
 
-    // Rebuild the primary header in place.
+    // Rebuild the primary header in place. Only the fields that describe where
+    // the device ends change: PartitionEntryLBA and FirstUsableLBA are left
+    // exactly as the image wrote them. Forcing the entry array to LBA 2 would
+    // move it out from under a FirstUsableLBA that still reserves room ahead of
+    // it -- the very mismatch this repair exists to remove -- and would write
+    // over whatever the image put between LBA 2 and the array.
     wr64(hdr, GPT_OFF_MYLBA, 1);
     wr64(hdr, GPT_OFF_ALTLBA, backuphdr);
     wr64(hdr, GPT_OFF_LASTUSABLE, lastusable);
-    wr64(hdr, GPT_OFF_ENTRYLBA, 2);
     wr32(hdr, GPT_OFF_ENTRIESCRC, entriescrc);
     wr32(hdr, GPT_OFF_HEADERCRC, 0);
     wr32(hdr, GPT_OFF_HEADERCRC, gptCrc32(hdr, headersize));
@@ -740,12 +744,8 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     {
         return GPT_FIX_FAILED;
     }
-    if (entrylba != 2
-        && !rawSeekWrite(hRawDisk, 2 * sectorsize, entries.constData(),
-                         (DWORD)(entrysectors * sectorsize)))
-    {
-        return GPT_FIX_FAILED;
-    }
+    // The primary entry array is not rewritten: it was read from entrylba, it
+    // has not changed, and it is already where the header says it is.
     if (!rawSeekWrite(hRawDisk, sectorsize, hdr, (DWORD)sectorsize))
     {
         return GPT_FIX_FAILED;

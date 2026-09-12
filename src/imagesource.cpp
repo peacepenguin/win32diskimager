@@ -29,6 +29,10 @@
 // syscalls are not what limits throughput, small enough to stay out of the way.
 static const unsigned long INPUT_CHUNK = 1024ul * 1024ul;
 
+// The most DEFLATE can expand: a 258-byte match encoded in the shortest
+// possible way. Used to decide whether a gzip stream could have passed 4 GiB.
+static const unsigned long long MAX_DEFLATE_RATIO = 1032ull;
+
 ImageSource::ImageSource()
     : myHandle(INVALID_HANDLE_VALUE), myFormat(FORMAT_RAW), mySectorSize(0ull),
       mySectors(0ull), myCompressedSize(0ull), myPos(0ull), mySizeKnown(false),
@@ -196,10 +200,20 @@ bool ImageSource::readAt(unsigned long long offset, void *buf, DWORD len)
 }
 
 // gzip stores the uncompressed size in the last four bytes of the file, but
-// only modulo 4 GiB, and only for the last member of a multi-member file. It is
-// trustworthy only when it is at least as large as the compressed file; below
-// that the real size could be any number of whole 4 GiB steps higher, so the
-// size is treated as unknown and the image is written until the stream ends.
+// only modulo 4 GiB, and only for the last member of a multi-member file. That
+// makes it a lower bound, not a size: a 6 GiB image records 2 GiB, and a value
+// smaller than the compressed file records nothing usable at all.
+//
+// The stored value is exact only when the image cannot have reached 4 GiB in
+// the first place. DEFLATE cannot expand by more than 1032:1, so once even that
+// ratio keeps the file under 4 GiB there is nothing to wrap around -- which
+// covers a few megabytes of compressed data and no real disk image. Everything
+// larger is kept as an estimate for the progress bar, with the size reported as
+// unknown so the write runs until the stream ends instead of stopping at a
+// wrapped value and calling a third of an image a complete one.
+//
+// Returns true only when the size is exact. mySectors is set whenever the value
+// is worth anything as an estimate.
 bool ImageSource::readGzipSize(unsigned long long filesize)
 {
     if (filesize < 18ull)
@@ -217,10 +231,12 @@ bool ImageSource::readGzipSize(unsigned long long filesize)
                               ((unsigned long long)isize[3] << 24);
     if (size < filesize)
     {
+        // Below the compressed size the value has certainly wrapped, and there
+        // is no telling how many times. Not even an estimate.
         return false;
     }
     mySectors = (size / mySectorSize) + ((size % mySectorSize) ? 1ull : 0ull);
-    return true;
+    return filesize * MAX_DEFLATE_RATIO < 0x100000000ull;
 }
 
 // xz carries an index of every block, so the uncompressed size is exact. The

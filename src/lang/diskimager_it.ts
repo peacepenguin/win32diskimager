@@ -4,7 +4,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="+303"/>
+        <location filename="../mainwindow.ui" line="+308"/>
         <source>%p%</source>
         <translation>%p%</translation>
     </message>
@@ -16,12 +16,12 @@
     <message>
         <location line="+56"/>
         <source>Image File Hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Hash del file immagine</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Hash type to generate for image file</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo di hash da generare per il file immagine</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -39,19 +39,19 @@
         <translation>Leggi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+747"/>
+        <location filename="../mainwindow.cpp" line="+860"/>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Sei sicuro di voler sovrascrivere il file specificato?</translation>
     </message>
     <message>
-        <location line="-45"/>
-        <location line="+172"/>
-        <location line="+308"/>
+        <location line="-61"/>
+        <location line="+189"/>
+        <location line="+369"/>
         <source>Done.</source>
         <translation>Completato.</translation>
     </message>
     <message>
-        <location line="-987"/>
+        <location line="-1140"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -63,7 +63,7 @@
         <translation>Scrivi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+672"/>
+        <location filename="../mainwindow.cpp" line="+764"/>
         <source>Please specify a file to save data to.</source>
         <translation>Seleziona un file dove salvare i dati.</translation>
     </message>
@@ -73,7 +73,7 @@
         <translation>Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-682"/>
+        <location filename="../mainwindow.cpp" line="-774"/>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
         <translation>Annullare ore creerà un disco corrotto.
@@ -81,13 +81,13 @@ Sei sicuro di voler uscire?</translation>
     </message>
     <message>
         <location line="+151"/>
-        <location line="+379"/>
-        <location line="+175"/>
+        <location line="+470"/>
+        <location line="+176"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Il file immagine non è stato trovato nel dispositivo destinazione.</translation>
     </message>
     <message>
-        <location line="-232"/>
+        <location line="-249"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -96,33 +96,35 @@ Sei sicuro di voler uscire?</translation>
 %3
 
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrittura riuscita, ma la tabella delle partizioni è a rischio.
+
+%1
+%2
+
+%3
+
+Rimuovi fisicamente il dispositivo ADESSO, prima di fare qualsiasi altra cosa, e non reinserirlo in questo computer. Inseriscilo invece nell&apos;hardware di destinazione.</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+64"/>
+        <location line="+15"/>
         <source>Read Error</source>
-        <translation type="unfinished">Errore in lettura</translation>
+        <translation>Errore di lettura</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Please select a source device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona un dispositivo di origine.</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+147"/>
         <source>File Info</source>
         <translation>Informazioni sul file</translation>
     </message>
     <message>
-        <location line="-646"/>
+        <location line="-738"/>
         <source>Select a disk image</source>
         <translation>Seleziona un file immagine</translation>
-    </message>
-    <message>
-        <location line="+452"/>
-        <location line="+480"/>
-        <source>You do not have permision to read the selected file.</source>
-        <translation>Non hai permessi per leggere il file selezionato.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="+298"/>
@@ -135,22 +137,22 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>Dispositivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-461"/>
-        <location line="+479"/>
+        <location filename="../mainwindow.cpp" line="+546"/>
+        <location line="+557"/>
         <source>Please specify an image file to use.</source>
         <translation>Specifica un file  immagine da usare.</translation>
     </message>
     <message>
-        <location line="-865"/>
+        <location line="-1018"/>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
         <translation>Annullare ora creerà una destinazione corrotta.
 Sei sicuro di voler annullare?</translation>
     </message>
     <message>
-        <location line="+552"/>
+        <location line="+644"/>
         <location line="+2"/>
-        <location line="+281"/>
+        <location line="+342"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Completa
@@ -162,26 +164,30 @@ Sei sicuro di voler annullare?</translation>
         <translation>Esci da Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-830"/>
+        <location filename="../mainwindow.cpp" line="-983"/>
         <location line="+6"/>
-        <location line="+161"/>
-        <location line="+212"/>
+        <location line="+80"/>
+        <location line="+111"/>
+        <location line="+34"/>
+        <location line="+239"/>
         <location line="+68"/>
         <source>Write Error</source>
         <translation>Errore in scrittura</translation>
     </message>
     <message>
-        <location line="-519"/>
+        <location line="-610"/>
         <source>Generating...</source>
         <translation>Generazione...</translation>
     </message>
     <message>
         <location line="+14"/>
-        <location line="+390"/>
+        <location line="+162"/>
+        <location line="+303"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+456"/>
+        <location line="+293"/>
+        <location line="+241"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -189,7 +195,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-1139"/>
+        <location line="-1295"/>
         <source>Waiting for a task.</source>
         <translation>Attesa scelta operazione</translation>
     </message>
@@ -199,20 +205,22 @@ Sei sicuro di voler annullare?</translation>
         <translation>Stato progresso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+636"/>
-        <location line="+480"/>
+        <location filename="../mainwindow.cpp" line="+714"/>
+        <location line="+558"/>
         <source>The selected file does not exist.</source>
         <translation>Il file selezionato non esiste.</translation>
     </message>
     <message>
-        <location line="-842"/>
+        <location line="-995"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Annullare?</translation>
     </message>
     <message>
-        <location line="+363"/>
-        <location line="+480"/>
+        <location line="+126"/>
+        <location line="+312"/>
+        <location line="+308"/>
+        <location line="+250"/>
         <source>The specified file contains no data.</source>
         <translation>Il file selezionato non contiene dati.</translation>
     </message>
@@ -222,29 +230,29 @@ Sei sicuro di voler annullare?</translation>
         <translation>Leggi i dati dal &apos;dispostivo&apos; e scrivili nel &apos;File immagine&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-983"/>
+        <location filename="../mainwindow.cpp" line="-1136"/>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
         <translation>Annullare ora creerà un file immagine corrotto.
 Sei sicuro di voler uscire?</translation>
     </message>
     <message>
-        <location line="+685"/>
+        <location line="+777"/>
         <source>Read Successful.</source>
         <translation>Lettura completata correttamente.</translation>
     </message>
     <message>
-        <location line="-174"/>
+        <location line="-191"/>
         <source>Write Successful.</source>
         <translation>Scrittura completata correttamente.</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-416"/>
         <source>Confirm overwrite</source>
         <translation>Conferma la sovrascrittura</translation>
     </message>
     <message>
-        <location line="+382"/>
+        <location line="+473"/>
         <source>Confirm Overwrite</source>
         <translation>Conferma la sovrascrittua</translation>
     </message>
@@ -269,12 +277,12 @@ Sei sicuro di voler uscire?</translation>
         <translation>Scrivi dati del &apos;File immagine&apos; nel &apos;Dispositivo&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-307"/>
+        <location filename="../mainwindow.cpp" line="-367"/>
         <source>Not enough available space!</source>
         <translation>Spazio disponibile insufficiente!</translation>
     </message>
     <message>
-        <location line="+382"/>
+        <location line="+443"/>
         <source>Read Canceled.</source>
         <translation>Lettura annulata.</translation>
     </message>
@@ -301,22 +309,22 @@ Sei sicuro di voler uscire?</translation>
     <message>
         <location line="+61"/>
         <source>Fix GPT after write</source>
-        <translation type="unfinished"></translation>
+        <translation>Correggi la GPT dopo la scrittura</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>After writing, move the backup GPT to the end of the device and update the header to match, so Windows has nothing to &quot;repair&quot;. Leave unchecked to be warned to remove the device instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dopo la scrittura sposta la GPT di riserva alla fine del dispositivo e aggiorna l&apos;intestazione di conseguenza, così Windows non ha nulla da «riparare». Lasciando la casella deselezionata verrà invece mostrato un avviso che invita a rimuovere il dispositivo.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Show all devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra tutti i dispositivi</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elenca anche i dischi fissi. I lettori di schede PCIe interni spesso presentano la scheda come dispositivo non rimovibile, che altrimenti resta nascosto. Il disco da cui è in esecuzione Windows non viene mai elencato.</translation>
     </message>
     <message>
         <location line="+115"/>
@@ -329,7 +337,7 @@ Sei sicuro di voler uscire?</translation>
         <translation>Solo verifica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-663"/>
+        <location filename="../mainwindow.cpp" line="-755"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Uscendo ora annullerai la verifica dell&apos;immagine.
@@ -338,13 +346,14 @@ Sei sicuro di voler uscire?</translation>
     <message>
         <location line="+80"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Could not open the file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile aprire il file per generare il codice di controllo:
+%1</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -356,19 +365,21 @@ Sei sicuro di voler annullare la verifica?</translation>
     <message>
         <location line="+27"/>
         <source>Please select a target device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona un dispositivo di destinazione.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Writing to a physical device can corrupt the device.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrivere su un dispositivo fisico può danneggiarlo.
+(Dispositivo di destinazione: %1)
+Vuoi davvero continuare?</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Device has mounted volumes</source>
-        <translation type="unfinished"></translation>
+        <translation>Il dispositivo ha volumi montati</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -379,124 +390,282 @@ Everything on this device, on every one of its partitions, will be destroyed and
 Check that %2 is not a drive you meant to keep.
 
 Write to this device anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 è montato in Windows come %2.
+
+Tutto ciò che si trova su questo dispositivo, su ognuna delle sue partizioni, verrà distrutto e non potrà essere recuperato.
+
+Verifica che %2 non sia un&apos;unità che volevi conservare.
+
+Scrivere comunque su questo dispositivo?</translation>
     </message>
     <message>
-        <location line="+140"/>
+        <location line="+46"/>
+        <location line="+621"/>
+        <source>Device Error</source>
+        <translation>Errore del dispositivo</translation>
+    </message>
+    <message>
+        <location line="-620"/>
+        <location line="+621"/>
+        <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
+        <translation>Il dispositivo segnala dimensione zero. Se si tratta di un lettore di schede, la scheda potrebbe essere stata rimossa.</translation>
+    </message>
+    <message>
+        <location line="-532"/>
+        <source>More space required than is available:
+  Required: %1 sectors
+  Available: %2 sectors
+  Sector Size: %3
+
+The extra space could not be checked for data, because the image is compressed
+
+Continue Anyway?</source>
+        <translation>Serve più spazio di quello disponibile:
+  Necessari: %1 settori
+  Disponibili: %2 settori
+  Dimensione settore: %3
+
+Non è stato possibile verificare se lo spazio in eccesso contiene dati, perché l&apos;immagine è compressa
+
+Continuare comunque?</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>More space required than is available:
+  Required: %1 sectors
+  Available: %2 sectors
+  Sector Size: %3
+
+The extra space DOES appear to contain data
+
+Continue Anyway?</source>
+        <translation>Serve più spazio di quello disponibile:
+  Necessari: %1 settori
+  Disponibili: %2 settori
+  Dimensione settore: %3
+
+Lo spazio in eccesso sembra CONTENERE dati
+
+Continuare comunque?</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>More space required than is available:
+  Required: %1 sectors
+  Available: %2 sectors
+  Sector Size: %3
+
+The extra space does not appear to contain data
+
+Continue Anyway?</source>
+        <translation>Serve più spazio di quello disponibile:
+  Necessari: %1 settori
+  Disponibili: %2 settori
+  Dimensione settore: %3
+
+Lo spazio in eccesso non sembra contenere dati
+
+Continuare comunque?</translation>
+    </message>
+    <message>
+        <location line="+26"/>
         <source>Clearing old partition tables...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancellazione delle vecchie tabelle delle partizioni…</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Could not clear the existing partition tables on the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile cancellare le tabelle delle partizioni presenti sul dispositivo.</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+111"/>
         <source>Fixing GPT...</source>
-        <translation type="unfinished"></translation>
+        <translation>Correzione della GPT…</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+17"/>
+        <source>Image truncated</source>
+        <translation>Immagine troncata</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
+
+This could only be detected once the device was full, because a gzip image does not record its uncompressed size.</source>
+        <translation>L&apos;immagine è più grande del dispositivo, quindi la sua parte finale non è stata scritta e il dispositivo non contiene un&apos;immagine completa.
+
+È stato possibile rilevarlo solo quando il dispositivo si è riempito, perché un&apos;immagine gzip non registra la propria dimensione non compressa.</translation>
+    </message>
+    <message>
+        <location line="+15"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrittura riuscita.
+
+La GPT è stata resa coerente con il dispositivo (%1), quindi Windows non ha alcuna tabella danneggiata da riparare. Il dispositivo può essere rimosso normalmente.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Write successful.
 
 The image contains no GPT, so there is no partition table for Windows to repair. The device can be removed normally.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrittura riuscita.
+
+L&apos;immagine non contiene alcuna GPT, quindi non c&apos;è alcuna tabella delle partizioni che Windows possa riparare. Il dispositivo può essere rimosso normalmente.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Write successful.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrittura riuscita.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Write Successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrittura riuscita</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The device has been taken offline and ejected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il dispositivo è stato messo offline ed espulso.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The device could NOT be taken offline automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>NON è stato possibile mettere offline il dispositivo automaticamente.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The GPT could not be fixed automatically (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>Non è stato possibile correggere automaticamente la GPT (%1).</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>the GPT is malformed</source>
-        <translation type="unfinished"></translation>
+        <translation>la GPT è malformata</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Fixing the GPT failed (%1).</source>
-        <translation type="unfinished"></translation>
+        <translation>La correzione della GPT non è riuscita (%1).</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>write error</source>
-        <translation type="unfinished"></translation>
+        <translation>errore di scrittura</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The &quot;Fix GPT after write&quot; option is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;opzione «Correggi la GPT dopo la scrittura» non è attiva.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This image IS affected by the Windows GPT rewrite bug.
 
 It reserves space ahead of its first partition, so a rescan makes Windows rewrite the primary partition table to point at the wrong sectors. The result still passes Windows&apos; own checks, but Linux rejects it and the device will not boot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa immagine È interessata dal bug di riscrittura della GPT di Windows.
+
+Riserva spazio prima della sua prima partizione, quindi a una nuova scansione Windows riscrive la tabella delle partizioni primaria facendola puntare ai settori sbagliati. Il risultato supera comunque i controlli di Windows, ma Linux lo rifiuta e il dispositivo non si avvierà.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>This image is NOT affected by the Windows GPT rewrite bug.
 
 Windows will still rewrite the table on a rescan, because the backup GPT is not at the end of the device, but for this layout the rewrite lands on the correct values. Removing the device now keeps it byte-identical to the image regardless.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa immagine NON è interessata dal bug di riscrittura della GPT di Windows.
+
+Windows riscriverà comunque la tabella a una nuova scansione, perché la GPT di riserva non si trova alla fine del dispositivo, ma con questa disposizione la riscrittura arriva ai valori corretti. Rimuovere ora il dispositivo lo mantiene in ogni caso identico all&apos;immagine byte per byte.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Whether this image is affected by the Windows GPT rewrite bug could not be determined. Assume it is: a rescan can leave the partition table rejected by Linux and the device unbootable.</source>
-        <translation type="unfinished"></translation>
+        <translation>Non è stato possibile stabilire se questa immagine sia interessata dal bug di riscrittura della GPT di Windows. Dai per scontato che lo sia: una nuova scansione può far sì che Linux rifiuti la tabella delle partizioni e che il dispositivo non si avvii.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Remove the device now</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuovi subito il dispositivo</translation>
     </message>
     <message>
-        <location line="+573"/>
+        <location line="+16"/>
+        <location line="+558"/>
+        <source>You do not have permission to read the selected file.</source>
+        <translation>Non hai i permessi per leggere il file selezionato.</translation>
+    </message>
+    <message>
+        <location line="-508"/>
+        <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
+
+Compressed images (.img.gz, .img.xz) can be written and verified.</source>
+        <translation>Le immagini possono essere rilette solo non compresse. Scegli un nome di file senza estensione .gz o .xz.
+
+Le immagini compresse (.img.gz, .img.xz) possono essere scritte e verificate.</translation>
+    </message>
+    <message>
+        <location line="+312"/>
+        <source>Size of image larger than device:
+  Image: %1 sectors
+  Device: %2 sectors
+  Sector Size: %3
+
+The extra space could not be checked for data, because the image is compressed
+
+Continue Anyway?</source>
+        <translation>Dimensione dell&apos;immagine maggiore di quella del dispositivo:
+  Immagine: %1 settori
+  Dispositivo: %2 settori
+  Dimensione settore: %3
+
+Non è stato possibile verificare se lo spazio in eccesso contiene dati, perché l&apos;immagine è compressa
+
+Continuare comunque?</translation>
+    </message>
+    <message>
+        <location line="+166"/>
+        <source>Image larger than device</source>
+        <translation>Immagine più grande del dispositivo</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
+
+This could only be detected at the end of the device, because a gzip image does not record its uncompressed size.</source>
+        <translation>L&apos;immagine è più grande del dispositivo, quindi è stato possibile confrontare solo la parte che ci sta. Tutto ciò che è stato confrontato corrisponde, ma il dispositivo non contiene un&apos;immagine completa.
+
+È stato possibile rilevarlo solo alla fine del dispositivo, perché un&apos;immagine gzip non registra la propria dimensione non compressa.</translation>
+    </message>
+    <message>
+        <location line="+106"/>
         <source>[Disk %1]</source>
-        <translation type="unfinished"></translation>
+        <translation>[Disco %1]</translation>
     </message>
     <message>
-        <location line="-340"/>
+        <location line="-401"/>
         <location line="+6"/>
+        <location line="+55"/>
+        <location line="+124"/>
         <source>Verify Error</source>
         <translation>Errore durante la verifica</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Please select a device to verify against.</source>
-        <translation type="unfinished"></translation>
+        <location line="-1098"/>
+        <location line="+2"/>
+        <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
+        <translation>Immagini disco (*.img *.IMG *.img.gz *.img.xz)</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+1"/>
+        <source>Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)</source>
+        <translation>Immagini disco compresse (*.img.gz *.img.xz *.gz *.xz)</translation>
+    </message>
+    <message>
+        <location line="+916"/>
+        <source>Please select a device to verify against.</source>
+        <translation>Seleziona un dispositivo con cui confrontare.</translation>
+    </message>
+    <message>
+        <location line="+127"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -505,7 +674,14 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
 The extra space DOES appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimensione dell&apos;immagine maggiore di quella del dispositivo:
+  Immagine: %1 settori
+  Dispositivo: %2 settori
+  Dimensione settore: %3
+
+Lo spazio in eccesso sembra CONTENERE dati
+
+Continuare comunque?</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -517,7 +693,14 @@ Continue Anyway?</source>
 The extra space does not appear to contain data
 
 Continue Anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimensione dell&apos;immagine maggiore di quella del dispositivo:
+  Immagine: %1 settori
+  Dispositivo: %2 settori
+  Dimensione settore: %3
+
+Lo spazio in eccesso non sembra contenere dati
+
+Continuare comunque?</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -525,37 +708,43 @@ Continue Anyway?</source>
         <translation>Le dimensioni non coincidono!</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+38"/>
+        <location line="+66"/>
+        <location line="+36"/>
         <source>Verify Failure</source>
         <translation>Verifica fallita</translation>
     </message>
     <message>
-        <location line="-38"/>
-        <location line="+39"/>
+        <location line="-36"/>
+        <location line="+37"/>
         <source>Verification failed at sector: %1</source>
         <translation>Verifica fallita al settore: %1</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+63"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verifica riuscita.
+
+L&apos;immagine e il dispositivo differiscono solo nella GPT, che l&apos;opzione «Correggi la GPT dopo la scrittura» riscrive di proposito.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>
 
 The device has been ejected. Remove it now.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Il dispositivo è stato espulso. Rimuovilo adesso.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>
 
 The device could NOT be taken offline automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+NON è stato possibile mettere offline il dispositivo automaticamente.</translation>
     </message>
     <message>
         <location line="-3"/>
@@ -563,17 +752,11 @@ The device could NOT be taken offline automatically.</source>
         <source>Verify Successful.</source>
         <translation>Verifica completata correttamente.</translation>
     </message>
-    <message>
-        <location line="-1095"/>
-        <location line="+2"/>
-        <source>Disk Images (*.img *.IMG)</source>
-        <translation>Immagini disco (*.img *.IMG)</translation>
-    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../disk.cpp" line="+246"/>
+        <location filename="../disk.cpp" line="+251"/>
         <source>Free Space Error</source>
         <translation>Spazio libero insufficiente</translation>
     </message>
@@ -619,39 +802,41 @@ Errore %1: %2</translation>
     <message>
         <location line="+254"/>
         <source>Unknown device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo sconosciuto</translation>
     </message>
     <message>
         <location line="+53"/>
         <source>Could not lock volume %1: it is still in use.
 Close any program using the device and try again.
 Error %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile bloccare il volume %1: è ancora in uso.
+Chiudi qualsiasi programma che stia usando il dispositivo e riprova.
+Errore %2</translation>
     </message>
     <message>
         <location line="+179"/>
         <source>the primary GPT header size is out of range</source>
-        <translation type="unfinished"></translation>
+        <translation>la dimensione dell&apos;intestazione GPT primaria è fuori intervallo</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>the primary GPT header checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>il codice di controllo dell&apos;intestazione GPT primaria non è valido</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>the GPT partition entry array is not where the header says</source>
-        <translation type="unfinished"></translation>
+        <translation>l&apos;array delle voci di partizione GPT non si trova dove indica l&apos;intestazione</translation>
     </message>
     <message>
         <location line="+44"/>
         <source>a partition extends past the end of the device</source>
-        <translation type="unfinished"></translation>
+        <translation>una partizione si estende oltre la fine del dispositivo</translation>
     </message>
     <message>
         <location line="+68"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT di riserva spostata all&apos;LBA %1; l&apos;ultimo LBA utilizzabile è ora %2</translation>
     </message>
     <message>
         <location line="-649"/>
@@ -723,6 +908,69 @@ Errore %1: %2</translation>
 Error %1: %2</source>
         <translation>Errore nel blocco del volume.
 Errore %1: %2</translation>
+    </message>
+    <message>
+        <location filename="../imagesource.cpp" line="+103"/>
+        <source>The device reports a sector size of zero.</source>
+        <translation>Il dispositivo segnala una dimensione di settore pari a zero.</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>The image file could not be opened (error %1).</source>
+        <translation>Non è stato possibile aprire il file immagine (errore %1).</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>The size of the image file could not be read (error %1).</source>
+        <translation>Non è stato possibile leggere la dimensione del file immagine (errore %1).</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <location line="+242"/>
+        <location line="+157"/>
+        <source>The image file could not be read (error %1).</source>
+        <translation>Non è stato possibile leggere il file immagine (errore %1).</translation>
+    </message>
+    <message>
+        <location line="-356"/>
+        <source>The image file could not be rewound (error %1).</source>
+        <translation>Non è stato possibile riavvolgere il file immagine (errore %1).</translation>
+    </message>
+    <message>
+        <location line="+166"/>
+        <source>The gzip decompressor could not be started (zlib error %1).</source>
+        <translation>Non è stato possibile avviare il decompressore gzip (errore zlib %1).</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>The xz decompressor could not be started (lzma error %1).</source>
+        <translation>Non è stato possibile avviare il decompressore xz (errore lzma %1).</translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <location line="+84"/>
+        <source>The image file ends in the middle of the compressed data. It is truncated or damaged.</source>
+        <translation>Il file immagine si interrompe nel mezzo dei dati compressi. È troncato o danneggiato.</translation>
+    </message>
+    <message>
+        <location line="-37"/>
+        <source>The gzip image could not be decompressed.</source>
+        <translation>Non è stato possibile decomprimere l&apos;immagine gzip.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>The gzip image is damaged (zlib error %1).</source>
+        <translation>L&apos;immagine gzip è danneggiata (errore zlib %1).</translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>The xz image is damaged (lzma error %1).</source>
+        <translation>L&apos;immagine xz è danneggiata (errore lzma %1).</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>A compressed image can only be read forwards.</source>
+        <translation>Un&apos;immagine compressa può essere letta solo in avanti.</translation>
     </message>
 </context>
 </TS>

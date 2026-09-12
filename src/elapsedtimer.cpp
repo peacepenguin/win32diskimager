@@ -63,7 +63,11 @@ void ElapsedTimer::update(unsigned long long progress, unsigned long long total)
     timeStruct_t tTime, eTime;
 
     unsigned int baseSecs = timer->elapsed() / MS_PER_SEC;
-    unsigned int totalSecs = (unsigned int)((float)baseSecs * ( (float)total/(float)progress ));
+    // The first update can land before a single sector has gone through, and
+    // dividing by that leaves an infinity to cast to unsigned int.
+    unsigned int totalSecs = (progress > 0ull)
+        ? (unsigned int)((float)baseSecs * ( (float)total/(float)progress ))
+        : 0u;
 
     // convert seconds to hours:minues:seconds
     secsToHMS(baseSecs, &eTime);

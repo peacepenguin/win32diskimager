@@ -4,7 +4,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="+29"/>
+        <location filename="../mainwindow.ui" line="+34"/>
         <source>Win32 Disk Imager</source>
         <translation>Win32 Disk Imager</translation>
     </message>
@@ -140,7 +140,7 @@
         <translation>Wyjdź</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+195"/>
+        <location filename="../mainwindow.cpp" line="+217"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -183,37 +183,33 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+161"/>
-        <location line="+212"/>
+        <location line="+80"/>
+        <location line="+111"/>
+        <location line="+34"/>
+        <location line="+239"/>
         <location line="+68"/>
         <source>Write Error</source>
         <translation>Błąd Zapisu</translation>
     </message>
     <message>
-        <location line="-447"/>
-        <location line="+379"/>
-        <location line="+175"/>
+        <location line="-538"/>
+        <location line="+470"/>
+        <location line="+176"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Plik obrazu nie może zostać umieszczony na urządzeniu docelowym.</translation>
     </message>
     <message>
-        <location line="-545"/>
+        <location line="-637"/>
         <source>Confirm overwrite</source>
         <translation>Potwierdź Nadpisanie</translation>
     </message>
     <message>
-        <location line="-313"/>
+        <location line="-316"/>
         <source>Waiting for a task.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
-        <location line="+2"/>
-        <source>Disk Images (*.img *.IMG)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+122"/>
+        <location line="+166"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation type="unfinished"></translation>
@@ -225,17 +221,19 @@ Are you sure you want to cancel?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+161"/>
+        <location line="+192"/>
         <source>Not enough available space!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-198"/>
-        <location line="+390"/>
+        <location line="-229"/>
+        <location line="+162"/>
+        <location line="+303"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+456"/>
+        <location line="+293"/>
+        <location line="+241"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -243,7 +241,7 @@ Are you sure you want to cancel?</source>
         <translation>Błąd Pliku</translation>
     </message>
     <message>
-        <location line="-513"/>
+        <location line="-591"/>
         <source>Write successful, but the partition table is at risk.
 
 %1
@@ -256,44 +254,51 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
     </message>
     <message>
         <location line="+10"/>
-        <location line="+480"/>
+        <location line="+558"/>
         <source>The selected file does not exist.</source>
         <translation>Wybrany plik nie istnieje.</translation>
     </message>
     <message>
-        <location line="-475"/>
-        <location line="+480"/>
-        <source>You do not have permision to read the selected file.</source>
-        <translation>Nie masz uprawnień aby odczytać wybrany plik.</translation>
-    </message>
-    <message>
-        <location line="-475"/>
-        <location line="+480"/>
+        <location line="-860"/>
+        <location line="+312"/>
+        <location line="+308"/>
+        <location line="+250"/>
         <source>The specified file contains no data.</source>
         <translation>Wybrany plik nie zawiera danych.</translation>
     </message>
     <message>
-        <location line="-476"/>
-        <location line="+172"/>
-        <location line="+308"/>
+        <location line="-554"/>
+        <location line="+189"/>
+        <location line="+369"/>
         <source>Done.</source>
         <translation>Zrobione.</translation>
     </message>
     <message>
-        <location line="-304"/>
+        <location line="-365"/>
         <location line="+2"/>
-        <location line="+281"/>
+        <location line="+342"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Gotowe</translation>
     </message>
     <message>
-        <location line="-480"/>
+        <location line="-558"/>
         <source>Write Successful.</source>
         <translation>Zapis Pomyślny.</translation>
     </message>
     <message>
-        <location line="-411"/>
+        <location line="-692"/>
+        <location line="+2"/>
+        <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+203"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -332,7 +337,55 @@ Write to this device anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+140"/>
+        <location line="+46"/>
+        <location line="+621"/>
+        <source>Device Error</source>
+        <translation type="unfinished">Błąd Urządzenia</translation>
+    </message>
+    <message>
+        <location line="-620"/>
+        <location line="+621"/>
+        <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-532"/>
+        <source>More space required than is available:
+  Required: %1 sectors
+  Available: %2 sectors
+  Sector Size: %3
+
+The extra space could not be checked for data, because the image is compressed
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>More space required than is available:
+  Required: %1 sectors
+  Available: %2 sectors
+  Sector Size: %3
+
+The extra space DOES appear to contain data
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>More space required than is available:
+  Required: %1 sectors
+  Available: %2 sectors
+  Sector Size: %3
+
+The extra space does not appear to contain data
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
         <source>Clearing old partition tables...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -342,12 +395,24 @@ Write to this device anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+111"/>
         <source>Fixing GPT...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+17"/>
+        <source>Image truncated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
+
+This could only be detected once the device was full, because a gzip image does not record its uncompressed size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
         <source>Write successful.
 
 The GPT was made consistent with the device (%1), so Windows has no damaged table to repair. The device can be removed normally.</source>
@@ -430,18 +495,56 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+573"/>
+        <location line="+16"/>
+        <location line="+558"/>
+        <source>You do not have permission to read the selected file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-508"/>
+        <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
+
+Compressed images (.img.gz, .img.xz) can be written and verified.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+312"/>
+        <source>Size of image larger than device:
+  Image: %1 sectors
+  Device: %2 sectors
+  Sector Size: %3
+
+The extra space could not be checked for data, because the image is compressed
+
+Continue Anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+166"/>
+        <source>Image larger than device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
+
+This could only be detected at the end of the device, because a gzip image does not record its uncompressed size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+106"/>
         <source>[Disk %1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-538"/>
-        <location line="+479"/>
+        <location line="-616"/>
+        <location line="+557"/>
         <source>Please specify an image file to use.</source>
         <translation>Proszę wybrać plik obrazu do użycia.</translation>
     </message>
     <message>
-        <location line="-450"/>
+        <location line="-527"/>
+        <location line="+15"/>
         <source>Read Error</source>
         <translation type="unfinished">Błąd Odczytu</translation>
     </message>
@@ -466,7 +569,7 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
         <translation>Dysk nie jest odpowiednio wielki dla wybranego obrazu.</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+76"/>
         <source>Read Canceled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -488,16 +591,18 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
     <message>
         <location line="+23"/>
         <location line="+6"/>
+        <location line="+55"/>
+        <location line="+124"/>
         <source>Verify Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-179"/>
         <source>Please select a device to verify against.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+127"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -526,19 +631,19 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+38"/>
+        <location line="+66"/>
+        <location line="+36"/>
         <source>Verify Failure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-38"/>
-        <location line="+39"/>
+        <location line="-36"/>
+        <location line="+37"/>
         <source>Verification failed at sector: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+63"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
@@ -568,7 +673,7 @@ The device could NOT be taken offline automatically.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../disk.cpp" line="+43"/>
+        <location filename="../disk.cpp" line="+48"/>
         <location line="+179"/>
         <source>File Error</source>
         <translation>Błąd Pliku</translation>
@@ -718,6 +823,69 @@ Error %2</source>
     <message>
         <location line="+68"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../imagesource.cpp" line="+103"/>
+        <source>The device reports a sector size of zero.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>The image file could not be opened (error %1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>The size of the image file could not be read (error %1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <location line="+242"/>
+        <location line="+157"/>
+        <source>The image file could not be read (error %1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-356"/>
+        <source>The image file could not be rewound (error %1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+166"/>
+        <source>The gzip decompressor could not be started (zlib error %1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>The xz decompressor could not be started (lzma error %1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <location line="+84"/>
+        <source>The image file ends in the middle of the compressed data. It is truncated or damaged.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-37"/>
+        <source>The gzip image could not be decompressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>The gzip image is damaged (zlib error %1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>The xz image is damaged (lzma error %1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>A compressed image can only be read forwards.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

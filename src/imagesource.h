@@ -57,10 +57,14 @@ public:
 
     Format format() const { return myFormat; }
     bool isCompressed() const { return myFormat != FORMAT_RAW; }
-    // False when the uncompressed size cannot be determined up front, which
-    // gzip allows (its stored size is only the low 32 bits). The image then
-    // has to be written until the stream ends.
+    // True when sizeInSectors() is the exact size of the image. xz carries an
+    // index, so it always is; gzip stores only the low 32 bits of the size, so
+    // it only is for an image small enough that those bits cannot have wrapped.
+    // When this is false the image has to be written until the stream ends.
     bool sizeKnown() const { return mySizeKnown; }
+    // Exact when sizeKnown(), otherwise a lower bound useful for a progress
+    // estimate, or 0 when even that could not be worked out. Never use it to
+    // decide where the image ends unless sizeKnown().
     unsigned long long sizeInSectors() const { return mySectors; }
     // Compressed bytes consumed so far, for progress on an unknown size.
     unsigned long long compressedSize() const { return myCompressedSize; }

@@ -38,7 +38,7 @@
 #include <dbt.h>
 #include <shlobj.h>
 #include <iostream>
-#include <sstream>
+#include <climits>
 
 #include "disk.h"
 #include "mainwindow.h"
@@ -46,6 +46,19 @@
 #include "elapsedtimer.h"
 
 MainWindow* MainWindow::instance = NULL;
+
+// QProgressBar counts in int, and a multi-terabyte disk has more sectors than
+// an int holds -- which "Show all devices" makes reachable. Progress is
+// reported shifted right by this much so the bar does not wrap negative.
+static int progressShift(unsigned long long total)
+{
+    int shift = 0;
+    while ((total >> shift) > (unsigned long long)INT_MAX)
+    {
+        ++shift;
+    }
+    return shift;
+}
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -72,6 +85,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     updateHashControls();
     setReadWriteButtonState();
     sectorData = NULL;
+    sectorData2 = NULL;
     sectorsize = 0ul;
 
     loadSettings();
@@ -287,7 +301,7 @@ void MainWindow::on_bHashCopy_clicked()
 }
 
 // generates the hash
-void MainWindow::generateHash(char *filename, int hashish)
+void MainWindow::generateHash(const QString &filename, int hashish)
 {
     hashLabel->setText(tr("Generating..."));
     QApplication::processEvents();
@@ -430,13 +444,17 @@ void MainWindow::on_bWrite_clicked()
             {
                 //For external card readers you may not get device change notification when you remove the card/flash.
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
+                QMessageBox::critical(this, tr("Device Error"),
+                    tr("The device reports a size of zero. If it is a card reader, "
+                       "the card may have been removed."));
                 locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 passfail = false;
                 status = STATUS_IDLE;
+                bCancel->setEnabled(false);
+                setReadWriteButtonState();
                 return;
-
             }
             // A .img.gz or .img.xz is decompressed on the fly as it is written,
             // so the machine never needs room for the expanded image.
@@ -452,20 +470,24 @@ void MainWindow::on_bWrite_clicked()
                 setReadWriteButtonState();
                 return;
             }
-            // gzip only records the uncompressed size modulo 4 GiB, so it can
-            // be unknown. The write then runs until the stream ends, with the
-            // device size standing in for the total.
+            // gzip only records the uncompressed size modulo 4 GiB, so for any
+            // real image it is a lower bound rather than a size. The write then
+            // runs until the stream ends, with the device size as the loop
+            // bound, and the leftover check below says whether it all fitted.
             numsectors = image.sizeKnown() ? image.sizeInSectors() : availablesectors;
             if (!numsectors)
             {
                 //For external card readers you may not get device change notification when you remove the card/flash.
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
+                QMessageBox::critical(this, tr("File Error"),
+                                      tr("The specified file contains no data."));
                 locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
+                bCancel->setEnabled(false);
+                setReadWriteButtonState();
                 return;
-
             }
             if (numsectors > availablesectors)
             {
@@ -504,23 +526,24 @@ void MainWindow::on_bWrite_clicked()
                         sectorData = NULL;
                     }
                 }
-                // build the string for the warning dialog
-                std::ostringstream msg;
-                msg << "More space required than is available:"
-                    << "\n  Required: " << numsectors << " sectors"
-                    << "\n  Available: " << availablesectors << " sectors"
-                    << "\n  Sector Size: " << sectorsize;
-                if (tailchecked)
-                {
-                    msg << "\n\nThe extra space " << ((datafound) ? "DOES" : "does not") << " appear to contain data";
-                }
-                else
-                {
-                    msg << "\n\nThe extra space could not be checked for data, because the image is compressed";
-                }
-                msg << "\n\nContinue Anyway?";
+                // Built from whole translatable sentences. Assembling the text
+                // first and passing it through tr() would look up a string that
+                // only exists at runtime, so nothing is ever translated.
+                QString msg = (!tailchecked)
+                    ? tr("More space required than is available:\n  Required: %1 sectors\n"
+                         "  Available: %2 sectors\n  Sector Size: %3\n\n"
+                         "The extra space could not be checked for data, because the image "
+                         "is compressed\n\nContinue Anyway?")
+                    : (datafound)
+                        ? tr("More space required than is available:\n  Required: %1 sectors\n"
+                             "  Available: %2 sectors\n  Sector Size: %3\n\n"
+                             "The extra space DOES appear to contain data\n\nContinue Anyway?")
+                        : tr("More space required than is available:\n  Required: %1 sectors\n"
+                             "  Available: %2 sectors\n  Sector Size: %3\n\n"
+                             "The extra space does not appear to contain data\n\nContinue Anyway?");
+                msg = msg.arg(numsectors).arg(availablesectors).arg(sectorsize);
                 if(QMessageBox::warning(this, tr("Not enough available space!"),
-                                        tr(msg.str().c_str()), QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
+                                        msg, QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
                 {
                     // truncate the image at the device size...
                     numsectors = availablesectors;
@@ -555,7 +578,18 @@ void MainWindow::on_bWrite_clicked()
                 return;
             }
 
-            progressbar->setRange(0, (numsectors == 0ul) ? 100 : (int)numsectors);
+            // The loop runs to the device size when the size is only an
+            // estimate, but the bar tracks the estimate: it then describes the
+            // image rather than the card.
+            unsigned long long progresstotal = numsectors;
+            if (!image.sizeKnown() && image.sizeInSectors() > 0ull
+                && image.sizeInSectors() < progresstotal)
+            {
+                progresstotal = image.sizeInSectors();
+            }
+            const int progshift = progressShift(progresstotal);
+            progressbar->setRange(0, (progresstotal == 0ull) ? 100
+                                                             : (int)(progresstotal >> progshift));
             lasti = 0ul;
             update_timer.start();
             elapsed_timer->start();
@@ -602,7 +636,7 @@ void MainWindow::on_bWrite_clicked()
                 {
                     // Short read: the image ended inside this chunk.
                     numsectors = i + got;
-                    progressbar->setValue(numsectors);
+                    progressbar->setValue((int)(numsectors >> progshift));
                     QCoreApplication::processEvents();
                     break;
                 }
@@ -611,15 +645,16 @@ void MainWindow::on_bWrite_clicked()
                 {
                     mbpersec = (((double)sectorsize * (i - lasti)) * ((float)ONE_SEC_IN_MS / update_timer.elapsed())) / 1024.0 / 1024.0;
                     statusbar->showMessage(QString("%1 MB/s").arg(mbpersec));
-                    elapsed_timer->update(i, numsectors);
+                    elapsed_timer->update(i, progresstotal);
                     update_timer.start();
                     lasti = i;
                 }
-                progressbar->setValue(i);
+                progressbar->setValue((int)(i >> progshift));
                 QCoreApplication::processEvents();
             }
-            // With an unknown uncompressed size the loop stops at the device
-            // size, so ask the stream whether anything was left over.
+            // Without an exact size the loop bound came from the device, not
+            // from the image, so it may have stopped with image still to come.
+            // Ask the stream rather than trusting the size that set the bound.
             if (!image.sizeKnown() && status == STATUS_WRITING)
             {
                 unsigned long long leftover = 0ull;
@@ -745,7 +780,7 @@ void MainWindow::on_bWrite_clicked()
         }
         else if (!fileinfo.isReadable())
         {
-            QMessageBox::critical(this, tr("File Error"), tr("You do not have permision to read the selected file."));
+            QMessageBox::critical(this, tr("File Error"), tr("You do not have permission to read the selected file."));
             passfail = false;
         }
         else if (fileinfo.size() == 0)
@@ -783,6 +818,11 @@ void MainWindow::on_bRead_clicked()
         QFileInfo fileinfo(myFile);
         if (fileinfo.path()=="."){
             myFile=(myHomeDir + "/" + leFile->text());
+            // fileinfo has to follow, or the overwrite prompt below asks about
+            // a file in the working directory while getHandleOnFile opens the
+            // one in the image directory with CREATE_ALWAYS and truncates it
+            // without ever asking.
+            fileinfo.setFile(myFile);
         }
         // Reading writes a raw image; compressing on the way out is not
         // supported, and a raw image under a .gz or .xz name would mislead
@@ -878,13 +918,14 @@ void MainWindow::on_bRead_clicked()
             setReadWriteButtonState();
             return;
         }
+        const int progshift = progressShift(numsectors);
         if (numsectors == 0ul)
         {
             progressbar->setRange(0, 100);
         }
         else
         {
-            progressbar->setRange(0, (int)numsectors);
+            progressbar->setRange(0, (int)(numsectors >> progshift));
         }
         lasti = 0ul;
         update_timer.start();
@@ -928,7 +969,7 @@ void MainWindow::on_bRead_clicked()
                 elapsed_timer->update(i, numsectors);
                 lasti = i;
             }
-            progressbar->setValue(i);
+            progressbar->setValue((int)(i >> progshift));
             QCoreApplication::processEvents();
         }
         locked.release();
@@ -1017,13 +1058,17 @@ void MainWindow::on_bVerify_clicked()
             {
                 //For external card readers you may not get device change notification when you remove the card/flash.
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
+                QMessageBox::critical(this, tr("Device Error"),
+                    tr("The device reports a size of zero. If it is a card reader, "
+                       "the card may have been removed."));
                 locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 passfail = false;
                 status = STATUS_IDLE;
+                bCancel->setEnabled(false);
+                setReadWriteButtonState();
                 return;
-
             }
             // A compressed image is decompressed on the fly and compared as it
             // comes out, exactly like a raw one.
@@ -1039,19 +1084,23 @@ void MainWindow::on_bVerify_clicked()
                 setReadWriteButtonState();
                 return;
             }
-            // gzip only records the uncompressed size modulo 4 GiB, so it can
-            // be unknown; the comparison then runs until the stream ends.
+            // gzip only records the uncompressed size modulo 4 GiB, so for any
+            // real image it is a lower bound; the comparison then runs to the
+            // device size and stops when the stream ends.
             numsectors = image.sizeKnown() ? image.sizeInSectors() : availablesectors;
             if (!numsectors)
             {
                 //For external card readers you may not get device change notification when you remove the card/flash.
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
+                QMessageBox::critical(this, tr("File Error"),
+                                      tr("The specified file contains no data."));
                 locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
+                bCancel->setEnabled(false);
+                setReadWriteButtonState();
                 return;
-
             }
             if (numsectors > availablesectors)
             {
@@ -1128,7 +1177,15 @@ void MainWindow::on_bVerify_clicked()
                                             &gptfrontend, &gpttailstart);
             bool gptonly = false;
 
-            progressbar->setRange(0, (numsectors == 0ul) ? 100 : (int)numsectors);
+            unsigned long long progresstotal = numsectors;
+            if (!image.sizeKnown() && image.sizeInSectors() > 0ull
+                && image.sizeInSectors() < progresstotal)
+            {
+                progresstotal = image.sizeInSectors();
+            }
+            const int progshift = progressShift(progresstotal);
+            progressbar->setRange(0, (progresstotal == 0ull) ? 100
+                                                             : (int)(progresstotal >> progshift));
             update_timer.start();
             elapsed_timer->start();
             lasti = 0ul;
@@ -1206,15 +1263,26 @@ void MainWindow::on_bVerify_clicked()
                     mbpersec = (((double)sectorsize * (i - lasti)) * ((float)ONE_SEC_IN_MS / update_timer.elapsed())) / 1024.0 / 1024.0;
                     statusbar->showMessage(QString("%1MB/s").arg(mbpersec));
                     update_timer.start();
-                    elapsed_timer->update(i, numsectors);
+                    elapsed_timer->update(i, progresstotal);
                     lasti = i;
                 }
                 delete[] sectorData;
                 delete[] sectorData2;
                 sectorData = NULL;
                 sectorData2 = NULL;
-                progressbar->setValue(i);
+                progressbar->setValue((int)(i >> progshift));
                 QCoreApplication::processEvents();
+            }
+            // Same reasoning as the write path: without an exact size the loop
+            // stops at the end of the device, and comparing only the part that
+            // fits is not a successful verify.
+            bool imageunchecked = false;
+            if (!image.sizeKnown() && status == STATUS_VERIFYING && passfail)
+            {
+                unsigned long long leftover = 0ull;
+                char *extra = image.read(numsectors, 1ull, &leftover);
+                delete[] extra;
+                imageunchecked = (leftover > 0ull);
             }
             // Mirror the write path: take the disk offline and eject it before
             // the volume lock is released, so Windows cannot rescan the card
@@ -1232,6 +1300,17 @@ void MainWindow::on_bVerify_clicked()
             hRawDisk = INVALID_HANDLE_VALUE;
             if (status == STATUS_CANCELED){
                 passfail = false;
+            }
+            else if (imageunchecked)
+            {
+                QMessageBox::critical(this, tr("Image larger than device"),
+                    tr("The image is larger than the device, so only the part that fits "
+                       "could be compared. Everything compared matched, but the device "
+                       "does not hold a complete image.\n\n"
+                       "This could only be detected at the end of the device, because a "
+                       "gzip image does not record its uncompressed size."));
+                passfail = false;
+                verifyreported = true;
             }
             else if (passfail)
             {
@@ -1254,7 +1333,7 @@ void MainWindow::on_bVerify_clicked()
         }
         else if (!fileinfo.isReadable())
         {
-            QMessageBox::critical(this, tr("File Error"), tr("You do not have permision to read the selected file."));
+            QMessageBox::critical(this, tr("File Error"), tr("You do not have permission to read the selected file."));
             passfail = false;
         }
         else if (fileinfo.size() == 0)
@@ -1441,6 +1520,6 @@ void MainWindow::on_cboxHashType_IdxChg()
 
 void MainWindow::on_bHashGen_clicked()
 {
-    generateHash(leFile->text().toLatin1().data(),cboxHashType->currentData().toInt());
+    generateHash(leFile->text(), cboxHashType->currentData().toInt());
 
 }

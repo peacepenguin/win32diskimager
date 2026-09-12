@@ -34,8 +34,18 @@ int main(int argc, char *argv[])
     app.setApplicationDisplayName(VER);
     app.setAttribute(Qt::AA_UseDesktopOpenGL);
 
+    // Qt's own strings -- the buttons in QMessageBox, the file dialog -- ship
+    // as qtbase_*.qm in translations/ next to the exe.
+    QTranslator qttranslator;
+    if (qttranslator.load(QLocale::system(), "qtbase", "_",
+                          QCoreApplication::applicationDirPath() + "/translations"))
+        app.installTranslator(&qttranslator);
+
+    // The app's own strings are compiled into the binary by translations.qrc,
+    // which puts them under :/lang. Loading "translations/..." looked for a
+    // directory that is never shipped, so no translation was ever installed.
     QTranslator translator;
-    if (translator.load("translations/diskimager_" + QLocale::system().name()))
+    if (translator.load(QLocale::system(), "diskimager", "_", ":/lang"))
         app.installTranslator(&translator);
 
     MainWindow* mainwindow = MainWindow::getInstance();
