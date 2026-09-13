@@ -4,7 +4,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="+34"/>
+        <location filename="../mainwindow.ui" line="+32"/>
         <source>Win32 Disk Imager</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29,7 +29,17 @@
         <translation>சாதனம்</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+99"/>
+        <source>Check GPT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Image File Hash</source>
         <translation type="unfinished"></translation>
     </message>
@@ -64,7 +74,7 @@
         <translation>பிரதி</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="-131"/>
         <source>Fix GPT after write</source>
         <translation type="unfinished"></translation>
     </message>
@@ -74,7 +84,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Show all devices</source>
         <translation type="unfinished"></translation>
     </message>
@@ -84,7 +94,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+158"/>
         <source>Progress</source>
         <translation>முன்னேற்றம்</translation>
     </message>
@@ -104,7 +114,7 @@
         <translation>ரத்து</translation>
     </message>
     <message>
-        <location line="-295"/>
+        <location line="-316"/>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
         <translation>&apos;சாதனம்&apos;-ல் இருந்து &apos;பட கோப்பு&apos;-க்கு தரவுகளை மாற்று</translation>
     </message>
@@ -129,7 +139,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+343"/>
+        <location line="+364"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>வெளியேறு</translation>
     </message>
@@ -144,7 +154,7 @@
         <translation>ஒரு பணி காத்திருக்கிறது.</translation>
     </message>
     <message>
-        <location line="+152"/>
+        <location line="+134"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -179,7 +189,7 @@ Are you sure you want to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+185"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>ரத்து?</translation>
@@ -302,15 +312,15 @@ This could only be detected once the device was full, because the compressed ima
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-448"/>
+        <location line="-552"/>
         <location line="+11"/>
-        <location line="+146"/>
+        <location line="+250"/>
         <location line="+301"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
         <location line="+242"/>
-        <location line="+302"/>
+        <location line="+285"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -318,30 +328,30 @@ This could only be detected once the device was full, because the compressed ima
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-591"/>
-        <location line="+568"/>
+        <location line="-574"/>
+        <location line="+551"/>
         <source>The selected file does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-868"/>
+        <location line="-851"/>
         <location line="+310"/>
         <location line="+257"/>
-        <location line="+311"/>
+        <location line="+294"/>
         <source>The specified file contains no data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-564"/>
+        <location line="-547"/>
         <location line="+181"/>
-        <location line="+387"/>
+        <location line="+370"/>
         <source>Done.</source>
         <translation>முடிந்தது.</translation>
     </message>
     <message>
-        <location line="-383"/>
+        <location line="-366"/>
         <location line="+2"/>
-        <location line="+360"/>
+        <location line="+343"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>முடி</translation>
@@ -360,13 +370,13 @@ This could only be detected at the end of the device, because the compressed ima
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-568"/>
+        <location line="-551"/>
         <source>Write Successful.</source>
         <translation>வெற்றிகரமாக எழுது.</translation>
     </message>
     <message>
-        <location line="-688"/>
-        <location line="+2"/>
+        <location line="-769"/>
+        <location line="+1"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -376,7 +386,7 @@ This could only be detected at the end of the device, because the compressed ima
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+206"/>
+        <location line="+184"/>
         <location line="+11"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
@@ -394,7 +404,7 @@ This could only be detected at the end of the device, because the compressed ima
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+194"/>
         <source>Please select a target device.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -416,17 +426,96 @@ Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-677"/>
+        <location line="-763"/>
+        <location line="+429"/>
+        <location line="+24"/>
         <source>Device Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-452"/>
+        <location line="+453"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+574"/>
+        <location line="-55"/>
+        <source>%1 the primary GPT header points at sectors the partition entries are not in.
+
+This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
+
+Repair the partition table now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Please select a device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Could not lock the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Could not open the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>This device&apos;s partition table is broken:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Partition table repaired.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Partition table is still damaged.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Partition table is valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+6"/>
+        <location line="+6"/>
+        <source>Partition table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-11"/>
+        <source>The GPT on this device is valid: the header and the partition entries it points at agree.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>No GPT on this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>This device has no GPT, so it cannot have the damage this checks for.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Could not read the partition table.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The partition table could not be read, or is damaged in some way other than the one this repairs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+174"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -485,18 +574,18 @@ Continue Anyway?</source>
     </message>
     <message>
         <location line="+89"/>
-        <location line="+568"/>
+        <location line="+551"/>
         <source>You do not have permission to read the selected file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-549"/>
-        <location line="+567"/>
+        <location line="-532"/>
+        <location line="+550"/>
         <source>Please specify an image file to use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-537"/>
+        <location line="-520"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation type="unfinished"></translation>
@@ -734,22 +823,13 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+45"/>
-        <location line="+58"/>
+        <location line="-954"/>
+        <location line="+1040"/>
         <source>Partition table damaged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-57"/>
-        <source>The device holds the image correctly, but its partition table is broken: the primary GPT header points at sectors the partition entries are not in.
-
-This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
-
-Repair the partition table now?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+18"/>
+        <location line="-1022"/>
         <source>Repair failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -759,7 +839,12 @@ Repair the partition table now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+981"/>
+        <source>The device holds the image correctly, but its partition table is broken:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>Image larger than device</source>
         <translation type="unfinished"></translation>
     </message>

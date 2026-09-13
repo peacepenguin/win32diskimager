@@ -4,7 +4,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="+34"/>
+        <location filename="../mainwindow.ui" line="+32"/>
         <source>Win32 Disk Imager</source>
         <translation>Win32 Disk Imager</translation>
     </message>
@@ -29,7 +29,17 @@
         <translation>Doelapparaat</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+99"/>
+        <source>Check GPT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Image File Hash</source>
         <translation>Hash van imagebestand</translation>
     </message>
@@ -64,7 +74,7 @@
         <translation>Kopieer</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="-131"/>
         <source>Fix GPT after write</source>
         <translation>GPT herstellen na schrijven</translation>
     </message>
@@ -74,7 +84,7 @@
         <translation>Verplaats na het schrijven de reserve-GPT naar het einde van het apparaat en werk de header bij zodat Windows niets te &quot;repareren&quot; heeft. Laat dit uit om in plaats daarvan gewaarschuwd te worden het apparaat te verwijderen.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Show all devices</source>
         <translation>Alle apparaten tonen</translation>
     </message>
@@ -84,7 +94,7 @@
         <translation>Toon ook vaste schijven. Interne PCIe-kaartlezers presenteren de kaart vaak als een niet-verwisselbaar apparaat, dat anders verborgen blijft. De schijf waarvan Windows draait wordt nooit getoond.</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+158"/>
         <source>Progress</source>
         <translation>Voortgang</translation>
     </message>
@@ -104,7 +114,7 @@
         <translation>Annuleren</translation>
     </message>
     <message>
-        <location line="-295"/>
+        <location line="-316"/>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
         <translation>Data van het doelapparaat lezen naar het image bestand</translation>
     </message>
@@ -137,7 +147,7 @@
         <translation type="vanished">Alleen controleren</translation>
     </message>
     <message>
-        <location line="+343"/>
+        <location line="+364"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Sluit win32 Disk Imager af</translation>
     </message>
@@ -147,7 +157,7 @@
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+455"/>
+        <location filename="../mainwindow.cpp" line="+437"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -176,7 +186,7 @@ Are you sure you want to exit?</source>
         <translation>Genereren...</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+185"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Afbreken?</translation>
@@ -212,19 +222,19 @@ Are you sure you want to cancel?</source>
         <translation>Overschrijven bevestigen</translation>
     </message>
     <message>
-        <location line="-362"/>
+        <location line="-448"/>
         <source>Waiting for a task.</source>
         <translation>Wacht op een taak.</translation>
     </message>
     <message>
-        <location line="+172"/>
+        <location line="+154"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Nu afsluiten breekt het controleren van het image af.
 Weet u zeker dat u wilt afsluiten?</translation>
     </message>
     <message>
-        <location line="+160"/>
+        <location line="+264"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Controleren afbreken.
@@ -237,15 +247,15 @@ Weet u zeker dat u wilt fabreken?</translation>
         <translation>Noet genoeg beschikbare ruimte!</translation>
     </message>
     <message>
-        <location line="-208"/>
+        <location line="-312"/>
         <location line="+11"/>
-        <location line="+146"/>
+        <location line="+250"/>
         <location line="+301"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
         <location line="+242"/>
-        <location line="+302"/>
+        <location line="+285"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -271,42 +281,42 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Verwijder het apparaat NU fysiek, voordat u iets anders doet, en plaats het niet opnieuw in deze computer. Plaats het in plaats daarvan in de doelhardware.</translation>
     </message>
     <message>
-        <location line="-591"/>
-        <location line="+568"/>
+        <location line="-574"/>
+        <location line="+551"/>
         <source>The selected file does not exist.</source>
         <translation>Het gekozen bestand bestaat niet.</translation>
     </message>
     <message>
-        <location line="-868"/>
+        <location line="-851"/>
         <location line="+310"/>
         <location line="+257"/>
-        <location line="+311"/>
+        <location line="+294"/>
         <source>The specified file contains no data.</source>
         <translation>Het gekozen bestand bevat geen data.</translation>
     </message>
     <message>
-        <location line="-564"/>
+        <location line="-547"/>
         <location line="+181"/>
-        <location line="+387"/>
+        <location line="+370"/>
         <source>Done.</source>
         <translation>Voltooid.</translation>
     </message>
     <message>
-        <location line="-383"/>
+        <location line="-366"/>
         <location line="+2"/>
-        <location line="+360"/>
+        <location line="+343"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Afgerond</translation>
     </message>
     <message>
-        <location line="-568"/>
+        <location line="-551"/>
         <source>Write Successful.</source>
         <translation>Schrijven is gelukt.</translation>
     </message>
     <message>
-        <location line="-688"/>
-        <location line="+2"/>
+        <location line="-769"/>
+        <location line="+1"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Schijf-images (*.img *.IMG *.img.gz *.img.xz)</translation>
     </message>
@@ -316,7 +326,7 @@ Verwijder het apparaat NU fysiek, voordat u iets anders doet, en plaats het niet
         <translation>Gecomprimeerde schijf-images (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+206"/>
+        <location line="+184"/>
         <location line="+11"/>
         <source>Error</source>
         <translation>Fout</translation>
@@ -329,7 +339,7 @@ Verwijder het apparaat NU fysiek, voordat u iets anders doet, en plaats het niet
 %1</translation>
     </message>
     <message>
-        <location line="+101"/>
+        <location line="+205"/>
         <source>Please select a target device.</source>
         <translation>Selecteer een doelapparaat.</translation>
     </message>
@@ -375,17 +385,20 @@ Toch naar dit apparaat schrijven?</translation>
         <translation>Schrijven mislukt.</translation>
     </message>
     <message>
-        <location line="-677"/>
+        <location line="-763"/>
+        <location line="+429"/>
+        <location line="+24"/>
         <source>Device Error</source>
         <translation>Apparaatfout</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-452"/>
+        <location line="+453"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Het apparaat meldt een grootte van nul. Als het een kaartlezer is, is de kaart mogelijk verwijderd.</translation>
     </message>
     <message>
-        <location line="+549"/>
+        <location line="+182"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -575,12 +588,12 @@ Windows herschrijft de tabel bij een herscan nog steeds, omdat de reserve-GPT ni
     </message>
     <message>
         <location line="+15"/>
-        <location line="+568"/>
+        <location line="+551"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>U heeft geen rechten om het geselecteerde bestand te lezen.</translation>
     </message>
     <message>
-        <location line="-518"/>
+        <location line="-501"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -656,22 +669,13 @@ Toch doorgaan?</translation>
         <translation>Bezig met verifiëren…</translation>
     </message>
     <message>
-        <location line="+117"/>
-        <location line="+58"/>
+        <location line="-882"/>
+        <location line="+1040"/>
         <source>Partition table damaged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-57"/>
-        <source>The device holds the image correctly, but its partition table is broken: the primary GPT header points at sectors the partition entries are not in.
-
-This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
-
-Repair the partition table now?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+18"/>
+        <location line="-1022"/>
         <source>Repair failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -681,7 +685,12 @@ Repair the partition table now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+981"/>
+        <source>The device holds the image correctly, but its partition table is broken:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>Image larger than device</source>
         <translation>Image groter dan apparaat</translation>
     </message>
@@ -717,19 +726,95 @@ The image and the device differ only in the GPT.</source>
         <translation>[Schijf %1]</translation>
     </message>
     <message>
-        <location line="-626"/>
-        <location line="+567"/>
+        <location line="-609"/>
+        <location line="+550"/>
         <source>Please specify an image file to use.</source>
         <translation>Specificeer alstublieft een image bestand om te gebruiken.</translation>
     </message>
     <message>
-        <location line="-1037"/>
+        <location line="-1124"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+247"/>
+        <location line="+26"/>
+        <source>%1 the primary GPT header points at sectors the partition entries are not in.
+
+This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
+
+Repair the partition table now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Please select a device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Could not lock the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Could not open the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>This device&apos;s partition table is broken:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Partition table repaired.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Partition table is still damaged.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Partition table is valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+6"/>
+        <location line="+6"/>
+        <source>Partition table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-11"/>
+        <source>The GPT on this device is valid: the header and the partition entries it points at agree.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>No GPT on this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>This device has no GPT, so it cannot have the damage this checks for.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Could not read the partition table.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The partition table could not be read, or is damaged in some way other than the one this repairs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+237"/>
         <source>Writing...</source>
         <translation>Bezig met schrijven…</translation>
     </message>
@@ -947,7 +1032,7 @@ Toch doorgaan?</translation>
         <translation>Controle mislukt in sector: %1</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+76"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>

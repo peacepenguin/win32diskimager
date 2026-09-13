@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" ?><!--
   Modified 2026 by peacepenguin (personal fork, not affiliated with the
   upstream ImageWriter project): layout, device list, GPT options.
   https://github.com/peacepenguin/win32diskimager
--->
-<ui version="4.0">
+--><ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
@@ -173,6 +171,9 @@
       <property name="title">
        <string>Device</string>
       </property>
+        
+     <layout class="QVBoxLayout" name="deviceColumn">
+      <item>
         <layout class="QHBoxLayout">
          <property name="spacing">
           <number>0</number>
@@ -208,6 +209,75 @@
           </widget>
          </item>
         </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="deviceOptions">
+        <item>
+       <widget class="QCheckBox" name="fixGptCheckBox">
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Fix GPT after write</string>
+        </property>
+        <property name="toolTip">
+         <string>After writing, move the backup GPT to the end of the device and update the header to match, so Windows has nothing to "repair". Leave unchecked to be warned to remove the device instead.</string>
+        </property>
+       </widget>
+      </item><item>
+       <widget class="QCheckBox" name="showAllDevicesCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Show all devices</string>
+        </property>
+        <property name="toolTip">
+         <string>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</string>
+        </property>
+       </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="bCheckGpt">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Check GPT</string>
+          </property>
+          <property name="toolTip">
+           <string>Check the currently selected device for GPT corruption and offer to repair it.</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
      </widget>
     </item>
     <item>
@@ -326,61 +396,7 @@
       </layout>
      </widget>
     </item>
-    <item>
-     <layout class="QHBoxLayout">
-      <property name="leftMargin">
-       <number>5</number>
-      </property>
-      <item>
-       <widget class="QCheckBox" name="fixGptCheckBox">
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Fix GPT after write</string>
-        </property>
-        <property name="toolTip">
-         <string>After writing, move the backup GPT to the end of the device and update the header to match, so Windows has nothing to &quot;repair&quot;. Leave unchecked to be warned to remove the device instead.</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="showAllDevicesCheckBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Show all devices</string>
-        </property>
-        <property name="toolTip">
-         <string>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
+    
     <item>
      <widget class="QGroupBox" name="progressGroup">
       <property name="title">

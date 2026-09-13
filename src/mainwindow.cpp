@@ -426,6 +426,8 @@ void MainWindow::setReadWriteButtonState()
     bRead->setEnabled(deviceSelected && fileSelected && (fi.exists() ? fi.isWritable() : true));
     bWrite->setEnabled(deviceSelected && fileSelected && fi.isReadable());
     bVerify->setEnabled(deviceSelected && fileSelected && fi.isReadable());
+    // This one needs no image: it only looks at the device.
+    bCheckGpt->setEnabled(deviceSelected);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -568,6 +570,110 @@ void MainWindow::generateHash(const QString &filename, int hashish)
 // focus, and resetting the type every time would undo a deliberate choice of
 // MD5 or SHA1. Looked up by name rather than index so the order of the list is
 // free to change.
+// Tell the user the table is broken and put it right if they say so. `lead`
+// opens the sentence, because a verify and a check on its own meet the damage
+// in different circumstances. Returns true if the table was repaired.
+bool MainWindow::offerGptRepair(HANDLE hDisk, unsigned long long devicesectors,
+                                const QString &lead)
+{
+    const int answer = QMessageBox::warning(this, tr("Partition table damaged"),
+        tr("%1 the primary GPT header points at sectors the partition entries "
+           "are not in.\n\n"
+           "This is what Windows leaves behind when it rescans a card written "
+           "without \"Fix GPT after write\". No data has been lost, but the "
+           "device will not boot and most tools will refuse the table.\n\n"
+           "Repair the partition table now?").arg(lead),
+        QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    if (answer != QMessageBox::Yes)
+    {
+        return false;
+    }
+
+    QString detail;
+    if (repairPrimaryGpt(hDisk, sectorsize, devicesectors, &detail))
+    {
+        return true;
+    }
+    QMessageBox::critical(this, tr("Repair failed"),
+        tr("The partition table could not be repaired: %1").arg(detail));
+    return false;
+}
+
+// Look at the selected device's partition table on its own, writing and
+// comparing nothing. A card Windows has already rescanned still matches its
+// image sector for sector, so the table is the only place the damage shows.
+void MainWindow::on_bCheckGpt_clicked()
+{
+    const int deviceID = selectedDeviceID();
+    if (deviceID < 0)
+    {
+        QMessageBox::critical(this, tr("Device Error"), tr("Please select a device."));
+        return;
+    }
+
+    // Locked for the reason a verify locks: nothing else may write to the disk
+    // while the table is being read, still less while it is being repaired.
+    LockedVolumes locked;
+    if (!locked.lockAll(deviceID))
+    {
+        statusbar->showMessage(tr("Could not lock the device."));
+        return;
+    }
+    HANDLE hDisk = getHandleOnDevice(deviceID, GENERIC_READ | GENERIC_WRITE);
+    if (hDisk == INVALID_HANDLE_VALUE)
+    {
+        locked.release();
+        statusbar->showMessage(tr("Could not open the device."));
+        return;
+    }
+    unsigned long long devicesectors = getNumberOfSectors(hDisk, &sectorsize);
+    if (!devicesectors)
+    {
+        CloseHandle(hDisk);
+        locked.release();
+        QMessageBox::critical(this, tr("Device Error"),
+            tr("The device reports a size of zero. If it is a card reader, "
+               "the card may have been removed."));
+        return;
+    }
+
+    switch (gptPrimaryState(hDisk, sectorsize, devicesectors))
+    {
+    case GPT_PRIMARY_BROKEN:
+        if (offerGptRepair(hDisk, devicesectors,
+                tr("This device's partition table is broken:")))
+        {
+            statusbar->showMessage(tr("Partition table repaired."));
+        }
+        else
+        {
+            statusbar->showMessage(tr("Partition table is still damaged."));
+        }
+        break;
+    case GPT_PRIMARY_OK:
+        statusbar->showMessage(tr("Partition table is valid."));
+        QMessageBox::information(this, tr("Partition table"),
+            tr("The GPT on this device is valid: the header and the partition "
+               "entries it points at agree."));
+        break;
+    case GPT_PRIMARY_NO_GPT:
+        statusbar->showMessage(tr("No GPT on this device."));
+        QMessageBox::information(this, tr("Partition table"),
+            tr("This device has no GPT, so it cannot have the damage this "
+               "checks for."));
+        break;
+    default:
+        statusbar->showMessage(tr("Could not read the partition table."));
+        QMessageBox::warning(this, tr("Partition table"),
+            tr("The partition table could not be read, or is damaged in some "
+               "way other than the one this repairs."));
+        break;
+    }
+
+    CloseHandle(hDisk);
+    locked.release();
+}
+
 void MainWindow::defaultHashTypeForFile()
 {
     const QString file = leFile->text();
@@ -1469,28 +1575,11 @@ void MainWindow::on_bVerify_clicked()
             }
             if (gptstate == GPT_PRIMARY_BROKEN)
             {
-                const int answer = QMessageBox::warning(this, tr("Partition table damaged"),
-                    tr("The device holds the image correctly, but its partition table is "
-                       "broken: the primary GPT header points at sectors the partition "
-                       "entries are not in.\n\n"
-                       "This is what Windows leaves behind when it rescans a card written "
-                       "without \"Fix GPT after write\". No data has been lost, but the "
-                       "device will not boot and most tools will refuse the table.\n\n"
-                       "Repair the partition table now?"),
-                    QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-                if (answer == QMessageBox::Yes)
+                if (offerGptRepair(hRawDisk, availablesectors,
+                        tr("The device holds the image correctly, but its partition "
+                           "table is broken:")))
                 {
-                    QString detail;
-                    if (repairPrimaryGpt(hRawDisk, sectorsize, availablesectors, &detail))
-                    {
-                        gptrepaired = true;
-                    }
-                    else
-                    {
-                        gptleftdamaged = true;
-                        QMessageBox::critical(this, tr("Repair failed"),
-                            tr("The partition table could not be repaired: %1").arg(detail));
-                    }
+                    gptrepaired = true;
                 }
                 else
                 {

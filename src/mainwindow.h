@@ -62,6 +62,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
     protected slots:
         void on_tbBrowse_clicked();
         void on_bCancel_clicked();
+        void on_bCheckGpt_clicked();
         void on_bWrite_clicked();
         void on_bRead_clicked();
         void on_bVerify_clicked();
@@ -88,6 +89,9 @@ private:
         void showProgress(bool show);
         // Puts the window back to idle and says why; see mainwindow.cpp.
         void endRun(const QString &message);
+        // Offers to repair a primary GPT found broken; see mainwindow.cpp.
+        bool offerGptRepair(HANDLE hDisk, unsigned long long devicesectors,
+                            const QString &lead);
         // Locks the device, opens it and the image; see mainwindow.cpp.
         bool acquireDeviceAndImage(int deviceID, LockedVolumes &locked,
                                    ImageSource &image,

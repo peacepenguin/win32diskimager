@@ -4,7 +4,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="+34"/>
+        <location filename="../mainwindow.ui" line="+32"/>
         <source>Win32 Disk Imager</source>
         <translation>Win32 Disk Imager</translation>
     </message>
@@ -29,7 +29,17 @@
         <translation>デバイス</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+99"/>
+        <source>Check GPT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Image File Hash</source>
         <translation>イメージファイルのハッシュ</translation>
     </message>
@@ -64,7 +74,7 @@
         <translation>コピー</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="-131"/>
         <source>Fix GPT after write</source>
         <translation>書き込み後に GPT を修正する</translation>
     </message>
@@ -74,7 +84,7 @@
         <translation>書き込み後、バックアップ GPT をデバイスの末尾へ移動し、ヘッダーを一致するよう更新して、Windows が「修復」するものを残しません。チェックを外すと、代わりにデバイスを取り外すよう警告します。</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+12"/>
         <source>Show all devices</source>
         <translation>すべてのデバイスを表示</translation>
     </message>
@@ -84,7 +94,7 @@
         <translation>固定ディスクも一覧に表示します。内蔵 PCIe カードリーダーはカードをリムーバブルでないデバイスとして見せることが多く、その場合は通常表示されません。Windows が起動しているディスクが一覧に出ることはありません。</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+158"/>
         <source>Progress</source>
         <translation>進捗の状況</translation>
     </message>
@@ -104,7 +114,7 @@
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location line="-295"/>
+        <location line="-316"/>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
         <translation>デバイスからファイルを作成</translation>
     </message>
@@ -137,7 +147,7 @@
         <translation type="vanished">照合のみ</translation>
     </message>
     <message>
-        <location line="+343"/>
+        <location line="+364"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Win32 Disk Imagerを終了</translation>
     </message>
@@ -147,7 +157,7 @@
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+455"/>
+        <location filename="../mainwindow.cpp" line="+437"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -178,7 +188,7 @@ Are you sure you want to exit?</source>
         <translation>生成中...</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+185"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>キャンセル？</translation>
@@ -215,19 +225,19 @@ Are you sure you want to cancel?</source>
         <translation>上書きの確認</translation>
     </message>
     <message>
-        <location line="-362"/>
+        <location line="-448"/>
         <source>Waiting for a task.</source>
         <translation>タスクを待っています。</translation>
     </message>
     <message>
-        <location line="+172"/>
+        <location line="+154"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>終了すると、照合がキャンセルされます。
 本当に終了してもよろしいですか？</translation>
     </message>
     <message>
-        <location line="+160"/>
+        <location line="+264"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>照合をキャンセルします。
@@ -240,15 +250,15 @@ Are you sure you want to cancel?</source>
         <translation>空き容量が足りません！</translation>
     </message>
     <message>
-        <location line="-208"/>
+        <location line="-312"/>
         <location line="+11"/>
-        <location line="+146"/>
+        <location line="+250"/>
         <location line="+301"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
         <location line="+242"/>
-        <location line="+302"/>
+        <location line="+285"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -274,42 +284,42 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 他の操作を行う前に、今すぐデバイスを物理的に取り外してください。このコンピューターに再度挿入せず、目的のハードウェアに挿入してください。</translation>
     </message>
     <message>
-        <location line="-591"/>
-        <location line="+568"/>
+        <location line="-574"/>
+        <location line="+551"/>
         <source>The selected file does not exist.</source>
         <translation>選択したファイルは存在しません。</translation>
     </message>
     <message>
-        <location line="-868"/>
+        <location line="-851"/>
         <location line="+310"/>
         <location line="+257"/>
-        <location line="+311"/>
+        <location line="+294"/>
         <source>The specified file contains no data.</source>
         <translation>指定されたファイルにはデータが含まれていません。</translation>
     </message>
     <message>
-        <location line="-564"/>
+        <location line="-547"/>
         <location line="+181"/>
-        <location line="+387"/>
+        <location line="+370"/>
         <source>Done.</source>
         <translation>完了しました。</translation>
     </message>
     <message>
-        <location line="-383"/>
+        <location line="-366"/>
         <location line="+2"/>
-        <location line="+360"/>
+        <location line="+343"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location line="-568"/>
+        <location line="-551"/>
         <source>Write Successful.</source>
         <translation>書き込み成功。</translation>
     </message>
     <message>
-        <location line="-688"/>
-        <location line="+2"/>
+        <location line="-769"/>
+        <location line="+1"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>ディスクイメージ (*.img *.IMG *.img.gz *.img.xz)</translation>
     </message>
@@ -319,7 +329,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>圧縮ディスクイメージ (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+206"/>
+        <location line="+184"/>
         <location line="+11"/>
         <source>Error</source>
         <translation>エラー</translation>
@@ -332,7 +342,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 %1</translation>
     </message>
     <message>
-        <location line="+101"/>
+        <location line="+205"/>
         <source>Please select a target device.</source>
         <translation>書き込み先のデバイスを選択してください。</translation>
     </message>
@@ -378,17 +388,20 @@ Write to this device anyway?</source>
         <translation>書き込みに失敗しました。</translation>
     </message>
     <message>
-        <location line="-677"/>
+        <location line="-763"/>
+        <location line="+429"/>
+        <location line="+24"/>
         <source>Device Error</source>
         <translation>デバイスエラー</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-452"/>
+        <location line="+453"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>デバイスがサイズ 0 を報告しています。カードリーダーの場合、カードが取り外された可能性があります。</translation>
     </message>
     <message>
-        <location line="+549"/>
+        <location line="+182"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -578,12 +591,12 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+568"/>
+        <location line="+551"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>選択したファイルを読み取る権限がありません。</translation>
     </message>
     <message>
-        <location line="-518"/>
+        <location line="-501"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -659,22 +672,13 @@ Continue Anyway?</source>
         <translation>検証中…</translation>
     </message>
     <message>
-        <location line="+117"/>
-        <location line="+58"/>
+        <location line="-882"/>
+        <location line="+1040"/>
         <source>Partition table damaged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-57"/>
-        <source>The device holds the image correctly, but its partition table is broken: the primary GPT header points at sectors the partition entries are not in.
-
-This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
-
-Repair the partition table now?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+18"/>
+        <location line="-1022"/>
         <source>Repair failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -684,7 +688,12 @@ Repair the partition table now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+981"/>
+        <source>The device holds the image correctly, but its partition table is broken:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>Image larger than device</source>
         <translation>イメージがデバイスより大きいです</translation>
     </message>
@@ -720,19 +729,95 @@ The image and the device differ only in the GPT.</source>
         <translation>[ディスク %1]</translation>
     </message>
     <message>
-        <location line="-626"/>
-        <location line="+567"/>
+        <location line="-609"/>
+        <location line="+550"/>
         <source>Please specify an image file to use.</source>
         <translation>使用するイメージファイルを指定してください。</translation>
     </message>
     <message>
-        <location line="-1037"/>
+        <location line="-1124"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+247"/>
+        <location line="+26"/>
+        <source>%1 the primary GPT header points at sectors the partition entries are not in.
+
+This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
+
+Repair the partition table now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Please select a device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Could not lock the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Could not open the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>This device&apos;s partition table is broken:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Partition table repaired.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Partition table is still damaged.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Partition table is valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+6"/>
+        <location line="+6"/>
+        <source>Partition table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-11"/>
+        <source>The GPT on this device is valid: the header and the partition entries it points at agree.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>No GPT on this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>This device has no GPT, so it cannot have the damage this checks for.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Could not read the partition table.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The partition table could not be read, or is damaged in some way other than the one this repairs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+237"/>
         <source>Writing...</source>
         <translation>書き込み中…</translation>
     </message>
@@ -950,7 +1035,7 @@ Continue Anyway?</source>
         <translation>セクター：%1で照合に失敗しました</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+76"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
