@@ -1,3 +1,43 @@
+Release 1.4.0
+=============
+New application icon: an SD card with a wrench across it, drawn as an SVG. The
+  executable's .ico is generated from that one file by tools/mkicon, so the
+  icon is edited as text rather than as a binary
+The Write, Verify and Read buttons moved up between the Image File and Device
+  panels, where the arrows on them point at the field they act on, and each
+  carries an icon: an arrow down into the device for write, one up out of it
+  for read, a pair of scales for verify
+Those icons share the application icon's colours -- amber for writing, slate
+  for the parts of the window that are not an action, green for reading. Amber
+  and green rather than red and green, which the commonest colour blindness
+  cannot tell apart, and the two arrows are mirror images so direction carries
+  the meaning without colour
+The folder on the browse button is a modern outline drawing rather than the old
+  bitmap
+The progress bar reaches 100%. It was set from the first sector of the chunk it
+  had just finished, so it stopped one chunk short and a 16 MB image finished
+  at 96%
+The progress bar is hidden until something is running, and the status bar says
+  "Writing...", "Reading..." or "Verifying..." while it runs, instead of
+  leaving "Clearing old partition tables..." up for the whole write
+The status bar is shaded slightly against the window, so it reads as a part of
+  the window rather than as blank space
+Tooltips no longer appear clipped at both ends. Qt reuses one tooltip label and
+  resizes it for the next tooltip; moving straight from a narrow tooltip to a
+  wider one left the text cut off at the old width
+Choosing an image selects SHA256, the checksum image publishers usually quote.
+  A hash type chosen by hand is left alone
+Paths are shown with backslashes, the way the rest of Windows writes them
+The window is shorter, and the Image File Hash box no longer reserves a blank
+  line for a checksum that has not been generated
+The Verify button is labelled "Verify" rather than "Verify Only"
+tools/make-test-images.sh also builds a GPT pair -- one image whose
+  FirstUsableLBA is 2048, which the Windows GPT rewrite bug corrupts, and one
+  at 34, which it does not -- for testing the GPT repair end to end
+The wrench in the application icon is Feathericon's, under the MIT licence, and
+  the scales are public domain. THIRD-PARTY-NOTICES.txt records both and ships
+  with the program
+
 Release 1.3.1
 =============
 Long tooltips wrap instead of running off the screen. Qt only word-wraps a
