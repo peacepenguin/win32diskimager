@@ -20,6 +20,8 @@ Every build lands in `build/`, whichever route it took.
 - **`tools/mkicon/`** → `src/images/Win32DiskImager.ico`
   - renders the app icon SVG into the multi-size `.ico` the executable needs.
     Only when the icon changes
+- **`tools/gui-probe.ps1`** → measurements of the running window
+  - PowerShell and UI Automation, against a test build already on screen
 
 **On Linux, with the cross toolchain installed:**
 
@@ -103,6 +105,38 @@ the exe sits in a folder of its own. To tell them apart by hand:
 ```
 grep -ac 'level="asInvoker"' build/Win32DiskImager.exe    # 1 = test build
 ```
+
+### Measuring what it drew
+
+Some interface faults are only a few pixels wide. A tooltip is clipped when its
+box is narrower than its text needs, and no screenshot tells you that to the
+pixel. `tools/gui-probe.ps1` asks the running application where its widgets are,
+over UI Automation, and measures what came out:
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/gui-probe.ps1 -List
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/gui-probe.ps1 -Hover cboxHashType
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/gui-probe.ps1 -Hover bHashCopy,fixGptCheckBox -Shot tip.png
+```
+
+`-List` prints the widgets under the object names they have in
+`src/mainwindow.ui`, which are the names `-Hover` takes. Hovering moves the
+pointer onto each in turn and reports the tooltip left showing:
+
+```
+tip w=170 h=20 at 562,390: Generate selected hash on file
+```
+
+Compare that width against what the text needs; if the box is the narrower of
+the two, the text is cut off. Naming several widgets walks the pointer from one
+to the next while the first tooltip is still up, which is when Qt reuses one
+tooltip label for the next -- the case where sizing has gone wrong before. If it
+reports no tooltip, the previous one is usually covering the next widget, so the
+pointer landed on the tooltip instead: hover that widget on its own.
+
+Positions are read from the application again before every move, so the window
+can be anywhere. It drives the real pointer, though, so leave the mouse alone
+while it runs.
 
 ## Windows, cross-compiled from Linux
 

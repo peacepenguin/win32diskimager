@@ -56,9 +56,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void closeEvent(QCloseEvent *event);
         enum Status {STATUS_IDLE=0, STATUS_READING, STATUS_WRITING, STATUS_VERIFYING, STATUS_EXIT, STATUS_CANCELED};
         bool nativeEvent(const QByteArray &type, void *vMsg, long long *result);
-        // Drops the old tooltip when the pointer moves to another widget; see
-        // the comment in mainwindow.cpp.
-        bool eventFilter(QObject *watched, QEvent *event) override;
     protected slots:
         void on_tbBrowse_clicked();
         void on_bCancel_clicked();
@@ -107,9 +104,6 @@ private:
         // The image the hash type was last defaulted for, so that choosing a
         // type by hand is not undone on every pass through the field.
         QString myHashDefaultedFor;
-        // Whose tooltip was last about to be shown. QPointer: the widget may
-        // well be gone by the time the next one comes round.
-        QPointer<QObject> myLastToolTipTarget;
         QStringList myFileTypeList;
 };
 

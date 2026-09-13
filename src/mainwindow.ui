@@ -269,7 +269,7 @@
             <string>Generate selected hash on file</string>
            </property>
            <property name="styleSheet">
-            <string notr="true">padding: 0em .5em 0em .5em;</string>
+            <string notr="true">QPushButton { padding: 0em .5em 0em .5em; }</string>
            </property>
            <property name="text">
             <string>Generate</string>
@@ -288,7 +288,7 @@
             <string>Copy hash to clipboard</string>
            </property>
            <property name="styleSheet">
-            <string notr="true">padding: 0em .5em 0em .5em;</string>
+            <string notr="true">QPushButton { padding: 0em .5em 0em .5em; }</string>
            </property>
            <property name="text">
             <string>Copy</string>

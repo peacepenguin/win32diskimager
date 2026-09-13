@@ -63,71 +63,68 @@ static int progressShift(unsigned long long total)
 // Qt turns word wrap on for a tooltip only when the text looks like rich text
 // (Qt::mightBeRichText). A long plain tooltip therefore becomes one enormous
 // line, which Qt then clamps against the edges of the screen: the beginning and
-// the end are both cut off. Wrapping the text in a table cell of a fixed width
-// turns wrapping on and gives it a column to wrap into.
+// the end are both cut off.
+//
+// So break the text into lines here and leave it as plain text. The obvious
+// alternative, wrapping it in a little HTML table to turn Qt's own wrapping on,
+// costs more than it looks: the cell needs a width in pixels, which is a made-up
+// number that every tooltip over the threshold then gets padded out to whether
+// it needs it or not, and rich text makes Qt size the label through a
+// QTextDocument. Plain text with newlines in it sizes to its widest line and
+// nothing else.
 //
 // Applied here rather than in the .ui so the translated strings are wrapped
 // too -- a translation is often longer than the English -- and so the strings
 // the translators work from stay free of markup.
+static QString wrapToolTipText(const QString &tip, int maxWidthPx, const QFontMetrics &fm)
+{
+    QStringList out;
+    QString line;
+
+    const QStringList words = tip.split(QChar(' '), Qt::SkipEmptyParts);
+    for (const QString &word : words)
+    {
+        const QString candidate = line.isEmpty() ? word : line + QChar(' ') + word;
+        // A single word wider than the budget still goes on its own line: a
+        // tooltip a little too wide beats one with a word broken in half.
+        if (!line.isEmpty() && fm.horizontalAdvance(candidate) > maxWidthPx)
+        {
+            out.append(line);
+            line = word;
+        }
+        else
+        {
+            line = candidate;
+        }
+    }
+    if (!line.isEmpty())
+    {
+        out.append(line);
+    }
+    return out.join(QChar('\n'));
+}
+
 static void wrapLongToolTips(QWidget *root)
 {
-    const int wrapAboveChars = 60;
-    const int wrapWidthPx = 360;
+    // Wide enough to read a sentence across without the eye losing its place,
+    // narrow enough to sit beside the window rather than across it. Nothing is
+    // padded out to this: it is a ceiling, not a width.
+    const int maxWidthPx = 380;
+    const QFontMetrics fm(QToolTip::font());
 
     const QList<QWidget *> widgets = root->findChildren<QWidget *>();
     for (QWidget *w : widgets)
     {
         const QString tip = w->toolTip();
-        // Short tips read better left on one line, and anything already marked
+        // Anything that already fits needs no help, and anything already marked
         // up is the author's business.
-        if (tip.length() <= wrapAboveChars || Qt::mightBeRichText(tip))
+        if (tip.isEmpty() || Qt::mightBeRichText(tip)
+            || fm.horizontalAdvance(tip) <= maxWidthPx)
         {
             continue;
         }
-        w->setToolTip(QString("<table><tr><td width=\"%1\">%2</td></tr></table>")
-                          .arg(wrapWidthPx)
-                          .arg(tip.toHtmlEscaped()));
+        w->setToolTip(wrapToolTipText(tip, maxWidthPx, fm));
     }
-}
-
-// Qt keeps one tooltip label alive and resizes it for the next tooltip instead
-// of building a fresh one, and that resize does not always come out right:
-// going straight from one tooltip to a wider one leaves the label at the old
-// width, with the text clipped at both ends. Let the first tooltip disappear on
-// its own first and the next one is correct, because it is then built from
-// scratch.
-//
-// QToolTip::hideText() does not help: it only schedules the hide, so the label
-// is still visible when the next tooltip is shown and gets reused anyway -- and
-// the hide it scheduled then takes that new tooltip away a second later.
-// Hiding the widget is what makes Qt build a new one.
-//
-// Qt's own class, found by name because it is not public. If that name ever
-// changes nothing matches, and tooltips behave as they would without this.
-static void dropShowingToolTip()
-{
-    const QWidgetList tops = QApplication::topLevelWidgets();
-    for (QWidget *w : tops)
-    {
-        if (w->isVisible() && qstrcmp(w->metaObject()->className(), "QTipLabel") == 0)
-        {
-            w->hide();
-        }
-    }
-}
-
-// Only when the pointer reaches a different widget: that is the only time the
-// tooltip has to change size. Qt sends this event repeatedly while the pointer
-// moves within one widget, and acting on every one of those would throw away
-// the tooltip that is already up and correct.
-bool MainWindow::eventFilter(QObject *watched, QEvent *event)
-{
-    if (event->type() == QEvent::ToolTip && watched != myLastToolTipTarget)
-    {
-        myLastToolTipTarget = watched;
-        dropShowingToolTip();
-    }
-    return QMainWindow::eventFilter(watched, event);
 }
 
 // An idle progress bar is a line that means nothing, so the bar is hidden until
@@ -161,9 +158,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
     wrapLongToolTips(this);
-    // Application-wide: the filter has to see the event before the widget that
-    // is about to show its own tooltip does.
-    qApp->installEventFilter(this);
     elapsed_timer = new ElapsedTimer();
     shadeStatusBar(statusbar);
     statusbar->addPermanentWidget(elapsed_timer);   // "addpermanent" puts it on the RHS of the statusbar
