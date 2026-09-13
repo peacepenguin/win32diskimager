@@ -19,7 +19,7 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+105"/>
         <source>Device</source>
         <translation>சாதனம்</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+35"/>
         <source>Hash type to generate for image file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -89,7 +89,7 @@
         <translation>%p%</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+27"/>
         <source>Cancel current process.</source>
         <translation>தற்போதைய செயல்முறை ரத்துக்கு.</translation>
     </message>
@@ -99,22 +99,22 @@
         <translation>ரத்து</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="-301"/>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
         <translation>&apos;சாதனம்&apos;-ல் இருந்து &apos;பட கோப்பு&apos;-க்கு தரவுகளை மாற்று</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Read</source>
         <translation>படி</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-62"/>
         <source>Write data from &apos;Image File&apos; to &apos;Device&apos;</source>
         <translation>&apos;பட கோப்பு&apos;-ல் இருந்து &apos;சாதனம்&apos;-க்கு தரவுகளை மாற்று</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Write</source>
         <translation>எழுது</translation>
     </message>
@@ -124,12 +124,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Verify Only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+336"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>வெளியேறு</translation>
     </message>
@@ -139,12 +139,12 @@
         <translation>வெளியேறு</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+102"/>
+        <location filename="../mainwindow.cpp" line="+161"/>
         <source>Waiting for a task.</source>
         <translation>ஒரு பணி காத்திருக்கிறது.</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+149"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -174,12 +174,12 @@ Are you sure you want to exit?</source>
         <translation>ஒரு வட்டு படத்தை தேர்ந்தெடு</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+44"/>
         <source>Generating...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+67"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>ரத்து?</translation>
@@ -199,24 +199,24 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+21"/>
         <location line="+6"/>
-        <location line="+86"/>
+        <location line="+87"/>
         <location line="+140"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+26"/>
-        <location line="+231"/>
-        <location line="+74"/>
+        <location line="+235"/>
+        <location line="+75"/>
         <source>Write Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-601"/>
-        <location line="+527"/>
-        <location line="+188"/>
+        <location line="-610"/>
+        <location line="+535"/>
+        <location line="+192"/>
         <source>Image file cannot be located on the target device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-706"/>
+        <location line="-718"/>
         <source>Confirm overwrite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -237,7 +237,7 @@ Write to this device anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+110"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -265,7 +265,7 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+137"/>
         <source>Fixing GPT...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -302,14 +302,14 @@ This could only be detected once the device was full, because the compressed ima
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-512"/>
-        <location line="+172"/>
-        <location line="+350"/>
+        <location line="-543"/>
+        <location line="+196"/>
+        <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+315"/>
-        <location line="+270"/>
+        <location line="+320"/>
+        <location line="+274"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -317,30 +317,30 @@ This could only be detected once the device was full, because the compressed ima
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-632"/>
-        <location line="+609"/>
+        <location line="-641"/>
+        <location line="+618"/>
         <source>The selected file does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-958"/>
-        <location line="+359"/>
-        <location line="+330"/>
-        <location line="+279"/>
+        <location line="-974"/>
+        <location line="+366"/>
+        <location line="+335"/>
+        <location line="+283"/>
         <source>The specified file contains no data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-605"/>
-        <location line="+201"/>
-        <location line="+408"/>
+        <location line="-614"/>
+        <location line="+205"/>
+        <location line="+413"/>
         <source>Done.</source>
         <translation>முடிந்தது.</translation>
     </message>
     <message>
-        <location line="-404"/>
+        <location line="-409"/>
         <location line="+2"/>
-        <location line="+381"/>
+        <location line="+386"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>முடி</translation>
@@ -366,12 +366,12 @@ The image and the device differ only in the GPT, which the &quot;Fix GPT after w
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-609"/>
+        <location line="-618"/>
         <source>Write Successful.</source>
         <translation>வெற்றிகரமாக எழுது.</translation>
     </message>
     <message>
-        <location line="-749"/>
+        <location line="-783"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation type="unfinished"></translation>
@@ -382,18 +382,18 @@ The image and the device differ only in the GPT, which the &quot;Fix GPT after w
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+203"/>
+        <location line="+205"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Could not open the file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+86"/>
         <source>Please select a target device.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -405,32 +405,32 @@ Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+41"/>
         <location line="+14"/>
         <location line="+19"/>
         <location line="+16"/>
         <location line="+23"/>
         <location line="+25"/>
         <location line="+95"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+27"/>
         <source>Write failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-233"/>
-        <location line="+690"/>
+        <location line="-236"/>
+        <location line="+702"/>
         <source>Device Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-689"/>
-        <location line="+690"/>
+        <location line="-701"/>
+        <location line="+702"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-571"/>
+        <location line="-583"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -472,30 +472,35 @@ Continue Anyway?</source>
     </message>
     <message>
         <location line="+16"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+25"/>
         <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="-36"/>
+        <source>Writing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+123"/>
         <source>Image truncated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+89"/>
-        <location line="+609"/>
+        <location line="+618"/>
         <source>You do not have permission to read the selected file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-590"/>
-        <location line="+608"/>
+        <location line="-599"/>
+        <location line="+617"/>
         <source>Please specify an image file to use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-578"/>
+        <location line="-587"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation type="unfinished"></translation>
@@ -523,22 +528,27 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <location line="+11"/>
         <location line="+13"/>
         <location line="+26"/>
-        <location line="+29"/>
+        <location line="+30"/>
         <location line="+16"/>
         <source>Read failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location line="-55"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+14"/>
+        <source>Reading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+71"/>
         <source>Read Canceled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -560,30 +570,30 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+61"/>
-        <location line="+154"/>
+        <location line="+62"/>
+        <location line="+155"/>
         <source>Verify Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-215"/>
+        <location line="-217"/>
         <source>Please select a device to verify against.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
         <location line="+15"/>
         <location line="+19"/>
         <location line="+16"/>
         <location line="+22"/>
         <location line="+25"/>
-        <location line="+107"/>
+        <location line="+108"/>
         <location line="+25"/>
         <source>Verify failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-146"/>
+        <location line="-147"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -637,7 +647,7 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-488"/>
+        <location line="-493"/>
         <source>Write successful.
 
 The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
@@ -709,12 +719,17 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+448"/>
+        <location line="+453"/>
         <source>Verify cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+27"/>
+        <source>Verifying...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
         <location line="+38"/>
         <source>Verify Failure</source>
         <translation type="unfinished"></translation>
@@ -726,7 +741,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+53"/>
         <source>Image larger than device</source>
         <translation type="unfinished"></translation>
     </message>

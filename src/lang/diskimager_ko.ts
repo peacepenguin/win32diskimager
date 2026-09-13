@@ -19,7 +19,7 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+105"/>
         <source>Device</source>
         <translation>복사할 기기</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation>이미지 파일 해시</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+35"/>
         <source>Hash type to generate for image file</source>
         <translation>이미지 파일에 대해 생성할 해시 종류</translation>
     </message>
@@ -89,7 +89,7 @@
         <translation>%p%</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+27"/>
         <source>Cancel current process.</source>
         <translation>현재 진행 취소.</translation>
     </message>
@@ -99,22 +99,22 @@
         <translation>취소</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="-301"/>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
         <translation>&apos;기기&apos;에서  &apos;이미지 파일&apos;로 자료 읽기</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Read</source>
         <translation>읽기</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-62"/>
         <source>Write data from &apos;Image File&apos; to &apos;Device&apos;</source>
         <translation>&apos;이미지 파일&apos;에서 &apos;기기&apos;로 자료 쓰기</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Write</source>
         <translation>쓰기</translation>
     </message>
@@ -128,12 +128,12 @@
         <translation type="vanished">선택된 드라이브의 이미지 파일 검증하기</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Verify Only</source>
         <translation>검증만</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+336"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Win32 디스크 이미저 종료</translation>
     </message>
@@ -143,7 +143,7 @@
         <translation>종료</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+248"/>
+        <location filename="../mainwindow.cpp" line="+310"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -169,12 +169,12 @@ Are you sure you want to exit?</source>
         <translation>디스크 이미지 선택</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+44"/>
         <source>Generating...</source>
         <translation>생성 중 ...</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+67"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>취소할까요?</translation>
@@ -189,61 +189,61 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+86"/>
+        <location line="+87"/>
         <location line="+140"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+26"/>
-        <location line="+231"/>
-        <location line="+74"/>
+        <location line="+235"/>
+        <location line="+75"/>
         <source>Write Error</source>
         <translation>쓰기 오류</translation>
     </message>
     <message>
-        <location line="-601"/>
-        <location line="+527"/>
-        <location line="+188"/>
+        <location line="-610"/>
+        <location line="+535"/>
+        <location line="+192"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>이미지 파일을 대상 기기에 위치시킬 수 없습니다.</translation>
     </message>
     <message>
-        <location line="-706"/>
+        <location line="-718"/>
         <source>Confirm overwrite</source>
         <translation>중복쓰기 확인</translation>
     </message>
     <message>
-        <location line="-316"/>
+        <location line="-345"/>
         <source>Waiting for a task.</source>
         <translation>작업을 위하여 기다리는 중.</translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+169"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>지금 종료하는 것은 이미지 검증이 취소될 수 있습니다.
 종료할까요?</translation>
     </message>
     <message>
-        <location line="+120"/>
+        <location line="+146"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>검증 취소.
 취소할까요?</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+160"/>
         <location line="+67"/>
         <source>Not enough available space!</source>
         <translation>공간이 충분하지 않습니다!</translation>
     </message>
     <message>
-        <location line="-263"/>
-        <location line="+172"/>
-        <location line="+350"/>
+        <location line="-287"/>
+        <location line="+196"/>
+        <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+315"/>
-        <location line="+270"/>
+        <location line="+320"/>
+        <location line="+274"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -269,41 +269,41 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 다른 작업을 하기 전에 지금 바로 장치를 물리적으로 제거하고, 이 컴퓨터에 다시 꽂지 마십시오. 대상 하드웨어에 꽂으십시오.</translation>
     </message>
     <message>
-        <location line="-632"/>
-        <location line="+609"/>
+        <location line="-641"/>
+        <location line="+618"/>
         <source>The selected file does not exist.</source>
         <translation>선택된 파일이 존재하지 않습니다.</translation>
     </message>
     <message>
-        <location line="-958"/>
-        <location line="+359"/>
-        <location line="+330"/>
-        <location line="+279"/>
+        <location line="-974"/>
+        <location line="+366"/>
+        <location line="+335"/>
+        <location line="+283"/>
         <source>The specified file contains no data.</source>
         <translation>지정된 파일은 자료가 없습니다.</translation>
     </message>
     <message>
-        <location line="-605"/>
-        <location line="+201"/>
-        <location line="+408"/>
+        <location line="-614"/>
+        <location line="+205"/>
+        <location line="+413"/>
         <source>Done.</source>
         <translation>완료.</translation>
     </message>
     <message>
-        <location line="-404"/>
+        <location line="-409"/>
         <location line="+2"/>
-        <location line="+381"/>
+        <location line="+386"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>완료</translation>
     </message>
     <message>
-        <location line="-609"/>
+        <location line="-618"/>
         <source>Write Successful.</source>
         <translation>쓰기 성공.</translation>
     </message>
     <message>
-        <location line="-749"/>
+        <location line="-783"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>디스크 이미지 (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -314,19 +314,19 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>압축 디스크 이미지 (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+203"/>
+        <location line="+205"/>
         <source>Error</source>
         <translation>오류</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Could not open the file to generate a checksum:
 %1</source>
         <translation>체크섬을 생성하기 위해 파일을 열 수 없습니다:
 %1</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+86"/>
         <source>Please select a target device.</source>
         <translation>대상 장치를 선택해주세요.</translation>
     </message>
@@ -362,32 +362,32 @@ Write to this device anyway?</source>
 그래도 이 장치에 쓸까요?</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+27"/>
         <location line="+14"/>
         <location line="+19"/>
         <location line="+16"/>
         <location line="+23"/>
         <location line="+25"/>
         <location line="+95"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+27"/>
         <source>Write failed.</source>
         <translation>쓰기에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="-233"/>
-        <location line="+690"/>
+        <location line="-236"/>
+        <location line="+702"/>
         <source>Device Error</source>
         <translation>장치 오류</translation>
     </message>
     <message>
-        <location line="-689"/>
-        <location line="+690"/>
+        <location line="-701"/>
+        <location line="+702"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>장치가 크기를 0으로 보고합니다. 카드 리더라면 카드가 제거되었을 수 있습니다.</translation>
     </message>
     <message>
-        <location line="-632"/>
+        <location line="-644"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -479,13 +479,13 @@ Continue Anyway?</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+25"/>
         <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
         <translation>장치에 이미지가 일부만 기록되어 사용할 수 없습니다. 사용하기 전에 이미지를 다시 기록하십시오.</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+70"/>
         <source>Fixing GPT...</source>
         <translation>GPT 수정 중...</translation>
     </message>
@@ -577,12 +577,12 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+609"/>
+        <location line="+618"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>선택한 파일을 읽을 권한이 없습니다.</translation>
     </message>
     <message>
-        <location line="-559"/>
+        <location line="-568"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -591,29 +591,29 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 압축 이미지(.img.gz, .img.xz)는 쓰기와 검증에는 사용할 수 있습니다.</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+42"/>
         <location line="+11"/>
         <location line="+13"/>
         <location line="+26"/>
-        <location line="+29"/>
+        <location line="+30"/>
         <location line="+16"/>
         <source>Read failed.</source>
         <translation>읽기에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+86"/>
         <location line="+15"/>
         <location line="+19"/>
         <location line="+16"/>
         <location line="+22"/>
         <location line="+25"/>
-        <location line="+107"/>
+        <location line="+108"/>
         <location line="+25"/>
         <source>Verify failed.</source>
         <translation>검증에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="-146"/>
+        <location line="-147"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -656,7 +656,12 @@ Continue Anyway?</source>
         <translation>검증을 취소했습니다.</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="+27"/>
+        <source>Verifying...</source>
+        <translation>검증 중…</translation>
+    </message>
+    <message>
+        <location line="+122"/>
         <source>Image larger than device</source>
         <translation>이미지가 장치보다 큼</translation>
     </message>
@@ -666,13 +671,18 @@ Continue Anyway?</source>
         <translation>[디스크 %1]</translation>
     </message>
     <message>
-        <location line="-667"/>
-        <location line="+608"/>
+        <location line="-676"/>
+        <location line="+617"/>
         <source>Please specify an image file to use.</source>
         <translation>사용하기 위한 이미지 파일을 지정해주세요.</translation>
     </message>
     <message>
-        <location line="-715"/>
+        <location line="-848"/>
+        <source>Writing...</source>
+        <translation>쓰는 중…</translation>
+    </message>
+    <message>
+        <location line="+124"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -786,12 +796,17 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation>지정된 파일을 중복쓰기를 하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+63"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>디스크가 지정된 이미지 보다 크지 않습니다.</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+14"/>
+        <source>Reading...</source>
+        <translation>읽는 중…</translation>
+    </message>
+    <message>
+        <location line="+71"/>
         <source>Read Canceled.</source>
         <translation>읽기 취소됨.</translation>
     </message>
@@ -813,18 +828,18 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+61"/>
-        <location line="+154"/>
+        <location line="+62"/>
+        <location line="+155"/>
         <source>Verify Error</source>
         <translation>검증 오류</translation>
     </message>
     <message>
-        <location line="-215"/>
+        <location line="-217"/>
         <source>Please select a device to verify against.</source>
         <translation>검증에 사용할 장치를 선택해주세요.</translation>
     </message>
     <message>
-        <location line="+162"/>
+        <location line="+163"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -868,7 +883,7 @@ Continue Anyway?</source>
         <translation>크기가 다름!</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+70"/>
         <location line="+38"/>
         <source>Verify Failure</source>
         <translation>검증 실패</translation>
@@ -880,7 +895,7 @@ Continue Anyway?</source>
         <translation>섹터에서 검증 실패 : %1</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+54"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>

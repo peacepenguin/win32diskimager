@@ -172,6 +172,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     cboxHashType->addItem("SHA1",QVariant(QCryptographicHash::Sha1));
     cboxHashType->addItem("SHA256",QVariant(QCryptographicHash::Sha256));
     connect(this->cboxHashType, SIGNAL(currentIndexChanged(int)), SLOT(on_cboxHashType_IdxChg()));
+    // An image named on the command line counts as a selection too. After the
+    // list is filled, or there would be nothing to select.
+    defaultHashTypeForFile();
     updateHashControls();
     setReadWriteButtonState();
     sectorData = NULL;
@@ -376,6 +379,7 @@ void MainWindow::on_tbBrowse_clicked()
             QFileInfo newFileInfo(fileLocation);
             myHomeDir = newFileInfo.absolutePath();
         }
+        defaultHashTypeForFile();
         setReadWriteButtonState();
         updateHashControls();
     }
@@ -428,8 +432,30 @@ void MainWindow::generateHash(const QString &filename, int hashish)
 
 // on an "editingFinished" signal (IE: return press), if the lineedit
 // contains a valid file, update the controls
+// SHA256 is what image publishers overwhelmingly quote, so selecting an image
+// arms the checksum most people are about to compare against. Only when the
+// image actually changes: the field emits editingFinished whenever it loses
+// focus, and resetting the type every time would undo a deliberate choice of
+// MD5 or SHA1. Looked up by name rather than index so the order of the list is
+// free to change.
+void MainWindow::defaultHashTypeForFile()
+{
+    const QString file = leFile->text();
+    if (file.isEmpty() || file == myHashDefaultedFor)
+    {
+        return;
+    }
+    myHashDefaultedFor = file;
+    const int sha256 = cboxHashType->findText("SHA256");
+    if (sha256 >= 0)
+    {
+        cboxHashType->setCurrentIndex(sha256);
+    }
+}
+
 void MainWindow::on_leFile_editingFinished()
 {
+    defaultHashTypeForFile();
     setReadWriteButtonState();
     updateHashControls();
 }
@@ -731,6 +757,9 @@ void MainWindow::on_bWrite_clicked()
             lasti = 0ul;
             update_timer.start();
             elapsed_timer->start();
+            // Until the first throughput figure a second from now, the status
+            // bar would otherwise still read "Clearing old partition tables".
+            statusbar->showMessage(tr("Writing..."));
             bool imagetruncated = false;
             for (i = 0ul; i < numsectors && status == STATUS_WRITING; i += 1024ul)
             {
@@ -800,7 +829,11 @@ void MainWindow::on_bWrite_clicked()
                     update_timer.start();
                     lasti = i;
                 }
-                progressbar->setValue((int)((i > progresstotal ? progresstotal : i) >> progshift));
+                // i is where this chunk started; the bar tracks what is done,
+                // which is the end of it.
+                unsigned long long written = i + chunk;
+                progressbar->setValue(
+                    (int)((written > progresstotal ? progresstotal : written) >> progshift));
                 QCoreApplication::processEvents();
             }
             // Without an exact size the loop bound came from the device, not
@@ -1085,6 +1118,7 @@ void MainWindow::on_bRead_clicked()
             setReadWriteButtonState();
             return;
         }
+        statusbar->showMessage(tr("Reading..."));
         const int progshift = progressShift(numsectors);
         if (numsectors == 0ul)
         {
@@ -1140,7 +1174,9 @@ void MainWindow::on_bRead_clicked()
                 elapsed_timer->update(i, numsectors);
                 lasti = i;
             }
-            progressbar->setValue((int)(i >> progshift));
+            // i is where this chunk started; the bar tracks what is done.
+            unsigned long long done = i + 1024ull;
+            progressbar->setValue((int)((done > numsectors ? numsectors : done) >> progshift));
             QCoreApplication::processEvents();
         }
         locked.release();
@@ -1401,6 +1437,7 @@ void MainWindow::on_bVerify_clicked()
             update_timer.start();
             elapsed_timer->start();
             lasti = 0ul;
+            statusbar->showMessage(tr("Verifying..."));
             for (i = 0ul; i < numsectors && status == STATUS_VERIFYING; i += 1024ul)
             {
                 unsigned long long got = 0ull;
@@ -1486,7 +1523,10 @@ void MainWindow::on_bVerify_clicked()
                 delete[] sectorData2;
                 sectorData = NULL;
                 sectorData2 = NULL;
-                progressbar->setValue((int)((i > progresstotal ? progresstotal : i) >> progshift));
+                // i is where this chunk started; the bar tracks what is done.
+                unsigned long long checked = i + 1024ull;
+                progressbar->setValue(
+                    (int)((checked > progresstotal ? progresstotal : checked) >> progshift));
                 QCoreApplication::processEvents();
             }
             // Same reasoning as the write path: without an exact size the loop

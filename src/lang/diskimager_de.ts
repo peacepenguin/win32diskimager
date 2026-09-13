@@ -19,7 +19,7 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+105"/>
         <source>Device</source>
         <translation>Datenträger</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation>Prüfsumme der Image-Datei</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+35"/>
         <source>Hash type to generate for image file</source>
         <translation>Prüfsummentyp, der für die Image-Datei berechnet wird</translation>
     </message>
@@ -89,7 +89,7 @@
         <translation>%p%</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+27"/>
         <source>Cancel current process.</source>
         <translation>Aktuellen Vorgang abbrechen.</translation>
     </message>
@@ -99,22 +99,22 @@
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="-301"/>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
         <translation>Vom Datenträger lesen und als Image-Datei schreiben</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Read</source>
         <translation>Lesen</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-62"/>
         <source>Write data from &apos;Image File&apos; to &apos;Device&apos;</source>
         <translation>Image Datei auf Datenträger schreiben</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Write</source>
         <translation>Schreiben</translation>
     </message>
@@ -128,12 +128,12 @@
         <translation type="vanished">Image-Datei mit ausgewähltem Datenträger vergleichen</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Verify Only</source>
         <translation>Nur prüfen</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+336"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Win32 Disk Imager beenden</translation>
     </message>
@@ -143,7 +143,7 @@
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+248"/>
+        <location filename="../mainwindow.cpp" line="+310"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -167,12 +167,12 @@ Are you sure you want to exit?</source>
         <translation>Wählen Sie eine Image-Datei</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+44"/>
         <source>Generating...</source>
         <translation>Berechne...</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+67"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Abbrechen?</translation>
@@ -186,59 +186,59 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+86"/>
+        <location line="+87"/>
         <location line="+140"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+26"/>
-        <location line="+231"/>
-        <location line="+74"/>
+        <location line="+235"/>
+        <location line="+75"/>
         <source>Write Error</source>
         <translation>Fehler beim Schreiben</translation>
     </message>
     <message>
-        <location line="-601"/>
-        <location line="+527"/>
-        <location line="+188"/>
+        <location line="-610"/>
+        <location line="+535"/>
+        <location line="+192"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Image-Datei kann nicht auf dem Zielgerät gefunden werden.</translation>
     </message>
     <message>
-        <location line="-706"/>
+        <location line="-718"/>
         <source>Confirm overwrite</source>
         <translation>Überschreiben bestätigen</translation>
     </message>
     <message>
-        <location line="-316"/>
+        <location line="-345"/>
         <source>Waiting for a task.</source>
         <translation>Warte auf etwas zu tun.</translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+169"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Überprüfung im Gange. Sind Sie sicher, dass Sie jetzt beenden wollen?</translation>
     </message>
     <message>
-        <location line="+120"/>
+        <location line="+146"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Überprüfung abbrechen. Sind Sie sicher, dass Sie abbrechen wollen?</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+160"/>
         <location line="+67"/>
         <source>Not enough available space!</source>
         <translation>Nicht genug verfügbarer Speicherplatz!</translation>
     </message>
     <message>
-        <location line="-263"/>
-        <location line="+172"/>
-        <location line="+350"/>
+        <location line="-287"/>
+        <location line="+196"/>
+        <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+315"/>
-        <location line="+270"/>
+        <location line="+320"/>
+        <location line="+274"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -264,41 +264,41 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Entfernen Sie den Datenträger JETZT physisch, bevor Sie irgendetwas anderes tun, und stecken Sie ihn nicht wieder in diesen Computer. Stecken Sie ihn stattdessen in die Zielhardware.</translation>
     </message>
     <message>
-        <location line="-632"/>
-        <location line="+609"/>
+        <location line="-641"/>
+        <location line="+618"/>
         <source>The selected file does not exist.</source>
         <translation>Die ausgewählte Datei ist nicht vorhanden.</translation>
     </message>
     <message>
-        <location line="-958"/>
-        <location line="+359"/>
-        <location line="+330"/>
-        <location line="+279"/>
+        <location line="-974"/>
+        <location line="+366"/>
+        <location line="+335"/>
+        <location line="+283"/>
         <source>The specified file contains no data.</source>
         <translation>Die angegebene Datei enthält keine Daten.</translation>
     </message>
     <message>
-        <location line="-605"/>
-        <location line="+201"/>
-        <location line="+408"/>
+        <location line="-614"/>
+        <location line="+205"/>
+        <location line="+413"/>
         <source>Done.</source>
         <translation>Erledigt.</translation>
     </message>
     <message>
-        <location line="-404"/>
+        <location line="-409"/>
         <location line="+2"/>
-        <location line="+381"/>
+        <location line="+386"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Abschließen</translation>
     </message>
     <message>
-        <location line="-609"/>
+        <location line="-618"/>
         <source>Write Successful.</source>
         <translation>Schreiben war erfolgreich.</translation>
     </message>
     <message>
-        <location line="-749"/>
+        <location line="-783"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Datenträger-Images (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -309,19 +309,19 @@ Entfernen Sie den Datenträger JETZT physisch, bevor Sie irgendetwas anderes tun
         <translation>Komprimierte Datenträger-Images (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+203"/>
+        <location line="+205"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Could not open the file to generate a checksum:
 %1</source>
         <translation>Die Datei konnte zum Berechnen der Prüfsumme nicht geöffnet werden:
 %1</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+86"/>
         <source>Please select a target device.</source>
         <translation>Bitte wählen Sie einen Zieldatenträger aus.</translation>
     </message>
@@ -357,32 +357,32 @@ Prüfen Sie, dass %2 kein Laufwerk ist, das Sie behalten wollten.
 Trotzdem auf diesen Datenträger schreiben?</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+27"/>
         <location line="+14"/>
         <location line="+19"/>
         <location line="+16"/>
         <location line="+23"/>
         <location line="+25"/>
         <location line="+95"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+27"/>
         <source>Write failed.</source>
         <translation>Schreiben fehlgeschlagen.</translation>
     </message>
     <message>
-        <location line="-233"/>
-        <location line="+690"/>
+        <location line="-236"/>
+        <location line="+702"/>
         <source>Device Error</source>
         <translation>Datenträgerfehler</translation>
     </message>
     <message>
-        <location line="-689"/>
-        <location line="+690"/>
+        <location line="-701"/>
+        <location line="+702"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Der Datenträger meldet eine Größe von null. Falls es sich um einen Kartenleser handelt, wurde die Karte möglicherweise entfernt.</translation>
     </message>
     <message>
-        <location line="-632"/>
+        <location line="-644"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -474,13 +474,13 @@ Trotzdem fortfahren?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+25"/>
         <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
         <translation>Das Gerät wurde nur teilweise beschrieben und enthält kein verwendbares Abbild mehr. Schreiben Sie das Abbild erneut, bevor Sie das Gerät verwenden.</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+70"/>
         <source>Fixing GPT...</source>
         <translation>GPT wird repariert …</translation>
     </message>
@@ -580,12 +580,12 @@ Windows schreibt die Tabelle bei einem erneuten Einlesen trotzdem um, weil die S
     </message>
     <message>
         <location line="+15"/>
-        <location line="+609"/>
+        <location line="+618"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Sie haben keine Berechtigung, die ausgewählte Datei zu lesen.</translation>
     </message>
     <message>
-        <location line="-559"/>
+        <location line="-568"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -594,29 +594,29 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 Komprimierte Images (.img.gz, .img.xz) können geschrieben und geprüft werden.</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+42"/>
         <location line="+11"/>
         <location line="+13"/>
         <location line="+26"/>
-        <location line="+29"/>
+        <location line="+30"/>
         <location line="+16"/>
         <source>Read failed.</source>
         <translation>Lesen fehlgeschlagen.</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+86"/>
         <location line="+15"/>
         <location line="+19"/>
         <location line="+16"/>
         <location line="+22"/>
         <location line="+25"/>
-        <location line="+107"/>
+        <location line="+108"/>
         <location line="+25"/>
         <source>Verify failed.</source>
         <translation>Überprüfung fehlgeschlagen.</translation>
     </message>
     <message>
-        <location line="-146"/>
+        <location line="-147"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -659,7 +659,12 @@ Trotzdem fortfahren?</translation>
         <translation>Überprüfung abgebrochen.</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="+27"/>
+        <source>Verifying...</source>
+        <translation>Überprüfen …</translation>
+    </message>
+    <message>
+        <location line="+122"/>
         <source>Image larger than device</source>
         <translation>Image größer als der Datenträger</translation>
     </message>
@@ -677,13 +682,18 @@ Dies konnte erst am Ende des Datenträgers festgestellt werden, weil ein gzip-Im
         <translation>[Datenträger %1]</translation>
     </message>
     <message>
-        <location line="-667"/>
-        <location line="+608"/>
+        <location line="-676"/>
+        <location line="+617"/>
         <source>Please specify an image file to use.</source>
         <translation>Bitte geben Sie eine Image-Datei an, die Sie verwenden wollen.</translation>
     </message>
     <message>
-        <location line="-715"/>
+        <location line="-848"/>
+        <source>Writing...</source>
+        <translation>Schreiben …</translation>
+    </message>
+    <message>
+        <location line="+124"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -797,12 +807,17 @@ Entfernen Sie den Datenträger JETZT und stecken Sie ihn hier nicht wieder ein. 
         <translation>Sind Sie sicher, dass die angegebene Datei überschrieben werden soll?</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+63"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>Der Datenträger ist nicht groß genug für die angegebene Image-Datei.</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+14"/>
+        <source>Reading...</source>
+        <translation>Lesen …</translation>
+    </message>
+    <message>
+        <location line="+71"/>
         <source>Read Canceled.</source>
         <translation>Lesevorgang abgebrochen.</translation>
     </message>
@@ -824,18 +839,18 @@ Entfernen Sie den Datenträger JETZT und stecken Sie ihn hier nicht wieder ein. 
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+61"/>
-        <location line="+154"/>
+        <location line="+62"/>
+        <location line="+155"/>
         <source>Verify Error</source>
         <translation>Fehler beim Überprüfen</translation>
     </message>
     <message>
-        <location line="-215"/>
+        <location line="-217"/>
         <source>Please select a device to verify against.</source>
         <translation>Bitte wählen Sie einen Datenträger zum Vergleichen aus.</translation>
     </message>
     <message>
-        <location line="+162"/>
+        <location line="+163"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -879,7 +894,7 @@ Trotzdem fortfahren?</translation>
         <translation>Größe stimmt nicht überein!</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+70"/>
         <location line="+38"/>
         <source>Verify Failure</source>
         <translation>Überprüfung fehlgeschlagen</translation>
@@ -891,7 +906,7 @@ Trotzdem fortfahren?</translation>
         <translation>Überprüfung fehlgeschlagen bei Sektor: %1</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+54"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>

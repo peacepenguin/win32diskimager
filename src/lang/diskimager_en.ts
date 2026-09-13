@@ -19,7 +19,7 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+105"/>
         <source>Device</source>
         <translation>Device</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation>Image File Hash</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+35"/>
         <source>Hash type to generate for image file</source>
         <translation>Hash type to generate for image file</translation>
     </message>
@@ -89,7 +89,7 @@
         <translation>%p%</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+27"/>
         <source>Cancel current process.</source>
         <translation>Cancel current process.</translation>
     </message>
@@ -99,22 +99,22 @@
         <translation>Cancel</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="-301"/>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
         <translation>Read data from &apos;Device&apos; to &apos;Image File&apos;</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Read</source>
         <translation>Read</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-62"/>
         <source>Write data from &apos;Image File&apos; to &apos;Device&apos;</source>
         <translation>Write data from &apos;Image File&apos; to &apos;Device&apos;</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Write</source>
         <translation>Write</translation>
     </message>
@@ -128,12 +128,12 @@
         <translation type="vanished">Verify the image file with the selected drive</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
         <source>Verify Only</source>
         <translation>Verify Only</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+336"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Exit Win32 Disk Imager</translation>
     </message>
@@ -143,7 +143,7 @@
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+248"/>
+        <location filename="../mainwindow.cpp" line="+310"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -169,12 +169,12 @@ Are you sure you want to exit?</translation>
         <translation>Select a disk image</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+44"/>
         <source>Generating...</source>
         <translation>Generating...</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+67"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Cancel?</translation>
@@ -189,61 +189,61 @@ Are you sure you want to cancel?</translation>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+86"/>
+        <location line="+87"/>
         <location line="+140"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+26"/>
-        <location line="+231"/>
-        <location line="+74"/>
+        <location line="+235"/>
+        <location line="+75"/>
         <source>Write Error</source>
         <translation>Write Error</translation>
     </message>
     <message>
-        <location line="-601"/>
-        <location line="+527"/>
-        <location line="+188"/>
+        <location line="-610"/>
+        <location line="+535"/>
+        <location line="+192"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Image file cannot be located on the target device.</translation>
     </message>
     <message>
-        <location line="-706"/>
+        <location line="-718"/>
         <source>Confirm overwrite</source>
         <translation>Confirm overwrite</translation>
     </message>
     <message>
-        <location line="-316"/>
+        <location line="-345"/>
         <source>Waiting for a task.</source>
         <translation>Waiting for a task.</translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+169"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Exiting now will cancel verifying image.
 Are you sure you want to exit?</translation>
     </message>
     <message>
-        <location line="+120"/>
+        <location line="+146"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Cancel Verify.
 Are you sure you want to cancel?</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+160"/>
         <location line="+67"/>
         <source>Not enough available space!</source>
         <translation>Not enough available space!</translation>
     </message>
     <message>
-        <location line="-263"/>
-        <location line="+172"/>
-        <location line="+350"/>
+        <location line="-287"/>
+        <location line="+196"/>
+        <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+315"/>
-        <location line="+270"/>
+        <location line="+320"/>
+        <location line="+274"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -269,53 +269,53 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</translation>
     </message>
     <message>
-        <location line="-632"/>
-        <location line="+609"/>
+        <location line="-641"/>
+        <location line="+618"/>
         <source>The selected file does not exist.</source>
         <translation>The selected file does not exist.</translation>
     </message>
     <message>
-        <location line="-958"/>
-        <location line="+359"/>
-        <location line="+330"/>
-        <location line="+279"/>
+        <location line="-974"/>
+        <location line="+366"/>
+        <location line="+335"/>
+        <location line="+283"/>
         <source>The specified file contains no data.</source>
         <translation>The specified file contains no data.</translation>
     </message>
     <message>
-        <location line="-605"/>
-        <location line="+201"/>
-        <location line="+408"/>
+        <location line="-614"/>
+        <location line="+205"/>
+        <location line="+413"/>
         <source>Done.</source>
         <translation>Done.</translation>
     </message>
     <message>
-        <location line="-404"/>
+        <location line="-409"/>
         <location line="+2"/>
-        <location line="+381"/>
+        <location line="+386"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Complete</translation>
     </message>
     <message>
-        <location line="-609"/>
+        <location line="-618"/>
         <source>Write Successful.</source>
         <translation>Write Successful.</translation>
     </message>
     <message>
-        <location line="-543"/>
+        <location line="-575"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Could not open the file to generate a checksum:
 %1</source>
         <translation>Could not open the file to generate a checksum:
 %1</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+86"/>
         <source>Please select a target device.</source>
         <translation>Please select a target device.</translation>
     </message>
@@ -351,32 +351,32 @@ Check that %2 is not a drive you meant to keep.
 Write to this device anyway?</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+27"/>
         <location line="+14"/>
         <location line="+19"/>
         <location line="+16"/>
         <location line="+23"/>
         <location line="+25"/>
         <location line="+95"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+27"/>
         <source>Write failed.</source>
         <translation>Write failed.</translation>
     </message>
     <message>
-        <location line="-233"/>
-        <location line="+690"/>
+        <location line="-236"/>
+        <location line="+702"/>
         <source>Device Error</source>
         <translation>Device Error</translation>
     </message>
     <message>
-        <location line="-689"/>
-        <location line="+690"/>
+        <location line="-701"/>
+        <location line="+702"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>The device reports a size of zero. If it is a card reader, the card may have been removed.</translation>
     </message>
     <message>
-        <location line="-632"/>
+        <location line="-644"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -468,13 +468,13 @@ Continue Anyway?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+38"/>
+        <location line="+41"/>
         <location line="+25"/>
         <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
         <translation>The device has been partially written and no longer holds a usable image. Write the image again before using it.</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+70"/>
         <source>Fixing GPT...</source>
         <translation>Fixing GPT...</translation>
     </message>
@@ -574,12 +574,12 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+609"/>
+        <location line="+618"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>You do not have permission to read the selected file.</translation>
     </message>
     <message>
-        <location line="-559"/>
+        <location line="-568"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -588,29 +588,29 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 Compressed images (.img.gz, .img.xz) can be written and verified.</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+42"/>
         <location line="+11"/>
         <location line="+13"/>
         <location line="+26"/>
-        <location line="+29"/>
+        <location line="+30"/>
         <location line="+16"/>
         <source>Read failed.</source>
         <translation>Read failed.</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+86"/>
         <location line="+15"/>
         <location line="+19"/>
         <location line="+16"/>
         <location line="+22"/>
         <location line="+25"/>
-        <location line="+107"/>
+        <location line="+108"/>
         <location line="+25"/>
         <source>Verify failed.</source>
         <translation>Verify failed.</translation>
     </message>
     <message>
-        <location line="-146"/>
+        <location line="-147"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -653,7 +653,12 @@ Continue Anyway?</translation>
         <translation>Verify cancelled.</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="+27"/>
+        <source>Verifying...</source>
+        <translation>Verifying...</translation>
+    </message>
+    <message>
+        <location line="+122"/>
         <source>Image larger than device</source>
         <translation>Image larger than device</translation>
     </message>
@@ -671,13 +676,13 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>[Disk %1]</translation>
     </message>
     <message>
-        <location line="-667"/>
-        <location line="+608"/>
+        <location line="-676"/>
+        <location line="+617"/>
         <source>Please specify an image file to use.</source>
         <translation>Please specify an image file to use.</translation>
     </message>
     <message>
-        <location line="-1363"/>
+        <location line="-1406"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Disk Images (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -688,7 +693,12 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+645"/>
+        <location line="+555"/>
+        <source>Writing...</source>
+        <translation>Writing...</translation>
+    </message>
+    <message>
+        <location line="+124"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -802,12 +812,17 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation>Are you sure you want to overwrite the specified file?</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+63"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>Disk is not large enough for the specified image.</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+14"/>
+        <source>Reading...</source>
+        <translation>Reading...</translation>
+    </message>
+    <message>
+        <location line="+71"/>
         <source>Read Canceled.</source>
         <translation>Read Canceled.</translation>
     </message>
@@ -829,18 +844,18 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+61"/>
-        <location line="+154"/>
+        <location line="+62"/>
+        <location line="+155"/>
         <source>Verify Error</source>
         <translation>Verify Error</translation>
     </message>
     <message>
-        <location line="-215"/>
+        <location line="-217"/>
         <source>Please select a device to verify against.</source>
         <translation>Please select a device to verify against.</translation>
     </message>
     <message>
-        <location line="+162"/>
+        <location line="+163"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -884,7 +899,7 @@ Continue Anyway?</translation>
         <translation>Size Mismatch!</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+70"/>
         <location line="+38"/>
         <source>Verify Failure</source>
         <translation>Verify Failure</translation>
@@ -896,7 +911,7 @@ Continue Anyway?</translation>
         <translation>Verification failed at sector: %1</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+54"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>

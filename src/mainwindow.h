@@ -84,6 +84,8 @@ private:
         void loadSettings();
         void initializeHomeDir();
         void updateHashControls();
+        // Picks a default hash type when a different image is chosen.
+        void defaultHashTypeForFile();
         // Shows or hides the progress group; see mainwindow.cpp.
         void showProgress(bool show);
 
@@ -102,6 +104,9 @@ private:
         QTimer *device_poll_timer = NULL;
         QString myHomeDir;
         QString myFileType;
+        // The image the hash type was last defaulted for, so that choosing a
+        // type by hand is not undone on every pass through the field.
+        QString myHashDefaultedFor;
         // Whose tooltip was last about to be shown. QPointer: the widget may
         // well be gone by the time the next one comes round.
         QPointer<QObject> myLastToolTipTarget;
