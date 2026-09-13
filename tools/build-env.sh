@@ -36,7 +36,7 @@ CROSS_BASE_IMAGE="fedora:44"
 # Neither can come from mingw64-qt6-qttools: those are Windows .exe files.
 CROSS_PACKAGES="cmake ninja-build file findutils binutils
                 mingw64-gcc-c++ mingw64-qt6-qtbase mingw64-qt6-qttools
-                mingw64-qt6-qttranslations
+                mingw64-qt6-qttranslations mingw64-qt6-qtsvg
                 mingw64-zlib mingw64-xz
                 qt6-linguist"
 
@@ -51,6 +51,7 @@ MSYS2_PACKAGES="mingw-w64-ucrt-x86_64-gcc
                 mingw-w64-ucrt-x86_64-qt6-base
                 mingw-w64-ucrt-x86_64-qt6-tools
                 mingw-w64-ucrt-x86_64-qt6-translations
+                mingw-w64-ucrt-x86_64-qt6-svg
                 mingw-w64-ucrt-x86_64-zlib
                 mingw-w64-ucrt-x86_64-xz"
 

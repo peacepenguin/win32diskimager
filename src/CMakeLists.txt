@@ -7,7 +7,10 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+# Svg is not called directly: it is linked so Qt's SVG icon engine is part of
+# the build, and so windeployqt and tools/deploy-cross.sh both pull the
+# iconengines/qsvgicon plugin the button icons need at runtime.
+find_package(Qt6 REQUIRED COMPONENTS Widgets Svg)
 
 # Compressed images (.img.gz / .img.xz) are decompressed as they are written,
 # so no expanded copy is ever put on disk.
@@ -74,7 +77,7 @@ target_compile_definitions(Win32DiskImager PRIVATE
     _WIN32_WINNT=0x0601
 )
 
-target_link_libraries(Win32DiskImager PRIVATE Qt6::Widgets ZLIB::ZLIB LibLZMA::LibLZMA)
+target_link_libraries(Win32DiskImager PRIVATE Qt6::Widgets Qt6::Svg ZLIB::ZLIB LibLZMA::LibLZMA)
 
 # This code uses the ANSI Win32 API; Qt6 turns UNICODE on by default.
 qt6_disable_unicode_defines(Win32DiskImager)

@@ -41,7 +41,7 @@ cp "$root"/Changelog.txt "$root"/README.md "$root"/License.txt "$root"/GPL-2 "$r
 # Qt plugins. Only the ones a widgets app on Windows actually loads.
 qtplugins="$sysroot/lib/qt6/plugins"
 [ -d "$qtplugins" ] || qtplugins="$sysroot/share/qt6/plugins"
-for group in platforms styles imageformats generic; do
+for group in platforms styles imageformats iconengines generic; do
     if [ -d "$qtplugins/$group" ]; then
         mkdir -p "$dist/$group"
         cp "$qtplugins/$group"/*.dll "$dist/$group/" 2>/dev/null || true
@@ -50,7 +50,7 @@ done
 # Debug variants of the plugins would double the size for nothing. Scoped to
 # the plugin directories: at the top level "*d.dll" would also match innocent
 # names such as libzstd.dll.
-for group in platforms styles imageformats generic; do
+for group in platforms styles imageformats iconengines generic; do
     [ -d "$dist/$group" ] && find "$dist/$group" -name '*d.dll' -delete 2>/dev/null
 done
 true

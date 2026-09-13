@@ -1,0 +1,8 @@
+<!-- Write: image file -> device. A solid arrow pointing down into the bar that
+     stands for the device. Solid fill and the downward direction both carry the
+     meaning, so it still reads without colour. Amber rather than red: red and
+     green cannot be told apart by the most common form of colour blindness. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <path d="M9 3h6v7h3.8L12 17.2 5.2 10H9z" fill="#D97706"/>
+  <rect x="4" y="19.4" width="16" height="2.6" rx="1.3" fill="#D97706"/>
+</svg>

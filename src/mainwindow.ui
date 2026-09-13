@@ -12,7 +12,7 @@
     <x>0</x>
     <y>0</y>
     <width>520</width>
-    <height>360</height>
+    <height>410</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,7 +24,7 @@
   <property name="minimumSize">
    <size>
     <width>460</width>
-    <height>350</height>
+    <height>400</height>
    </size>
   </property>
   <property name="acceptDrops">
@@ -76,6 +76,97 @@
          </item>
         </layout>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="actionRow">
+      <item>
+       <spacer name="actionLeftSpacer">
+        <property name="orientation"><enum>Qt::Horizontal</enum></property>
+        <property name="sizeHint" stdset="0"><size><width>1</width><height>1</height></size></property>
+       </spacer>
+      </item>
+<item>
+       <widget class="QPushButton" name="bWrite">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="statusTip">
+         <string>Write data from 'Image File' to 'Device'</string>
+        </property>
+        <property name="icon">
+         <iconset resource="gui_icons.qrc">
+          <normaloff>:/images/images/write.svg</normaloff>:/images/images/write.svg</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Write</string>
+        </property>
+       </widget>
+      </item>
+<item>
+       <widget class="QPushButton" name="bVerify">
+        <property name="statusTip">
+         <string>Compare data in 'Device' against 'Image File'</string>
+        </property>
+        <property name="icon">
+         <iconset resource="gui_icons.qrc">
+          <normaloff>:/images/images/verify.svg</normaloff>:/images/images/verify.svg</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Verify Only</string>
+        </property>
+       </widget>
+      </item>
+<item>
+       <widget class="QPushButton" name="bRead">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="statusTip">
+         <string>Read data from 'Device' to 'Image File'</string>
+        </property>
+        <property name="icon">
+         <iconset resource="gui_icons.qrc">
+          <normaloff>:/images/images/read.svg</normaloff>:/images/images/read.svg</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Read</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="actionRightSpacer">
+        <property name="orientation"><enum>Qt::Horizontal</enum></property>
+        <property name="sizeHint" stdset="0"><size><width>1</width><height>1</height></size></property>
+       </spacer>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QGroupBox" name="groupBox_2">
@@ -334,51 +425,12 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="bRead">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string/>
-        </property>
-        <property name="statusTip">
-         <string>Read data from 'Device' to 'Image File'</string>
-        </property>
-        <property name="text">
-         <string>Read</string>
-        </property>
-       </widget>
+       <spacer name="bottomSpacer">
+        <property name="orientation"><enum>Qt::Horizontal</enum></property>
+        <property name="sizeHint" stdset="0"><size><width>1</width><height>1</height></size></property>
+       </spacer>
       </item>
-      <item>
-       <widget class="QPushButton" name="bWrite">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="statusTip">
-         <string>Write data from 'Image File' to 'Device'</string>
-        </property>
-        <property name="text">
-         <string>Write</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="bVerify">
-        <property name="statusTip">
-         <string>Compare data in 'Device' against 'Image File'</string>
-        </property>
-        <property name="text">
-         <string>Verify Only</string>
-        </property>
-       </widget>
-      </item>
-      <item>
+                        <item>
        <widget class="QPushButton" name="bExit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
