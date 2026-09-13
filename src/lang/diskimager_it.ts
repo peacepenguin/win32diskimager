@@ -14,7 +14,12 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+61"/>
+        <source>Verify</source>
+        <translation>Verifica</translation>
+    </message>
+    <message>
+        <location line="+86"/>
         <source>Image File Hash</source>
         <translation>Hash del file immagine</translation>
     </message>
@@ -44,7 +49,7 @@
         <translation>Leggi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+1044"/>
+        <location filename="../mainwindow.cpp" line="+1073"/>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Sei sicuro di voler sovrascrivere il file specificato?</translation>
     </message>
@@ -56,7 +61,7 @@
         <translation>Completato.</translation>
     </message>
     <message>
-        <location line="-1291"/>
+        <location line="-1300"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -68,7 +73,7 @@
         <translation>Scrivi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+871"/>
+        <location filename="../mainwindow.cpp" line="+880"/>
         <source>Please specify a file to save data to.</source>
         <translation>Seleziona un file dove salvare i dati.</translation>
     </message>
@@ -78,14 +83,14 @@
         <translation>Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-881"/>
+        <location filename="../mainwindow.cpp" line="-890"/>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
         <translation>Annullare ore creerà un disco corrotto.
 Sei sicuro di voler uscire?</translation>
     </message>
     <message>
-        <location line="+177"/>
+        <location line="+186"/>
         <location line="+535"/>
         <location line="+192"/>
         <source>Image file cannot be located on the target device.</source>
@@ -135,7 +140,7 @@ Rimuovi fisicamente il dispositivo ADESSO, prima di fare qualsiasi altra cosa, e
         <translation>Informazioni sul file</translation>
     </message>
     <message>
-        <location line="-845"/>
+        <location line="-854"/>
         <source>Select a disk image</source>
         <translation>Seleziona un file immagine</translation>
     </message>
@@ -150,7 +155,7 @@ Rimuovi fisicamente il dispositivo ADESSO, prima di fare qualsiasi altra cosa, e
         <translation>Dispositivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+637"/>
+        <location filename="../mainwindow.cpp" line="+646"/>
         <location line="+617"/>
         <source>Please specify an image file to use.</source>
         <translation>Specifica un file  immagine da usare.</translation>
@@ -189,13 +194,13 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore in scrittura</translation>
     </message>
     <message>
-        <location line="-707"/>
+        <location line="-716"/>
         <source>Generating...</source>
         <translation>Generazione...</translation>
     </message>
     <message>
         <location line="+16"/>
-        <location line="+196"/>
+        <location line="+205"/>
         <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -209,7 +214,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-1449"/>
+        <location line="-1460"/>
         <source>Waiting for a task.</source>
         <translation>Attesa scelta operazione</translation>
     </message>
@@ -219,7 +224,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Stato progresso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+808"/>
+        <location filename="../mainwindow.cpp" line="+819"/>
         <location line="+618"/>
         <source>The selected file does not exist.</source>
         <translation>Il file selezionato non esiste.</translation>
@@ -244,14 +249,14 @@ Sei sicuro di voler annullare?</translation>
         <translation>Leggi i dati dal &apos;dispostivo&apos; e scrivili nel &apos;File immagine&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-1287"/>
+        <location filename="../mainwindow.cpp" line="-1296"/>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
         <translation>Annullare ora creerà un file immagine corrotto.
 Sei sicuro di voler uscire?</translation>
     </message>
     <message>
-        <location line="+884"/>
+        <location line="+893"/>
         <source>Read Successful.</source>
         <translation>Lettura completata correttamente.</translation>
     </message>
@@ -346,12 +351,11 @@ Sei sicuro di voler uscire?</translation>
         <translation type="vanished">Verifica il file immagine con l&apos;unità selezionata</translation>
     </message>
     <message>
-        <location line="-238"/>
         <source>Verify Only</source>
-        <translation>Solo verifica</translation>
+        <translation type="vanished">Solo verifica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-862"/>
+        <location filename="../mainwindow.cpp" line="-871"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Uscendo ora annullerai la verifica dell&apos;immagine.
@@ -370,7 +374,7 @@ Sei sicuro di voler uscire?</translation>
 %1</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+68"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Annullamento verifica.
@@ -746,7 +750,7 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Errore durante la verifica</translation>
     </message>
     <message>
-        <location line="-1243"/>
+        <location line="-1252"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Immagini disco (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -757,7 +761,7 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Immagini disco compresse (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+1023"/>
+        <location line="+1032"/>
         <source>Please select a device to verify against.</source>
         <translation>Seleziona un dispositivo con cui confrontare.</translation>
     </message>

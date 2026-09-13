@@ -19,7 +19,12 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+61"/>
+        <source>Verify</source>
+        <translation>Controleren</translation>
+    </message>
+    <message>
+        <location line="+44"/>
         <source>Device</source>
         <translation>Doelapparaat</translation>
     </message>
@@ -128,12 +133,11 @@
         <translation type="vanished">Controleer het image met de geselecteerde schijf</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Verify Only</source>
-        <translation>Alleen controleren</translation>
+        <translation type="vanished">Alleen controleren</translation>
     </message>
     <message>
-        <location line="+336"/>
+        <location line="+349"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Sluit win32 Disk Imager af</translation>
     </message>
@@ -143,7 +147,7 @@
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+310"/>
+        <location filename="../mainwindow.cpp" line="+330"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -172,7 +176,7 @@ Are you sure you want to exit?</source>
         <translation>Genereren...</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+76"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Afbreken?</translation>
@@ -208,19 +212,19 @@ Are you sure you want to cancel?</source>
         <translation>Overschrijven bevestigen</translation>
     </message>
     <message>
-        <location line="-345"/>
+        <location line="-356"/>
         <source>Waiting for a task.</source>
         <translation>Wacht op een taak.</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+171"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Nu afsluiten breekt het controleren van het image af.
 Weet u zeker dat u wilt afsluiten?</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+155"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Controleren afbreken.
@@ -233,8 +237,8 @@ Weet u zeker dat u wilt fabreken?</translation>
         <translation>Noet genoeg beschikbare ruimte!</translation>
     </message>
     <message>
-        <location line="-287"/>
-        <location line="+196"/>
+        <location line="-296"/>
+        <location line="+205"/>
         <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -300,7 +304,7 @@ Verwijder het apparaat NU fysiek, voordat u iets anders doet, en plaats het niet
         <translation>Schrijven is gelukt.</translation>
     </message>
     <message>
-        <location line="-783"/>
+        <location line="-792"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Schijf-images (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -323,7 +327,7 @@ Verwijder het apparaat NU fysiek, voordat u iets anders doet, en plaats het niet
 %1</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+95"/>
         <source>Please select a target device.</source>
         <translation>Selecteer een doelapparaat.</translation>
     </message>

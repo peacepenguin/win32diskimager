@@ -122,12 +122,12 @@
         </property>
         <property name="iconSize">
          <size>
-          <width>22</width>
+          <width>25</width>
           <height>22</height>
          </size>
         </property>
         <property name="text">
-         <string>Verify Only</string>
+         <string>Verify</string>
         </property>
        </widget>
       </item>

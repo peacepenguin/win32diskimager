@@ -19,7 +19,12 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+61"/>
+        <source>Verify</source>
+        <translation>Verify</translation>
+    </message>
+    <message>
+        <location line="+44"/>
         <source>Device</source>
         <translation>Device</translation>
     </message>
@@ -128,12 +133,11 @@
         <translation type="vanished">Verify the image file with the selected drive</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Verify Only</source>
-        <translation>Verify Only</translation>
+        <translation type="vanished">Verify Only</translation>
     </message>
     <message>
-        <location line="+336"/>
+        <location line="+349"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Exit Win32 Disk Imager</translation>
     </message>
@@ -143,7 +147,7 @@
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+310"/>
+        <location filename="../mainwindow.cpp" line="+330"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -174,7 +178,7 @@ Are you sure you want to exit?</translation>
         <translation>Generating...</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+76"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Cancel?</translation>
@@ -211,19 +215,19 @@ Are you sure you want to cancel?</translation>
         <translation>Confirm overwrite</translation>
     </message>
     <message>
-        <location line="-345"/>
+        <location line="-356"/>
         <source>Waiting for a task.</source>
         <translation>Waiting for a task.</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+171"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Exiting now will cancel verifying image.
 Are you sure you want to exit?</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+155"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Cancel Verify.
@@ -236,8 +240,8 @@ Are you sure you want to cancel?</translation>
         <translation>Not enough available space!</translation>
     </message>
     <message>
-        <location line="-287"/>
-        <location line="+196"/>
+        <location line="-296"/>
+        <location line="+205"/>
         <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -303,7 +307,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>Write Successful.</translation>
     </message>
     <message>
-        <location line="-575"/>
+        <location line="-584"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -315,7 +319,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 %1</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+95"/>
         <source>Please select a target device.</source>
         <translation>Please select a target device.</translation>
     </message>
@@ -682,7 +686,7 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Please specify an image file to use.</translation>
     </message>
     <message>
-        <location line="-1406"/>
+        <location line="-1415"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Disk Images (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -693,7 +697,7 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+555"/>
+        <location line="+564"/>
         <source>Writing...</source>
         <translation>Writing...</translation>
     </message>

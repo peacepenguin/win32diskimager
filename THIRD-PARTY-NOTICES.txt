@@ -3,9 +3,16 @@ Third-party material included in this program
 
 The wrench in the application icon (src/images/Win32DiskImager.svg) is the
 "wrench" glyph from Feathericon, https://github.com/feathericon/feathericon,
-used under the MIT licence reproduced below. Everything else in that icon, and
-every other icon in src/images, was drawn for this project and is covered by
-the program's own licence in License.txt.
+used under the MIT licence reproduced below.
+
+The scales on the Verify button (src/images/verify.svg) are
+"investments-balance" from SVG Repo's Investments collection,
+https://www.svgrepo.com/svg/91373/investments-balance, dedicated to the public
+domain under CC0. CC0 asks for nothing; it is listed here so that anyone
+changing the icons later knows where the drawing came from.
+
+Everything else in src/images was drawn for this project and is covered by the
+program's own licence in License.txt.
 
 
 Feathericon

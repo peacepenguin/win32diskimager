@@ -19,7 +19,12 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+61"/>
+        <source>Verify</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+44"/>
         <source>Device</source>
         <translation>சாதனம்</translation>
     </message>
@@ -124,12 +129,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
-        <source>Verify Only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+336"/>
+        <location line="+349"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>வெளியேறு</translation>
     </message>
@@ -139,12 +139,12 @@
         <translation>வெளியேறு</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+161"/>
+        <location filename="../mainwindow.cpp" line="+179"/>
         <source>Waiting for a task.</source>
         <translation>ஒரு பணி காத்திருக்கிறது.</translation>
     </message>
     <message>
-        <location line="+149"/>
+        <location line="+151"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -179,7 +179,7 @@ Are you sure you want to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+76"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>ரத்து?</translation>
@@ -302,8 +302,8 @@ This could only be detected once the device was full, because the compressed ima
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-543"/>
-        <location line="+196"/>
+        <location line="-552"/>
+        <location line="+205"/>
         <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -371,7 +371,7 @@ The image and the device differ only in the GPT, which the &quot;Fix GPT after w
         <translation>வெற்றிகரமாக எழுது.</translation>
     </message>
     <message>
-        <location line="-783"/>
+        <location line="-792"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation type="unfinished"></translation>
@@ -393,7 +393,7 @@ The image and the device differ only in the GPT, which the &quot;Fix GPT after w
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+95"/>
         <source>Please select a target device.</source>
         <translation type="unfinished"></translation>
     </message>

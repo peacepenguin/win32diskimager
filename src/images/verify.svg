@@ -1,13 +1,20 @@
-<!-- Verify: read both sides and compare. One shaft with a head at each end, for
-     the two directions, meeting a check mark for the result. Two separate small
-     arrows turned to mush at 22px; a double-headed one survives the size.
-     Slate, from the app icon: neither the caution of write nor the plain copy
-     of read, and the colour the browse icon and the status bar already use for
-     the parts of the window that are not an action in themselves. -->
+<!-- Verify: weigh what is on the device against what is in the image. A pair
+     of scales says "compare these two" in a way arrows could not: the earlier
+     double-headed arrow read as "both directions", which is how it works
+     rather than what it is for.
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-  <path d="M6.6 2.4l3.4 5.2H7.7v8.8h2.3l-3.4 5.2-3.4-5.2h2.3V7.6H3.2z" fill="#334155"/>
-  <path d="M12.4 14.1l3.1 3.3 5.9-7.4"
-        fill="none" stroke="#334155" stroke-width="2.6"
-        stroke-linecap="round" stroke-linejoin="round"/>
+     The drawing is "investments-balance" from SVG Repo's Investments set,
+     dedicated to the public domain under CC0, so it carries no attribution
+     requirement. Recorded here because knowing where art came from matters
+     later, not because anything is owed.
+     https://www.svgrepo.com/svg/91373/investments-balance
+
+     Slate, from the app icon: neither the caution of write nor the plain copy
+     of read.
+
+     The viewBox is wider than the drawing on purpose. That trailing space is
+     what separates the scales from the word "Verify" on the button; padding the
+     button itself would have moved the text too. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 238 211.188" width="27" height="24">
+  <path fill="#334155" d="M211.18,86.626c0.037-0.789-0.108-1.588-0.45-2.328L178.59,14.745c-0.012-0.026-0.029-0.048-0.041-0.074c-0.035-0.073-0.078-0.139-0.116-0.21c-0.105-0.193-0.219-0.377-0.346-0.551c-0.056-0.077-0.112-0.153-0.172-0.227c-0.155-0.189-0.321-0.366-0.5-0.529c-0.033-0.03-0.061-0.064-0.094-0.093c-0.214-0.185-0.446-0.346-0.688-0.492c-0.071-0.043-0.145-0.079-0.218-0.119c-0.188-0.102-0.382-0.19-0.583-0.267c-0.079-0.03-0.156-0.062-0.236-0.088c-0.271-0.088-0.547-0.16-0.833-0.201c-0.03-0.004-0.061-0.003-0.091-0.007c-0.205-0.026-0.411-0.045-0.621-0.045c-0.058,0-0.114,0.01-0.172,0.012c-0.086,0.003-0.172,0.011-0.259,0.019c-0.246,0.021-0.487,0.06-0.723,0.116c-0.045,0.01-0.089,0.01-0.133,0.021l-57.176,15.228v-5.239c0-5.51-4.482-9.992-9.992-9.992s-9.992,4.482-9.992,9.992v10.562l-59.75,15.913c-0.018,0.005-0.032,0.014-0.05,0.019c-0.286,0.08-0.563,0.185-0.828,0.312c-0.073,0.035-0.139,0.076-0.209,0.114c-0.192,0.104-0.377,0.22-0.554,0.349c-0.073,0.053-0.146,0.104-0.216,0.16c-0.22,0.178-0.43,0.37-0.618,0.585c-0.013,0.014-0.022,0.031-0.035,0.046c-0.174,0.203-0.328,0.424-0.469,0.656c-0.045,0.075-0.084,0.151-0.126,0.228c-0.048,0.089-0.104,0.173-0.147,0.266L0.461,120.762c-0.328,0.711-0.471,1.475-0.45,2.234C0.005,123.154,0,123.311,0,123.469c0,19.646,16.661,35.63,37.14,35.63s37.14-15.983,37.14-35.63c0-0.127-0.004-0.253-0.008-0.379c0.037-0.79-0.108-1.589-0.45-2.329L44.175,56.607l51.429-13.697v108.106c0,16.417-13.356,29.773-29.773,29.773c-7.439,0-13.492,6.052-13.492,13.558c0,2.761,2.238,5,5,5h96.516c2.762,0,5-2.305,5-5.066c0-7.439-6.053-13.492-13.492-13.492c-16.417,0-29.773-13.356-29.773-29.773V37.587l49.455-13.171L137.37,84.297c-0.328,0.711-0.471,1.476-0.45,2.235c-0.005,0.158-0.01,0.315-0.01,0.473c0,19.646,16.661,35.63,37.14,35.63s37.14-15.984,37.14-35.63C211.188,86.878,211.184,86.752,211.18,86.626z M12.818,117.859l24.322-52.634l24.323,52.634H12.818z M174.051,28.761l24.322,52.634h-48.646L174.051,28.761z"/>
 </svg>

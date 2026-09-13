@@ -1,10 +1,8 @@
 <!-- Read: device -> image file. The same silhouette as write.svg, mirrored and
-     drawn as an outline rather than filled: direction and weight distinguish the
-     two before colour does, which matters because green and amber are the pair
-     the commonest colour blindness struggles with. The bar at the bottom is the
-     device in both. -->
+     pointing the other way: direction is what separates the two, which matters
+     because green and amber are the pair the commonest colour blindness
+     struggles with. The bar at the bottom is the device in both. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-  <path d="M9 17.2v-7H5.2L12 3l6.8 7.2H15v7z"
-        fill="none" stroke="#15803D" stroke-width="1.9" stroke-linejoin="round"/>
-  <rect x="4" y="19.4" width="16" height="2.6" rx="1.3" fill="#15803D"/>
+  <path d="M8.5 17.6v-7H3.4L12 3l8.6 7.6H15.5v7z" fill="#15803D"/>
+  <rect x="3.6" y="19.4" width="16.8" height="2.6" rx="1.3" fill="#15803D"/>
 </svg>

@@ -19,7 +19,12 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+61"/>
+        <source>Verify</source>
+        <translation>Verificar</translation>
+    </message>
+    <message>
+        <location line="+44"/>
         <source>Device</source>
         <translation>Dispositivo</translation>
     </message>
@@ -128,12 +133,11 @@
         <translation type="vanished">Comprobar el Archivo Imagen con la unidad seleccionada </translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Verify Only</source>
-        <translation>Solo Verificar</translation>
+        <translation type="vanished">Solo Verificar</translation>
     </message>
     <message>
-        <location line="+336"/>
+        <location line="+349"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Salir de Win32 Disk Imager</translation>
     </message>
@@ -143,7 +147,7 @@
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+310"/>
+        <location filename="../mainwindow.cpp" line="+330"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -174,7 +178,7 @@ Are you sure you want to exit?</source>
         <translation>Generando...</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+76"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>¿Cancelar?</translation>
@@ -211,19 +215,19 @@ Are you sure you want to cancel?</source>
         <translation>Confirmar sobrescritura</translation>
     </message>
     <message>
-        <location line="-345"/>
+        <location line="-356"/>
         <source>Waiting for a task.</source>
         <translation>Esperando una tarea.</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+171"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>El salir ahora resultará en cancelar la verificación de la imagen
 ¿Está seguro que quiere salir?</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+155"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Cancelar Verificación.
@@ -236,8 +240,8 @@ Are you sure you want to cancel?</source>
         <translation>¡No hay suficiente espacio disponible!</translation>
     </message>
     <message>
-        <location line="-287"/>
-        <location line="+196"/>
+        <location line="-296"/>
+        <location line="+205"/>
         <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -303,7 +307,7 @@ Retire físicamente el dispositivo AHORA, antes de hacer cualquier otra cosa, y 
         <translation>Escritura Exitosa.</translation>
     </message>
     <message>
-        <location line="-783"/>
+        <location line="-792"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Imágenes de disco (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -326,7 +330,7 @@ Retire físicamente el dispositivo AHORA, antes de hacer cualquier otra cosa, y 
 %1</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+95"/>
         <source>Please select a target device.</source>
         <translation>Seleccione un dispositivo de destino.</translation>
     </message>

@@ -19,7 +19,12 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+61"/>
+        <source>Verify</source>
+        <translation>驗證</translation>
+    </message>
+    <message>
+        <location line="+44"/>
         <source>Device</source>
         <translation>裝置</translation>
     </message>
@@ -128,12 +133,11 @@
         <translation type="vanished">驗證選定磁碟的映像檔</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Verify Only</source>
-        <translation>僅驗證</translation>
+        <translation type="vanished">僅驗證</translation>
     </message>
     <message>
-        <location line="+336"/>
+        <location line="+349"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>離開 Win32 磁蝶映像檔工具</translation>
     </message>
@@ -143,7 +147,7 @@
         <translation>離開</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+310"/>
+        <location filename="../mainwindow.cpp" line="+330"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -174,7 +178,7 @@ Are you sure you want to exit?</source>
         <translation>生成中...</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+76"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>取消？</translation>
@@ -211,19 +215,19 @@ Are you sure you want to cancel?</source>
         <translation>確認覆寫</translation>
     </message>
     <message>
-        <location line="-345"/>
+        <location line="-356"/>
         <source>Waiting for a task.</source>
         <translation>等待工作。</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+171"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>現在結束將會取消驗證映像檔。
 您確定想要結束嗎？</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+155"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>取消驗證。
@@ -236,8 +240,8 @@ Are you sure you want to cancel?</source>
         <translation>沒有足夠的可用空間！</translation>
     </message>
     <message>
-        <location line="-287"/>
-        <location line="+196"/>
+        <location line="-296"/>
+        <location line="+205"/>
         <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -303,7 +307,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>寫入成功。</translation>
     </message>
     <message>
-        <location line="-783"/>
+        <location line="-792"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>磁碟映像檔 (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -326,7 +330,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 %1</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+95"/>
         <source>Please select a target device.</source>
         <translation>請選擇目標裝置。</translation>
     </message>

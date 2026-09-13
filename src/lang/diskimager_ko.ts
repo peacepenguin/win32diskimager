@@ -19,7 +19,12 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+61"/>
+        <source>Verify</source>
+        <translation>검증</translation>
+    </message>
+    <message>
+        <location line="+44"/>
         <source>Device</source>
         <translation>복사할 기기</translation>
     </message>
@@ -128,12 +133,11 @@
         <translation type="vanished">선택된 드라이브의 이미지 파일 검증하기</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Verify Only</source>
-        <translation>검증만</translation>
+        <translation type="vanished">검증만</translation>
     </message>
     <message>
-        <location line="+336"/>
+        <location line="+349"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Win32 디스크 이미저 종료</translation>
     </message>
@@ -143,7 +147,7 @@
         <translation>종료</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+310"/>
+        <location filename="../mainwindow.cpp" line="+330"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -174,7 +178,7 @@ Are you sure you want to exit?</source>
         <translation>생성 중 ...</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+76"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>취소할까요?</translation>
@@ -211,19 +215,19 @@ Are you sure you want to cancel?</source>
         <translation>중복쓰기 확인</translation>
     </message>
     <message>
-        <location line="-345"/>
+        <location line="-356"/>
         <source>Waiting for a task.</source>
         <translation>작업을 위하여 기다리는 중.</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+171"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>지금 종료하는 것은 이미지 검증이 취소될 수 있습니다.
 종료할까요?</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+155"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>검증 취소.
@@ -236,8 +240,8 @@ Are you sure you want to cancel?</source>
         <translation>공간이 충분하지 않습니다!</translation>
     </message>
     <message>
-        <location line="-287"/>
-        <location line="+196"/>
+        <location line="-296"/>
+        <location line="+205"/>
         <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -303,7 +307,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>쓰기 성공.</translation>
     </message>
     <message>
-        <location line="-783"/>
+        <location line="-792"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>디스크 이미지 (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -326,7 +330,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 %1</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+95"/>
         <source>Please select a target device.</source>
         <translation>대상 장치를 선택해주세요.</translation>
     </message>

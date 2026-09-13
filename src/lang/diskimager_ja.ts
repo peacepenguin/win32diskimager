@@ -19,7 +19,12 @@
         <translation>...</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+61"/>
+        <source>Verify</source>
+        <translation>照合</translation>
+    </message>
+    <message>
+        <location line="+44"/>
         <source>Device</source>
         <translation>デバイス</translation>
     </message>
@@ -128,12 +133,11 @@
         <translation type="vanished">イメージとドライブの照合</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Verify Only</source>
-        <translation>照合のみ</translation>
+        <translation type="vanished">照合のみ</translation>
     </message>
     <message>
-        <location line="+336"/>
+        <location line="+349"/>
         <source>Exit Win32 Disk Imager</source>
         <translation>Win32 Disk Imagerを終了</translation>
     </message>
@@ -143,7 +147,7 @@
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+310"/>
+        <location filename="../mainwindow.cpp" line="+330"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -174,7 +178,7 @@ Are you sure you want to exit?</source>
         <translation>生成中...</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+76"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>キャンセル？</translation>
@@ -211,19 +215,19 @@ Are you sure you want to cancel?</source>
         <translation>上書きの確認</translation>
     </message>
     <message>
-        <location line="-345"/>
+        <location line="-356"/>
         <source>Waiting for a task.</source>
         <translation>タスクを待っています。</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+171"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>終了すると、照合がキャンセルされます。
 本当に終了してもよろしいですか？</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+155"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>照合をキャンセルします。
@@ -236,8 +240,8 @@ Are you sure you want to cancel?</source>
         <translation>空き容量が足りません！</translation>
     </message>
     <message>
-        <location line="-287"/>
-        <location line="+196"/>
+        <location line="-296"/>
+        <location line="+205"/>
         <location line="+357"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -303,7 +307,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>書き込み成功。</translation>
     </message>
     <message>
-        <location line="-783"/>
+        <location line="-792"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>ディスクイメージ (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -326,7 +330,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 %1</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+95"/>
         <source>Please select a target device.</source>
         <translation>書き込み先のデバイスを選択してください。</translation>
     </message>
