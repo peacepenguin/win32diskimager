@@ -154,12 +154,36 @@ static void shadeStatusBar(QStatusBar *bar)
                            .arg(fill.name(), line.name()));
 }
 
+// This style says "pressed" by dimming the button's label. A button whose only
+// label is an icon has nothing to dim -- QIcon draws the same pixmap whether the
+// button is down or not -- so the browse button looked dead when held. Its
+// background does change, from #F6F6F6 to #F5F5F5: one level out of 255, which
+// nobody can see. Give it a fill a clear step beyond the one hover uses.
+//
+// Taken from the palette rather than written as a fixed grey, the same as the
+// status bar shading, so it follows a dark desktop instead of turning into a
+// light patch on one. The rule names the button's own class so that it cannot
+// leak into anything else -- an unscoped rule here is inherited by the widget's
+// tooltip, which is how two other buttons ended up with padded tooltips and no
+// pressed state at all.
+static void shadePressedIconButton(QAbstractButton *button)
+{
+    const QColor base = button->palette().color(QPalette::Button);
+    const bool dark = base.lightness() < 128;
+    const QColor fill = dark ? base.lighter(128) : base.darker(108);
+
+    button->setStyleSheet(QString("%1:pressed { background-color: %2; }")
+                              .arg(QString::fromLatin1(button->metaObject()->className()),
+                                   fill.name()));
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
     wrapLongToolTips(this);
     elapsed_timer = new ElapsedTimer();
     shadeStatusBar(statusbar);
+    shadePressedIconButton(tbBrowse);
     statusbar->addPermanentWidget(elapsed_timer);   // "addpermanent" puts it on the RHS of the statusbar
     status = STATUS_IDLE;
     {

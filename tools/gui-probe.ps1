@@ -92,6 +92,17 @@ function Get-Widgets {
         # .hashGroup.bHashGen; the last part is the object name from the .ui.
         $map[($id -split '\.')[-1]] = $e.Current
     }
+    if ($map.Count -eq 0) {
+        # An ordinary build asks for elevation, and a script that is not itself
+        # elevated cannot read the interface of one that got it: the tree comes
+        # back empty rather than refused, which looks like nothing at all went
+        # wrong. That is the usual reason by far, so say so.
+        [Console]::Error.WriteLine(
+            "error: $Process shows no widgets. Most likely it is an ordinary build, " +
+            "which runs elevated, and this script is not. Build the test one with " +
+            "'tools/build.sh test' and start build\$Process.exe again.")
+        exit 1
+    }
     return $map
 }
 
