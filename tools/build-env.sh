@@ -231,6 +231,105 @@ container_run()
         "$CROSS_IMAGE" "$@"
 }
 
+# ------------------------------------------------------------------- build ---
+
+# The steps the native and the cross build do identically. They are here rather
+# than in each script because a build step that exists twice is a build step
+# somebody eventually changes once.
+
+# build_parse_args [test] [clean]
+#
+# Sets BUILD_MODE, BUILD_CLEAN and BUILD_EXTRA. Returns 2 on an unknown word, so
+# the caller can print its own usage. The -D flag is always stated rather than
+# left to whatever the cache happens to hold, so switching between a normal and
+# a test build is just a matter of the argument.
+build_parse_args()
+{
+    BUILD_MODE=""
+    BUILD_CLEAN=0
+    local arg
+    for arg in "$@"; do
+        case "$arg" in
+            test)  BUILD_MODE=test ;;
+            clean) BUILD_CLEAN=1 ;;
+            *)     return 2 ;;
+        esac
+    done
+    # A test build asks for no elevation: no UAC prompt on every launch, and no
+    # ability to open a device either. For working on the interface, never for
+    # shipping -- both deploy scripts refuse to package one.
+    if [ "$BUILD_MODE" = test ]; then
+        BUILD_EXTRA=(-DTEST_NO_ADMIN=ON)
+    else
+        BUILD_EXTRA=(-DTEST_NO_ADMIN=OFF)
+    fi
+    return 0
+}
+
+# build_prepare BUILDDIR [TOOLCHAIN]
+#
+# Honour "clean", then drop a cache generated somewhere else. build/ is shared
+# by the native build, the cross build and the container, which sees this tree
+# as /src; a cache from any one of those is no use to the others.
+build_prepare()
+{
+    local build=${1:?usage: build_prepare BUILDDIR [TOOLCHAIN]}
+    local toolchain=${2-}
+    if [ "${BUILD_CLEAN:-0}" = 1 ]; then
+        rm -rf "$build"
+    fi
+    drop_foreign_cache "$build" "$toolchain"
+}
+
+# native_configure SRCDIR BUILDDIR [cmake args...]
+#
+# The first configure for a build with the host's own compiler. cross_configure
+# above is its opposite number; between them they are the only part of the two
+# builds that genuinely differs.
+native_configure()
+{
+    local src=${1:?usage: native_configure SRCDIR BUILDDIR [cmake args...]}
+    local build=${2:?}
+    shift 2
+    cmake -S "$src" -B "$build" -G Ninja -DCMAKE_BUILD_TYPE=Release "$@"
+}
+
+# build_run SRCDIR BUILDDIR CONFIGURE
+#
+# Configure if there is no cache yet, then build. Configuring costs far more
+# than an incremental build, and ninja re-runs cmake by itself when
+# CMakeLists.txt changes. BUILD_EXTRA is passed either way, so a switch between
+# a normal and a test build reconfigures on its own.
+build_run()
+{
+    local src=${1:?usage: build_run SRCDIR BUILDDIR CONFIGURE}
+    local build=${2:?}
+    local configure=${3:?}
+    if [ ! -f "$build/CMakeCache.txt" ]; then
+        "$configure" "$src" "$build" "${BUILD_EXTRA[@]}"
+    else
+        cmake -S "$src" -B "$build" "${BUILD_EXTRA[@]}" >/dev/null
+    fi
+    cmake --build "$build"
+}
+
+# build_report BUILDDIR PACKAGE_HINT
+#
+# The closing lines. A test build says what it cannot do instead of suggesting
+# how to package it, because packaging one is exactly what must not happen.
+build_report()
+{
+    local build=${1:?usage: build_report BUILDDIR PACKAGE_HINT}
+    local hint=${2:?}
+    echo
+    echo "built $build/Win32DiskImager.exe"
+    if [ "${BUILD_MODE:-}" = test ]; then
+        echo "this build asks for no elevation and CANNOT write to a device"
+    else
+        echo "package it with: $hint"
+    fi
+}
+
 # ------------------------------------------------------------------ command ---
 
 # Only when run, not when sourced.

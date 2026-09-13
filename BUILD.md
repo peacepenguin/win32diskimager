@@ -17,6 +17,9 @@ Every build lands in `build/`, whichever route it took.
 - **`tools/gpttest.sh`** → pass or fail
   - builds the harness in `tools/gpttest/`, which links the real
     `src/disk.cpp`, and runs it
+- **`tools/imgtest.sh`** → pass or fail
+  - the same idea for `src/imagesource.cpp`: reads images back and compares
+    them with what went in. Builds its own fixtures
 - **`tools/mkicon/`** → `src/images/Win32DiskImager.ico`
   - renders the app icon SVG into the multi-size `.ico` the executable needs.
     Run by the build itself, on both platforms; never invoked by hand
@@ -219,6 +222,27 @@ which must *not* be reported as damage.
 The cases where nothing may happen are the point. When changing the repair,
 confirm the harness still fails when it should: break a guard on purpose, watch
 it go red, put it back.
+
+## Testing the image decoder
+
+`src/imagesource.cpp` decides what bytes reach the card when the image is
+compressed, and it is the easiest place in the program to be subtly wrong: a
+member boundary landing mid-sector, a stream with padding between, a file that
+stops in the middle. None of that is reachable from the GPT harness.
+
+```
+tools/imgtest.sh
+```
+
+It compiles the real `src/imagesource.cpp`, then reads images back through it
+and compares them with the bytes that went in -- raw, gzip, xz, two-member
+gzip, two-stream xz, padding between streams, and an image whose length is not
+a whole number of sectors. Two more must be *rejected*: a gzip and an xz that
+stop in the middle, because writing what did come out and calling it done would
+put half an image on a card.
+
+The fixtures are built by the harness itself with zlib and liblzma, so nothing
+compressed is checked in and neither `gzip` nor `xz` needs to be on the path.
 
 ## Changing the icons
 

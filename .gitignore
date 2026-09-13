@@ -3,5 +3,6 @@ dist/
 src/lang/*.qm
 test-images/
 build-gpttest/
+build-imgtest/
 gpttest.img
 __pycache__/
