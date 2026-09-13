@@ -1,3 +1,19 @@
+Release 1.3.1
+=============
+Long tooltips wrap instead of running off the screen. Qt only word-wraps a
+  tooltip it takes for rich text, so a long plain one became a single line
+  clipped at both ends, showing neither its beginning nor its end
+The Verify button describes itself in the status bar, the way Read and Write
+  already did, rather than in a popup
+Writing an MBR image with "Fix GPT after write" unchecked no longer warns that
+  the partition table is at risk. There is no GPT to rewrite, so the message
+  now says so and names the image as MBR
+The post-write messages are about half as long, with the same information
+After the backup GPT is relocated, the stale copy the image left mid-device is
+  cleared, so no dead "EFI PART" signature is left for a later scan or clone to
+  find. Only sectors that really hold it are touched, never a partition
+Updated all translation files for the new and changed strings
+
 Release 1.3.0
 =============
 Write and verify compressed images directly: a .img.gz or .img.xz is
