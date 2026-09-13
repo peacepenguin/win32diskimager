@@ -157,28 +157,26 @@
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+442"/>
-        <location line="+10"/>
-        <location line="+10"/>
+        <location filename="../mainwindow.cpp" line="+498"/>
         <source>Exit?</source>
         <translation>終了しますか？</translation>
     </message>
     <message>
-        <location line="-20"/>
+        <location line="-18"/>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
         <translation>終了すると、破損したイメージファイルが作成されます。
 本当に終了してもよろしいですか？</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+5"/>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
         <translation>終了すると、破損したディスクが作成されます。
 本当に終了してもよろしいですか？</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+38"/>
         <source>Select a disk image</source>
         <translation>イメージを選択</translation>
     </message>
@@ -203,41 +201,41 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+39"/>
-        <location line="+90"/>
+        <location line="+38"/>
+        <location line="+91"/>
         <location line="+37"/>
         <location line="+22"/>
-        <location line="+231"/>
-        <location line="+82"/>
+        <location line="+224"/>
+        <location line="+81"/>
         <source>Write Error</source>
         <translation>書き込みエラー</translation>
     </message>
     <message>
-        <location line="-507"/>
-        <location line="+425"/>
-        <location line="+187"/>
+        <location line="-499"/>
+        <location line="+418"/>
+        <location line="+179"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>イメージファイルをデバイスに配置できません。</translation>
     </message>
     <message>
-        <location line="-603"/>
+        <location line="-588"/>
         <source>Confirm overwrite</source>
         <translation>上書きの確認</translation>
     </message>
     <message>
-        <location line="-448"/>
+        <location line="-450"/>
         <source>Waiting for a task.</source>
         <translation>タスクを待っています。</translation>
     </message>
     <message>
-        <location line="+154"/>
+        <location line="+149"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>終了すると、照合がキャンセルされます。
 本当に終了してもよろしいですか？</translation>
     </message>
     <message>
-        <location line="+264"/>
+        <location line="+271"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>照合をキャンセルします。
@@ -253,12 +251,12 @@ Are you sure you want to cancel?</source>
         <location line="-312"/>
         <location line="+11"/>
         <location line="+250"/>
-        <location line="+301"/>
+        <location line="+294"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+261"/>
-        <location line="+285"/>
+        <location line="+253"/>
+        <location line="+281"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -284,41 +282,41 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 他の操作を行う前に、今すぐデバイスを物理的に取り外してください。このコンピューターに再度挿入せず、目的のハードウェアに挿入してください。</translation>
     </message>
     <message>
-        <location line="-593"/>
-        <location line="+570"/>
+        <location line="-581"/>
+        <location line="+558"/>
         <source>The selected file does not exist.</source>
         <translation>選択したファイルは存在しません。</translation>
     </message>
     <message>
-        <location line="-870"/>
-        <location line="+310"/>
-        <location line="+276"/>
-        <location line="+294"/>
+        <location line="-851"/>
+        <location line="+303"/>
+        <location line="+268"/>
+        <location line="+290"/>
         <source>The specified file contains no data.</source>
         <translation>指定されたファイルにはデータが含まれていません。</translation>
     </message>
     <message>
-        <location line="-566"/>
-        <location line="+200"/>
-        <location line="+370"/>
+        <location line="-554"/>
+        <location line="+192"/>
+        <location line="+366"/>
         <source>Done.</source>
         <translation>完了しました。</translation>
     </message>
     <message>
-        <location line="-366"/>
+        <location line="-362"/>
         <location line="+2"/>
-        <location line="+343"/>
+        <location line="+339"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location line="-570"/>
+        <location line="-558"/>
         <source>Write Successful.</source>
         <translation>書き込み成功。</translation>
     </message>
     <message>
-        <location line="-769"/>
+        <location line="-764"/>
         <location line="+1"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>ディスクイメージ (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -329,7 +327,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>圧縮ディスクイメージ (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+184"/>
+        <location line="+186"/>
         <location line="+11"/>
         <source>Error</source>
         <translation>エラー</translation>
@@ -378,8 +376,8 @@ Write to this device anyway?</source>
 それでもこのデバイスに書き込みますか？</translation>
     </message>
     <message>
-        <location line="+22"/>
         <location line="+21"/>
+        <location line="+22"/>
         <location line="+21"/>
         <location line="+55"/>
         <location line="+37"/>
@@ -388,22 +386,22 @@ Write to this device anyway?</source>
         <translation>書き込みに失敗しました。</translation>
     </message>
     <message>
-        <location line="-763"/>
-        <location line="+429"/>
+        <location line="-793"/>
+        <location line="+459"/>
         <location line="+24"/>
-        <location line="+589"/>
+        <location line="+581"/>
         <source>Device Error</source>
         <translation>デバイスエラー</translation>
     </message>
     <message>
-        <location line="-1041"/>
-        <location line="+453"/>
-        <location line="+589"/>
+        <location line="-1063"/>
+        <location line="+483"/>
+        <location line="+581"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>デバイスがサイズ 0 を報告しています。カードリーダーの場合、カードが取り外された可能性があります。</translation>
     </message>
     <message>
-        <location line="-407"/>
+        <location line="-399"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -501,7 +499,7 @@ Continue Anyway?</source>
         <translation>デバイスへの書き込みが途中で終わったため、使用できるイメージが含まれていません。使用する前にイメージを書き込み直してください。</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+59"/>
         <source>Fixing GPT...</source>
         <translation>GPT を修正しています...</translation>
     </message>
@@ -593,12 +591,12 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+570"/>
+        <location line="+558"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>選択したファイルを読み取る権限がありません。</translation>
     </message>
     <message>
-        <location line="-520"/>
+        <location line="-508"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -607,7 +605,7 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 圧縮イメージ (.img.gz、.img.xz) は書き込みと検証には使用できます。</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+39"/>
         <location line="+12"/>
         <location line="+15"/>
         <location line="+9"/>
@@ -618,16 +616,16 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
         <translation>読み込みに失敗しました。</translation>
     </message>
     <message>
-        <location line="+80"/>
-        <location line="+20"/>
+        <location line="+72"/>
+        <location line="+21"/>
         <location line="+21"/>
         <location line="+76"/>
-        <location line="+21"/>
+        <location line="+24"/>
         <source>Verify failed.</source>
         <translation>検証に失敗しました。</translation>
     </message>
     <message>
-        <location line="-109"/>
+        <location line="-112"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -675,13 +673,13 @@ Continue Anyway?</source>
         <translation>検証中…</translation>
     </message>
     <message>
-        <location line="-901"/>
-        <location line="+1059"/>
+        <location line="-886"/>
+        <location line="+1040"/>
         <source>Partition table damaged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1041"/>
+        <location line="-1022"/>
         <source>Repair failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -691,7 +689,12 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1000"/>
+        <location line="+896"/>
+        <source>The device could not be read at sector %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+85"/>
         <source>The device holds the image correctly, but its partition table is broken:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -732,13 +735,13 @@ The image and the device differ only in the GPT.</source>
         <translation>[ディスク %1]</translation>
     </message>
     <message>
-        <location line="-628"/>
-        <location line="+569"/>
+        <location line="-616"/>
+        <location line="+557"/>
         <source>Please specify an image file to use.</source>
         <translation>使用するイメージファイルを指定してください。</translation>
     </message>
     <message>
-        <location line="-1143"/>
+        <location line="-1124"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -825,7 +828,7 @@ Repair the partition table now?</source>
         <translation>書き込み中…</translation>
     </message>
     <message>
-        <location line="+116"/>
+        <location line="+109"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -939,7 +942,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation>ファイルを上書きしてもよろしいですか？</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+69"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>指定されたイメージに対し ディスク容量が十分ではありません。</translation>
     </message>
@@ -949,7 +952,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation>読み込み中…</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+56"/>
         <source>Read Canceled.</source>
         <translation>読み込みがキャンセルされました。</translation>
     </message>
@@ -971,13 +974,14 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+14"/>
-        <location line="+113"/>
+        <location line="+13"/>
+        <location line="+114"/>
+        <location line="+21"/>
         <source>Verify Error</source>
         <translation>照合エラー</translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="-148"/>
         <source>Please select a device to verify against.</source>
         <translation>照合するデバイスを選択してください。</translation>
     </message>
@@ -1026,19 +1030,17 @@ Continue Anyway?</source>
         <translation>サイズが合いません！</translation>
     </message>
     <message>
-        <location line="+69"/>
-        <location line="+45"/>
+        <location line="+117"/>
         <source>Verify Failure</source>
         <translation>照合失敗</translation>
     </message>
     <message>
-        <location line="-45"/>
-        <location line="+46"/>
+        <location line="+1"/>
         <source>Verification failed at sector: %1</source>
         <translation>セクター：%1で照合に失敗しました</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+69"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
@@ -1083,12 +1085,12 @@ The device could NOT be taken offline automatically.</source>
     <name>QObject</name>
     <message>
         <location filename="../disk.cpp" line="+64"/>
-        <location line="+161"/>
+        <location line="+184"/>
         <source>File Error</source>
         <translation>ファイルエラー</translation>
     </message>
     <message>
-        <location line="-160"/>
+        <location line="-183"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>ファイルのハンドルを取得しようとしたときにエラーが発生しました。
@@ -1096,12 +1098,12 @@ Error %1: %2</source>
     </message>
     <message>
         <location line="+22"/>
-        <location line="+117"/>
+        <location line="+137"/>
         <source>Device Error</source>
         <translation>デバイスエラー</translation>
     </message>
     <message>
-        <location line="-116"/>
+        <location line="-136"/>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>デバイス上でハンドルを取得しようとしたときにエラーが発生しました。
@@ -1109,12 +1111,12 @@ Error %1: %2</source>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+355"/>
+        <location line="+378"/>
         <source>Lock Error</source>
         <translation>ロックエラー</translation>
     </message>
     <message>
-        <location line="-354"/>
+        <location line="-377"/>
         <source>An error occurred when attempting to lock the volume.
 Error %1: %2</source>
         <translation>ボリュームをロックしようとしたときにエラーが発生しました。
@@ -1145,25 +1147,29 @@ Error %1: %2</source>
 エラー%1：%2</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+25"/>
+        <location line="+8"/>
         <source>Read Error</source>
         <translation>読込みエラー</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-7"/>
+        <location line="+8"/>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>ハンドルからデータを読み取ろうとしているときにエラーが発生しました。
 エラー%1：%2</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
+        <location line="+8"/>
         <location line="+10"/>
         <source>Write Error</source>
         <translation>書込みエラー</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-17"/>
+        <location line="+8"/>
         <source>An error occurred when attempting to write data to handle.
 Error %1: %2</source>
         <translation>データの書き込み中にエラーが発生しました。
@@ -1175,14 +1181,14 @@ Error %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
         <translation>デバイスのジオメトリを取得中にエラーが発生しました。
 エラー%1：%2</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+24"/>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
         <translation>ファイルサイズを取得中にエラーが発生しました。
@@ -1297,7 +1303,7 @@ Error %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imagesource.cpp" line="+104"/>
+        <location filename="../imagesource.cpp" line="+113"/>
         <source>The device reports a sector size of zero.</source>
         <translation>デバイスがセクタサイズ 0 を報告しています。</translation>
     </message>
@@ -1313,16 +1319,15 @@ Error %2</source>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+71"/>
+        <location line="+69"/>
         <location line="+7"/>
-        <location line="+190"/>
-        <location line="+24"/>
-        <location line="+157"/>
+        <location line="+184"/>
+        <location line="+198"/>
         <source>The image file could not be read (error %1).</source>
         <translation>イメージファイルを読み取れませんでした (エラー %1)。</translation>
     </message>
     <message>
-        <location line="-403"/>
+        <location line="-414"/>
         <source>The image file could not be rewound (error %1).</source>
         <translation>イメージファイルを先頭に戻せませんでした (エラー %1)。</translation>
     </message>
@@ -1337,7 +1342,7 @@ Error %2</source>
         <translation>xz 展開処理を開始できませんでした (lzma エラー %1)。</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+73"/>
         <location line="+84"/>
         <source>The image file ends in the middle of the compressed data. It is truncated or damaged.</source>
         <translation>イメージファイルが圧縮データの途中で終わっています。切り詰められているか破損しています。</translation>

@@ -29,6 +29,15 @@
 // syscalls are not what limits throughput, small enough to stay out of the way.
 static const unsigned long INPUT_CHUNK = 1024ul * 1024ul;
 
+// Bytes as whole sectors, rounding up. Written out six times before, which is
+// six chances to get the rounding the wrong way round.
+static inline unsigned long long sectorsFor(unsigned long long bytes,
+                                            unsigned long long sectorsize)
+{
+    return (bytes / sectorsize) + ((bytes % sectorsize) ? 1ull : 0ull);
+}
+
+
 // The most DEFLATE can expand: a 258-byte match encoded in the shortest
 // possible way. Used to decide whether a gzip stream could have passed 4 GiB.
 static const unsigned long long MAX_DEFLATE_RATIO = 1032ull;
@@ -152,12 +161,10 @@ bool ImageSource::open(const QString &path, unsigned long long sectorsize)
     if (myFormat == FORMAT_RAW)
     {
         // Raw images keep the old behaviour, random access included.
-        mySectors = (myCompressedSize / mySectorSize) +
-                    ((myCompressedSize % mySectorSize) ? 1ull : 0ull);
+        mySectors = sectorsFor(myCompressedSize, mySectorSize);
         mySizeKnown = true;
-        LARGE_INTEGER zero;
-        zero.QuadPart = 0;
-        SetFilePointerEx(myHandle, zero, NULL, FILE_BEGIN);
+        // No rewind: the raw path seeks to the sector it wants before every
+        // read, so where the magic-byte read left the pointer never matters.
         return true;
     }
 
@@ -254,7 +261,7 @@ bool ImageSource::readGzipSize(unsigned long long filesize)
         // is no telling how many times. Not even an estimate.
         return false;
     }
-    mySectors = (size / mySectorSize) + ((size % mySectorSize) ? 1ull : 0ull);
+    mySectors = sectorsFor(size, mySectorSize);
     return filesize * MAX_DEFLATE_RATIO < 0x100000000ull;
 }
 
@@ -343,7 +350,7 @@ bool ImageSource::readXzSize(unsigned long long filesize)
     {
         return false;
     }
-    mySectors = (total / mySectorSize) + ((total % mySectorSize) ? 1ull : 0ull);
+    mySectors = sectorsFor(total, mySectorSize);
     return true;
 }
 
@@ -385,6 +392,21 @@ bool ImageSource::initDecoder()
 // buffer if it holds fewer than that, and says whether they are a gzip header.
 // Returns false only on a read error; a file that simply ran out reports that
 // no member follows.
+// Refill the compressed-input buffer, keeping `kept` bytes already sitting at
+// its front. nextMemberFollows() and fill() had a copy of this each, including
+// a copy of the error it reports.
+bool ImageSource::refillInput(size_t kept, DWORD *got)
+{
+    *got = 0;
+    if (!ReadFile(myHandle, &myInput[kept], (DWORD)(myInput.size() - kept), got, NULL))
+    {
+        myError = QObject::tr("The image file could not be read (error %1).")
+                      .arg(GetLastError());
+        return false;
+    }
+    return true;
+}
+
 bool ImageSource::nextMemberFollows(bool *follows)
 {
     *follows = false;
@@ -397,10 +419,8 @@ bool ImageSource::nextMemberFollows(bool *follows)
         }
         size_t kept = (size_t)myAvailIn;
         DWORD got = 0;
-        if (!ReadFile(myHandle, &myInput[kept], (DWORD)(myInput.size() - kept), &got, NULL))
+        if (!refillInput(kept, &got))
         {
-            myError = QObject::tr("The image file could not be read (error %1).")
-                          .arg(GetLastError());
             return false;
         }
         myNextIn = &myInput[0];
@@ -421,10 +441,8 @@ bool ImageSource::fill(char *buf, unsigned long long len, unsigned long long *pr
         if (myAvailIn == 0ull && !myFinishing)
         {
             DWORD got = 0;
-            if (!ReadFile(myHandle, &myInput[0], (DWORD)myInput.size(), &got, NULL))
+            if (!refillInput(0, &got))
             {
-                myError = QObject::tr("The image file could not be read (error %1).")
-                              .arg(GetLastError());
                 return false;
             }
             if (got == 0)
@@ -553,7 +571,7 @@ bool ImageSource::skipTo(unsigned long long startsector)
         {
             return false;
         }
-        myPos += (produced / mySectorSize) + ((produced % mySectorSize) ? 1ull : 0ull);
+        myPos += sectorsFor(produced, mySectorSize);
     }
     return true;
 }
@@ -591,8 +609,7 @@ char *ImageSource::read(unsigned long long startsector, unsigned long long count
         }
         if (sectorsread != NULL)
         {
-            *sectorsread = (bytesread / mySectorSize) +
-                           ((bytesread % mySectorSize) ? 1ull : 0ull);
+            *sectorsread = sectorsFor(bytesread, mySectorSize);
         }
         return data;
     }
@@ -615,8 +632,7 @@ char *ImageSource::read(unsigned long long startsector, unsigned long long count
         // written a sector at a time either way.
         memset(data + produced, 0, (size_t)(mySectorSize * count - produced));
     }
-    unsigned long long full = (produced / mySectorSize) +
-                              ((produced % mySectorSize) ? 1ull : 0ull);
+    unsigned long long full = sectorsFor(produced, mySectorSize);
     myPos += full;
     if (sectorsread != NULL)
     {

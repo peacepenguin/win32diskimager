@@ -12,6 +12,8 @@ jobs:
   # so the job runs in a Fedora container, which does ship them.
   windows-x86_64:
     runs-on: ubuntu-latest
+    # Keep in step with CROSS_BASE_IMAGE in tools/build-env.sh. It cannot be
+    # read from there: this is resolved before any step runs.
     container: fedora:44
     # Needed only by the release step, which creates a GitHub release.
     permissions:

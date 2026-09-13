@@ -102,5 +102,5 @@ void ElapsedTimer::start()
 void ElapsedTimer::stop()
 {
     setVisible(false);
-    setText(QString("0:00/0:00 "));
+    setText(QString("0:00/0:00"));
 }

@@ -132,10 +132,8 @@ static bool headerCrcValid(const unsigned char *h)
     return crc32of((const unsigned char *)probe.constData(), 92) == rd32(h, H_HEADERCRC);
 }
 
-// One partitioned "device": a GPT written as if an image of imagesectors had
-// just been written to a card of devicesectors, so the backup lands mid-device.
-// partend, when non-zero, overrides where the single partition ends -- used to
-// park a partition on top of the stale backup.
+// One test device: the bytes, the entry array written into it, and where the
+// image left its backup GPT.
 struct Disk
 {
     QByteArray bytes;
@@ -143,6 +141,10 @@ struct Disk
     unsigned long long imglast, imgbackupentries;
 };
 
+// A GPT written as if an image of imagesectors had just been written to a card
+// of devicesectors, so the backup lands mid-device. partend, when non-zero,
+// overrides where the single partition ends -- used to park a partition on top
+// of the stale backup.
 static Disk buildDisk(unsigned long long firstusable, unsigned long long imagesectors,
                       unsigned long long devicesectors, unsigned long long partend = 0)
 {
@@ -498,6 +500,15 @@ static void caseAfterTheFact(const char *name, unsigned long long firstusable,
 int main(int argc, char **argv)
 {
     QCoreApplication app(argc, argv);
+
+    // crc32of() here is a copy of disk.cpp's gptCrc32(), so every CRC check
+    // below would agree with a wrong polynomial or seed just as happily as
+    // with a right one. This pins it to the published CRC-32 check value
+    // instead, which is what makes the rest of the CRC checks mean anything.
+    printf("CRC-32 algorithm\n");
+    check(crc32of((const unsigned char *)"123456789", 9) == 0xCBF43926u,
+          "matches the standard check value for \"123456789\"");
+    printf("\n");
 
     // Ordinary layout: FirstUsableLBA 34, which the Windows rewrite happens to
     // land on correctly.

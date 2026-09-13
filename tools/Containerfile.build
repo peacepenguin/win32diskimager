@@ -2,7 +2,11 @@
 # .github/workflows/build.yml uses. Debian and Ubuntu ship no MinGW Qt6
 # packages, so the build has to happen on Fedora.
 #
-#   podman build -t w32di-build -f tools/Containerfile.build .
+#   podman build -t w32di-build --build-arg BASE=fedora:44 \
+#       -f tools/Containerfile.build .
+#
+# The base image comes from CROSS_BASE_IMAGE in tools/build-env.sh, which
+# container_run passes in. The default below is only for building this by hand.
 #
 # The package list and the paths it checks come from tools/build-env.sh, which
 # CI and the build scripts read too, so there is one copy of them. That file is
@@ -10,7 +14,8 @@
 # editing anything else does not.
 #
 # See BUILD.md, "Cross-compiling ... in a container".
-FROM fedora:44
+ARG BASE=fedora:44
+FROM ${BASE}
 
 COPY tools/build-env.sh /usr/local/lib/build-env.sh
 RUN bash /usr/local/lib/build-env.sh install && dnf clean all

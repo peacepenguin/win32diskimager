@@ -199,7 +199,11 @@ bool ejectDevice(HANDLE handle);
 bool isVolumeUnmounted(HANDLE handle);
 char *readSectorDataFromHandle(HANDLE handle, unsigned long long startsector, unsigned long long numsectors, unsigned long long sectorsize);
 bool writeSectorDataToHandle(HANDLE handle, char *data, unsigned long long startsector, unsigned long long numsectors, unsigned long long sectorsize);
-unsigned long long getNumberOfSectors(HANDLE handle, unsigned long long *sectorsize);
+// Sectors on the device, or 0. *reported is set when the failure has already
+// been put in front of the user, so the caller can stay quiet rather than
+// explain it a second time and differently.
+unsigned long long getNumberOfSectors(HANDLE handle, unsigned long long *sectorsize,
+                                      bool *reported = NULL);
 unsigned long long getFileSizeInSectors(HANDLE handle, unsigned long long sectorsize);
 bool spaceAvailable(char *location, unsigned long long spaceneeded);
 

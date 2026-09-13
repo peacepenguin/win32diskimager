@@ -13,10 +13,13 @@ A second Windows VM is optional — the host itself can mount the VHDX instead.
 ## 1. Build the 48 MB test image
 
 > `tools/make-test-images.sh` builds both of these for you, as
-> `test-gpt-affected.img` (the `first-lba: 2048` image below) and
-> `test-gpt-safe.img` (the `first-lba: 34` control from
-> [the end of this file](#the-control-image-which-the-rewrite-cannot-damage)).
-> Build them by hand as below when you want to vary the layout.
+> `test-gpt-affected.img` and `test-gpt-safe.img`. Both come from the `sfdisk`
+> table below, differing only in `first-lba` -- 2048 for the affected one, 34
+> for the control. The `sgdisk` recipe at
+> [the end of this file](#the-control-image-which-the-rewrite-cannot-damage)
+> reaches the same `FirstUsableLBA 34` a different way, and is there for when
+> you want a control built by a different tool. Build either by hand as below
+> when you want to vary the layout.
 
 On the Linux VM. `first-lba: 2048` is the field under test; `sfdisk` can set it
 and `sgdisk` cannot. No filesystems — only the table matters.

@@ -157,28 +157,26 @@
         <translation>종료</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+442"/>
-        <location line="+10"/>
-        <location line="+10"/>
+        <location filename="../mainwindow.cpp" line="+498"/>
         <source>Exit?</source>
         <translation>종료할까요?</translation>
     </message>
     <message>
-        <location line="-20"/>
+        <location line="-18"/>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
         <translation>지금 종료하면 이미지 파일이 깨질 수 있습니다.
 종료할까요?</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+5"/>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
         <translation>지금 종료하면 디스크가 깨질 수 있습니다.
 종료할까요?</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+38"/>
         <source>Select a disk image</source>
         <translation>디스크 이미지 선택</translation>
     </message>
@@ -203,41 +201,41 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+39"/>
-        <location line="+90"/>
+        <location line="+38"/>
+        <location line="+91"/>
         <location line="+37"/>
         <location line="+22"/>
-        <location line="+231"/>
-        <location line="+82"/>
+        <location line="+224"/>
+        <location line="+81"/>
         <source>Write Error</source>
         <translation>쓰기 오류</translation>
     </message>
     <message>
-        <location line="-507"/>
-        <location line="+425"/>
-        <location line="+187"/>
+        <location line="-499"/>
+        <location line="+418"/>
+        <location line="+179"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>이미지 파일을 대상 기기에 위치시킬 수 없습니다.</translation>
     </message>
     <message>
-        <location line="-603"/>
+        <location line="-588"/>
         <source>Confirm overwrite</source>
         <translation>중복쓰기 확인</translation>
     </message>
     <message>
-        <location line="-448"/>
+        <location line="-450"/>
         <source>Waiting for a task.</source>
         <translation>작업을 위하여 기다리는 중.</translation>
     </message>
     <message>
-        <location line="+154"/>
+        <location line="+149"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>지금 종료하는 것은 이미지 검증이 취소될 수 있습니다.
 종료할까요?</translation>
     </message>
     <message>
-        <location line="+264"/>
+        <location line="+271"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>검증 취소.
@@ -253,12 +251,12 @@ Are you sure you want to cancel?</source>
         <location line="-312"/>
         <location line="+11"/>
         <location line="+250"/>
-        <location line="+301"/>
+        <location line="+294"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+261"/>
-        <location line="+285"/>
+        <location line="+253"/>
+        <location line="+281"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -284,41 +282,41 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 다른 작업을 하기 전에 지금 바로 장치를 물리적으로 제거하고, 이 컴퓨터에 다시 꽂지 마십시오. 대상 하드웨어에 꽂으십시오.</translation>
     </message>
     <message>
-        <location line="-593"/>
-        <location line="+570"/>
+        <location line="-581"/>
+        <location line="+558"/>
         <source>The selected file does not exist.</source>
         <translation>선택된 파일이 존재하지 않습니다.</translation>
     </message>
     <message>
-        <location line="-870"/>
-        <location line="+310"/>
-        <location line="+276"/>
-        <location line="+294"/>
+        <location line="-851"/>
+        <location line="+303"/>
+        <location line="+268"/>
+        <location line="+290"/>
         <source>The specified file contains no data.</source>
         <translation>지정된 파일은 자료가 없습니다.</translation>
     </message>
     <message>
-        <location line="-566"/>
-        <location line="+200"/>
-        <location line="+370"/>
+        <location line="-554"/>
+        <location line="+192"/>
+        <location line="+366"/>
         <source>Done.</source>
         <translation>완료.</translation>
     </message>
     <message>
-        <location line="-366"/>
+        <location line="-362"/>
         <location line="+2"/>
-        <location line="+343"/>
+        <location line="+339"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>완료</translation>
     </message>
     <message>
-        <location line="-570"/>
+        <location line="-558"/>
         <source>Write Successful.</source>
         <translation>쓰기 성공.</translation>
     </message>
     <message>
-        <location line="-769"/>
+        <location line="-764"/>
         <location line="+1"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>디스크 이미지 (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -329,7 +327,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>압축 디스크 이미지 (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+184"/>
+        <location line="+186"/>
         <location line="+11"/>
         <source>Error</source>
         <translation>오류</translation>
@@ -378,8 +376,8 @@ Write to this device anyway?</source>
 그래도 이 장치에 쓸까요?</translation>
     </message>
     <message>
-        <location line="+22"/>
         <location line="+21"/>
+        <location line="+22"/>
         <location line="+21"/>
         <location line="+55"/>
         <location line="+37"/>
@@ -388,22 +386,22 @@ Write to this device anyway?</source>
         <translation>쓰기에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="-763"/>
-        <location line="+429"/>
+        <location line="-793"/>
+        <location line="+459"/>
         <location line="+24"/>
-        <location line="+589"/>
+        <location line="+581"/>
         <source>Device Error</source>
         <translation>장치 오류</translation>
     </message>
     <message>
-        <location line="-1041"/>
-        <location line="+453"/>
-        <location line="+589"/>
+        <location line="-1063"/>
+        <location line="+483"/>
+        <location line="+581"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>장치가 크기를 0으로 보고합니다. 카드 리더라면 카드가 제거되었을 수 있습니다.</translation>
     </message>
     <message>
-        <location line="-407"/>
+        <location line="-399"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -501,7 +499,7 @@ Continue Anyway?</source>
         <translation>장치에 이미지가 일부만 기록되어 사용할 수 없습니다. 사용하기 전에 이미지를 다시 기록하십시오.</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+59"/>
         <source>Fixing GPT...</source>
         <translation>GPT 수정 중...</translation>
     </message>
@@ -593,12 +591,12 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+570"/>
+        <location line="+558"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>선택한 파일을 읽을 권한이 없습니다.</translation>
     </message>
     <message>
-        <location line="-520"/>
+        <location line="-508"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -607,7 +605,7 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
 압축 이미지(.img.gz, .img.xz)는 쓰기와 검증에는 사용할 수 있습니다.</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+39"/>
         <location line="+12"/>
         <location line="+15"/>
         <location line="+9"/>
@@ -618,16 +616,16 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
         <translation>읽기에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="+80"/>
-        <location line="+20"/>
+        <location line="+72"/>
+        <location line="+21"/>
         <location line="+21"/>
         <location line="+76"/>
-        <location line="+21"/>
+        <location line="+24"/>
         <source>Verify failed.</source>
         <translation>검증에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="-109"/>
+        <location line="-112"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -675,13 +673,13 @@ Continue Anyway?</source>
         <translation>검증 중…</translation>
     </message>
     <message>
-        <location line="-901"/>
-        <location line="+1059"/>
+        <location line="-886"/>
+        <location line="+1040"/>
         <source>Partition table damaged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1041"/>
+        <location line="-1022"/>
         <source>Repair failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -691,7 +689,12 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1000"/>
+        <location line="+896"/>
+        <source>The device could not be read at sector %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+85"/>
         <source>The device holds the image correctly, but its partition table is broken:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -732,13 +735,13 @@ The image and the device differ only in the GPT.</source>
         <translation>[디스크 %1]</translation>
     </message>
     <message>
-        <location line="-628"/>
-        <location line="+569"/>
+        <location line="-616"/>
+        <location line="+557"/>
         <source>Please specify an image file to use.</source>
         <translation>사용하기 위한 이미지 파일을 지정해주세요.</translation>
     </message>
     <message>
-        <location line="-1143"/>
+        <location line="-1124"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -825,7 +828,7 @@ Repair the partition table now?</source>
         <translation>쓰는 중…</translation>
     </message>
     <message>
-        <location line="+116"/>
+        <location line="+109"/>
         <source>The image is larger than the device, so the end of it was not written and the device does not hold a complete image.
 
 This could only be detected once the device was full, because the compressed image does not record its uncompressed size.</source>
@@ -939,7 +942,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation>지정된 파일을 중복쓰기를 하시겠습니까?</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+69"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>디스크가 지정된 이미지 보다 크지 않습니다.</translation>
     </message>
@@ -949,7 +952,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation>읽는 중…</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+56"/>
         <source>Read Canceled.</source>
         <translation>읽기 취소됨.</translation>
     </message>
@@ -971,13 +974,14 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+14"/>
-        <location line="+113"/>
+        <location line="+13"/>
+        <location line="+114"/>
+        <location line="+21"/>
         <source>Verify Error</source>
         <translation>검증 오류</translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="-148"/>
         <source>Please select a device to verify against.</source>
         <translation>검증에 사용할 장치를 선택해주세요.</translation>
     </message>
@@ -1026,19 +1030,17 @@ Continue Anyway?</source>
         <translation>크기가 다름!</translation>
     </message>
     <message>
-        <location line="+69"/>
-        <location line="+45"/>
+        <location line="+117"/>
         <source>Verify Failure</source>
         <translation>검증 실패</translation>
     </message>
     <message>
-        <location line="-45"/>
-        <location line="+46"/>
+        <location line="+1"/>
         <source>Verification failed at sector: %1</source>
         <translation>섹터에서 검증 실패 : %1</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+69"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
@@ -1083,12 +1085,12 @@ The device could NOT be taken offline automatically.</source>
     <name>QObject</name>
     <message>
         <location filename="../disk.cpp" line="+64"/>
-        <location line="+161"/>
+        <location line="+184"/>
         <source>File Error</source>
         <translation>파일 오</translation>
     </message>
     <message>
-        <location line="-160"/>
+        <location line="-183"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>파일의 핸들을 얻기 시도할 때 오류가 발생.
@@ -1096,12 +1098,12 @@ Error %1: %2</source>
     </message>
     <message>
         <location line="+22"/>
-        <location line="+117"/>
+        <location line="+137"/>
         <source>Device Error</source>
         <translation>기기 오류</translation>
     </message>
     <message>
-        <location line="-116"/>
+        <location line="-136"/>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>기기의 핸들을 얻기 시도할 때 오류가 발생.
@@ -1109,12 +1111,12 @@ Error %1: %2</source>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+355"/>
+        <location line="+378"/>
         <source>Lock Error</source>
         <translation>잠금 오류</translation>
     </message>
     <message>
-        <location line="-354"/>
+        <location line="-377"/>
         <source>An error occurred when attempting to lock the volume.
 Error %1: %2</source>
         <translation>볼륨을 잠그려고 시도할 때 오류가 발생.
@@ -1145,25 +1147,29 @@ Error %1: %2</source>
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+25"/>
+        <location line="+8"/>
         <source>Read Error</source>
         <translation>읽기 오류</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-7"/>
+        <location line="+8"/>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>핸들로부터 자료를 읽으려고 시도할 때 오류가 발생.
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
+        <location line="+8"/>
         <location line="+10"/>
         <source>Write Error</source>
         <translation>쓰기 오류</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-17"/>
+        <location line="+8"/>
         <source>An error occurred when attempting to write data to handle.
 Error %1: %2</source>
         <translation>핸들로 자료를 쓰려고 할 때 오류가 발생.
@@ -1175,14 +1181,14 @@ Error %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
         <translation>기기의 지오메트리를 얻으려고 할 때 오류가 발생.
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+24"/>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
         <translation>파일크기를 얻는 동안 오류가 발생.
@@ -1297,7 +1303,7 @@ Error %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imagesource.cpp" line="+104"/>
+        <location filename="../imagesource.cpp" line="+113"/>
         <source>The device reports a sector size of zero.</source>
         <translation>장치가 섹터 크기를 0으로 보고합니다.</translation>
     </message>
@@ -1313,16 +1319,15 @@ Error %2</source>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+71"/>
+        <location line="+69"/>
         <location line="+7"/>
-        <location line="+190"/>
-        <location line="+24"/>
-        <location line="+157"/>
+        <location line="+184"/>
+        <location line="+198"/>
         <source>The image file could not be read (error %1).</source>
         <translation>이미지 파일을 읽을 수 없습니다 (오류 %1).</translation>
     </message>
     <message>
-        <location line="-403"/>
+        <location line="-414"/>
         <source>The image file could not be rewound (error %1).</source>
         <translation>이미지 파일을 처음으로 되돌릴 수 없습니다 (오류 %1).</translation>
     </message>
@@ -1337,7 +1342,7 @@ Error %2</source>
         <translation>xz 압축 해제기를 시작할 수 없습니다 (lzma 오류 %1).</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+73"/>
         <location line="+84"/>
         <source>The image file ends in the middle of the compressed data. It is truncated or damaged.</source>
         <translation>이미지 파일이 압축 데이터 중간에서 끝납니다. 잘렸거나 손상되었습니다.</translation>

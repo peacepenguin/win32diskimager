@@ -58,9 +58,11 @@ public:
     Format format() const { return myFormat; }
     bool isCompressed() const { return myFormat != FORMAT_RAW; }
     // True when sizeInSectors() is the exact size of the image. xz carries an
-    // index, so it always is; gzip stores only the low 32 bits of the size, so
-    // it only is for an image small enough that those bits cannot have wrapped.
-    // When this is false the image has to be written until the stream ends.
+    // index, so it usually is -- but readXzSize reports the size unknown rather
+    // than guess when that index cannot be read, so "always" would be too
+    // strong. gzip stores only the low 32 bits of the size, so it is exact only
+    // for an image small enough that those bits cannot have wrapped. When this
+    // is false the image has to be written until the stream ends.
     bool sizeKnown() const { return mySizeKnown; }
     // Exact when sizeKnown(), otherwise a lower bound useful for a progress
     // estimate, or 0 when even that could not be worked out. Never use it to
@@ -103,6 +105,7 @@ private:
     QString myError;
 
     void *myDecoder;                   // z_stream or lzma_stream, owned
+    bool refillInput(size_t kept, DWORD *got);
     std::vector<unsigned char> myInput;
     unsigned char *myNextIn;
     unsigned long long myAvailIn;

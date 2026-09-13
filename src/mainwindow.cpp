@@ -50,6 +50,10 @@ MainWindow* MainWindow::instance = NULL;
 // QProgressBar counts in int, and a multi-terabyte disk has more sectors than
 // an int holds -- which "Show all devices" makes reachable. Progress is
 // reported shifted right by this much so the bar does not wrap negative.
+// Sectors moved per pass through a transfer loop, and the step the progress
+// bar advances by. Named once so read, write and verify cannot drift apart.
+static const unsigned long long TRANSFER_SECTORS = 1024ull;
+
 static int progressShift(unsigned long long total)
 {
     int shift = 0;
@@ -178,14 +182,24 @@ bool MainWindow::acquireDeviceAndImage(int deviceID, LockedVolumes &locked,
         endRun(failedMessage);
         return false;
     }
-    *devicesectors = getNumberOfSectors(hRawDisk, &sectorsize);
-    if (!*devicesectors)
+    bool geometryreported = false;
+    *devicesectors = getNumberOfSectors(hRawDisk, &sectorsize, &geometryreported);
+    if (!*devicesectors && !geometryreported)
     {
         // A card reader whose card has been pulled stays present and reports
         // size zero, with no WM_DEVICECHANGE to say so.
         QMessageBox::critical(this, tr("Device Error"),
             tr("The device reports a size of zero. If it is a card reader, "
                "the card may have been removed."));
+        CloseHandle(hRawDisk);
+        hRawDisk = INVALID_HANDLE_VALUE;
+        locked.release();
+        endRun(failedMessage);
+        return false;
+    }
+    if (!*devicesectors)
+    {
+        // getNumberOfSectors already said what went wrong.
         CloseHandle(hRawDisk);
         hRawDisk = INVALID_HANDLE_VALUE;
         locked.release();
@@ -221,7 +235,7 @@ bool MainWindow::imageTailHasData(ImageSource &image, unsigned long long from,
     }
     for (unsigned long long at = from; at < to && !*datafound; )
     {
-        unsigned long chunk = ((to - at) >= 1024ull) ? 1024ul
+        unsigned long chunk = ((to - at) >= TRANSFER_SECTORS) ? TRANSFER_SECTORS
                                                      : (unsigned long)(to - at);
         char *data = image.read(at, chunk, NULL);
         if (data == NULL)
@@ -243,6 +257,25 @@ bool MainWindow::imageTailHasData(ImageSource &image, unsigned long long from,
         at += chunk;
     }
     return true;
+}
+
+// The throughput line, at most once a second. All three transfer loops report
+// the same figure the same way; written out separately they had drifted into
+// two spellings of "MB/s".
+void MainWindow::showThroughput(unsigned long long sector, unsigned long long total,
+                                unsigned long long *lastsector)
+{
+    if (update_timer.elapsed() < ONE_SEC_IN_MS)
+    {
+        return;
+    }
+    const double mbpersec =
+        (((double)sectorsize * (sector - *lastsector))
+         * ((double)ONE_SEC_IN_MS / update_timer.elapsed())) / 1024.0 / 1024.0;
+    statusbar->showMessage(QString("%1 MB/s").arg(mbpersec));
+    elapsed_timer->update(sector, total);
+    update_timer.start();
+    *lastsector = sector;
 }
 
 void MainWindow::endRun(const QString &message)
@@ -437,36 +470,38 @@ void MainWindow::setReadWriteButtonState()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    // The three running states ask the same question about different stakes.
+    // The sentences stay whole rather than being assembled from parts: a
+    // translator needs the whole sentence, and splitting them would throw away
+    // the translations these already have.
+    QString atstake;
     if (status == STATUS_READING)
     {
-        if (QMessageBox::warning(this, tr("Exit?"), tr("Exiting now will result in a corrupt image file.\n"
-                                                       "Are you sure you want to exit?"),
-                                 QMessageBox::Yes|QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
-        {
-            status = STATUS_EXIT;
-        }
-        event->ignore();
+        atstake = tr("Exiting now will result in a corrupt image file.\n"
+                     "Are you sure you want to exit?");
     }
     else if (status == STATUS_WRITING)
     {
-        if (QMessageBox::warning(this, tr("Exit?"), tr("Exiting now will result in a corrupt disk.\n"
-                                                       "Are you sure you want to exit?"),
-                                 QMessageBox::Yes|QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
-        {
-            status = STATUS_EXIT;
-        }
-        event->ignore();
+        atstake = tr("Exiting now will result in a corrupt disk.\n"
+                     "Are you sure you want to exit?");
     }
     else if (status == STATUS_VERIFYING)
     {
-        if (QMessageBox::warning(this, tr("Exit?"), tr("Exiting now will cancel verifying image.\n"
-                                                       "Are you sure you want to exit?"),
-                                 QMessageBox::Yes|QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
-        {
-            status = STATUS_EXIT;
-        }
-        event->ignore();
+        atstake = tr("Exiting now will cancel verifying image.\n"
+                     "Are you sure you want to exit?");
     }
+    else
+    {
+        return;      // nothing running: let the window close
+    }
+
+    if (QMessageBox::warning(this, tr("Exit?"), atstake,
+                             QMessageBox::Yes | QMessageBox::No,
+                             QMessageBox::No) == QMessageBox::Yes)
+    {
+        status = STATUS_EXIT;
+    }
+    event->ignore();
 }
 
 void MainWindow::on_tbBrowse_clicked()
@@ -784,7 +819,6 @@ void MainWindow::on_bWrite_clicked()
             bWrite->setEnabled(false);
             bRead->setEnabled(false);
             bVerify->setEnabled(false);
-            double mbpersec;
             unsigned long long i, lasti, availablesectors, numsectors;
             LockedVolumes locked;
             ImageSource image;
@@ -803,8 +837,9 @@ void MainWindow::on_bWrite_clicked()
             numsectors = sizeisestimate ? availablesectors : imagesectors;
             if (!numsectors)
             {
-                //For external card readers you may not get device change notification when you remove the card/flash.
-                //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
+                // The image, not the device: an empty file, or a compressed
+                // one whose stream holds nothing. The card-reader comment
+                // this used to carry belongs on the device-size check.
                 QMessageBox::critical(this, tr("File Error"),
                                       tr("The specified file contains no data."));
                 CloseHandle(hRawDisk);
@@ -909,9 +944,9 @@ void MainWindow::on_bWrite_clicked()
             // bar would otherwise still read "Clearing old partition tables".
             statusbar->showMessage(tr("Writing..."));
             bool imagetruncated = false;
-            for (i = 0ul; i < numsectors && status == STATUS_WRITING; i += 1024ul)
+            for (i = 0ul; i < numsectors && status == STATUS_WRITING; i += TRANSFER_SECTORS)
             {
-                unsigned long long chunk = (numsectors - i >= 1024ul) ? 1024ul : (numsectors - i);
+                unsigned long long chunk = (numsectors - i >= TRANSFER_SECTORS) ? TRANSFER_SECTORS : (numsectors - i);
                 unsigned long long got = 0ull;
                 sectorData = image.read(i, chunk, &got);
                 if (sectorData == NULL)
@@ -961,14 +996,7 @@ void MainWindow::on_bWrite_clicked()
                     break;
                 }
                 QCoreApplication::processEvents();
-                if (update_timer.elapsed() >= ONE_SEC_IN_MS)
-                {
-                    mbpersec = (((double)sectorsize * (i - lasti)) * ((float)ONE_SEC_IN_MS / update_timer.elapsed())) / 1024.0 / 1024.0;
-                    statusbar->showMessage(QString("%1 MB/s").arg(mbpersec));
-                    elapsed_timer->update(i, progresstotal);
-                    update_timer.start();
-                    lasti = i;
-                }
+                showThroughput(i, progresstotal, &lasti);
                 // i is where this chunk started; the bar tracks what is done,
                 // which is the end of it.
                 unsigned long long written = i + chunk;
@@ -1193,7 +1221,6 @@ void MainWindow::on_bRead_clicked()
         bVerify->setEnabled(false);
         status = STATUS_READING;
         showProgress(true);
-        double mbpersec;
         unsigned long long i, lasti, numsectors, filesize, spaceneeded = 0ull;
         // Lock and dismount every volume on the source disk, so no filesystem
         // driver writes cached metadata into the middle of the image we read.
@@ -1274,9 +1301,9 @@ void MainWindow::on_bRead_clicked()
         lasti = 0ul;
         update_timer.start();
         elapsed_timer->start();
-        for (i = 0ul; i < numsectors && status == STATUS_READING; i += 1024ul)
+        for (i = 0ul; i < numsectors && status == STATUS_READING; i += TRANSFER_SECTORS)
         {
-            sectorData = readSectorDataFromHandle(hRawDisk, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize);
+            sectorData = readSectorDataFromHandle(hRawDisk, i, (numsectors - i >= TRANSFER_SECTORS) ? TRANSFER_SECTORS:(numsectors - i), sectorsize);
             if (sectorData == NULL)
             {
                 CloseHandle(hRawDisk);
@@ -1287,7 +1314,7 @@ void MainWindow::on_bRead_clicked()
                 endRun(tr("Read failed."));
                 return;
             }
-            if (!writeSectorDataToHandle(hFile, sectorData, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize))
+            if (!writeSectorDataToHandle(hFile, sectorData, i, (numsectors - i >= TRANSFER_SECTORS) ? TRANSFER_SECTORS:(numsectors - i), sectorsize))
             {
                 delete[] sectorData;
                 CloseHandle(hRawDisk);
@@ -1301,16 +1328,9 @@ void MainWindow::on_bRead_clicked()
             }
             delete[] sectorData;
             sectorData = NULL;
-            if (update_timer.elapsed() >= ONE_SEC_IN_MS)
-            {
-                mbpersec = (((double)sectorsize * (i - lasti)) * ((float)ONE_SEC_IN_MS / update_timer.elapsed())) / 1024.0 / 1024.0;
-                statusbar->showMessage(QString("%1MB/s").arg(mbpersec));
-                update_timer.start();
-                elapsed_timer->update(i, numsectors);
-                lasti = i;
-            }
+            showThroughput(i, numsectors, &lasti);
             // i is where this chunk started; the bar tracks what is done.
-            unsigned long long done = i + 1024ull;
+            unsigned long long done = i + TRANSFER_SECTORS;
             progressbar->setValue((int)((done > numsectors ? numsectors : done) >> progshift));
             QCoreApplication::processEvents();
         }
@@ -1371,7 +1391,6 @@ void MainWindow::on_bVerify_clicked()
             bWrite->setEnabled(false);
             bRead->setEnabled(false);
             bVerify->setEnabled(false);
-            double mbpersec;
             unsigned long long i, lasti, availablesectors, numsectors, result;
             LockedVolumes locked;
             ImageSource image;
@@ -1389,8 +1408,9 @@ void MainWindow::on_bVerify_clicked()
             numsectors = sizeisestimate ? availablesectors : imagesectors;
             if (!numsectors)
             {
-                //For external card readers you may not get device change notification when you remove the card/flash.
-                //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
+                // The image, not the device: an empty file, or a compressed
+                // one whose stream holds nothing. The card-reader comment
+                // this used to carry belongs on the device-size check.
                 QMessageBox::critical(this, tr("File Error"),
                                       tr("The specified file contains no data."));
                 CloseHandle(hRawDisk);
@@ -1483,10 +1503,10 @@ void MainWindow::on_bVerify_clicked()
             elapsed_timer->start();
             lasti = 0ul;
             statusbar->showMessage(tr("Verifying..."));
-            for (i = 0ul; i < numsectors && status == STATUS_VERIFYING; i += 1024ul)
+            for (i = 0ul; i < numsectors && status == STATUS_VERIFYING; i += TRANSFER_SECTORS)
             {
                 unsigned long long got = 0ull;
-                sectorData = image.read(i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), &got);
+                sectorData = image.read(i, (numsectors - i >= TRANSFER_SECTORS) ? TRANSFER_SECTORS:(numsectors - i), &got);
                 if (sectorData == NULL)
                 {
                     QMessageBox::critical(this, tr("Verify Error"), image.errorString());
@@ -1508,7 +1528,10 @@ void MainWindow::on_bVerify_clicked()
                 sectorData2 = readSectorDataFromHandle(hRawDisk, i, got, sectorsize);
                 if (sectorData2 == NULL)
                 {
-                    QMessageBox::critical(this, tr("Verify Failure"), tr("Verification failed at sector: %1").arg(i));
+                    // The device could not be read. That is not the image
+                    // failing to match, which is what the other message says.
+                    QMessageBox::critical(this, tr("Verify Error"),
+                        tr("The device could not be read at sector %1.").arg(i));
                     delete[] sectorData;
                     sectorData = NULL;
                     CloseHandle(hRawDisk);
@@ -1559,20 +1582,13 @@ void MainWindow::on_bVerify_clicked()
                         break;
                     }
                 }
-                if (update_timer.elapsed() >= ONE_SEC_IN_MS)
-                {
-                    mbpersec = (((double)sectorsize * (i - lasti)) * ((float)ONE_SEC_IN_MS / update_timer.elapsed())) / 1024.0 / 1024.0;
-                    statusbar->showMessage(QString("%1MB/s").arg(mbpersec));
-                    update_timer.start();
-                    elapsed_timer->update(i, progresstotal);
-                    lasti = i;
-                }
+                showThroughput(i, progresstotal, &lasti);
                 delete[] sectorData;
                 delete[] sectorData2;
                 sectorData = NULL;
                 sectorData2 = NULL;
                 // i is where this chunk started; the bar tracks what is done.
-                unsigned long long checked = i + 1024ull;
+                unsigned long long checked = i + TRANSFER_SECTORS;
                 progressbar->setValue(
                     (int)((checked > progresstotal ? progresstotal : checked) >> progshift));
                 QCoreApplication::processEvents();

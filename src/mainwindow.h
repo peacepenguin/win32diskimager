@@ -87,6 +87,9 @@ private:
         void defaultHashTypeForFile();
         // Shows or hides the progress group; see mainwindow.cpp.
         void showProgress(bool show);
+        // Shows the transfer rate, at most once a second; see mainwindow.cpp.
+        void showThroughput(unsigned long long sector, unsigned long long total,
+                            unsigned long long *lastsector);
         // Puts the window back to idle and says why; see mainwindow.cpp.
         void endRun(const QString &message);
         // Offers to repair a primary GPT found broken; see mainwindow.cpp.

@@ -147,7 +147,17 @@ char *readSectorDataFromHandle(HANDLE handle, unsigned long long startsector, un
     char *data = new char[sectorsize * numsectors];
     LARGE_INTEGER li;
     li.QuadPart = startsector * sectorsize;
-    SetFilePointer(handle, li.LowPart, &li.HighPart, FILE_BEGIN);
+    // Checked the way rawSeekRead does it. A seek that silently failed would
+    // read from wherever the pointer happened to be.
+    if (SetFilePointer(handle, li.LowPart, &li.HighPart, FILE_BEGIN) == INVALID_SET_FILE_POINTER
+        && GetLastError() != NO_ERROR)
+    {
+        reportWin32Error(QObject::tr("Read Error"),
+                         QObject::tr("An error occurred when attempting to read data from handle.\n"
+                         "Error %1: %2"));
+        delete[] data;
+        return NULL;
+    }
     if (!ReadFile(handle, data, sectorsize * numsectors, &bytesread, NULL))
     {
         reportWin32Error(QObject::tr("Read Error"),
@@ -169,7 +179,16 @@ bool writeSectorDataToHandle(HANDLE handle, char *data, unsigned long long start
     BOOL bResult;
     LARGE_INTEGER li;
     li.QuadPart = startsector * sectorsize;
-    SetFilePointer(handle, li.LowPart, &li.HighPart, FILE_BEGIN);
+    // Checked, and this one matters most: a seek that silently failed would put
+    // this chunk of the image somewhere else on the device entirely.
+    if (SetFilePointer(handle, li.LowPart, &li.HighPart, FILE_BEGIN) == INVALID_SET_FILE_POINTER
+        && GetLastError() != NO_ERROR)
+    {
+        reportWin32Error(QObject::tr("Write Error"),
+                         QObject::tr("An error occurred when attempting to write data to handle.\n"
+                         "Error %1: %2"));
+        return false;
+    }
     bResult = WriteFile(handle, data, sectorsize * numsectors, &byteswritten, NULL);
     if (!bResult)
     {
@@ -193,7 +212,8 @@ bool writeSectorDataToHandle(HANDLE handle, char *data, unsigned long long start
     return true;
 }
 
-unsigned long long getNumberOfSectors(HANDLE handle, unsigned long long *sectorsize)
+unsigned long long getNumberOfSectors(HANDLE handle, unsigned long long *sectorsize,
+                                      bool *reported)
 {
     DWORD junk;
     DISK_GEOMETRY_EX diskgeometry;
@@ -204,6 +224,9 @@ unsigned long long getNumberOfSectors(HANDLE handle, unsigned long long *sectors
         reportWin32Error(QObject::tr("Device Error"),
                          QObject::tr("An error occurred when attempting to get the device's geometry.\n"
                          "Error %1: %2"));
+        // Tell the caller this was reported, so it does not stack a second
+        // dialog blaming a removed card for what was an ioctl failure.
+        if (reported != NULL) *reported = true;
         return 0;
     }
     if (sectorsize != NULL)
@@ -1167,8 +1190,11 @@ bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
     return true;
 }
 
-// GPT reserves 33 sectors at each end: one header plus 32 sectors of partition
-// entries. 34 covers that plus the protective MBR, with a sector to spare.
+// A GPT takes 33 sectors: one header and 32 of partition entries. At the front
+// the protective MBR sits ahead of them, so 34 covers it exactly; at the tail
+// there is no MBR and 34 is one sector more than needed. Both ends use the
+// same figure because the spare sector costs nothing and one number is easier
+// to be sure of than two.
 #define GPT_RESERVED_SECTORS 34
 
 bool wipePartitionTables(HANDLE hRawDisk, unsigned long long sectorsize,

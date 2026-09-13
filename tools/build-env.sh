@@ -76,11 +76,12 @@ CROSS_NATIVE_QTSVG="${CROSS_NATIVE_QTSVG:-/usr/lib64/cmake/Qt6Svg/Qt6SvgConfig.c
 
 # The image tools/Containerfile.build produces. Override with IMAGE=...
 #
-# The tag carries a checksum of the package list, because container_run only
+# The tag carries a checksum of the base image and the package list, because
+# container_run only
 # builds the image when one by that name does not already exist. Without this a
 # machine that had built the image once would keep the old toolchain for ever,
-# and adding a package here would appear to do nothing.
-CROSS_IMAGE="${IMAGE:-w32di-build:$(printf '%s' "$CROSS_PACKAGES" | cksum | cut -d' ' -f1)}"
+# and adding a package, or moving to a new Fedora, would appear to do nothing.
+CROSS_IMAGE="${IMAGE:-w32di-build:$(printf '%s' "$CROSS_BASE_IMAGE$CROSS_PACKAGES" | cksum | cut -d' ' -f1)}"
 
 # Extra "podman run" arguments a caller wants, as an array.
 CONTAINER_ENV=()
@@ -221,7 +222,8 @@ container_run()
     }
     if ! podman image exists "$CROSS_IMAGE"; then
         echo "building $CROSS_IMAGE (one time)..." >&2
-        podman build -t "$CROSS_IMAGE" -f "$repo/tools/Containerfile.build" "$repo"
+        podman build -t "$CROSS_IMAGE" --build-arg BASE="$CROSS_BASE_IMAGE" \
+            -f "$repo/tools/Containerfile.build" "$repo"
     fi
     podman run --rm -v "$repo:/src" -w /src \
         -e W32DI_IN_CONTAINER=1 \
