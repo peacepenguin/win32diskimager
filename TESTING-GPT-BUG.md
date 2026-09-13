@@ -66,8 +66,15 @@ Pick the disk by exact size rather than assuming `/dev/sdb`.
 
 ```
 TARGET=$(lsblk -bdno PATH,SIZE,TYPE | awk '$3=="disk" && $2==104000000 {print $1}')
-[ "$(echo "$TARGET" | grep -c .)" -eq 1 ] || { echo "expected 1 disk, got: ${TARGET:-none}"; }
-echo "target: $TARGET"
+# Clear it unless exactly one disk matched. The dd below writes to a raw disk,
+# so a warning that lets it run anyway is worse than useless: with TARGET empty
+# or holding two paths it could go to the wrong one. No "exit" here, because
+# this is meant to be pasted into an interactive shell.
+if [ "$(echo "$TARGET" | grep -c .)" -ne 1 ]; then
+    echo "expected exactly one 104 MB disk, got: ${TARGET:-none}" >&2
+    unset TARGET
+fi
+echo "target: ${TARGET:?no single matching disk - fix the selection before going on}"
 lsblk "$TARGET"
 ```
 

@@ -298,10 +298,30 @@ fi
 # ------------------------------------------------------------- manifest -----
 
 if [ "$KEEP_RAW" = 0 ]; then
-    rm -f "$OUTDIR"/*.img
+    # Only the raw images that also exist compressed. The GPT pair is raw-only
+    # -- there is no test-gpt-affected.img.gz -- so a blanket *.img would throw
+    # away the two images the GPT repair is tested with.
+    for img in "$OUTDIR"/*.img; do
+        [ -e "$img" ] || continue
+        if [ -e "$img.gz" ] || [ -e "$img.xz" ]; then
+            rm -f "$img"
+        fi
+    done
 fi
 
-( cd "$OUTDIR" && sha256sum -- *.img *.img.gz *.img.xz 2>/dev/null > SHA256SUMS )
+# nullglob, and a check that something matched: an unmatched *.img would reach
+# sha256sum as a literal, fail, and take the script down with it before the
+# manifest below was ever written.
+(
+    cd "$OUTDIR"
+    shopt -s nullglob
+    sums=( *.img *.img.gz *.img.xz )
+    if [ ${#sums[@]} -gt 0 ]; then
+        sha256sum -- "${sums[@]}" > SHA256SUMS
+    else
+        : > SHA256SUMS
+    fi
+)
 
 cat > "$OUTDIR/MANIFEST.txt" <<EOF
 win32diskimager raw / gzip / xz test images

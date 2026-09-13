@@ -149,6 +149,11 @@ void MainWindow::showProgress(bool show)
 // Take the device and open the image, which write and verify both have to do
 // before they can start. On failure it has already reported, cleaned up and
 // put the window back to idle, so the caller only returns.
+// Every failure path below closes the disk before releasing the volume locks,
+// the same order the successful write uses and for the same reason: unlocking
+// lets mountmgr rescan the disk at once, and a rescan is what triggers the
+// Windows GPT "repair" this program exists to avoid. It matters most on the
+// paths taken after sectors have already been written.
 bool MainWindow::acquireDeviceAndImage(int deviceID, LockedVolumes &locked,
                                        ImageSource &image,
                                        unsigned long long *devicesectors,
@@ -181,9 +186,9 @@ bool MainWindow::acquireDeviceAndImage(int deviceID, LockedVolumes &locked,
         QMessageBox::critical(this, tr("Device Error"),
             tr("The device reports a size of zero. If it is a card reader, "
                "the card may have been removed."));
-        locked.release();
         CloseHandle(hRawDisk);
         hRawDisk = INVALID_HANDLE_VALUE;
+        locked.release();
         endRun(failedMessage);
         return false;
     }
@@ -192,9 +197,9 @@ bool MainWindow::acquireDeviceAndImage(int deviceID, LockedVolumes &locked,
     if (!image.open(leFile->text(), sectorsize))
     {
         QMessageBox::critical(this, errorTitle, image.errorString());
-        locked.release();
         CloseHandle(hRawDisk);
         hRawDisk = INVALID_HANDLE_VALUE;
+        locked.release();
         endRun(failedMessage);
         return false;
     }
@@ -802,9 +807,9 @@ void MainWindow::on_bWrite_clicked()
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
                 QMessageBox::critical(this, tr("File Error"),
                                       tr("The specified file contains no data."));
-                locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
+                locked.release();
                 endRun(tr("Write failed."));
                 return;
             }
@@ -823,9 +828,9 @@ void MainWindow::on_bWrite_clicked()
                 if (QMessageBox::warning(this, tr("Not enough available space!"), msg,
                                          QMessageBox::Ok, QMessageBox::Cancel) != QMessageBox::Ok)
                 {
-                    locked.release();
                     CloseHandle(hRawDisk);
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    locked.release();
                     endRun(tr("Write failed."));
                     return;
                 }
@@ -859,9 +864,9 @@ void MainWindow::on_bWrite_clicked()
                 }
                 else    // Cancel
                 {
-                    locked.release();
                     CloseHandle(hRawDisk);
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    locked.release();
                     endRun(tr("Write cancelled."));
                     return;
                 }
@@ -878,9 +883,9 @@ void MainWindow::on_bWrite_clicked()
                     tr("Could not clear the existing partition tables on the device.")
                     + "\n\n" + tr("The device has been partially written and no longer holds "
                                   "a usable image. Write the image again before using it."));
-                locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
+                locked.release();
                 endRun(tr("Write failed."));
                 return;
             }
@@ -915,9 +920,9 @@ void MainWindow::on_bWrite_clicked()
                         image.errorString()
                         + "\n\n" + tr("The device has been partially written and no longer holds "
                                       "a usable image. Write the image again before using it."));
-                    locked.release();
                     CloseHandle(hRawDisk);
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    locked.release();
                     endRun(tr("Write failed."));
                     return;
                 }
@@ -937,8 +942,8 @@ void MainWindow::on_bWrite_clicked()
                         tr("The device has been partially written and no longer holds "
                            "a usable image. Write the image again before using it."));
                     delete[] sectorData;
-                    locked.release();
                     CloseHandle(hRawDisk);
+                    locked.release();
                     sectorData = NULL;
                     hRawDisk = INVALID_HANDLE_VALUE;
                     endRun(tr("Write failed."));
@@ -1199,23 +1204,42 @@ void MainWindow::on_bRead_clicked()
             endRun(tr("Read failed."));
             return;
         }
-        hFile = getHandleOnFile(LPCWSTR(myFile.data()), GENERIC_WRITE);
-        if (hFile == INVALID_HANDLE_VALUE)
-        {
-            locked.release();
-            endRun(tr("Read failed."));
-            return;
-        }
+        // The device is opened first, and its size checked, before the image
+        // file is touched at all: getHandleOnFile opens for writing with
+        // CREATE_ALWAYS, which truncates. Opening it first would empty the
+        // file the user already has and only then discover that the device
+        // cannot be read, leaving them with neither.
         hRawDisk = getHandleOnDevice(deviceID, GENERIC_READ);
         if (hRawDisk == INVALID_HANDLE_VALUE)
         {
             locked.release();
-            CloseHandle(hFile);
-            hFile = INVALID_HANDLE_VALUE;
             endRun(tr("Read failed."));
             return;
         }
         numsectors = getNumberOfSectors(hRawDisk, &sectorsize);
+        if (!numsectors)
+        {
+            // A card reader whose card has been pulled stays present and
+            // reports zero. Reading it would write a 0-byte image over
+            // whatever was there.
+            CloseHandle(hRawDisk);
+            hRawDisk = INVALID_HANDLE_VALUE;
+            locked.release();
+            QMessageBox::critical(this, tr("Device Error"),
+                tr("The device reports a size of zero. If it is a card reader, "
+                   "the card may have been removed."));
+            endRun(tr("Read failed."));
+            return;
+        }
+        hFile = getHandleOnFile(LPCWSTR(myFile.data()), GENERIC_WRITE);
+        if (hFile == INVALID_HANDLE_VALUE)
+        {
+            CloseHandle(hRawDisk);
+            hRawDisk = INVALID_HANDLE_VALUE;
+            locked.release();
+            endRun(tr("Read failed."));
+            return;
+        }
         filesize = getFileSizeInSectors(hFile, sectorsize);
         if (filesize >= numsectors)
         {
@@ -1228,8 +1252,8 @@ void MainWindow::on_bRead_clicked()
         if (!spaceAvailable(myFile.left(3).replace(QChar('/'), QChar('\\')).toLatin1().data(), spaceneeded))
         {
             QMessageBox::critical(this, tr("Write Error"), tr("Disk is not large enough for the specified image."));
-            locked.release();
             CloseHandle(hRawDisk);
+            locked.release();
             CloseHandle(hFile);
             sectorData = NULL;
             hRawDisk = INVALID_HANDLE_VALUE;
@@ -1255,8 +1279,8 @@ void MainWindow::on_bRead_clicked()
             sectorData = readSectorDataFromHandle(hRawDisk, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize);
             if (sectorData == NULL)
             {
-                locked.release();
                 CloseHandle(hRawDisk);
+                locked.release();
                 CloseHandle(hFile);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 hFile = INVALID_HANDLE_VALUE;
@@ -1266,8 +1290,8 @@ void MainWindow::on_bRead_clicked()
             if (!writeSectorDataToHandle(hFile, sectorData, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize))
             {
                 delete[] sectorData;
-                locked.release();
                 CloseHandle(hRawDisk);
+                locked.release();
                 CloseHandle(hFile);
                 sectorData = NULL;
                 hRawDisk = INVALID_HANDLE_VALUE;
@@ -1290,8 +1314,8 @@ void MainWindow::on_bRead_clicked()
             progressbar->setValue((int)((done > numsectors ? numsectors : done) >> progshift));
             QCoreApplication::processEvents();
         }
-        locked.release();
         CloseHandle(hRawDisk);
+        locked.release();
         CloseHandle(hFile);
         hRawDisk = INVALID_HANDLE_VALUE;
         hFile = INVALID_HANDLE_VALUE;
@@ -1369,9 +1393,9 @@ void MainWindow::on_bVerify_clicked()
                 //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
                 QMessageBox::critical(this, tr("File Error"),
                                       tr("The specified file contains no data."));
-                locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
+                locked.release();
                 endRun(tr("Verify failed."));
                 return;
             }
@@ -1390,9 +1414,9 @@ void MainWindow::on_bVerify_clicked()
                 if (QMessageBox::warning(this, tr("Size Mismatch!"), msg,
                                          QMessageBox::Ok, QMessageBox::Cancel) != QMessageBox::Ok)
                 {
-                    locked.release();
                     CloseHandle(hRawDisk);
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    locked.release();
                     endRun(tr("Verify failed."));
                     return;
                 }
@@ -1423,9 +1447,9 @@ void MainWindow::on_bVerify_clicked()
                 }
                 else    // Cancel
                 {
-                    locked.release();
                     CloseHandle(hRawDisk);
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    locked.release();
                     endRun(tr("Verify cancelled."));
                     return;
                 }
@@ -1466,9 +1490,9 @@ void MainWindow::on_bVerify_clicked()
                 if (sectorData == NULL)
                 {
                     QMessageBox::critical(this, tr("Verify Error"), image.errorString());
-                    locked.release();
                     CloseHandle(hRawDisk);
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    locked.release();
                     endRun(tr("Verify failed."));
                     return;
                 }
@@ -1487,9 +1511,9 @@ void MainWindow::on_bVerify_clicked()
                     QMessageBox::critical(this, tr("Verify Failure"), tr("Verification failed at sector: %1").arg(i));
                     delete[] sectorData;
                     sectorData = NULL;
-                    locked.release();
                     CloseHandle(hRawDisk);
                     hRawDisk = INVALID_HANDLE_VALUE;
+                    locked.release();
                     endRun(tr("Verify failed."));
                     return;
                 }
@@ -1790,7 +1814,7 @@ void MainWindow::on_showAllDevicesCheckBox_toggled(bool)
 
 // register to receive notifications when USB devices are inserted or removed
 // adapted from http://www.known-issues.net/qt/qt-detect-event-windows.html
-bool MainWindow::nativeEvent(const QByteArray &type, void *vMsg, long long *result)
+bool MainWindow::nativeEvent(const QByteArray &type, void *vMsg, qintptr *result)
 {
     Q_UNUSED(type);
     MSG *msg = (MSG*)vMsg;

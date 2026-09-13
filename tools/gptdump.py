@@ -28,16 +28,24 @@ def dev_size(path, f):
     # Windows raw device: seek-to-end fails, ask the OS.
     import ctypes
     from ctypes import wintypes
-    h = ctypes.windll.kernel32.CreateFileW(
-        path, 0, 3, None, 3, 0, None)
-    if h == -1:
+    # restype matters: a HANDLE is 64-bit and ctypes assumes a C int, so the
+    # handle comes back truncated and sign-extended unless it is declared.
+    k32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    k32.CreateFileW.restype = wintypes.HANDLE
+    k32.CreateFileW.argtypes = [wintypes.LPCWSTR, wintypes.DWORD, wintypes.DWORD,
+                                ctypes.c_void_p, wintypes.DWORD, wintypes.DWORD,
+                                wintypes.HANDLE]
+    k32.DeviceIoControl.restype = wintypes.BOOL
+    k32.CloseHandle.argtypes = [wintypes.HANDLE]
+    h = k32.CreateFileW(path, 0, 3, None, 3, 0, None)
+    if h is None or h == wintypes.HANDLE(-1).value:
         return None
     buf = ctypes.create_string_buffer(32)
     ret = wintypes.DWORD()
     # IOCTL_DISK_GET_LENGTH_INFO
-    ok = ctypes.windll.kernel32.DeviceIoControl(
+    ok = k32.DeviceIoControl(
         h, 0x0007405C, None, 0, buf, 32, ctypes.byref(ret), None)
-    ctypes.windll.kernel32.CloseHandle(h)
+    k32.CloseHandle(h)
     return struct.unpack("<q", buf.raw[:8])[0] if ok else None
 
 def show_header(name, raw, disk_lba_max):
@@ -74,6 +82,11 @@ def find_entry_array(f, pcrc, pnum, psize, last):
     that only validates the header, while the array it names is somewhere else.
     Knowing where it really is says whether the array moved or the pointer did.
     """
+    # A corrupt header can claim billions of entries of billions of bytes.
+    # Reading that would try to allocate it, once per candidate LBA. These are
+    # the same bounds src/disk.cpp uses.
+    if not (0 < pnum <= 65536 and 128 <= psize <= 4096):
+        return None
     want = pnum * psize
     windows = [range(1, 96)]
     if last:

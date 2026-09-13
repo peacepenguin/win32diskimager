@@ -149,7 +149,7 @@
         <translation>வெளியேறு</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+303"/>
+        <location filename="../mainwindow.cpp" line="+308"/>
         <source>Waiting for a task.</source>
         <translation>ஒரு பணி காத்திருக்கிறது.</translation>
     </message>
@@ -214,19 +214,19 @@ Are you sure you want to cancel?</source>
         <location line="+37"/>
         <location line="+22"/>
         <location line="+231"/>
-        <location line="+63"/>
+        <location line="+82"/>
         <source>Write Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-488"/>
+        <location line="-507"/>
         <location line="+425"/>
-        <location line="+168"/>
+        <location line="+187"/>
         <source>Image file cannot be located on the target device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-584"/>
+        <location line="-603"/>
         <source>Confirm overwrite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -319,7 +319,7 @@ This could only be detected once the device was full, because the compressed ima
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+242"/>
+        <location line="+261"/>
         <location line="+285"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -328,22 +328,22 @@ This could only be detected once the device was full, because the compressed ima
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-574"/>
-        <location line="+551"/>
+        <location line="-593"/>
+        <location line="+570"/>
         <source>The selected file does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-851"/>
+        <location line="-870"/>
         <location line="+310"/>
-        <location line="+257"/>
+        <location line="+276"/>
         <location line="+294"/>
         <source>The specified file contains no data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-547"/>
-        <location line="+181"/>
+        <location line="-566"/>
+        <location line="+200"/>
         <location line="+370"/>
         <source>Done.</source>
         <translation>முடிந்தது.</translation>
@@ -370,7 +370,7 @@ This could only be detected at the end of the device, because the compressed ima
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-551"/>
+        <location line="-570"/>
         <source>Write Successful.</source>
         <translation>வெற்றிகரமாக எழுது.</translation>
     </message>
@@ -429,17 +429,19 @@ Are you sure you want to continue?</source>
         <location line="-763"/>
         <location line="+429"/>
         <location line="+24"/>
+        <location line="+589"/>
         <source>Device Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-452"/>
+        <location line="-1041"/>
         <location line="+453"/>
+        <location line="+589"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-55"/>
+        <location line="-644"/>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
 
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
@@ -574,18 +576,18 @@ Continue Anyway?</source>
     </message>
     <message>
         <location line="+89"/>
-        <location line="+551"/>
+        <location line="+570"/>
         <source>You do not have permission to read the selected file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-532"/>
-        <location line="+550"/>
+        <location line="-551"/>
+        <location line="+569"/>
         <source>Please specify an image file to use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-520"/>
+        <location line="-539"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation type="unfinished"></translation>
@@ -614,9 +616,10 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
     </message>
     <message>
         <location line="+20"/>
-        <location line="+7"/>
+        <location line="+12"/>
+        <location line="+15"/>
         <location line="+9"/>
-        <location line="+22"/>
+        <location line="+21"/>
         <location line="+26"/>
         <location line="+12"/>
         <source>Read failed.</source>
@@ -729,7 +732,7 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-376"/>
+        <location line="-395"/>
         <source>Write successful.
 
 The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
@@ -801,7 +804,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+334"/>
+        <location line="+353"/>
         <source>Verify cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -823,13 +826,13 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-954"/>
-        <location line="+1040"/>
+        <location line="-973"/>
+        <location line="+1059"/>
         <source>Partition table damaged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1022"/>
+        <location line="-1041"/>
         <source>Repair failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -839,7 +842,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+981"/>
+        <location line="+1000"/>
         <source>The device holds the image correctly, but its partition table is broken:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -898,36 +901,36 @@ The device could NOT be taken offline automatically.</source>
     <name>QObject</name>
     <message>
         <location filename="../disk.cpp" line="+64"/>
-        <location line="+148"/>
+        <location line="+161"/>
         <source>File Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-147"/>
+        <location line="-160"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+22"/>
-        <location line="+104"/>
+        <location line="+117"/>
         <source>Device Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-103"/>
+        <location line="-116"/>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+342"/>
+        <location line="+355"/>
         <source>Lock Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-354"/>
         <source>An error occurred when attempting to lock the volume.
 Error %1: %2</source>
         <translation type="unfinished"></translation>
@@ -967,17 +970,23 @@ Error %1: %2</source>
     </message>
     <message>
         <location line="+22"/>
+        <location line="+10"/>
         <source>Write Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-9"/>
         <source>An error occurred when attempting to write data to handle.
 Error %1: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+10"/>
+        <source>The device took only %1 of %2 bytes. The image on the device is incomplete.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
         <translation type="unfinished"></translation>
@@ -1028,12 +1037,22 @@ Error %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+17"/>
+        <source>the GPT entry array does not fit on the device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>the GPT partition entry array checksum is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
         <source>a partition extends past the end of the device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+136"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
         <translation type="unfinished"></translation>
     </message>

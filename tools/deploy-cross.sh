@@ -92,7 +92,17 @@ done
 
 # Fedora ships its MinGW DLLs unstripped; libstdc++ alone is ~26 MB of debug
 # symbols that do nothing in a shipped build.
+#
+# The tool is checked for rather than assumed: hiding a missing strip behind
+# 2>/dev/null shipped the symbols anyway while this comment claimed they were
+# gone. Errors from individual files stay visible now, for the same reason.
+strip_tool=${STRIP:-x86_64-w64-mingw32-strip}
+command -v "$strip_tool" >/dev/null 2>&1 || {
+    echo "error: $strip_tool not found, so the package would ship its debug" >&2
+    echo "       symbols. It comes with binutils; see tools/build-env.sh." >&2
+    exit 1
+}
 find "$dist" \( -name '*.dll' -o -name '*.exe' \) \
-    -exec "${STRIP:-x86_64-w64-mingw32-strip}" --strip-unneeded {} + 2>/dev/null || true
+    -exec "$strip_tool" --strip-unneeded {} +
 
 echo "dist: $(find "$dist" -type f | wc -l) files, $(du -sh "$dist" | cut -f1)"

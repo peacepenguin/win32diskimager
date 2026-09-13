@@ -183,6 +183,11 @@ static const char *TESTFILE = "gpttest.img";
 static GptFixResult runRepair(const Disk &dk, unsigned long long devicesectors,
                               QByteArray *after, QString *detail)
 {
+    // Sized before anything can fail: every caller indexes into this, and on
+    // the early return below a default-constructed QByteArray would be read
+    // past its end.
+    *after = QByteArray(devicesectors * SEC, 0);
+
     DeleteFileA(TESTFILE);
     HANDLE h = CreateFileA(TESTFILE, GENERIC_READ | GENERIC_WRITE, 0, NULL,
                            CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -192,15 +197,29 @@ static GptFixResult runRepair(const Disk &dk, unsigned long long devicesectors,
         ++failures;
         return GPT_FIX_FAILED;
     }
+    // Checked, or a short write would leave the test device holding something
+    // other than the case meant to set up, and the checks would be measuring
+    // the wrong thing while still passing.
     DWORD put = 0;
-    WriteFile(h, dk.bytes.constData(), (DWORD)dk.bytes.size(), &put, NULL);
+    if (!WriteFile(h, dk.bytes.constData(), (DWORD)dk.bytes.size(), &put, NULL)
+        || put != (DWORD)dk.bytes.size())
+    {
+        printf("  FAIL could not write the test device\n");
+        ++failures;
+        CloseHandle(h);
+        return GPT_FIX_FAILED;
+    }
 
     GptFixResult r = relocateBackupGPT(h, SEC, devicesectors, detail);
 
-    *after = QByteArray(devicesectors * SEC, 0);
     SetFilePointer(h, 0, NULL, FILE_BEGIN);
     DWORD got = 0;
-    ReadFile(h, after->data(), (DWORD)after->size(), &got, NULL);
+    if (!ReadFile(h, after->data(), (DWORD)after->size(), &got, NULL)
+        || got != (DWORD)after->size())
+    {
+        printf("  FAIL could not read the test device back\n");
+        ++failures;
+    }
     CloseHandle(h);
     return r;
 }
@@ -344,6 +363,16 @@ static void damageCrc(unsigned char *d, unsigned long long)
 {
     wr32(d + SEC, H_HEADERCRC, 0xDEADBEEF);      // header no longer checksums
 }
+static void damageEntriesCrc(unsigned char *d, unsigned long long)
+{
+    // A header whose PartitionEntryArrayCRC32 does not describe the entries it
+    // points at. The repair must refuse it rather than compute a fresh
+    // checksum over whatever happens to be there.
+    unsigned char *h = d + SEC;
+    wr32(h, 88, 0xDEADBEEF);
+    wr32(h, H_HEADERCRC, 0);
+    wr32(h, H_HEADERCRC, crc32of(h, 92));
+}
 static void damageAlreadyAtEnd(unsigned char *d, unsigned long long device)
 {
     // Claim the backup is already at the last LBA: nothing to relocate.
@@ -440,6 +469,7 @@ int main(int argc, char **argv)
     caseUntouched("no GPT on the device", GPT_FIX_NO_GPT, damageSignature);
     caseUntouched("backup already at the last LBA", GPT_FIX_NOT_NEEDED, damageAlreadyAtEnd);
     caseUntouched("primary header CRC invalid", GPT_FIX_BAD_GPT, damageCrc);
+    caseUntouched("entry array checksum invalid", GPT_FIX_BAD_GPT, damageEntriesCrc);
 
     // After Windows has already mangled it, with "Fix GPT after write" off.
     caseAfterTheFact("windows rewrote the table (reserved-space layout)", 2048, true);

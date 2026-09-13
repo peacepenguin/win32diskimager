@@ -54,7 +54,12 @@ void DroppableLineEdit::dropEvent(QDropEvent *event)
             info.setFile( fName ); // information about file
             if ( info.isFile() )
             {
-                setText( fName ); // if is file, setText
+                setText( fName );
+                // setText alone changes nothing else: the window reacts to
+                // editingFinished, which is what selects the hash type, fixes
+                // the separators and enables the buttons. Without this a
+                // dropped image sits in the box with Write still greyed out.
+                emit editingFinished();
                 event->acceptProposedAction();
             } else {
 //				setText("has url but Cannot drop");
@@ -65,6 +70,7 @@ void DroppableLineEdit::dropEvent(QDropEvent *event)
     else if (data->hasText())
     {
         setText(data->text());
+        emit editingFinished();
         event->acceptProposedAction();
     } else {
         event->ignore();

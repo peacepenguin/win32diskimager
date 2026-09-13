@@ -176,8 +176,21 @@ bool writeSectorDataToHandle(HANDLE handle, char *data, unsigned long long start
         reportWin32Error(QObject::tr("Write Error"),
                          QObject::tr("An error occurred when attempting to write data to handle.\n"
                          "Error %1: %2"));
+        return false;
     }
-    return (bResult);
+    if (byteswritten != sectorsize * numsectors)
+    {
+        // WriteFile can report success having written less than it was asked
+        // to. Counting that as a whole chunk leaves a hole in the image on the
+        // device that nothing notices until it fails to boot.
+        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Write Error"),
+            QObject::tr("The device took only %1 of %2 bytes. The image on the device "
+                        "is incomplete.")
+                .arg((qulonglong)byteswritten)
+                .arg((qulonglong)(sectorsize * numsectors)));
+        return false;
+    }
+    return true;
 }
 
 unsigned long long getNumberOfSectors(HANDLE handle, unsigned long long *sectorsize)
@@ -671,10 +684,32 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     // Entry array, rounded up to a whole number of sectors.
     unsigned long long entrybytes = numentries * entrysize;
     unsigned long long entrysectors = (entrybytes + sectorsize - 1) / sectorsize;
+    if (entrysectors + 2 >= devicesectors)
+    {
+        // The arithmetic below subtracts this from the last LBA. A table
+        // claiming more entries than the device can hold would wrap round and
+        // put the backup GPT at an enormous sector number.
+        if (detail) *detail = QObject::tr("the GPT entry array does not fit on the device");
+        return GPT_FIX_BAD_GPT;
+    }
     QByteArray entries(entrysectors * sectorsize, 0);
     if (!rawSeekRead(hRawDisk, entrylba * sectorsize, entries.data(), (DWORD)(entrysectors * sectorsize)))
     {
         return GPT_FIX_FAILED;
+    }
+
+    // Nothing here modifies the entry array, so the checksum in the header must
+    // already describe it. Recomputing and storing it instead would hand a
+    // damaged table a fresh valid checksum -- and on a table Windows has
+    // already rewritten, where PartitionEntryLBA points at empty space, it
+    // would overwrite the one field still recording what the real entries hash
+    // to. That field is exactly what repairPrimaryGpt() uses to find them
+    // again, so destroying it would make the damage unrepairable.
+    if (gptCrc32((const unsigned char *)entries.constData(), (size_t)entrybytes)
+        != rd32(hdr, GPT_OFF_ENTRIESCRC))
+    {
+        if (detail) *detail = QObject::tr("the GPT partition entry array checksum is invalid");
+        return GPT_FIX_BAD_GPT;
     }
 
     unsigned long long backuphdr     = lastlba;
@@ -711,8 +746,6 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
         }
     }
 
-    DWORD entriescrc = gptCrc32((const unsigned char *)entries.constData(), (size_t)entrybytes);
-
     // Rebuild the primary header in place. Only the fields that describe where
     // the device ends change: PartitionEntryLBA and FirstUsableLBA are left
     // exactly as the image wrote them. Forcing the entry array to LBA 2 would
@@ -722,7 +755,6 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     wr64(hdr, GPT_OFF_MYLBA, 1);
     wr64(hdr, GPT_OFF_ALTLBA, backuphdr);
     wr64(hdr, GPT_OFF_LASTUSABLE, lastusable);
-    wr32(hdr, GPT_OFF_ENTRIESCRC, entriescrc);
     wr32(hdr, GPT_OFF_HEADERCRC, 0);
     wr32(hdr, GPT_OFF_HEADERCRC, gptCrc32(hdr, headersize));
 

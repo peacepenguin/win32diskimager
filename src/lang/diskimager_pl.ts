@@ -158,7 +158,7 @@
         <translation>Wyjdź</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+437"/>
+        <location filename="../mainwindow.cpp" line="+442"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -206,19 +206,19 @@ Are you sure you want to cancel?</source>
         <location line="+37"/>
         <location line="+22"/>
         <location line="+231"/>
-        <location line="+63"/>
+        <location line="+82"/>
         <source>Write Error</source>
         <translation>Błąd Zapisu</translation>
     </message>
     <message>
-        <location line="-488"/>
+        <location line="-507"/>
         <location line="+425"/>
-        <location line="+168"/>
+        <location line="+187"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Plik obrazu nie może zostać umieszczony na urządzeniu docelowym.</translation>
     </message>
     <message>
-        <location line="-584"/>
+        <location line="-603"/>
         <source>Confirm overwrite</source>
         <translation>Potwierdź Nadpisanie</translation>
     </message>
@@ -255,7 +255,7 @@ Czy na pewno chcesz anulować?</translation>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+242"/>
+        <location line="+261"/>
         <location line="+285"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -282,22 +282,22 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Odłącz urządzenie fizycznie TERAZ, zanim zrobisz cokolwiek innego, i nie podłączaj go ponownie do tego komputera. Podłącz je zamiast tego do urządzenia docelowego.</translation>
     </message>
     <message>
-        <location line="-574"/>
-        <location line="+551"/>
+        <location line="-593"/>
+        <location line="+570"/>
         <source>The selected file does not exist.</source>
         <translation>Wybrany plik nie istnieje.</translation>
     </message>
     <message>
-        <location line="-851"/>
+        <location line="-870"/>
         <location line="+310"/>
-        <location line="+257"/>
+        <location line="+276"/>
         <location line="+294"/>
         <source>The specified file contains no data.</source>
         <translation>Wybrany plik nie zawiera danych.</translation>
     </message>
     <message>
-        <location line="-547"/>
-        <location line="+181"/>
+        <location line="-566"/>
+        <location line="+200"/>
         <location line="+370"/>
         <source>Done.</source>
         <translation>Zrobione.</translation>
@@ -311,7 +311,7 @@ Odłącz urządzenie fizycznie TERAZ, zanim zrobisz cokolwiek innego, i nie pod�
         <translation>Gotowe</translation>
     </message>
     <message>
-        <location line="-551"/>
+        <location line="-570"/>
         <source>Write Successful.</source>
         <translation>Zapis Pomyślny.</translation>
     </message>
@@ -389,17 +389,19 @@ Zapisać mimo to na tym urządzeniu?</translation>
         <location line="-763"/>
         <location line="+429"/>
         <location line="+24"/>
+        <location line="+589"/>
         <source>Device Error</source>
         <translation>Błąd urządzenia</translation>
     </message>
     <message>
-        <location line="-452"/>
+        <location line="-1041"/>
         <location line="+453"/>
+        <location line="+589"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Urządzenie zgłasza zerowy rozmiar. Jeśli jest to czytnik kart, karta mogła zostać wyjęta.</translation>
     </message>
     <message>
-        <location line="+182"/>
+        <location line="-407"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -589,12 +591,12 @@ Windows i tak przepisze tablicę przy ponownym skanowaniu, ponieważ zapasowy GP
     </message>
     <message>
         <location line="+15"/>
-        <location line="+551"/>
+        <location line="+570"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Nie masz uprawnień do odczytu wybranego pliku.</translation>
     </message>
     <message>
-        <location line="-501"/>
+        <location line="-520"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -604,9 +606,10 @@ Skompresowane obrazy (.img.gz, .img.xz) można zapisywać i weryfikować.</trans
     </message>
     <message>
         <location line="+40"/>
-        <location line="+7"/>
+        <location line="+12"/>
+        <location line="+15"/>
         <location line="+9"/>
-        <location line="+22"/>
+        <location line="+21"/>
         <location line="+26"/>
         <location line="+12"/>
         <source>Read failed.</source>
@@ -670,13 +673,13 @@ Kontynuować mimo to?</translation>
         <translation>Weryfikowanie…</translation>
     </message>
     <message>
-        <location line="-882"/>
-        <location line="+1040"/>
+        <location line="-901"/>
+        <location line="+1059"/>
         <source>Partition table damaged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1022"/>
+        <location line="-1041"/>
         <source>Repair failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -686,7 +689,7 @@ Kontynuować mimo to?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+981"/>
+        <location line="+1000"/>
         <source>The device holds the image correctly, but its partition table is broken:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -727,13 +730,13 @@ The image and the device differ only in the GPT.</source>
         <translation>[Dysk %1]</translation>
     </message>
     <message>
-        <location line="-609"/>
-        <location line="+550"/>
+        <location line="-628"/>
+        <location line="+569"/>
         <source>Please specify an image file to use.</source>
         <translation>Proszę wybrać plik obrazu do użycia.</translation>
     </message>
     <message>
-        <location line="-1124"/>
+        <location line="-1143"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -934,7 +937,7 @@ Wyjmij urządzenie TERAZ i nie wkładaj go ponownie tutaj. Włóż je bezpośred
         <translation>Czy jesteś pewien że chcesz nadpisać wybrany plik?</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+70"/>
         <source>Disk is not large enough for the specified image.</source>
         <translation>Dysk nie jest odpowiednio wielki dla wybranego obrazu.</translation>
     </message>
@@ -1078,12 +1081,12 @@ NIE udało się automatycznie przełączyć urządzenia w tryb offline.</transla
     <name>QObject</name>
     <message>
         <location filename="../disk.cpp" line="+64"/>
-        <location line="+148"/>
+        <location line="+161"/>
         <source>File Error</source>
         <translation>Błąd Pliku</translation>
     </message>
     <message>
-        <location line="-147"/>
+        <location line="-160"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>Wystąpił błąd podczas próby obsługi pliku.
@@ -1091,12 +1094,12 @@ Błąd %1: %2</translation>
     </message>
     <message>
         <location line="+22"/>
-        <location line="+104"/>
+        <location line="+117"/>
         <source>Device Error</source>
         <translation>Błąd Urządzenia</translation>
     </message>
     <message>
-        <location line="-103"/>
+        <location line="-116"/>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>Wystąpił błąd podczas próby obsługi urządzenia.
@@ -1104,12 +1107,12 @@ Błąd %1: %2</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+342"/>
+        <location line="+355"/>
         <source>Lock Error</source>
         <translation>Błąd Blokowania</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-354"/>
         <source>An error occurred when attempting to lock the volume.
 Error %1: %2</source>
         <translation>Wystąpił błąd podczas próby zablokowania woluminu.
@@ -1154,11 +1157,12 @@ Błąd %1: %2</translation>
     </message>
     <message>
         <location line="+22"/>
+        <location line="+10"/>
         <source>Write Error</source>
         <translation>Błąd Zapisu</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-9"/>
         <source>An error occurred when attempting to write data to handle.
 Error %1: %2</source>
         <translatorcomment>o co kaman? Do obsługiwanego miejsca? Albo do kontroli? Miejmy nadzieję ze to nie wyskoczy podczas użytkowania :)</translatorcomment>
@@ -1166,7 +1170,12 @@ Error %1: %2</source>
 Błąd %1: %2</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+10"/>
+        <source>The device took only %1 of %2 bytes. The image on the device is incomplete.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
         <translation>Wystąpił błąd podczas próby otrzymania geometrii urządzenia.
@@ -1222,12 +1231,22 @@ Błąd %2</translation>
         <translation>tablica wpisów partycji GPT nie znajduje się tam, gdzie wskazuje nagłówek</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+17"/>
+        <source>the GPT entry array does not fit on the device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>the GPT partition entry array checksum is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
         <source>a partition extends past the end of the device</source>
         <translation>partycja wykracza poza koniec urządzenia</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+136"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
         <translation>zapasowy GPT przeniesiony na LBA %1; ostatni użyteczny LBA to teraz %2; nieaktualna kopia na LBA %3 została wymazana</translation>
     </message>

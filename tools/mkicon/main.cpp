@@ -166,7 +166,16 @@ int main(int argc, char **argv)
         fprintf(stderr, "mkicon: cannot write %s\n", argv[2]);
         return 1;
     }
-    f.write(ico);
+    // Checked: the build depends on this file now, so a disk that is full or
+    // an I/O error must fail the build rather than leave a truncated .ico
+    // behind and report success.
+    if (f.write(ico) != (qint64)ico.size() || !f.flush())
+    {
+        fprintf(stderr, "mkicon: failed writing %s: %s\n", argv[2],
+                qPrintable(f.errorString()));
+        f.close();
+        return 1;
+    }
     f.close();
 
     printf("%s: %d images (", argv[2], (int)blobs.size());

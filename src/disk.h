@@ -77,8 +77,7 @@ struct PhysicalDevice
 // disk holding the running Windows installation is never listed.
 QList<PhysicalDevice> enumeratePhysicalDevices(bool includeFixed);
 
-// Drive letters, uppercase and without a colon, of every mounted volume on
-// physical disk deviceID.
+// Mounted volumes on physical disk deviceID as "E:, F:"; empty when none.
 QString driveLettersOnDevice(ULONG deviceID);
 
 HANDLE getHandleOnFile(LPCWSTR filelocation, DWORD access);

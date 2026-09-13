@@ -4,3 +4,4 @@ src/lang/*.qm
 test-images/
 build-gpttest/
 gpttest.img
+__pycache__/
