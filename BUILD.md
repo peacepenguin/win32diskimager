@@ -14,8 +14,9 @@ Every build lands in `build/`, whichever route it took.
   - cmake and ninja against the native Qt
 - **`tools/deploy.sh`** → `dist/`
   - `windeployqt6`, then `ntldd` for what it misses
-- **`tools/gpttest/`** → pass or fail
-  - links the real `src/disk.cpp` and exercises the GPT repair
+- **`tools/gpttest.sh`** → pass or fail
+  - builds the harness in `tools/gpttest/`, which links the real
+    `src/disk.cpp`, and runs it
 
 **On Linux, with the cross toolchain installed:**
 
@@ -157,13 +158,17 @@ This exercises it against a file standing in for a device — no card, no VM, no
 UAC prompt, about a second per run:
 
 ```
-cmake -S tools/gpttest -B build-gpttest -G Ninja
-cmake --build build-gpttest
-./build-gpttest/gpttest.exe
+tools/gpttest.sh
 ```
 
-It exits non-zero if any check fails, and compiles the real `src/disk.cpp`, so
-the code under test is the shipped code. MSYS2 UCRT64 only — it is Win32 code.
+It compiles the real `src/disk.cpp` into the harness, so the code under test is
+the shipped code, and exits non-zero if any check fails — enough to gate a
+commit or a release. MSYS2 UCRT64 only, being Win32 code. `clean` starts over;
+otherwise it stays incremental.
+
+The sources are in `tools/gpttest/`, a separate cmake project that builds into
+`build-gpttest/` rather than `build/`, so it cannot fight the application's
+cache.
 
 Seven cases, 60 checks. Three relocate a backup stranded mid-device; the other
 four are cases where **nothing may be written** — a stale copy covered by a
