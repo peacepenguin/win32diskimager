@@ -2,12 +2,17 @@
 #
 # Generates test images for the raw / gzip / xz image source.
 #
-# Each generated image is a DOS-partitioned disk with a single FAT volume
-# holding README.TXT and PATTERN.BIN (64 KiB of self-describing sectors), plus
-# an "ENDOFIMAGE" marker in the very last sector of the image. After flashing,
-# the volume should mount, both files should read back intact, and the last
-# sector of the device should carry the marker, which together show the whole
-# image was written and not just the front of it.
+# Most of them are a DOS-partitioned disk with a single FAT volume holding
+# README.TXT and PATTERN.BIN (64 KiB of self-describing sectors), plus an
+# "ENDOFIMAGE" marker in the very last sector of the image. After flashing, the
+# volume should mount, both files should read back intact, and the last sector
+# of the device should carry the marker, which together show the whole image was
+# written and not just the front of it.
+#
+# The exception is the GPT pair -- test-gpt-affected.img and test-gpt-safe.img --
+# which carry a partition table and nothing else. They differ only in
+# FirstUsableLBA, which is the field the Windows GPT rewrite bug turns on. See
+# TESTING-GPT-BUG.md.
 #
 # Run on Fedora as a normal user (no root, no loop devices needed):
 #
@@ -65,6 +70,8 @@ need xz        "xz"
 need python3   "python3"
 need sha256sum "coreutils"
 need truncate  "coreutils"
+
+REPO=$(cd "$(dirname "$0")/.." && pwd)
 
 mkdir -p "$OUTDIR"
 OUTDIR=$(cd "$OUTDIR" && pwd)
@@ -232,6 +239,49 @@ corrupt() {
 corrupt "$OUTDIR/test-${vtag}.img.gz" "$OUTDIR/test-corrupt.img.gz" "gzip -t"
 corrupt "$OUTDIR/test-${vtag}.img.xz" "$OUTDIR/test-corrupt.img.xz" "xz -t"
 
+# ---------------------------------------------------------- GPT test pair ---
+
+# Two images whose only difference is FirstUsableLBA, for the Windows GPT
+# rewrite bug. On a rescan Windows recomputes the primary header's
+# PartitionEntryLBA as FirstUsableLBA minus the length of the entry array:
+#
+#   34   - 32 = 2     the real entry array. Harmless, and why this went unseen.
+#   2048 - 32 = 2016  empty space. The primary table is then rejected by Linux
+#                     and the board will not boot.
+#
+# 2048 is what rk3588 and similar boards use, keeping idbloader and u-boot below
+# the first partition. No filesystems: only the table is under test.
+#
+# TESTING-GPT-BUG.md explains the defect and how to reproduce it on a VHDX.
+make_gpt_image()
+{
+    local firstlba=$1 path=$2
+    rm -f "$path"
+    truncate -s 48000000 "$path"          # 48 MB, as in TESTING-GPT-BUG.md
+    sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
+label: gpt
+first-lba: $firstlba
+start=32768, size=46875, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="TESTPART1"
+start=79872, size=13812, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="TESTPART2"
+EOF
+    # Confirm the field under test really is what was asked for. sfdisk aligns
+    # things quietly, and an image that claims to be the affected one while
+    # holding 34 would make the whole test meaningless. Read it back out of the
+    # header rather than out of sfdisk's own dump, which omits first-lba when it
+    # is the default.
+    local got
+    got=$(python3 "$REPO/tools/gptdump.py" "$path" \
+          | sed -n 's/^ *FirstUsableLBA *//p' | head -1)
+    if [ "$got" != "$firstlba" ]; then
+        echo "error: ${path##*/} wanted FirstUsableLBA $firstlba, got '${got:-none}'" >&2
+        exit 1
+    fi
+}
+
+echo "building the GPT pair"
+make_gpt_image 2048 "$OUTDIR/test-gpt-affected.img"
+make_gpt_image 34   "$OUTDIR/test-gpt-safe.img"
+
 # ------------------------------------------------------------ >4 GiB pair ---
 
 if [ "$WITH_HUGE" = 1 ]; then
@@ -257,9 +307,10 @@ cat > "$OUTDIR/MANIFEST.txt" <<EOF
 win32diskimager raw / gzip / xz test images
 generated $(date -Iseconds) by tools/make-test-images.sh
 
-Each image is a DOS-partitioned disk with one FAT volume (label TESTIMG)
+Each image below is a DOS-partitioned disk with one FAT volume (label TESTIMG)
 holding README.TXT and PATTERN.BIN, and an ENDOFIMAGE marker in the last
-sector of the image.
+sector of the image -- except the GPT pair, which is a partition table and
+nothing else.
 
 should write, verify, and mount cleanly
   test-<size>.img              raw, the baseline for each size
@@ -281,6 +332,15 @@ should write, verify, and mount cleanly
                                what any real multi-gigabyte image does.
   test-gz-size-unknown.img.xz  the same image in xz, where the size IS known --
                                flash both and compare how progress behaves
+
+the GPT pair, for the Windows GPT rewrite bug -- no filesystem, only a table
+  test-gpt-affected.img        FirstUsableLBA 2048, as ARM board images have it.
+                               With "Fix GPT after write" ON the write should end
+                               with the GPT made to match the device. With it OFF
+                               the warning should say this image IS affected.
+  test-gpt-safe.img            the same table with FirstUsableLBA 34, the control.
+                               With the option OFF the warning should say this
+                               image is NOT affected. Nothing else differs.
 
 should fail with a clear error, and not report a half-written device as good
   test-truncated.img.gz        gzip stream cut off partway

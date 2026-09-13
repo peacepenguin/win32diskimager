@@ -12,6 +12,12 @@ A second Windows VM is optional — the host itself can mount the VHDX instead.
 
 ## 1. Build the 48 MB test image
 
+> `tools/make-test-images.sh` builds both of these for you, as
+> `test-gpt-affected.img` (the `first-lba: 2048` image below) and
+> `test-gpt-safe.img` (the `first-lba: 34` control from
+> [the end of this file](#how-to-create-a-test-image-that-is-not-affected-by-the-windows-gpt-rewrite-bug)).
+> Build them by hand as below when you want to vary the layout.
+
 On the Linux VM. `first-lba: 2048` is the field under test; `sfdisk` can set it
 and `sgdisk` cannot. No filesystems — only the table matters.
 
