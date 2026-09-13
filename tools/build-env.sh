@@ -68,6 +68,12 @@ CROSS_LRELEASE="${CROSS_LRELEASE:-/usr/bin/lrelease-qt6}"
 CROSS_LUPDATE="${CROSS_LUPDATE:-/usr/bin/lupdate-qt6}"
 CROSS_SYSROOT="${CROSS_SYSROOT:-/usr/x86_64-w64-mingw32/sys-root/mingw}"
 
+# tools/mkicon renders the application icon during the build, so it runs on this
+# machine and is built against the host's own Qt rather than the cross one.
+# These are where Fedora puts that Qt's cmake packages.
+CROSS_NATIVE_QT="${CROSS_NATIVE_QT:-/usr/lib64/cmake/Qt6/Qt6Config.cmake}"
+CROSS_NATIVE_QTSVG="${CROSS_NATIVE_QTSVG:-/usr/lib64/cmake/Qt6Svg/Qt6SvgConfig.cmake}"
+
 # The image tools/Containerfile.build produces. Override with IMAGE=...
 #
 # The tag carries a checksum of the package list, because container_run only
@@ -106,6 +112,11 @@ cross_check()
     [ -x "$CROSS_LRELEASE" ]  || { echo "missing $CROSS_LRELEASE" >&2; bad=1; }
     [ -x "$CROSS_LUPDATE" ]   || { echo "missing $CROSS_LUPDATE" >&2; bad=1; }
     [ -d "$CROSS_SYSROOT" ]   || { echo "missing $CROSS_SYSROOT" >&2; bad=1; }
+    # Native, not cross: tools/mkicon has to run on this machine.
+    [ -f "$CROSS_NATIVE_QT" ] || {
+        echo "missing $CROSS_NATIVE_QT (qt6-qtbase-devel), which tools/mkicon needs" >&2; bad=1; }
+    [ -f "$CROSS_NATIVE_QTSVG" ] || {
+        echo "missing $CROSS_NATIVE_QTSVG (qt6-qtsvg-devel), which tools/mkicon needs" >&2; bad=1; }
     return $bad
 }
 

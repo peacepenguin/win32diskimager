@@ -54,18 +54,49 @@ else()
     set(MKICON_EXE ${MKICON_BUILD}/mkicon)
 endif()
 
+# --unset=CC --unset=CXX is the whole trick. While cmake is working out which
+# compiler it has, it puts that compiler in its own environment, and a child
+# started from here inherits it. On a cross build that child would then compile
+# with the MinGW compiler while believing it is targeting Linux, and go looking
+# for Qt somewhere it is not -- so mkicon failed to configure with "could not
+# find Qt6", on a machine where a native Qt was plainly installed.
+#
+# It only bit on the FIRST configure: a reconfigure does not detect the compiler
+# again, so the environment is clean and the same command works. That is what
+# made it look like it depended on the phase of the moon.
+#
+# Clearing CMAKE_TOOLCHAIN_FILE is belt and braces: cmake 3.21 and later read
+# that name from the environment too.
+if(EXISTS ${MKICON_BUILD}/CMakeCache.txt)
+    file(READ ${MKICON_BUILD}/CMakeCache.txt MKICON_CACHE)
+    if(MKICON_CACHE MATCHES "CMAKE_CXX_COMPILER:[^=]*=[^
+]*mingw")
+        # Left by a run that inherited the cross compiler; it would keep failing.
+        file(REMOVE_RECURSE ${MKICON_BUILD})
+    endif()
+endif()
+
 execute_process(
-    COMMAND ${CMAKE_COMMAND} -S ${CMAKE_CURRENT_SOURCE_DIR}/../tools/mkicon
+    COMMAND ${CMAKE_COMMAND} -E env --unset=CC --unset=CXX
+            ${CMAKE_COMMAND} -S ${CMAKE_CURRENT_SOURCE_DIR}/../tools/mkicon
                              -B ${MKICON_BUILD} -G ${CMAKE_GENERATOR}
                              -DCMAKE_BUILD_TYPE=Release
+                             -DCMAKE_TOOLCHAIN_FILE=
     RESULT_VARIABLE MKICON_CONFIGURED
-    OUTPUT_QUIET)
+    OUTPUT_VARIABLE MKICON_OUTPUT
+    ERROR_VARIABLE  MKICON_OUTPUT)
 if(NOT MKICON_CONFIGURED EQUAL 0)
     message(FATAL_ERROR
-        "cannot configure tools/mkicon, which renders the application icon. "
-        "It needs a native Qt 6 with Gui and Svg: on Fedora qt6-qtbase-devel "
-        "and qt6-qtsvg-devel, which tools/build-env.sh installs. MSYS2 UCRT64 "
-        "already has them.")
+        "cannot configure tools/mkicon, which renders the application icon.
+"
+        "It is built with the host's own compiler and Qt, not the cross ones, "
+        "because it has to run here rather than on the machine being built for. "
+        "On Fedora that means gcc-c++, qt6-qtbase-devel and qt6-qtsvg-devel; "
+        "MSYS2 UCRT64 already has them.
+
+"
+        "cmake said:
+${MKICON_OUTPUT}")
 endif()
 
 # QT_QPA_PLATFORM: mkicon is a QGuiApplication and the container has no display.
