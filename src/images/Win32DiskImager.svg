@@ -1,0 +1,26 @@
+<!-- Application icon: an SD card seen face on, with a wrench across its lower
+     corner. The card and its contacts are drawn here; the wrench is the
+     "wrench" glyph from Feathericon, which is MIT licensed. See
+     THIRD-PARTY-NOTICES.txt, which ships with the binary.
+     https://github.com/feathericon/feathericon
+
+     Colours are the ones the buttons use: slate for chrome, amber for the act
+     of writing. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <rect x="1" y="1" width="22" height="22" rx="5.2" fill="#334155"/>
+  <path d="M8.5 3.5H16.3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H7.7a2 2 0 0 1-2-2V6.3z" fill="#E2E8F0"/>
+  <g fill="#F59E0B">
+    <rect x="7.2" y="7.6" width="1.6" height="3.6" rx="0.8"/>
+    <rect x="9.9" y="7.6" width="1.6" height="3.6" rx="0.8"/>
+    <rect x="12.6" y="7.6" width="1.6" height="3.6" rx="0.8"/>
+    <rect x="15.3" y="7.6" width="1.6" height="3.6" rx="0.8"/>
+  </g>
+  <!-- drawn twice: the slate stroke underneath keeps the amber from muddying
+       against the light card at small sizes -->
+  <g transform="translate(11.1 11.1) scale(0.59) rotate(-45 12 12)">
+    <path fill="none" stroke="#334155" stroke-width="3.4" stroke-linejoin="round" fill-rule="evenodd"
+          d="M14,11.5839563 L14,20 C14,21.1045695 13.1045695,22 12,22 C10.8954305,22 10,21.1045695 10,20 L10,11.5839563 C8.23409522,10.8123997 7,9.05031904 7,7 C7,4.23857625 9.23857625,2 12,2 C12.1315701,2 12.2619533,2.00508183 12.390964,2.01505992 L10,6 L14,8 L16.214708,4.30882001 C16.7118201,5.08574024 17,6.00921611 17,7 C17,9.05031904 15.7659048,10.8123997 14,11.5839563 Z"/>
+    <path fill="#F59E0B" fill-rule="evenodd"
+          d="M14,11.5839563 L14,20 C14,21.1045695 13.1045695,22 12,22 C10.8954305,22 10,21.1045695 10,20 L10,11.5839563 C8.23409522,10.8123997 7,9.05031904 7,7 C7,4.23857625 9.23857625,2 12,2 C12.1315701,2 12.2619533,2.00508183 12.390964,2.01505992 L10,6 L14,8 L16.214708,4.30882001 C16.7118201,5.08574024 17,6.00921611 17,7 C17,9.05031904 15.7659048,10.8123997 14,11.5839563 Z"/>
+  </g>
+</svg>

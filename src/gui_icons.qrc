@@ -4,7 +4,6 @@
     <file>images/write.svg</file>
     <file>images/read.svg</file>
     <file>images/verify.svg</file>
-    <file>images/reload.png</file>
-    <file>images/Win32DiskImager.png</file>
+    <file>images/Win32DiskImager.svg</file>
   </qresource>
 </RCC>

@@ -35,7 +35,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="gui_icons.qrc">
-    <normaloff>:/images/images/Win32DiskImager.png</normaloff>:/images/images/Win32DiskImager.png</iconset>
+    <normaloff>:/images/images/Win32DiskImager.svg</normaloff>:/images/images/Win32DiskImager.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">

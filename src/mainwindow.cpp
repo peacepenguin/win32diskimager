@@ -165,7 +165,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     {
         QString fileLocation = QApplication::arguments().at(1);
         QFileInfo fileInfo(fileLocation);
-        leFile->setText(fileInfo.absoluteFilePath());
+        // Backslashes: Qt hands out '/' whatever the platform, and a Windows
+        // user reading their own path expects the separator they type.
+        leFile->setText(QDir::toNativeSeparators(fileInfo.absoluteFilePath()));
     }
     // Add supported hash types.
     cboxHashType->addItem("MD5",QVariant(QCryptographicHash::Md5));
@@ -375,7 +377,7 @@ void MainWindow::on_tbBrowse_clicked()
 
         if (!fileLocation.isNull())
         {
-            leFile->setText(fileLocation);
+            leFile->setText(QDir::toNativeSeparators(fileLocation));
             QFileInfo newFileInfo(fileLocation);
             myHomeDir = newFileInfo.absolutePath();
         }
@@ -455,6 +457,15 @@ void MainWindow::defaultHashTypeForFile()
 
 void MainWindow::on_leFile_editingFinished()
 {
+    // A pasted path may use either separator; show it the way the rest of
+    // Windows would. Qt and the Win32 API take both, so this is presentation
+    // only -- and setText does not re-emit this signal.
+    const QString typed = leFile->text();
+    const QString native = QDir::toNativeSeparators(typed);
+    if (native != typed)
+    {
+        leFile->setText(native);
+    }
     defaultHashTypeForFile();
     setReadWriteButtonState();
     updateHashControls();
@@ -1008,7 +1019,7 @@ void MainWindow::on_bRead_clicked()
         myFile = leFile->text();
         QFileInfo fileinfo(myFile);
         if (fileinfo.path()=="."){
-            myFile=(myHomeDir + "/" + leFile->text());
+            myFile = QDir::toNativeSeparators(QDir(myHomeDir).filePath(leFile->text()));
             // fileinfo has to follow, or the overwrite prompt below asks about
             // a file in the working directory while getHandleOnFile opens the
             // one in the image directory with CREATE_ALWAYS and truncates it

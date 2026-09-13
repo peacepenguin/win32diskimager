@@ -3,4 +3,5 @@ dist/
 src/lang/*.qm
 test-images/
 build-gpttest/
+build-mkicon/
 gpttest.img

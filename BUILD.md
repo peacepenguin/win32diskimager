@@ -17,6 +17,9 @@ Every build lands in `build/`, whichever route it took.
 - **`tools/gpttest.sh`** → pass or fail
   - builds the harness in `tools/gpttest/`, which links the real
     `src/disk.cpp`, and runs it
+- **`tools/mkicon/`** → `src/images/Win32DiskImager.ico`
+  - renders the app icon SVG into the multi-size `.ico` the executable needs.
+    Only when the icon changes
 
 **On Linux, with the cross toolchain installed:**
 
@@ -175,6 +178,42 @@ four are cases where **nothing may be written** — a stale copy covered by a
 partition, no GPT at all, a backup already at the last LBA, and a corrupt
 header. Those are the point. When changing the repair, confirm the harness still
 fails when it should: break a guard on purpose, watch it go red, put it back.
+
+## Changing the icons
+
+The icons are SVGs in `src/images/`, embedded through `gui_icons.qrc`: the three
+action icons on the buttons, the folder on the browse button, and
+`Win32DiskImager.svg`, which is both the window icon and the source of the
+executable's icon. Edit the SVG and rebuild, and everything except the
+executable's icon follows.
+
+The executable's icon is the exception, because the resource compiler takes an
+`.ico` and nothing else. Regenerate it from the SVG rather than editing it:
+
+```
+cmake -S tools/mkicon -B build-mkicon -G Ninja
+cmake --build build-mkicon
+./build-mkicon/mkicon.exe src/images/Win32DiskImager.svg src/images/Win32DiskImager.ico
+```
+
+That writes eight sizes in one file: 16 through 64 as DIBs, which every version
+of Windows reads, and 128 and 256 as PNG, which is what the format expects for
+the large ones and keeps the file to tens of kilobytes rather than hundreds. The
+`.ico` is committed, so this only has to run when the icon changes. MSYS2 UCRT64
+only, like the rest of the native build.
+
+To see an icon at the sizes it will actually be used at, before committing to
+it, `QIcon` renders an SVG at any size -- a dozen-line Qt program showing the
+file at 16, 24, 32, 48 and 128 says more than looking at it full size does. A
+detail that reads at 128 is often a smudge at 16.
+
+**The wrench in the app icon is not ours.** It is Feathericon's, under the MIT
+licence, which requires the notice to travel with every copy including binaries.
+`THIRD-PARTY-NOTICES.txt` carries it and both deploy scripts ship it. Anything
+else brought in from outside needs the same treatment: a permissive licence that
+is compatible with the GPL (MIT and BSD are; Apache-2.0 is not compatible with
+GPL-2), its notice added to that file, and the source recorded in a comment at
+the top of the SVG.
 
 ## Updating the translations
 

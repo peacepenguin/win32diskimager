@@ -36,7 +36,7 @@ fi
 rm -rf "$dist"
 mkdir -p "$dist"
 cp "$build/Win32DiskImager.exe" "$dist/"
-cp "$root"/Changelog.txt "$root"/README.md "$root"/License.txt "$root"/GPL-2 "$root"/LGPL-2.1 "$dist/"
+cp "$root"/Changelog.txt "$root"/README.md "$root"/License.txt "$root"/THIRD-PARTY-NOTICES.txt "$root"/GPL-2 "$root"/LGPL-2.1 "$dist/"
 
 # Qt plugins. Only the ones a widgets app on Windows actually loads.
 qtplugins="$sysroot/lib/qt6/plugins"

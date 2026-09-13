@@ -26,7 +26,7 @@ fi
 mkdir -p dist
 rm -rf dist/* dist/.[!.]* 2>/dev/null || true
 cp build/Win32DiskImager.exe dist/
-cp Changelog.txt README.md License.txt GPL-2 LGPL-2.1 dist/
+cp Changelog.txt README.md License.txt THIRD-PARTY-NOTICES.txt GPL-2 LGPL-2.1 dist/
 
 # Languages the app itself ships translations for; Qt's own translations are
 # trimmed to match instead of shipping all ~40 of them. Read from CMakeLists so
