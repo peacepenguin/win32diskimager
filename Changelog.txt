@@ -1,3 +1,28 @@
+Release 1.4.1
+=============
+Tooltips are sized correctly again, without flickering. 1.4.0 wrapped the long
+  ones in an HTML table of a fixed width, which padded every wrapped tooltip
+  out to that width whether it needed it or not; and being rich text, it left
+  Qt sizing the reused tooltip label through a document that kept the previous
+  tooltip's width, so the text was clipped at both ends. They are plain text
+  with line breaks in them now, and size to their widest line and nothing more
+Dropped the workaround that hid the tooltip Qt was about to reuse. With the
+  real cause gone it earns nothing, and it was what made a tooltip flash on and
+  off as the pointer crossed the edge of a widget
+The Generate and Copy buttons no longer carry the button's own padding inside
+  their tooltips. A stylesheet set on a widget is inherited by that widget's
+  tooltip, so those two tooltips sat 16 pixels wider than their text
+Generate and Copy show that they have been pressed. That same stylesheet had Qt
+  draw them itself instead of in the native style, which draws no pressed state
+  unless one is written out. They are now the width of every other button,
+  which the stylesheet had been shrinking them from
+The browse button shows that it has been pressed. This style says "pressed" by
+  dimming the button's label, and a button labelled only with an icon has
+  nothing to dim -- its background was moving by one level out of 255
+Added tools/gui-probe.ps1, which reports where the running window's widgets are
+  and how wide the tooltip over one is, so a fault a few pixels wide can be
+  measured instead of guessed at
+
 Release 1.4.0
 =============
 New application icon: an SD card with a wrench across it, drawn as an SVG. The

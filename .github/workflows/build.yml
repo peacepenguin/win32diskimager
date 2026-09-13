@@ -81,9 +81,8 @@ jobs:
         run: |
           name="Win32DiskImager-${GITHUB_REF_NAME}-win64"
           cat > notes.md <<'EOF'
-          Standalone win64 build, cross-compiled from the tagged source by GitHub
-          Actions. Unzip anywhere and run `Win32DiskImager.exe` as Administrator;
-          no installer and nothing else to fetch.
+          Standalone win64 build.
+          Unzip and run `Win32DiskImager.exe` as Administrator.
 
           Verify the download against the published `.sha256` before running it.
 
