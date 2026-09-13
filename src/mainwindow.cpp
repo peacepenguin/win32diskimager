@@ -140,6 +140,23 @@ void MainWindow::showProgress(bool show)
     progressbar->setVisible(show);
 }
 
+// The status bar carries a message most of the time, but when it is empty it
+// reads as blank space rather than as a part of the window with a job. A shade
+// off the window colour and a hairline above it give it an edge to sit in.
+//
+// Taken from the palette rather than written down, so it follows the system
+// theme: a touch darker on a light background, a touch lighter on a dark one.
+static void shadeStatusBar(QStatusBar *bar)
+{
+    const QColor window = bar->palette().color(QPalette::Window);
+    const bool dark = window.lightness() < 128;
+    const QColor fill = dark ? window.lighter(118) : window.darker(106);
+    const QColor line = dark ? window.lighter(140) : window.darker(118);
+    bar->setStyleSheet(QString("QStatusBar { background: %1; border-top: 1px solid %2; }"
+                               "QStatusBar::item { border: none; }")
+                           .arg(fill.name(), line.name()));
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
@@ -148,6 +165,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // is about to show its own tooltip does.
     qApp->installEventFilter(this);
     elapsed_timer = new ElapsedTimer();
+    shadeStatusBar(statusbar);
     statusbar->addPermanentWidget(elapsed_timer);   // "addpermanent" puts it on the RHS of the statusbar
     status = STATUS_IDLE;
     {
