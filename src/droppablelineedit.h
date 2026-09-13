@@ -31,6 +31,7 @@ public:
     DroppableLineEdit(QWidget *parent = 0);
 
     void dragEnterEvent(QDragEnterEvent *event);
+    void dragMoveEvent(QDragMoveEvent *event);
     void dropEvent(QDropEvent *event);
 
 private:

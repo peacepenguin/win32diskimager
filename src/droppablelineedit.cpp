@@ -36,6 +36,18 @@ void DroppableLineEdit::dragEnterEvent(QDragEnterEvent *event)
     }
 }
 
+void DroppableLineEdit::dragMoveEvent(QDragMoveEvent *event)
+{
+    // The same formats dragEnterEvent lets in. QLineEdit's own dragMoveEvent
+    // only takes plain text, so a file dragged from Explorer would be waved in
+    // at the edge and then refused as it moved across the widget.
+    if ( (event->mimeData()->hasFormat("text/uri-list")) ||
+         (event->mimeData()->hasFormat("text/plain")) )
+    {
+        event->acceptProposedAction();
+    }
+}
+
 void DroppableLineEdit::dropEvent(QDropEvent *event)
 {
     QList<QUrl> urlList;

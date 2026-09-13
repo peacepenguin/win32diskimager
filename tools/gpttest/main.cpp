@@ -321,20 +321,64 @@ static void caseStaleUnderPartition()
 
     check(r == GPT_FIX_OK, "returned GPT_FIX_OK");
     check(rd64(a + SEC, H_ALTLBA) == device - 1, "backup still relocated to the end");
-    bool datakept = true;
-    for (unsigned long long s = dk.imgbackupentries + 1; s < dk.imglast; ++s)
-    {
-        for (unsigned long long i = 0; i < SEC; ++i)
-        {
-            if (a[s * SEC + i] != 0x5A) { datakept = false; break; }
-        }
-    }
-    check(datakept, "data inside the partition was NOT zeroed");
+
+    // The whole covered range, table sectors included. Checking only the data
+    // sectors between them -- which is what this did -- steps over the two
+    // sectors the cleanup actually aims at, so a guard that narrowed to just
+    // the header, or just the entry array, would have gone unnoticed.
+    const unsigned char *b = (const unsigned char *)dk.bytes.constData();
+    const size_t covered = (size_t)((dk.imglast - dk.imgbackupentries + 1) * SEC);
+    check(memcmp(a + dk.imgbackupentries * SEC,
+                 b + dk.imgbackupentries * SEC, covered) == 0,
+          "nothing under the partition was touched, stale table sectors included");
+    check(memcmp(a + dk.imglast * SEC, "EFI PART", 8) == 0,
+          "the stale backup header is still where the partition covers it");
     printf("\n");
 }
 
 // No GPT at all, a backup already at the end, and a corrupt header: each must
 // leave the device exactly as it was.
+// The image very nearly fills the device, so the sectors the stale backup sits
+// in and the sectors the new one goes into overlap. The relocate must still
+// happen, and the cleanup must not run: zeroing the stale copy would erase the
+// table just written over the top of it.
+//
+// "image nearly fills device" does not reach this: it leaves a 160-sector gap
+// between the two, so the guard it is named for never has to do anything.
+static void caseStaleOverlapsNewTable()
+{
+    // 8160 puts the stale header exactly on the first sector of the new entry
+    // array, which is the only sector of it that is not zeros. Land it any
+    // later and a cleanup that wrongly ran would write zeros over zeros, which
+    // no check could detect -- the case would pass whether the guard held or
+    // not, and prove nothing.
+    const unsigned long long firstusable = 34, image = 8160, device = 8192;
+    printf("stale copy overlaps where the new table goes\n");
+
+    Disk dk = buildDisk(firstusable, image, device);
+    QByteArray after;
+    QString detail;
+    GptFixResult r = runRepair(dk, device, &after, &detail);
+    printf("  -> %s\n", detail.toLocal8Bit().constData());
+    const unsigned char *a = (const unsigned char *)after.constData();
+
+    const unsigned long long lastlba = device - 1;
+    const unsigned long long newentries = lastlba - ENTRYSECTORS;
+    check(dk.imglast >= newentries, "the two ranges really do overlap");
+    check(r == GPT_FIX_OK, "returned GPT_FIX_OK");
+    // Checked by checksum, not by memcmp against the expected bytes: entries 1
+    // to 127 are zeros, so zeroing a sector in the middle of the array changes
+    // nothing a comparison would see. The header's own EntriesCRC covers every
+    // byte of it, which is the point -- that is what a GPT reader validates.
+    check(crc32of(a + newentries * SEC, ENTRIES * ENTRYSIZE)
+              == rd32(a + lastlba * SEC, 88),
+          "the backup entry array still matches its header checksum");
+    check(memcmp(a + lastlba * SEC, "EFI PART", 8) == 0,
+          "backup header sits at the last LBA");
+    check(headerCrcValid(a + lastlba * SEC), "backup header CRC is valid");
+    printf("\n");
+}
+
 static void caseUntouched(const char *name, GptFixResult expect,
                           void (*damage)(unsigned char *, unsigned long long))
 {
@@ -465,6 +509,7 @@ int main(int argc, char **argv)
     caseRelocate("image nearly fills device", 34, 8000, 8192);
 
     caseStaleUnderPartition();
+    caseStaleOverlapsNewTable();
 
     caseUntouched("no GPT on the device", GPT_FIX_NO_GPT, damageSignature);
     caseUntouched("backup already at the last LBA", GPT_FIX_NOT_NEEDED, damageAlreadyAtEnd);
