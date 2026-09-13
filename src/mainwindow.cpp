@@ -1357,6 +1357,8 @@ void MainWindow::on_bVerify_clicked()
             unsigned long long stalefirst = 0ull, stalelast = 0ull;
             bool staleknown = false;
             bool gptonly = false;
+            bool gptrepaired = false, gptleftdamaged = false;
+            GptPrimaryState gptstate = GPT_PRIMARY_UNKNOWN;
 
             unsigned long long progresstotal = numsectors;
             if (!image.sizeKnown() && image.sizeInSectors() > 0ull
@@ -1476,6 +1478,45 @@ void MainWindow::on_bVerify_clicked()
                 delete[] extra;
                 imageunchecked = (leftover > 0ull);
             }
+            // Every data sector can match the image while the partition table is
+            // still ruined: Windows repairs a stranded backup GPT by itself and
+            // gets the primary header wrong doing it, and the comparison above
+            // forgives GPT sectors by design. So look at the table itself, while
+            // the device is still held.
+            if (status == STATUS_VERIFYING && passfail)
+            {
+                gptstate = gptPrimaryState(hRawDisk, sectorsize, availablesectors);
+            }
+            if (gptstate == GPT_PRIMARY_BROKEN)
+            {
+                const int answer = QMessageBox::warning(this, tr("Partition table damaged"),
+                    tr("The device holds the image correctly, but its partition table is "
+                       "broken: the primary GPT header points at sectors the partition "
+                       "entries are not in.\n\n"
+                       "This is what Windows leaves behind when it rescans a card written "
+                       "without \"Fix GPT after write\". No data has been lost, but the "
+                       "device will not boot and most tools will refuse the table.\n\n"
+                       "Repair the partition table now?"),
+                    QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+                if (answer == QMessageBox::Yes)
+                {
+                    QString detail;
+                    if (repairPrimaryGpt(hRawDisk, sectorsize, availablesectors, &detail))
+                    {
+                        gptrepaired = true;
+                    }
+                    else
+                    {
+                        gptleftdamaged = true;
+                        QMessageBox::critical(this, tr("Repair failed"),
+                            tr("The partition table could not be repaired: %1").arg(detail));
+                    }
+                }
+                else
+                {
+                    gptleftdamaged = true;
+                }
+            }
             // Mirror the write path: take the disk offline and eject it before
             // the volume lock is released, so Windows cannot rescan the card
             // and "repair" a GPT that deliberately is not at the end of the
@@ -1504,12 +1545,34 @@ void MainWindow::on_bVerify_clicked()
                 passfail = false;
                 verifyreported = true;
             }
+            else if (gptleftdamaged)
+            {
+                QMessageBox::warning(this, tr("Partition table damaged"),
+                    tr("The device holds the image correctly, but its partition table is "
+                       "still broken. Write the image again with \"Fix GPT after write\" "
+                       "ticked, or run the verify again and accept the repair."));
+                verifyreported = true;
+            }
             else if (passfail)
             {
-                QString msg = (gptonly)
-                    ? tr("Verify Successful.\n\nThe image and the device differ only in the "
-                         "GPT, which the \"Fix GPT after write\" option rewrites by design.")
-                    : tr("Verify Successful.");
+                QString msg = tr("Verify Successful.");
+                if (gptrepaired)
+                {
+                    msg = tr("Verify Successful.\n\nThe device's partition table was "
+                             "damaged and has been repaired.");
+                }
+                else if (gptonly && gptstate == GPT_PRIMARY_OK)
+                {
+                    msg = tr("Verify Successful.\n\nThe image and the device differ only "
+                             "in the GPT, and the GPT on the device is valid.");
+                }
+                else if (gptonly)
+                {
+                    // Not broken, but not confirmed good either -- no GPT to
+                    // check, or one this cannot judge. Do not claim it is valid.
+                    msg = tr("Verify Successful.\n\nThe image and the device differ only "
+                             "in the GPT.");
+                }
                 msg += (offline || ejected)
                     ? tr("\n\nThe device has been ejected. Remove it now.")
                     : tr("\n\nThe device could NOT be taken offline automatically.");

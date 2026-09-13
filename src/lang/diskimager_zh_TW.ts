@@ -248,7 +248,7 @@ Are you sure you want to cancel?</source>
         <location line="+5"/>
         <location line="+14"/>
         <location line="+242"/>
-        <location line="+239"/>
+        <location line="+302"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -274,36 +274,36 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 請立刻將裝置實體移除，在此之前不要進行任何其他操作，也不要將它重新插入這台電腦。請將它插入目標硬體。</translation>
     </message>
     <message>
-        <location line="-528"/>
-        <location line="+505"/>
+        <location line="-591"/>
+        <location line="+568"/>
         <source>The selected file does not exist.</source>
         <translation>選取的檔案不存在。</translation>
     </message>
     <message>
-        <location line="-805"/>
+        <location line="-868"/>
         <location line="+310"/>
         <location line="+257"/>
-        <location line="+248"/>
+        <location line="+311"/>
         <source>The specified file contains no data.</source>
         <translation>指定的檔案不包含資料。</translation>
     </message>
     <message>
-        <location line="-501"/>
+        <location line="-564"/>
         <location line="+181"/>
-        <location line="+324"/>
+        <location line="+387"/>
         <source>Done.</source>
         <translation>完成。</translation>
     </message>
     <message>
-        <location line="-320"/>
+        <location line="-383"/>
         <location line="+2"/>
-        <location line="+297"/>
+        <location line="+360"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location line="-505"/>
+        <location line="-568"/>
         <source>Write Successful.</source>
         <translation>寫入成功。</translation>
     </message>
@@ -578,12 +578,12 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+505"/>
+        <location line="+568"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>您沒有讀取所選檔案的權限。</translation>
     </message>
     <message>
-        <location line="-455"/>
+        <location line="-518"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -605,13 +605,13 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
         <location line="+80"/>
         <location line="+20"/>
         <location line="+21"/>
-        <location line="+74"/>
+        <location line="+76"/>
         <location line="+21"/>
         <source>Verify failed.</source>
         <translation>驗證失敗。</translation>
     </message>
     <message>
-        <location line="-107"/>
+        <location line="-109"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -654,28 +654,79 @@ Continue Anyway?</source>
         <translation>已取消驗證。</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+32"/>
         <source>Verifying...</source>
         <translation>正在驗證…</translation>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+117"/>
+        <location line="+58"/>
+        <source>Partition table damaged</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-57"/>
+        <source>The device holds the image correctly, but its partition table is broken: the primary GPT header points at sectors the partition entries are not in.
+
+This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
+
+Repair the partition table now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Repair failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The partition table could not be repaired: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
         <source>Image larger than device</source>
         <translation>映像檔大於裝置</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+12"/>
+        <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Verify Successful.
+
+The device&apos;s partition table was damaged and has been repaired.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Verify Successful.
+
+The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Verify Successful.
+
+The image and the device differ only in the GPT.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+95"/>
         <source>[Disk %1]</source>
         <translation>[磁碟 %1]</translation>
     </message>
     <message>
-        <location line="-563"/>
-        <location line="+504"/>
+        <location line="-626"/>
+        <location line="+567"/>
         <source>Please specify an image file to use.</source>
         <translation>請指定所要使用的映像檔。</translation>
     </message>
     <message>
-        <location line="-974"/>
+        <location line="-1037"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -833,12 +884,12 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <location line="+23"/>
         <location line="+6"/>
         <location line="+14"/>
-        <location line="+111"/>
+        <location line="+113"/>
         <source>Verify Error</source>
         <translation>驗證錯誤</translation>
     </message>
     <message>
-        <location line="-125"/>
+        <location line="-127"/>
         <source>Please select a device to verify against.</source>
         <translation>請選擇要用於驗證的裝置。</translation>
     </message>
@@ -887,7 +938,7 @@ Continue Anyway?</source>
         <translation>大小不符合！</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+69"/>
         <location line="+45"/>
         <source>Verify Failure</source>
         <translation>驗證失敗</translation>
@@ -899,7 +950,7 @@ Continue Anyway?</source>
         <translation>驗證失敗，磁區：%1</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+93"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
@@ -908,16 +959,15 @@ This could only be detected at the end of the device, because the compressed ima
 由於壓縮映像檔不會記錄其未壓縮大小，直到到達裝置結尾時才能發現這一點。</translation>
     </message>
     <message>
-        <location line="+11"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
-        <translation>驗證成功。
+        <translation type="vanished">驗證成功。
 
 映像檔與裝置僅在 GPT 上有差異，而「寫入後修正 GPT」選項本來就會重寫這個部分。</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+37"/>
         <source>
 
 The device has been ejected. Remove it now.</source>
@@ -935,8 +985,8 @@ The device could NOT be taken offline automatically.</source>
 無法自動將裝置離線。</translation>
     </message>
     <message>
-        <location line="-3"/>
-        <location line="+29"/>
+        <location line="-20"/>
+        <location line="+46"/>
         <source>Verify Successful.</source>
         <translation>驗證成功。</translation>
     </message>
@@ -1101,6 +1151,46 @@ Error %2</source>
         <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>備份 GPT 已移至 LBA %1；最後可用的 LBA 現在是 %2</translation>
+    </message>
+    <message>
+        <location line="+152"/>
+        <source>the device geometry is not usable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>the primary GPT header is not readable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>the GPT entry array geometry is not usable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>the device is too small to hold an entry array</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>the partition entries could not be read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>the repaired header could not be written</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../imagesource.cpp" line="+104"/>

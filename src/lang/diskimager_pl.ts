@@ -246,7 +246,7 @@ Czy na pewno chcesz anulować?</translation>
         <location line="+5"/>
         <location line="+14"/>
         <location line="+242"/>
-        <location line="+239"/>
+        <location line="+302"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -272,36 +272,36 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Odłącz urządzenie fizycznie TERAZ, zanim zrobisz cokolwiek innego, i nie podłączaj go ponownie do tego komputera. Podłącz je zamiast tego do urządzenia docelowego.</translation>
     </message>
     <message>
-        <location line="-528"/>
-        <location line="+505"/>
+        <location line="-591"/>
+        <location line="+568"/>
         <source>The selected file does not exist.</source>
         <translation>Wybrany plik nie istnieje.</translation>
     </message>
     <message>
-        <location line="-805"/>
+        <location line="-868"/>
         <location line="+310"/>
         <location line="+257"/>
-        <location line="+248"/>
+        <location line="+311"/>
         <source>The specified file contains no data.</source>
         <translation>Wybrany plik nie zawiera danych.</translation>
     </message>
     <message>
-        <location line="-501"/>
+        <location line="-564"/>
         <location line="+181"/>
-        <location line="+324"/>
+        <location line="+387"/>
         <source>Done.</source>
         <translation>Zrobione.</translation>
     </message>
     <message>
-        <location line="-320"/>
+        <location line="-383"/>
         <location line="+2"/>
-        <location line="+297"/>
+        <location line="+360"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Gotowe</translation>
     </message>
     <message>
-        <location line="-505"/>
+        <location line="-568"/>
         <source>Write Successful.</source>
         <translation>Zapis Pomyślny.</translation>
     </message>
@@ -576,12 +576,12 @@ Windows i tak przepisze tablicę przy ponownym skanowaniu, ponieważ zapasowy GP
     </message>
     <message>
         <location line="+15"/>
-        <location line="+505"/>
+        <location line="+568"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Nie masz uprawnień do odczytu wybranego pliku.</translation>
     </message>
     <message>
-        <location line="-455"/>
+        <location line="-518"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -603,13 +603,13 @@ Skompresowane obrazy (.img.gz, .img.xz) można zapisywać i weryfikować.</trans
         <location line="+80"/>
         <location line="+20"/>
         <location line="+21"/>
-        <location line="+74"/>
+        <location line="+76"/>
         <location line="+21"/>
         <source>Verify failed.</source>
         <translation>Weryfikacja nie powiodła się.</translation>
     </message>
     <message>
-        <location line="-107"/>
+        <location line="-109"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -652,28 +652,79 @@ Kontynuować mimo to?</translation>
         <translation>Weryfikacja anulowana.</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+32"/>
         <source>Verifying...</source>
         <translation>Weryfikowanie…</translation>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+117"/>
+        <location line="+58"/>
+        <source>Partition table damaged</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-57"/>
+        <source>The device holds the image correctly, but its partition table is broken: the primary GPT header points at sectors the partition entries are not in.
+
+This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
+
+Repair the partition table now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Repair failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The partition table could not be repaired: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
         <source>Image larger than device</source>
         <translation>Obraz większy niż urządzenie</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+12"/>
+        <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Verify Successful.
+
+The device&apos;s partition table was damaged and has been repaired.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Verify Successful.
+
+The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Verify Successful.
+
+The image and the device differ only in the GPT.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+95"/>
         <source>[Disk %1]</source>
         <translation>[Dysk %1]</translation>
     </message>
     <message>
-        <location line="-563"/>
-        <location line="+504"/>
+        <location line="-626"/>
+        <location line="+567"/>
         <source>Please specify an image file to use.</source>
         <translation>Proszę wybrać plik obrazu do użycia.</translation>
     </message>
     <message>
-        <location line="-974"/>
+        <location line="-1037"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -831,12 +882,12 @@ Wyjmij urządzenie TERAZ i nie wkładaj go ponownie tutaj. Włóż je bezpośred
         <location line="+23"/>
         <location line="+6"/>
         <location line="+14"/>
-        <location line="+111"/>
+        <location line="+113"/>
         <source>Verify Error</source>
         <translation>Błąd weryfikacji</translation>
     </message>
     <message>
-        <location line="-125"/>
+        <location line="-127"/>
         <source>Please select a device to verify against.</source>
         <translation>Proszę wybrać urządzenie do weryfikacji.</translation>
     </message>
@@ -885,7 +936,7 @@ Kontynuować mimo to?</translation>
         <translation>Niezgodność rozmiaru!</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+69"/>
         <location line="+45"/>
         <source>Verify Failure</source>
         <translation>Niepowodzenie weryfikacji</translation>
@@ -897,7 +948,7 @@ Kontynuować mimo to?</translation>
         <translation>Weryfikacja nie powiodła się na sektorze: %1</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+93"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
@@ -906,17 +957,16 @@ This could only be detected at the end of the device, because the compressed ima
 Można to było wykryć dopiero na końcu urządzenia, ponieważ skompresowany obraz nie zapisuje swojego rozmiaru po dekompresji.</translation>
     </message>
     <message>
-        <location line="+11"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
-        <translation>Weryfikacja zakończona powodzeniem.
+        <translation type="vanished">Weryfikacja zakończona powodzeniem.
 
 Obraz i urządzenie różnią się wyłącznie w GPT, który opcja &quot;Napraw GPT po zapisie&quot; celowo przepisuje.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <location line="+29"/>
+        <location line="+18"/>
+        <location line="+46"/>
         <source>Verify Successful.</source>
         <translation>Weryfikacja zakończona powodzeniem.</translation>
     </message>
@@ -1100,6 +1150,46 @@ Błąd %2</translation>
         <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>zapasowy GPT przeniesiony na LBA %1; ostatni użyteczny LBA to teraz %2</translation>
+    </message>
+    <message>
+        <location line="+152"/>
+        <source>the device geometry is not usable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>the primary GPT header is not readable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>the GPT entry array geometry is not usable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>the device is too small to hold an entry array</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>the partition entries could not be read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>the repaired header could not be written</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../imagesource.cpp" line="+104"/>

@@ -56,12 +56,12 @@
     <message>
         <location line="-61"/>
         <location line="+181"/>
-        <location line="+324"/>
+        <location line="+387"/>
         <source>Done.</source>
         <translation>Completato.</translation>
     </message>
     <message>
-        <location line="-1082"/>
+        <location line="-1145"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -156,12 +156,12 @@ Rimuovi fisicamente il dispositivo ADESSO, prima di fare qualsiasi altra cosa, e
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="+541"/>
-        <location line="+504"/>
+        <location line="+567"/>
         <source>Please specify an image file to use.</source>
         <translation>Specifica un file  immagine da usare.</translation>
     </message>
     <message>
-        <location line="-920"/>
+        <location line="-983"/>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
         <translation>Annullare ora creerà una destinazione corrotta.
@@ -170,7 +170,7 @@ Sei sicuro di voler annullare?</translation>
     <message>
         <location line="+591"/>
         <location line="+2"/>
-        <location line="+297"/>
+        <location line="+360"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Completa
@@ -182,7 +182,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Esci da Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-885"/>
+        <location filename="../mainwindow.cpp" line="-948"/>
         <location line="+6"/>
         <location line="+39"/>
         <location line="+90"/>
@@ -207,7 +207,7 @@ Sei sicuro di voler annullare?</translation>
         <location line="+5"/>
         <location line="+14"/>
         <location line="+242"/>
-        <location line="+239"/>
+        <location line="+302"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -215,7 +215,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-1243"/>
+        <location line="-1306"/>
         <source>Waiting for a task.</source>
         <translation>Attesa scelta operazione</translation>
     </message>
@@ -226,12 +226,12 @@ Sei sicuro di voler annullare?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="+715"/>
-        <location line="+505"/>
+        <location line="+568"/>
         <source>The selected file does not exist.</source>
         <translation>Il file selezionato non esiste.</translation>
     </message>
     <message>
-        <location line="-897"/>
+        <location line="-960"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Annullare?</translation>
@@ -240,7 +240,7 @@ Sei sicuro di voler annullare?</translation>
         <location line="+83"/>
         <location line="+310"/>
         <location line="+257"/>
-        <location line="+248"/>
+        <location line="+311"/>
         <source>The specified file contains no data.</source>
         <translation>Il file selezionato non contiene dati.</translation>
     </message>
@@ -250,7 +250,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Leggi i dati dal &apos;dispostivo&apos; e scrivili nel &apos;File immagine&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-1078"/>
+        <location filename="../mainwindow.cpp" line="-1141"/>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
         <translation>Annullare ora creerà un file immagine corrotto.
@@ -648,12 +648,12 @@ Windows riscriverà comunque la tabella a una nuova scansione, perché la GPT di
     </message>
     <message>
         <location line="+15"/>
-        <location line="+505"/>
+        <location line="+568"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Non hai i permessi per leggere il file selezionato.</translation>
     </message>
     <message>
-        <location line="-455"/>
+        <location line="-518"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -675,13 +675,13 @@ Le immagini compresse (.img.gz, .img.xz) possono essere scritte e verificate.</t
         <location line="+80"/>
         <location line="+20"/>
         <location line="+21"/>
-        <location line="+74"/>
+        <location line="+76"/>
         <location line="+21"/>
         <source>Verify failed.</source>
         <translation>Verifica non riuscita.</translation>
     </message>
     <message>
-        <location line="-107"/>
+        <location line="-109"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -724,7 +724,7 @@ Continuare comunque?</translation>
         <translation>Verifica annullata.</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+196"/>
         <source>Image larger than device</source>
         <translation>Immagine più grande del dispositivo</translation>
     </message>
@@ -737,20 +737,20 @@ This could only be detected at the end of the device, because a gzip image does 
 È stato possibile rilevarlo solo alla fine del dispositivo, perché un&apos;immagine gzip non registra la propria dimensione non compressa.</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+129"/>
         <source>[Disk %1]</source>
         <translation>[Disco %1]</translation>
     </message>
     <message>
-        <location line="-356"/>
+        <location line="-419"/>
         <location line="+6"/>
         <location line="+14"/>
-        <location line="+111"/>
+        <location line="+113"/>
         <source>Verify Error</source>
         <translation>Errore durante la verifica</translation>
     </message>
     <message>
-        <location line="-1032"/>
+        <location line="-1034"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Immagini disco (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -899,7 +899,7 @@ Rimuovere il dispositivo ORA e non reinserirlo qui. Inserirlo direttamente nell&
         <translation>Lettura…</translation>
     </message>
     <message>
-        <location line="+219"/>
+        <location line="+221"/>
         <source>Verifying...</source>
         <translation>Verifica…</translation>
     </message>
@@ -916,7 +916,32 @@ Rimuovere il dispositivo ORA e non reinserirlo qui. Inserirlo direttamente nell&
         <translation>Verifica fallita al settore: %1</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+45"/>
+        <location line="+58"/>
+        <source>Partition table damaged</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-57"/>
+        <source>The device holds the image correctly, but its partition table is broken: the primary GPT header points at sectors the partition entries are not in.
+
+This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
+
+Repair the partition table now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Repair failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The partition table could not be repaired: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
@@ -926,10 +951,35 @@ This could only be detected at the end of the device, because the compressed ima
     </message>
     <message>
         <location line="+11"/>
+        <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Verify Successful.
+
+The device&apos;s partition table was damaged and has been repaired.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Verify Successful.
+
+The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Verify Successful.
+
+The image and the device differ only in the GPT.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
-        <translation>Verifica riuscita.
+        <translation type="vanished">Verifica riuscita.
 
 L&apos;immagine e il dispositivo differiscono solo nella GPT, che l&apos;opzione «Correggi la GPT dopo la scrittura» riscrive di proposito.</translation>
     </message>
@@ -952,8 +1002,8 @@ The device could NOT be taken offline automatically.</source>
 NON è stato possibile mettere offline il dispositivo automaticamente.</translation>
     </message>
     <message>
-        <location line="-3"/>
-        <location line="+29"/>
+        <location line="-20"/>
+        <location line="+46"/>
         <source>Verify Successful.</source>
         <translation>Verifica completata correttamente.</translation>
     </message>
@@ -1049,7 +1099,47 @@ Errore %2</translation>
         <translation>GPT di riserva spostata all&apos;LBA %1; l&apos;ultimo LBA utilizzabile è ora %2</translation>
     </message>
     <message>
-        <location line="-722"/>
+        <location line="+152"/>
+        <source>the device geometry is not usable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>the primary GPT header is not readable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>the GPT entry array geometry is not usable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>the device is too small to hold an entry array</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>the partition entries could not be read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>the repaired header could not be written</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-933"/>
         <source>Dismount Error</source>
         <translation>Errore smontaggio volume</translation>
     </message>

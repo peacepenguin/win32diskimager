@@ -353,6 +353,75 @@ static void damageAlreadyAtEnd(unsigned char *d, unsigned long long device)
     wr32(h, H_HEADERCRC, crc32of(h, 92));
 }
 
+// The damage as Windows leaves it, after the fact: PartitionEntryLBA pointing
+// where the entries are not, with the header checksum recomputed so the header
+// still passes its own CRC. Verify has to be able to see that, and the repair
+// has to put it back without touching a data sector.
+static void caseAfterTheFact(const char *name, unsigned long long firstusable,
+                             bool expectbroken)
+{
+    const unsigned long long image = 4096, device = 16384;
+    printf("%s (FirstUsableLBA=%llu)\n", name, firstusable);
+
+    Disk dk = buildDisk(firstusable, image, device);
+    unsigned char *d = (unsigned char *)dk.bytes.data();
+    unsigned char *hdr = d + SEC;
+
+    // Exactly what the rescan does. PartitionEntryArrayCRC32 is deliberately
+    // left alone: the recorded reproducer shows Windows does not recompute it,
+    // which is what makes the real array findable again afterwards.
+    wr64(hdr, H_ENTRYLBA, firstusable - ENTRYSECTORS);
+    wr32(hdr, H_HEADERCRC, 0);
+    wr32(hdr, H_HEADERCRC, crc32of(hdr, 92));
+    check(headerCrcValid(hdr), "the mangled header still passes its own CRC");
+
+    DeleteFileA(TESTFILE);
+    HANDLE h = CreateFileA(TESTFILE, GENERIC_READ | GENERIC_WRITE, 0, NULL,
+                           CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (h == INVALID_HANDLE_VALUE)
+    {
+        printf("  FAIL could not create %s\n", TESTFILE);
+        ++failures;
+        return;
+    }
+    DWORD put = 0;
+    if (!WriteFile(h, dk.bytes.constData(), (DWORD)dk.bytes.size(), &put, NULL)
+        || put != (DWORD)dk.bytes.size())
+    {
+        printf("  FAIL could not write the test device\n");
+        ++failures;
+        CloseHandle(h);
+        return;
+    }
+
+    GptPrimaryState st = gptPrimaryState(h, SEC, device);
+    check(st == (expectbroken ? GPT_PRIMARY_BROKEN : GPT_PRIMARY_OK),
+          expectbroken ? "the broken primary table is detected"
+                       : "the harmless rewrite is not reported as damage");
+
+    if (expectbroken)
+    {
+        QString detail;
+        check(repairPrimaryGpt(h, SEC, device, &detail), "the repair reports success");
+        printf("  -> %s\n", detail.toLocal8Bit().constData());
+        check(gptPrimaryState(h, SEC, device) == GPT_PRIMARY_OK,
+              "the primary table is consistent again");
+
+        QByteArray after(device * SEC, 0);
+        SetFilePointer(h, 0, NULL, FILE_BEGIN);
+        DWORD got = 0;
+        ReadFile(h, after.data(), (DWORD)after.size(), &got, NULL);
+        const unsigned char *a = (const unsigned char *)after.constData();
+        check(rd64(a + SEC, H_ENTRYLBA) == 2, "PartitionEntryLBA points at LBA 2 again");
+        check(headerCrcValid(a + SEC), "the repaired header CRC is valid");
+        check(rd64(a + SEC, H_FIRSTUSABLE) == firstusable, "FirstUsableLBA untouched");
+        check(memcmp(a + 2 * SEC, dk.entries.constData(), ENTRIES * ENTRYSIZE) == 0,
+              "the partition entries themselves were not touched");
+    }
+    CloseHandle(h);
+    printf("\n");
+}
+
 int main(int argc, char **argv)
 {
     QCoreApplication app(argc, argv);
@@ -371,6 +440,10 @@ int main(int argc, char **argv)
     caseUntouched("no GPT on the device", GPT_FIX_NO_GPT, damageSignature);
     caseUntouched("backup already at the last LBA", GPT_FIX_NOT_NEEDED, damageAlreadyAtEnd);
     caseUntouched("primary header CRC invalid", GPT_FIX_BAD_GPT, damageCrc);
+
+    // After Windows has already mangled it, with "Fix GPT after write" off.
+    caseAfterTheFact("windows rewrote the table (reserved-space layout)", 2048, true);
+    caseAfterTheFact("windows rewrote the table (ordinary layout)", 34, false);
     (void)damageNone;
 
     DeleteFileA(TESTFILE);

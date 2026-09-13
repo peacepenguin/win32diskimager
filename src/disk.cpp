@@ -924,6 +924,147 @@ GptRewriteRisk gptRewriteRisk(HANDLE hRawDisk, unsigned long long sectorsize)
     return (firstusable - entrysectors == entrylba) ? GPT_RISK_SAFE : GPT_RISK_AFFECTED;
 }
 
+// Read the primary header and check it against itself. Returns the header in
+// *header when it is well enough formed to judge.
+static GptPrimaryState readPrimaryForCheck(HANDLE hRawDisk, unsigned long long sectorsize,
+                                           QByteArray *header)
+{
+    header->fill(0, sectorsize);
+    unsigned char *hdr = (unsigned char *)header->data();
+    if (!rawSeekRead(hRawDisk, sectorsize, hdr, (DWORD)sectorsize))
+    {
+        return GPT_PRIMARY_UNKNOWN;
+    }
+    if (memcmp(hdr + GPT_OFF_SIGNATURE, "EFI PART", 8) != 0)
+    {
+        return GPT_PRIMARY_NO_GPT;
+    }
+    DWORD headersize = rd32(hdr, GPT_OFF_HEADERSIZE);
+    if (headersize < 92 || headersize > sectorsize)
+    {
+        return GPT_PRIMARY_UNKNOWN;
+    }
+    QByteArray probe = header->left(headersize);
+    wr32((unsigned char *)probe.data(), GPT_OFF_HEADERCRC, 0);
+    if (gptCrc32((const unsigned char *)probe.constData(), headersize)
+        != rd32(hdr, GPT_OFF_HEADERCRC))
+    {
+        // A header that fails its own checksum is damaged some other way. The
+        // rewrite this is looking for leaves one that passes.
+        return GPT_PRIMARY_UNKNOWN;
+    }
+    return GPT_PRIMARY_OK;
+}
+
+GptPrimaryState gptPrimaryState(HANDLE hRawDisk, unsigned long long sectorsize,
+                                unsigned long long devicesectors)
+{
+    if (sectorsize < 512 || devicesectors < 96)
+    {
+        return GPT_PRIMARY_UNKNOWN;
+    }
+
+    QByteArray primary;
+    GptPrimaryState st = readPrimaryForCheck(hRawDisk, sectorsize, &primary);
+    if (st != GPT_PRIMARY_OK)
+    {
+        return st;
+    }
+    const unsigned char *hdr = (const unsigned char *)primary.constData();
+
+    unsigned long long entrysectors = 0ull;
+    if (!gptEntryGeometry(hdr, sectorsize, &entrysectors))
+    {
+        return GPT_PRIMARY_UNKNOWN;
+    }
+    unsigned long long entrylba = rd64(hdr, GPT_OFF_ENTRYLBA);
+    if (entrylba < 2 || entrylba + entrysectors > devicesectors)
+    {
+        // Pointing off the device is the same fault, just further out.
+        return GPT_PRIMARY_BROKEN;
+    }
+
+    QByteArray entries(entrysectors * sectorsize, 0);
+    if (!rawSeekRead(hRawDisk, entrylba * sectorsize, entries.data(),
+                     (DWORD)(entrysectors * sectorsize)))
+    {
+        return GPT_PRIMARY_UNKNOWN;
+    }
+    size_t crclen = (size_t)(rd32(hdr, GPT_OFF_NUMENTRIES) * rd32(hdr, GPT_OFF_ENTRYSIZE));
+    DWORD crc = gptCrc32((const unsigned char *)entries.constData(), crclen);
+    return (crc == rd32(hdr, GPT_OFF_ENTRIESCRC)) ? GPT_PRIMARY_OK : GPT_PRIMARY_BROKEN;
+}
+
+bool repairPrimaryGpt(HANDLE hRawDisk, unsigned long long sectorsize,
+                      unsigned long long devicesectors, QString *detail)
+{
+    if (sectorsize < 512 || devicesectors < 96)
+    {
+        if (detail) *detail = QObject::tr("the device geometry is not usable");
+        return false;
+    }
+
+    QByteArray primary;
+    if (readPrimaryForCheck(hRawDisk, sectorsize, &primary) != GPT_PRIMARY_OK)
+    {
+        if (detail) *detail = QObject::tr("the primary GPT header is not readable");
+        return false;
+    }
+    unsigned char *hdr = (unsigned char *)primary.data();
+
+    unsigned long long entrysectors = 0ull;
+    if (!gptEntryGeometry(hdr, sectorsize, &entrysectors))
+    {
+        if (detail) *detail = QObject::tr("the GPT entry array geometry is not usable");
+        return false;
+    }
+
+    // The rewrite moves the pointer but leaves PartitionEntryArrayCRC32 alone,
+    // so the header still says what the real entries hash to. That checksum is
+    // what identifies them, and the entries have not moved: LBA 2 is where a
+    // primary array lives. Confirm by checksum rather than assume.
+    DWORD wantcrc = rd32(hdr, GPT_OFF_ENTRIESCRC);
+    size_t crclen = (size_t)(rd32(hdr, GPT_OFF_NUMENTRIES) * rd32(hdr, GPT_OFF_ENTRYSIZE));
+    if (2ull + entrysectors > devicesectors)
+    {
+        if (detail) *detail = QObject::tr("the device is too small to hold an entry array");
+        return false;
+    }
+
+    QByteArray entries(entrysectors * sectorsize, 0);
+    if (!rawSeekRead(hRawDisk, 2ull * sectorsize, entries.data(),
+                     (DWORD)(entrysectors * sectorsize)))
+    {
+        if (detail) *detail = QObject::tr("the partition entries could not be read");
+        return false;
+    }
+    if (gptCrc32((const unsigned char *)entries.constData(), crclen) != wantcrc)
+    {
+        if (detail)
+        {
+            *detail = QObject::tr("the partition entries are not at LBA 2, so this is not "
+                                  "the damage this can repair");
+        }
+        return false;
+    }
+
+    wr64(hdr, GPT_OFF_ENTRYLBA, 2ull);
+    wr32(hdr, GPT_OFF_HEADERCRC, 0);
+    wr32(hdr, GPT_OFF_HEADERCRC, gptCrc32(hdr, rd32(hdr, GPT_OFF_HEADERSIZE)));
+    if (!rawSeekWrite(hRawDisk, sectorsize, hdr, (DWORD)sectorsize))
+    {
+        if (detail) *detail = QObject::tr("the repaired header could not be written");
+        return false;
+    }
+    FlushFileBuffers(hRawDisk);
+    if (detail)
+    {
+        *detail = QObject::tr("PartitionEntryLBA pointed back at LBA 2 and the header "
+                              "checksum rebuilt");
+    }
+    return true;
+}
+
 bool gptImageBackupRange(const unsigned char *lba1, unsigned long long sectorsize,
                          unsigned long long *first, unsigned long long *last)
 {

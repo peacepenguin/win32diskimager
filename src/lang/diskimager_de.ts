@@ -243,7 +243,7 @@ Are you sure you want to cancel?</source>
         <location line="+5"/>
         <location line="+14"/>
         <location line="+242"/>
-        <location line="+239"/>
+        <location line="+302"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -269,36 +269,36 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Entfernen Sie den Datenträger JETZT physisch, bevor Sie irgendetwas anderes tun, und stecken Sie ihn nicht wieder in diesen Computer. Stecken Sie ihn stattdessen in die Zielhardware.</translation>
     </message>
     <message>
-        <location line="-528"/>
-        <location line="+505"/>
+        <location line="-591"/>
+        <location line="+568"/>
         <source>The selected file does not exist.</source>
         <translation>Die ausgewählte Datei ist nicht vorhanden.</translation>
     </message>
     <message>
-        <location line="-805"/>
+        <location line="-868"/>
         <location line="+310"/>
         <location line="+257"/>
-        <location line="+248"/>
+        <location line="+311"/>
         <source>The specified file contains no data.</source>
         <translation>Die angegebene Datei enthält keine Daten.</translation>
     </message>
     <message>
-        <location line="-501"/>
+        <location line="-564"/>
         <location line="+181"/>
-        <location line="+324"/>
+        <location line="+387"/>
         <source>Done.</source>
         <translation>Erledigt.</translation>
     </message>
     <message>
-        <location line="-320"/>
+        <location line="-383"/>
         <location line="+2"/>
-        <location line="+297"/>
+        <location line="+360"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Abschließen</translation>
     </message>
     <message>
-        <location line="-505"/>
+        <location line="-568"/>
         <source>Write Successful.</source>
         <translation>Schreiben war erfolgreich.</translation>
     </message>
@@ -581,12 +581,12 @@ Windows schreibt die Tabelle bei einem erneuten Einlesen trotzdem um, weil die S
     </message>
     <message>
         <location line="+15"/>
-        <location line="+505"/>
+        <location line="+568"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Sie haben keine Berechtigung, die ausgewählte Datei zu lesen.</translation>
     </message>
     <message>
-        <location line="-455"/>
+        <location line="-518"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -608,13 +608,13 @@ Komprimierte Images (.img.gz, .img.xz) können geschrieben und geprüft werden.<
         <location line="+80"/>
         <location line="+20"/>
         <location line="+21"/>
-        <location line="+74"/>
+        <location line="+76"/>
         <location line="+21"/>
         <source>Verify failed.</source>
         <translation>Überprüfung fehlgeschlagen.</translation>
     </message>
     <message>
-        <location line="-107"/>
+        <location line="-109"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -657,12 +657,37 @@ Trotzdem fortfahren?</translation>
         <translation>Überprüfung abgebrochen.</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+32"/>
         <source>Verifying...</source>
         <translation>Überprüfen …</translation>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+117"/>
+        <location line="+58"/>
+        <source>Partition table damaged</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-57"/>
+        <source>The device holds the image correctly, but its partition table is broken: the primary GPT header points at sectors the partition entries are not in.
+
+This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
+
+Repair the partition table now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Repair failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The partition table could not be repaired: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
         <source>Image larger than device</source>
         <translation>Image größer als der Datenträger</translation>
     </message>
@@ -675,18 +700,18 @@ This could only be detected at the end of the device, because a gzip image does 
 Dies konnte erst am Ende des Datenträgers festgestellt werden, weil ein gzip-Image seine unkomprimierte Größe nicht speichert.</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+129"/>
         <source>[Disk %1]</source>
         <translation>[Datenträger %1]</translation>
     </message>
     <message>
-        <location line="-563"/>
-        <location line="+504"/>
+        <location line="-626"/>
+        <location line="+567"/>
         <source>Please specify an image file to use.</source>
         <translation>Bitte geben Sie eine Image-Datei an, die Sie verwenden wollen.</translation>
     </message>
     <message>
-        <location line="-974"/>
+        <location line="-1037"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -844,12 +869,12 @@ Entfernen Sie den Datenträger JETZT und stecken Sie ihn hier nicht wieder ein. 
         <location line="+23"/>
         <location line="+6"/>
         <location line="+14"/>
-        <location line="+111"/>
+        <location line="+113"/>
         <source>Verify Error</source>
         <translation>Fehler beim Überprüfen</translation>
     </message>
     <message>
-        <location line="-125"/>
+        <location line="-127"/>
         <source>Please select a device to verify against.</source>
         <translation>Bitte wählen Sie einen Datenträger zum Vergleichen aus.</translation>
     </message>
@@ -892,13 +917,39 @@ Der zusätzliche Bereich scheint keine Daten zu enthalten
 Trotzdem fortfahren?</translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="+223"/>
+        <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Verify Successful.
+
+The device&apos;s partition table was damaged and has been repaired.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Verify Successful.
+
+The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Verify Successful.
+
+The image and the device differ only in the GPT.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-269"/>
         <location line="+28"/>
         <source>Size Mismatch!</source>
         <translation>Größe stimmt nicht überein!</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+69"/>
         <location line="+45"/>
         <source>Verify Failure</source>
         <translation>Überprüfung fehlgeschlagen</translation>
@@ -910,7 +961,7 @@ Trotzdem fortfahren?</translation>
         <translation>Überprüfung fehlgeschlagen bei Sektor: %1</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+93"/>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
 
 This could only be detected at the end of the device, because the compressed image does not record its uncompressed size.</source>
@@ -919,16 +970,15 @@ This could only be detected at the end of the device, because the compressed ima
 Dies konnte erst am Ende des Datenträgers festgestellt werden, weil das komprimierte Image seine unkomprimierte Größe nicht speichert.</translation>
     </message>
     <message>
-        <location line="+11"/>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, which the &quot;Fix GPT after write&quot; option rewrites by design.</source>
-        <translation>Prüfung erfolgreich.
+        <translation type="vanished">Prüfung erfolgreich.
 
 Image und Datenträger unterscheiden sich nur in der GPT, die von der Option „GPT nach dem Schreiben reparieren“ absichtlich neu geschrieben wird.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+37"/>
         <source>
 
 The device has been ejected. Remove it now.</source>
@@ -946,8 +996,8 @@ The device could NOT be taken offline automatically.</source>
 Der Datenträger konnte NICHT automatisch offline geschaltet werden.</translation>
     </message>
     <message>
-        <location line="-3"/>
-        <location line="+29"/>
+        <location line="-20"/>
+        <location line="+46"/>
         <source>Verify Successful.</source>
         <translation>Überprüfung erfolgreich.</translation>
     </message>
@@ -1101,6 +1151,46 @@ Fehler %2</translation>
         <location line="+3"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>Sicherungs-GPT nach LBA %1 verschoben; letzte nutzbare LBA ist jetzt %2</translation>
+    </message>
+    <message>
+        <location line="+152"/>
+        <source>the device geometry is not usable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>the primary GPT header is not readable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>the GPT entry array geometry is not usable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>the device is too small to hold an entry array</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>the partition entries could not be read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>the repaired header could not be written</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../imagesource.cpp" line="+104"/>

@@ -156,6 +156,32 @@ GptRewriteRisk gptRewriteRisk(HANDLE hRawDisk, unsigned long long sectorsize);
 // entry array; the tail range [*tailstart, devicesectors) covers the relocated
 // backup entry array and header. Returns false if the device holds no usable
 // GPT, in which case neither output is set.
+// What state the device's primary GPT is in, judged against itself.
+enum GptPrimaryState
+{
+    GPT_PRIMARY_OK,       // the header and the entry array it points at agree
+    GPT_PRIMARY_NO_GPT,   // there is no GPT here
+    GPT_PRIMARY_UNKNOWN,  // unreadable, or damaged in some other way
+    GPT_PRIMARY_BROKEN    // the header checks out but points at the wrong entries
+};
+
+// Detect a primary table that has been left pointing somewhere the partition
+// entries are not. That is what Windows leaves behind on a disk whose
+// FirstUsableLBA is not 34: it rewrites PartitionEntryLBA, recomputes the
+// header checksum over the new value, and so leaves a header that passes its
+// own CRC while PartitionEntryArrayCRC32 no longer describes what is there.
+// Nothing reading the primary table will accept it.
+GptPrimaryState gptPrimaryState(HANDLE hRawDisk, unsigned long long sectorsize,
+                                unsigned long long devicesectors);
+
+// Point the primary header back at the partition entries. The rewrite moves
+// the pointer but leaves PartitionEntryArrayCRC32 alone, so the header still
+// records what the real entries hash to -- that checksum is what finds them
+// again. No data sector is touched. Returns false, with the reason in *detail,
+// when the damage is not this shape.
+bool repairPrimaryGpt(HANDLE hRawDisk, unsigned long long sectorsize,
+                      unsigned long long devicesectors, QString *detail);
+
 // Where the image's own backup GPT sits, read from the image's header rather
 // than the device. The fix zeroes that stale copy after relocating it, so those
 // sectors differ from the image by design -- and once it has run, the device no
