@@ -80,8 +80,6 @@ private:
         int selectedDeviceID();
         bool fileIsOnSelectedDevice(const QString &file);
         void setReadWriteButtonState();
-        void saveSettings();
-        void loadSettings();
         void initializeHomeDir();
         void updateHashControls();
         // Picks a default hash type when a different image is chosen.

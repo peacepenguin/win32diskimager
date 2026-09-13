@@ -325,8 +325,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     sectorData2 = NULL;
     sectorsize = 0ul;
 
-    loadSettings();
-    // After loadSettings, which sets the "show all devices" state the filter reads.
+    // Nothing is remembered between runs: the program writes no settings
+    // anywhere, so a copy of it leaves nothing behind on the machine.
+    //
+    // Both boxes start off the same way every time, and for the same reason in
+    // each case. Unchecking the GPT fix once, for one card, would otherwise
+    // leave every later write open to the rewrite this program exists to
+    // prevent; and starting with only removable devices listed means a fixed
+    // disk is never preselected from a previous session.
+    fixGptCheckBox->setChecked(true);
+    showAllDevicesCheckBox->setChecked(false);
+    // After the "show all devices" state is set, which the filter reads.
     getLogicalDrives();
     // Inserting a card into a reader that presents no volume produces no
     // WM_DEVICECHANGE broadcast, so the list is also polled. getLogicalDrives
@@ -340,13 +349,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     });
     device_poll_timer->start(2000);
 
-    if (myHomeDir.isEmpty()){
-        initializeHomeDir();
-    }
-
-    if (myFileType.isEmpty()) {
-        myFileType = tr("Disk Images (*.img *.IMG *.img.gz *.img.xz)");
-    }
+    initializeHomeDir();
+    myFileType = tr("Disk Images (*.img *.IMG *.img.gz *.img.xz)");
     myFileTypeList << tr("Disk Images (*.img *.IMG *.img.gz *.img.xz)")
                    << tr("Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)")
                    << "*.*";
@@ -354,7 +358,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 MainWindow::~MainWindow()
 {
-    saveSettings();
     if (hRawDisk != INVALID_HANDLE_VALUE)
     {
         CloseHandle(hRawDisk);
@@ -386,28 +389,6 @@ MainWindow::~MainWindow()
     }
 }
 
-
-void MainWindow::saveSettings()
-{
-    QSettings userSettings("HKEY_CURRENT_USER\\Software\\Win32DiskImager", QSettings::NativeFormat);
-    userSettings.beginGroup("Settings");
-    userSettings.setValue("ImageDir", myHomeDir);
-    userSettings.setValue("FileType", myFileType);
-    userSettings.setValue("FixGpt", fixGptCheckBox->isChecked());
-    userSettings.endGroup();
-}
-
-void MainWindow::loadSettings()
-{
-    QSettings userSettings("HKEY_CURRENT_USER\\Software\\Win32DiskImager", QSettings::NativeFormat);
-    userSettings.beginGroup("Settings");
-    myHomeDir = userSettings.value("ImageDir").toString();
-    myFileType = userSettings.value("FileType").toString();
-    fixGptCheckBox->setChecked(userSettings.value("FixGpt", true).toBool());
-    // Deliberately not persisted: the app starts with only removable devices
-    // listed, so a fixed disk is never preselected from a previous session.
-    showAllDevicesCheckBox->setChecked(false);
-}
 
 void MainWindow::initializeHomeDir()
 {
@@ -449,7 +430,6 @@ void MainWindow::setReadWriteButtonState()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    saveSettings();
     if (status == STATUS_READING)
     {
         if (QMessageBox::warning(this, tr("Exit?"), tr("Exiting now will result in a corrupt image file.\n"
