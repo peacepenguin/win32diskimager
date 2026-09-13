@@ -255,9 +255,9 @@ whose last LBA is 203124. That gap is the setup.
 
 #### How to create a test image that is NOT affected by the Windows GPT rewrite bug:
 
-`sgdisk` leaves `FirstUsableLBA` at the default 34, so Windows' `34 - 32` lands
-on the real entry array at LBA 2 and the rewrite does no harm. Run this image
-through the same steps 3-6 as the control.
+`sgdisk` leaves `FirstUsableLBA` at the default 34, which is the case
+[the rewrite gets away with](#why-first-lba-2048). Run this image through the
+same steps 3-6 as the control.
 
 ```
 dd if=/dev/zero of=example-not-affected.img bs=1000000 count=48

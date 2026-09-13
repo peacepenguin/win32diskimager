@@ -36,6 +36,9 @@
 #include "ui_mainwindow.h"
 #include "elapsedtimer.h"
 
+class ImageSource;
+class LockedVolumes;
+
 class MainWindow : public QMainWindow, public Ui::MainWindow
 {
     Q_OBJECT
@@ -87,6 +90,15 @@ private:
         void showProgress(bool show);
         // Puts the window back to idle and says why; see mainwindow.cpp.
         void endRun(const QString &message);
+        // Locks the device, opens it and the image; see mainwindow.cpp.
+        bool acquireDeviceAndImage(int deviceID, LockedVolumes &locked,
+                                   ImageSource &image,
+                                   unsigned long long *devicesectors,
+                                   const QString &errorTitle,
+                                   const QString &failedMessage);
+        // Scans the part of an image that will not fit; see mainwindow.cpp.
+        bool imageTailHasData(ImageSource &image, unsigned long long from,
+                              unsigned long long to, bool *datafound);
 
         HANDLE hFile;
         HANDLE hRawDisk;

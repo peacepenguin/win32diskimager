@@ -103,19 +103,10 @@ non-removable. The disk Windows is running from is never listed. The list also
 refreshes on a timer, since a card going into a reader that presents no volume
 produces no device-arrival broadcast at all.
 
-## Fork changes:
- * Removed installer
- * Updated to QT6
- * Added build notes and scripts
- * Added eject workaround for the Windows GPT corruption described above
- * Added the "Fix GPT after write" option to properly fix the issue
- * Lock every volume on the target disk while writing; offline and eject when done
- * Zero stale partition tables at both ends of the device before writing
- * Enumerate physical disks instead of drive letters, so devices with no
-   letter still appear
- * Added the "Show all devices" option
- * Write and verify `.img.gz` and `.img.xz` directly, decompressing on the fly
- * Added a GitHub Actions workflow that cross-compiles for win64 from Linux
+## Fork changes
+
+What changed in each release is in [Changelog.txt](Changelog.txt); the sections
+above describe how the current version behaves.
 
 ## Legal
 

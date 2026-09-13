@@ -146,6 +146,100 @@ void MainWindow::showProgress(bool show)
 // Every run that stops -- failed, cancelled or done -- ends the same way. It
 // was written out at all 25 exits before, so a new one only had to forget a
 // line to leave the buttons disabled or the progress bar up.
+// Take the device and open the image, which write and verify both have to do
+// before they can start. On failure it has already reported, cleaned up and
+// put the window back to idle, so the caller only returns.
+bool MainWindow::acquireDeviceAndImage(int deviceID, LockedVolumes &locked,
+                                       ImageSource &image,
+                                       unsigned long long *devicesectors,
+                                       const QString &errorTitle,
+                                       const QString &failedMessage)
+{
+    // Leaving the other volumes mounted lets their filesystem drivers flush
+    // cached metadata into the middle of the run.
+    if (!locked.lockAll(deviceID))
+    {
+        endRun(failedMessage);
+        return false;
+    }
+    // The device goes first: the image reader needs its sector size to hand out
+    // whole sectors, compressed or not. Read-write either way -- the GPT fix
+    // reads the table back, and verify needs write access to offline the disk
+    // when it is done.
+    hRawDisk = getHandleOnDevice(deviceID, GENERIC_READ | GENERIC_WRITE);
+    if (hRawDisk == INVALID_HANDLE_VALUE)
+    {
+        locked.release();
+        endRun(failedMessage);
+        return false;
+    }
+    *devicesectors = getNumberOfSectors(hRawDisk, &sectorsize);
+    if (!*devicesectors)
+    {
+        // A card reader whose card has been pulled stays present and reports
+        // size zero, with no WM_DEVICECHANGE to say so.
+        QMessageBox::critical(this, tr("Device Error"),
+            tr("The device reports a size of zero. If it is a card reader, "
+               "the card may have been removed."));
+        locked.release();
+        CloseHandle(hRawDisk);
+        hRawDisk = INVALID_HANDLE_VALUE;
+        endRun(failedMessage);
+        return false;
+    }
+    // A .img.gz or .img.xz is decompressed as it goes, so the machine never
+    // needs room for the expanded image.
+    if (!image.open(leFile->text(), sectorsize))
+    {
+        QMessageBox::critical(this, errorTitle, image.errorString());
+        locked.release();
+        CloseHandle(hRawDisk);
+        hRawDisk = INVALID_HANDLE_VALUE;
+        endRun(failedMessage);
+        return false;
+    }
+    return true;
+}
+
+// Does the part of the image that will not fit hold anything but zeros? Write
+// and verify both ask before offering to go ahead with a truncated run.
+// A compressed image is read forwards only, so examining its tail would mean
+// decompressing the whole image first; that case returns false for "not
+// examined" and leaves *datafound alone.
+bool MainWindow::imageTailHasData(ImageSource &image, unsigned long long from,
+                                  unsigned long long to, bool *datafound)
+{
+    *datafound = false;
+    if (image.isCompressed())
+    {
+        return false;
+    }
+    for (unsigned long long at = from; at < to && !*datafound; )
+    {
+        unsigned long chunk = ((to - at) >= 1024ull) ? 1024ul
+                                                     : (unsigned long)(to - at);
+        char *data = image.read(at, chunk, NULL);
+        if (data == NULL)
+        {
+            // A read error in a stretch that will not be written or compared
+            // says nothing useful; stop looking rather than report it.
+            break;
+        }
+        unsigned long long limit = (unsigned long long)chunk * sectorsize;
+        for (unsigned long long j = 0ull; j < limit; ++j)
+        {
+            if (data[j] != 0)
+            {
+                *datafound = true;
+                break;
+            }
+        }
+        delete[] data;
+        at += chunk;
+    }
+    return true;
+}
+
 void MainWindow::endRun(const QString &message)
 {
     status = STATUS_IDLE;
@@ -601,50 +695,12 @@ void MainWindow::on_bWrite_clicked()
             bVerify->setEnabled(false);
             double mbpersec;
             unsigned long long i, lasti, availablesectors, numsectors;
-            // Lock and dismount every volume on the target disk. Leaving the
-            // other partitions mounted lets their filesystem drivers flush
-            // cached metadata over the image while it is being written.
             LockedVolumes locked;
-            if (!locked.lockAll(deviceID))
-            {
-                endRun(tr("Write failed."));
-                return;
-            }
-            // The device is opened first: the image reader needs the sector
-            // size to hand out whole sectors, compressed or not.
-            // Read access is needed as well: the GPT fix reads the table back.
-            hRawDisk = getHandleOnDevice(deviceID, GENERIC_READ | GENERIC_WRITE);
-            if (hRawDisk == INVALID_HANDLE_VALUE)
-            {
-                locked.release();
-                endRun(tr("Write failed."));
-                return;
-            }
-            availablesectors = getNumberOfSectors(hRawDisk, &sectorsize);
-            if (!availablesectors)
-            {
-                //For external card readers you may not get device change notification when you remove the card/flash.
-                //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
-                QMessageBox::critical(this, tr("Device Error"),
-                    tr("The device reports a size of zero. If it is a card reader, "
-                       "the card may have been removed."));
-                locked.release();
-                CloseHandle(hRawDisk);
-                hRawDisk = INVALID_HANDLE_VALUE;
-                passfail = false;
-                endRun(tr("Write failed."));
-                return;
-            }
-            // A .img.gz or .img.xz is decompressed on the fly as it is written,
-            // so the machine never needs room for the expanded image.
             ImageSource image;
-            if (!image.open(leFile->text(), sectorsize))
+            if (!acquireDeviceAndImage(deviceID, locked, image, &availablesectors,
+                                       tr("Write Error"), tr("Write failed.")))
             {
-                QMessageBox::critical(this, tr("Write Error"), image.errorString());
-                locked.release();
-                CloseHandle(hRawDisk);
-                hRawDisk = INVALID_HANDLE_VALUE;
-                endRun(tr("Write failed."));
+                passfail = false;
                 return;
             }
             // gzip only records the uncompressed size modulo 4 GiB, so for any
@@ -690,41 +746,9 @@ void MainWindow::on_bWrite_clicked()
             }
             if (numsectors > availablesectors)
             {
-                // A compressed image is read forwards only: scanning its tail
-                // would mean decompressing the whole image just to decide
-                // whether to start, so the tail is reported as unexamined.
-                bool tailchecked = !image.isCompressed();
                 bool datafound = false;
-                if (tailchecked)
-                {
-                    i = availablesectors;
-                    unsigned long nextchunksize = 0;
-                    while ( (i < numsectors) && (datafound == false) )
-                    {
-                        nextchunksize = ((numsectors - i) >= 1024ul) ? 1024ul : (numsectors - i);
-                        sectorData = image.read(i, nextchunksize, NULL);
-                        if(sectorData == NULL)
-                        {
-                            // if there's an error verifying the truncated data, just move on to the
-                            //  write, as we don't care about an error in a section that we're not writing...
-                            i = numsectors + 1;
-                        } else {
-                            unsigned int j = 0;
-                            unsigned limit = nextchunksize * sectorsize;
-                            while ( (datafound == false) && ( j < limit ) )
-                            {
-                                if(sectorData[j++] != 0)
-                                {
-                                    datafound = true;
-                                }
-                            }
-                            i += nextchunksize;
-                        }
-                        // delete the allocated sectorData
-                        delete[] sectorData;
-                        sectorData = NULL;
-                    }
-                }
+                bool tailchecked = imageTailHasData(image, availablesectors,
+                                                    numsectors, &datafound);
                 // Built from whole translatable sentences. Assembling the text
                 // first and passing it through tr() would look up a string that
                 // only exists at runtime, so nothing is ever translated.
@@ -1239,50 +1263,12 @@ void MainWindow::on_bVerify_clicked()
             bVerify->setEnabled(false);
             double mbpersec;
             unsigned long long i, lasti, availablesectors, numsectors, result;
-            // Lock and dismount every volume on the disk being verified, so
-            // nothing writes to it while it is compared against the image.
             LockedVolumes locked;
-            if (!locked.lockAll(deviceID))
-            {
-                endRun(tr("Verify failed."));
-                return;
-            }
-            // The device is opened first: the image reader needs the sector
-            // size to hand out whole sectors, compressed or not.
-            // Read-write: verify never writes, but taking the disk offline
-            // afterwards (IOCTL_DISK_SET_DISK_ATTRIBUTES) needs write access.
-            hRawDisk = getHandleOnDevice(deviceID, GENERIC_READ | GENERIC_WRITE);
-            if (hRawDisk == INVALID_HANDLE_VALUE)
-            {
-                locked.release();
-                endRun(tr("Verify failed."));
-                return;
-            }
-            availablesectors = getNumberOfSectors(hRawDisk, &sectorsize);
-            if (!availablesectors)
-            {
-                //For external card readers you may not get device change notification when you remove the card/flash.
-                //(So no WM_DEVICECHANGE signal). Device stays but size goes to 0. [Is there special event for this on Windows??]
-                QMessageBox::critical(this, tr("Device Error"),
-                    tr("The device reports a size of zero. If it is a card reader, "
-                       "the card may have been removed."));
-                locked.release();
-                CloseHandle(hRawDisk);
-                hRawDisk = INVALID_HANDLE_VALUE;
-                passfail = false;
-                endRun(tr("Verify failed."));
-                return;
-            }
-            // A compressed image is decompressed on the fly and compared as it
-            // comes out, exactly like a raw one.
             ImageSource image;
-            if (!image.open(leFile->text(), sectorsize))
+            if (!acquireDeviceAndImage(deviceID, locked, image, &availablesectors,
+                                       tr("Verify Error"), tr("Verify failed.")))
             {
-                QMessageBox::critical(this, tr("Verify Error"), image.errorString());
-                locked.release();
-                CloseHandle(hRawDisk);
-                hRawDisk = INVALID_HANDLE_VALUE;
-                endRun(tr("Verify failed."));
+                passfail = false;
                 return;
             }
             // gzip only records the uncompressed size modulo 4 GiB, so for any
@@ -1327,40 +1313,9 @@ void MainWindow::on_bVerify_clicked()
             }
             if (numsectors > availablesectors)
             {
-                // A compressed image is read forwards only, so its tail cannot
-                // be examined without decompressing everything first.
-                bool tailchecked = !image.isCompressed();
                 bool datafound = false;
-                if (tailchecked)
-                {
-                    i = availablesectors;
-                    unsigned long nextchunksize = 0;
-                    while ( (i < numsectors) && (datafound == false) )
-                    {
-                        nextchunksize = ((numsectors - i) >= 1024ul) ? 1024ul : (numsectors - i);
-                        sectorData = image.read(i, nextchunksize, NULL);
-                        if(sectorData == NULL)
-                        {
-                            // if there's an error verifying the truncated data, just move on to the
-                            //  write, as we don't care about an error in a section that we're not writing...
-                            i = numsectors + 1;
-                        } else {
-                            unsigned int j = 0;
-                            unsigned limit = nextchunksize * sectorsize;
-                            while ( (datafound == false) && ( j < limit ) )
-                            {
-                                if(sectorData[j++] != 0)
-                                {
-                                    datafound = true;
-                                }
-                            }
-                            i += nextchunksize;
-                        }
-                        // delete the allocated sectorData
-                        delete[] sectorData;
-                        sectorData = NULL;
-                    }
-                }
+                bool tailchecked = imageTailHasData(image, availablesectors,
+                                                    numsectors, &datafound);
                 QString msg = (!tailchecked)
                     ? tr("Size of image larger than device:\n  Image: %1 sectors\n"
                          "  Device: %2 sectors\n  Sector Size: %3\n\n"

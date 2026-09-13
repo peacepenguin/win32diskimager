@@ -49,19 +49,19 @@
         <translation>Leggi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+1069"/>
+        <location filename="../mainwindow.cpp" line="+1093"/>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Sei sicuro di voler sovrascrivere il file specificato?</translation>
     </message>
     <message>
         <location line="-61"/>
         <location line="+181"/>
-        <location line="+393"/>
+        <location line="+324"/>
         <source>Done.</source>
         <translation>Completato.</translation>
     </message>
     <message>
-        <location line="-1221"/>
+        <location line="-1082"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -73,7 +73,7 @@
         <translation>Scrivi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+821"/>
+        <location filename="../mainwindow.cpp" line="+751"/>
         <source>Please specify a file to save data to.</source>
         <translation>Seleziona un file dove salvare i dati.</translation>
     </message>
@@ -83,7 +83,7 @@
         <translation>Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-831"/>
+        <location filename="../mainwindow.cpp" line="-761"/>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
         <translation>Annullare ore creerà un disco corrotto.
@@ -91,7 +91,7 @@ Sei sicuro di voler uscire?</translation>
     </message>
     <message>
         <location line="+191"/>
-        <location line="+495"/>
+        <location line="+425"/>
         <location line="+168"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Il file immagine non è stato trovato nel dispositivo destinazione.</translation>
@@ -140,7 +140,7 @@ Rimuovi fisicamente il dispositivo ADESSO, prima di fare qualsiasi altra cosa, e
         <translation>Informazioni sul file</translation>
     </message>
     <message>
-        <location line="-795"/>
+        <location line="-725"/>
         <source>Select a disk image</source>
         <translation>Seleziona un file immagine</translation>
     </message>
@@ -155,22 +155,22 @@ Rimuovi fisicamente il dispositivo ADESSO, prima di fare qualsiasi altra cosa, e
         <translation>Dispositivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+611"/>
-        <location line="+573"/>
+        <location filename="../mainwindow.cpp" line="+541"/>
+        <location line="+504"/>
         <source>Please specify an image file to use.</source>
         <translation>Specifica un file  immagine da usare.</translation>
     </message>
     <message>
-        <location line="-1059"/>
+        <location line="-920"/>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
         <translation>Annullare ora creerà una destinazione corrotta.
 Sei sicuro di voler annullare?</translation>
     </message>
     <message>
-        <location line="+661"/>
+        <location line="+591"/>
         <location line="+2"/>
-        <location line="+366"/>
+        <location line="+297"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Completa
@@ -182,10 +182,10 @@ Sei sicuro di voler annullare?</translation>
         <translation>Esci da Win32 Disk Imager</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-1024"/>
+        <location filename="../mainwindow.cpp" line="-885"/>
         <location line="+6"/>
-        <location line="+75"/>
-        <location line="+124"/>
+        <location line="+39"/>
+        <location line="+90"/>
         <location line="+37"/>
         <location line="+22"/>
         <location line="+231"/>
@@ -194,20 +194,20 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore in scrittura</translation>
     </message>
     <message>
-        <location line="-669"/>
+        <location line="-599"/>
         <source>Generating...</source>
         <translation>Generazione...</translation>
     </message>
     <message>
         <location line="+15"/>
         <location line="+11"/>
-        <location line="+184"/>
-        <location line="+333"/>
+        <location line="+146"/>
+        <location line="+301"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+280"/>
-        <location line="+270"/>
+        <location line="+242"/>
+        <location line="+239"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -215,7 +215,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-1382"/>
+        <location line="-1243"/>
         <source>Waiting for a task.</source>
         <translation>Attesa scelta operazione</translation>
     </message>
@@ -225,22 +225,22 @@ Sei sicuro di voler annullare?</translation>
         <translation>Stato progresso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+785"/>
-        <location line="+574"/>
+        <location filename="../mainwindow.cpp" line="+715"/>
+        <location line="+505"/>
         <source>The selected file does not exist.</source>
         <translation>Il file selezionato non esiste.</translation>
     </message>
     <message>
-        <location line="-1036"/>
+        <location line="-897"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Annullare?</translation>
     </message>
     <message>
-        <location line="+121"/>
-        <location line="+342"/>
-        <location line="+295"/>
-        <location line="+279"/>
+        <location line="+83"/>
+        <location line="+310"/>
+        <location line="+257"/>
+        <location line="+248"/>
         <source>The specified file contains no data.</source>
         <translation>Il file selezionato non contiene dati.</translation>
     </message>
@@ -250,14 +250,14 @@ Sei sicuro di voler annullare?</translation>
         <translation>Leggi i dati dal &apos;dispostivo&apos; e scrivili nel &apos;File immagine&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-1217"/>
+        <location filename="../mainwindow.cpp" line="-1078"/>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
         <translation>Annullare ora creerà un file immagine corrotto.
 Sei sicuro di voler uscire?</translation>
     </message>
     <message>
-        <location line="+834"/>
+        <location line="+764"/>
         <source>Read Successful.</source>
         <translation>Lettura completata correttamente.</translation>
     </message>
@@ -267,12 +267,12 @@ Sei sicuro di voler uscire?</translation>
         <translation>Scrittura completata correttamente.</translation>
     </message>
     <message>
-        <location line="-441"/>
+        <location line="-371"/>
         <source>Confirm overwrite</source>
         <translation>Conferma la sovrascrittura</translation>
     </message>
     <message>
-        <location line="+498"/>
+        <location line="+428"/>
         <source>Confirm Overwrite</source>
         <translation>Conferma la sovrascrittua</translation>
     </message>
@@ -297,8 +297,8 @@ Sei sicuro di voler uscire?</translation>
         <translation>Scrivi dati del &apos;File immagine&apos; nel &apos;Dispositivo&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-439"/>
-        <location line="+63"/>
+        <location filename="../mainwindow.cpp" line="-407"/>
+        <location line="+31"/>
         <source>Not enough available space!</source>
         <translation>Spazio disponibile insufficiente!</translation>
     </message>
@@ -356,7 +356,7 @@ Sei sicuro di voler uscire?</translation>
         <translation type="vanished">Solo verifica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-812"/>
+        <location filename="../mainwindow.cpp" line="-742"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Uscendo ora annullerai la verifica dell&apos;immagine.
@@ -425,32 +425,27 @@ Verifica che %2 non sia un&apos;unità che volevi conservare.
 Scrivere comunque su questo dispositivo?</translation>
     </message>
     <message>
-        <location line="+25"/>
-        <location line="+10"/>
-        <location line="+15"/>
-        <location line="+12"/>
-        <location line="+19"/>
+        <location line="+22"/>
         <location line="+21"/>
-        <location line="+87"/>
+        <location line="+21"/>
+        <location line="+55"/>
         <location line="+37"/>
         <location line="+23"/>
         <source>Write failed.</source>
         <translation>Scrittura non riuscita.</translation>
     </message>
     <message>
-        <location line="-206"/>
-        <location line="+638"/>
+        <location line="-677"/>
         <source>Device Error</source>
         <translation>Errore del dispositivo</translation>
     </message>
     <message>
-        <location line="-637"/>
-        <location line="+638"/>
+        <location line="+1"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Il dispositivo segnala dimensione zero. Se si tratta di un lettore di schede, la scheda potrebbe essere stata rimossa.</translation>
     </message>
     <message>
-        <location line="-592"/>
+        <location line="+549"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -469,7 +464,7 @@ La parte finale dell&apos;immagine non verrà scritta, quindi il dispositivo non
 Continuare comunque?</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+25"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -653,12 +648,12 @@ Windows riscriverà comunque la tabella a una nuova scansione, perché la GPT di
     </message>
     <message>
         <location line="+15"/>
-        <location line="+574"/>
+        <location line="+505"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>Non hai i permessi per leggere il file selezionato.</translation>
     </message>
     <message>
-        <location line="-524"/>
+        <location line="-455"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -677,19 +672,16 @@ Le immagini compresse (.img.gz, .img.xz) possono essere scritte e verificate.</t
         <translation>Lettura non riuscita.</translation>
     </message>
     <message>
-        <location line="+82"/>
-        <location line="+11"/>
-        <location line="+15"/>
-        <location line="+12"/>
-        <location line="+18"/>
+        <location line="+80"/>
+        <location line="+20"/>
         <location line="+21"/>
-        <location line="+105"/>
+        <location line="+74"/>
         <location line="+21"/>
         <source>Verify failed.</source>
         <translation>Verifica non riuscita.</translation>
     </message>
     <message>
-        <location line="-138"/>
+        <location line="-107"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -708,7 +700,7 @@ Continue Anyway?</source>
 Continuare comunque?</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+22"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -750,15 +742,15 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>[Disco %1]</translation>
     </message>
     <message>
-        <location line="-425"/>
+        <location line="-356"/>
         <location line="+6"/>
-        <location line="+50"/>
-        <location line="+144"/>
+        <location line="+14"/>
+        <location line="+111"/>
         <source>Verify Error</source>
         <translation>Errore durante la verifica</translation>
     </message>
     <message>
-        <location line="-1171"/>
+        <location line="-1032"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Immagini disco (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -769,12 +761,12 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Immagini disco compresse (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+974"/>
+        <location line="+904"/>
         <source>Please select a device to verify against.</source>
         <translation>Seleziona un dispositivo con cui confrontare.</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+70"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -812,13 +804,13 @@ Lo spazio in eccesso non sembra contenere dati
 Continuare comunque?</translation>
     </message>
     <message>
-        <location line="-55"/>
-        <location line="+59"/>
+        <location line="-24"/>
+        <location line="+28"/>
         <source>Size Mismatch!</source>
         <translation>Le dimensioni non coincidono!</translation>
     </message>
     <message>
-        <location line="-445"/>
+        <location line="-376"/>
         <source>Write successful.
 
 The GPT now matches the device (%1), so Windows has nothing to repair. Remove the device normally.</source>
@@ -907,7 +899,7 @@ Rimuovere il dispositivo ORA e non reinserirlo qui. Inserirlo direttamente nell&
         <translation>Lettura…</translation>
     </message>
     <message>
-        <location line="+288"/>
+        <location line="+219"/>
         <source>Verifying...</source>
         <translation>Verifica…</translation>
     </message>
@@ -969,51 +961,51 @@ NON è stato possibile mettere offline il dispositivo automaticamente.</translat
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../disk.cpp" line="+251"/>
+        <location filename="../disk.cpp" line="+232"/>
         <source>Free Space Error</source>
         <translation>Spazio libero insufficiente</translation>
     </message>
     <message>
-        <location line="-122"/>
+        <location line="-102"/>
         <source>An error occurred when attempting to dismount the volume.
 Error %1: %2</source>
         <translation>Errore nello smontaggio del volume.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="-81"/>
+        <location line="-65"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>Errore nell&apos;ottenere un handle per il file.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="+180"/>
+        <location line="+148"/>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
         <translation>Errore nell&apos;ottenere la dimensione di un file.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="-154"/>
-        <location line="+128"/>
+        <location line="-126"/>
+        <location line="+104"/>
         <source>Device Error</source>
         <translation>Errore nel dispositivo</translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="-103"/>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>Errore nell&apos;ottenere un handle per il dispositivo.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+65"/>
         <source>Read Error</source>
         <translation>Errore in lettura</translation>
     </message>
     <message>
-        <location line="+254"/>
+        <location line="+238"/>
         <source>Unknown device</source>
         <translation>Dispositivo sconosciuto</translation>
     </message>
@@ -1027,7 +1019,7 @@ Chiudi qualsiasi programma che stia usando il dispositivo e riprova.
 Errore %2</translation>
     </message>
     <message>
-        <location line="+179"/>
+        <location line="+195"/>
         <source>the primary GPT header size is out of range</source>
         <translation>la dimensione dell&apos;intestazione GPT primaria è fuori intervallo</translation>
     </message>
@@ -1057,28 +1049,28 @@ Errore %2</translation>
         <translation>GPT di riserva spostata all&apos;LBA %1; l&apos;ultimo LBA utilizzabile è ora %2</translation>
     </message>
     <message>
-        <location line="-726"/>
+        <location line="-722"/>
         <source>Dismount Error</source>
         <translation>Errore smontaggio volume</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+47"/>
         <source>Write Error</source>
         <translation>Errore in scrittura</translation>
     </message>
     <message>
-        <location line="-135"/>
-        <location line="+179"/>
+        <location line="-112"/>
+        <location line="+148"/>
         <source>File Error</source>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-117"/>
+        <location line="-97"/>
         <source>Unlock Error</source>
         <translation>Errore nello sblocco del volume</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+118"/>
         <source>Failed to get the free space on drive %1.
 Error %2: %3
 Checking of free space will be skipped.</source>
@@ -1087,41 +1079,41 @@ Errore %2: %3
 Il controllo dello spazio libero verrà saltato.</translation>
     </message>
     <message>
-        <location line="-141"/>
+        <location line="-117"/>
         <source>An error occurred when attempting to unlock the volume.
 Error %1: %2</source>
         <translation>Errore nello sblocco del volume.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+76"/>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
         <translation>Errore nell&apos;acquisizione della geometria del dispositivo.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="-46"/>
+        <location line="-38"/>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>Errore nel leggere i dati da un handle.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+23"/>
         <source>An error occurred when attempting to write data to handle.
 Error %1: %2</source>
         <translation>Errore nello scrivere i dati in un handle.
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="-92"/>
-        <location line="+370"/>
+        <location line="-76"/>
+        <location line="+342"/>
         <source>Lock Error</source>
         <translation>Errore nel blocco del volume</translation>
     </message>
     <message>
-        <location line="-369"/>
+        <location line="-341"/>
         <source>An error occurred when attempting to lock the volume.
 Error %1: %2</source>
         <translation>Errore nel blocco del volume.

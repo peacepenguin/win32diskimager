@@ -147,7 +147,7 @@
         <translation>종료</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+361"/>
+        <location filename="../mainwindow.cpp" line="+455"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -193,8 +193,8 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+75"/>
-        <location line="+124"/>
+        <location line="+39"/>
+        <location line="+90"/>
         <location line="+37"/>
         <location line="+22"/>
         <location line="+231"/>
@@ -203,14 +203,14 @@ Are you sure you want to cancel?</source>
         <translation>쓰기 오류</translation>
     </message>
     <message>
-        <location line="-558"/>
-        <location line="+495"/>
+        <location line="-488"/>
+        <location line="+425"/>
         <location line="+168"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>이미지 파일을 대상 기기에 위치시킬 수 없습니다.</translation>
     </message>
     <message>
-        <location line="-654"/>
+        <location line="-584"/>
         <source>Confirm overwrite</source>
         <translation>중복쓰기 확인</translation>
     </message>
@@ -234,21 +234,21 @@ Are you sure you want to cancel?</source>
 취소할까요?</translation>
     </message>
     <message>
-        <location line="+140"/>
-        <location line="+63"/>
+        <location line="+102"/>
+        <location line="+31"/>
         <source>Not enough available space!</source>
         <translation>공간이 충분하지 않습니다!</translation>
     </message>
     <message>
-        <location line="-278"/>
+        <location line="-208"/>
         <location line="+11"/>
-        <location line="+184"/>
-        <location line="+333"/>
+        <location line="+146"/>
+        <location line="+301"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+280"/>
-        <location line="+270"/>
+        <location line="+242"/>
+        <location line="+239"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -274,41 +274,41 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 다른 작업을 하기 전에 지금 바로 장치를 물리적으로 제거하고, 이 컴퓨터에 다시 꽂지 마십시오. 대상 하드웨어에 꽂으십시오.</translation>
     </message>
     <message>
-        <location line="-597"/>
-        <location line="+574"/>
+        <location line="-528"/>
+        <location line="+505"/>
         <source>The selected file does not exist.</source>
         <translation>선택된 파일이 존재하지 않습니다.</translation>
     </message>
     <message>
-        <location line="-906"/>
-        <location line="+342"/>
-        <location line="+295"/>
-        <location line="+279"/>
+        <location line="-805"/>
+        <location line="+310"/>
+        <location line="+257"/>
+        <location line="+248"/>
         <source>The specified file contains no data.</source>
         <translation>지정된 파일은 자료가 없습니다.</translation>
     </message>
     <message>
-        <location line="-570"/>
+        <location line="-501"/>
         <location line="+181"/>
-        <location line="+393"/>
+        <location line="+324"/>
         <source>Done.</source>
         <translation>완료.</translation>
     </message>
     <message>
-        <location line="-389"/>
+        <location line="-320"/>
         <location line="+2"/>
-        <location line="+366"/>
+        <location line="+297"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>완료</translation>
     </message>
     <message>
-        <location line="-574"/>
+        <location line="-505"/>
         <source>Write Successful.</source>
         <translation>쓰기 성공.</translation>
     </message>
     <message>
-        <location line="-758"/>
+        <location line="-688"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>디스크 이미지 (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -368,32 +368,27 @@ Write to this device anyway?</source>
 그래도 이 장치에 쓸까요?</translation>
     </message>
     <message>
-        <location line="+25"/>
-        <location line="+10"/>
-        <location line="+15"/>
-        <location line="+12"/>
-        <location line="+19"/>
+        <location line="+22"/>
         <location line="+21"/>
-        <location line="+87"/>
+        <location line="+21"/>
+        <location line="+55"/>
         <location line="+37"/>
         <location line="+23"/>
         <source>Write failed.</source>
         <translation>쓰기에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="-206"/>
-        <location line="+638"/>
+        <location line="-677"/>
         <source>Device Error</source>
         <translation>장치 오류</translation>
     </message>
     <message>
-        <location line="-637"/>
-        <location line="+638"/>
+        <location line="+1"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>장치가 크기를 0으로 보고합니다. 카드 리더라면 카드가 제거되었을 수 있습니다.</translation>
     </message>
     <message>
-        <location line="-592"/>
+        <location line="+549"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -412,7 +407,7 @@ Continue Anyway?</source>
 그래도 계속할까요?</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+25"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -583,12 +578,12 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+574"/>
+        <location line="+505"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>선택한 파일을 읽을 권한이 없습니다.</translation>
     </message>
     <message>
-        <location line="-524"/>
+        <location line="-455"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -607,19 +602,16 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
         <translation>읽기에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="+82"/>
-        <location line="+11"/>
-        <location line="+15"/>
-        <location line="+12"/>
-        <location line="+18"/>
+        <location line="+80"/>
+        <location line="+20"/>
         <location line="+21"/>
-        <location line="+105"/>
+        <location line="+74"/>
         <location line="+21"/>
         <source>Verify failed.</source>
         <translation>검증에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="-138"/>
+        <location line="-107"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -638,7 +630,7 @@ Continue Anyway?</source>
 그래도 계속할까요?</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+22"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -677,19 +669,19 @@ Continue Anyway?</source>
         <translation>[디스크 %1]</translation>
     </message>
     <message>
-        <location line="-632"/>
-        <location line="+573"/>
+        <location line="-563"/>
+        <location line="+504"/>
         <source>Please specify an image file to use.</source>
         <translation>사용하기 위한 이미지 파일을 지정해주세요.</translation>
     </message>
     <message>
-        <location line="-1113"/>
+        <location line="-974"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+317"/>
+        <location line="+247"/>
         <source>Writing...</source>
         <translation>쓰는 중…</translation>
     </message>
@@ -840,18 +832,18 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+50"/>
-        <location line="+144"/>
+        <location line="+14"/>
+        <location line="+111"/>
         <source>Verify Error</source>
         <translation>검증 오류</translation>
     </message>
     <message>
-        <location line="-194"/>
+        <location line="-125"/>
         <source>Please select a device to verify against.</source>
         <translation>검증에 사용할 장치를 선택해주세요.</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+70"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -889,8 +881,8 @@ Continue Anyway?</source>
 그래도 계속할까요?</translation>
     </message>
     <message>
-        <location line="-55"/>
-        <location line="+59"/>
+        <location line="-24"/>
+        <location line="+28"/>
         <source>Size Mismatch!</source>
         <translation>크기가 다름!</translation>
     </message>
@@ -952,46 +944,46 @@ The device could NOT be taken offline automatically.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../disk.cpp" line="+48"/>
-        <location line="+179"/>
+        <location filename="../disk.cpp" line="+64"/>
+        <location line="+148"/>
         <source>File Error</source>
         <translation>파일 오</translation>
     </message>
     <message>
-        <location line="-179"/>
+        <location line="-147"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>파일의 핸들을 얻기 시도할 때 오류가 발생.
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+26"/>
-        <location line="+128"/>
+        <location line="+22"/>
+        <location line="+104"/>
         <source>Device Error</source>
         <translation>기기 오류</translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="-103"/>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>기기의 핸들을 얻기 시도할 때 오류가 발생.
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+17"/>
-        <location line="+370"/>
+        <location line="+13"/>
+        <location line="+342"/>
         <source>Lock Error</source>
         <translation>잠금 오류</translation>
     </message>
     <message>
-        <location line="-369"/>
+        <location line="-341"/>
         <source>An error occurred when attempting to lock the volume.
 Error %1: %2</source>
         <translation>볼륨을 잠그려고 시도할 때 오류가 발생.
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+13"/>
         <source>Unlock Error</source>
         <translation>잠금해제 오류</translation>
     </message>
@@ -1003,7 +995,7 @@ Error %1: %2</source>
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+13"/>
         <source>Dismount Error</source>
         <translation>마운트 해제 오류</translation>
     </message>
@@ -1015,7 +1007,7 @@ Error %1: %2</source>
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+23"/>
         <source>Read Error</source>
         <translation>읽기 오류</translation>
     </message>
@@ -1027,7 +1019,7 @@ Error %1: %2</source>
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+22"/>
         <source>Write Error</source>
         <translation>쓰기 오류</translation>
     </message>
@@ -1039,21 +1031,21 @@ Error %1: %2</source>
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+15"/>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
         <translation>기기의 지오메트리를 얻으려고 할 때 오류가 발생.
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+21"/>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
         <translation>파일크기를 얻는 동안 오류가 발생.
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+19"/>
         <source>Free Space Error</source>
         <translation>저장공간 오류</translation>
     </message>
@@ -1081,7 +1073,7 @@ Error %2</source>
 오류 %2</translation>
     </message>
     <message>
-        <location line="+179"/>
+        <location line="+195"/>
         <source>the primary GPT header size is out of range</source>
         <translation>주 GPT 헤더의 크기가 범위를 벗어났습니다</translation>
     </message>

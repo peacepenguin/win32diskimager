@@ -35,19 +35,35 @@
 #include "disk.h"
 #include "mainwindow.h"
 
+// Report a Win32 failure with the system's own description of it. `message`
+// carries %1 for the error code and %2 for that description, or the next two
+// free placeholders when the caller has already filled some in.
+//
+// The code is read once, up front: FormatMessageW and the dialog can both
+// overwrite it, so reading it again at the end -- as all ten copies of this
+// did -- risks reporting an error other than the one that happened.
+static void reportWin32Error(const QString &title, const QString &message)
+{
+    DWORD code = GetLastError();
+    wchar_t *text = NULL;
+    FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER,
+                   NULL, code, 0, (LPWSTR)&text, 0, NULL);
+    QMessageBox::critical(MainWindow::getInstanceIfAvailable(), title,
+                          message.arg(code)
+                                 .arg(text ? QString::fromUtf16((const char16_t *)text)
+                                           : QString()));
+    LocalFree(text);
+}
+
 HANDLE getHandleOnFile(LPCWSTR filelocation, DWORD access)
 {
     HANDLE hFile;
     hFile = CreateFileW(filelocation, access, (access == GENERIC_READ) ? FILE_SHARE_READ : 0, NULL, (access == GENERIC_READ) ? OPEN_EXISTING:CREATE_ALWAYS, 0, NULL);
     if (hFile == INVALID_HANDLE_VALUE)
     {
-        wchar_t *errormessage=NULL;
-        ::FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0,
-                         (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("File Error"), QObject::tr("An error occurred when attempting to get a handle on the file.\n"
-                                                              "Error %1: %2").arg(GetLastError()).arg(errText));
-        LocalFree(errormessage);
+        reportWin32Error(QObject::tr("File Error"),
+                         QObject::tr("An error occurred when attempting to get a handle on the file.\n"
+                         "Error %1: %2"));
     }
     return hFile;
 }
@@ -68,13 +84,9 @@ HANDLE getHandleOnDevice(int device, DWORD access)
     }
     if (hDevice == INVALID_HANDLE_VALUE)
     {
-        wchar_t *errormessage=NULL;
-        FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Device Error"),
-                              QObject::tr("An error occurred when attempting to get a handle on the device.\n"
-                                          "Error %1: %2").arg(GetLastError()).arg(errText));
-        LocalFree(errormessage);
+        reportWin32Error(QObject::tr("Device Error"),
+                         QObject::tr("An error occurred when attempting to get a handle on the device.\n"
+                         "Error %1: %2"));
     }
     return hDevice;
 }
@@ -86,13 +98,9 @@ bool getLockOnVolume(HANDLE handle)
     bResult = DeviceIoControl(handle, FSCTL_LOCK_VOLUME, NULL, 0, NULL, 0, &bytesreturned, NULL);
     if (!bResult)
     {
-        wchar_t *errormessage=NULL;
-        FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Lock Error"),
-                              QObject::tr("An error occurred when attempting to lock the volume.\n"
-                                          "Error %1: %2").arg(GetLastError()).arg(errText));
-        LocalFree(errormessage);
+        reportWin32Error(QObject::tr("Lock Error"),
+                         QObject::tr("An error occurred when attempting to lock the volume.\n"
+                         "Error %1: %2"));
     }
     return (bResult);
 }
@@ -104,13 +112,9 @@ bool removeLockOnVolume(HANDLE handle)
     bResult = DeviceIoControl(handle, FSCTL_UNLOCK_VOLUME, NULL, 0, NULL, 0, &junk, NULL);
     if (!bResult)
     {
-        wchar_t *errormessage=NULL;
-        FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Unlock Error"),
-                              QObject::tr("An error occurred when attempting to unlock the volume.\n"
-                                          "Error %1: %2").arg(GetLastError()).arg(errText));
-        LocalFree(errormessage);
+        reportWin32Error(QObject::tr("Unlock Error"),
+                         QObject::tr("An error occurred when attempting to unlock the volume.\n"
+                         "Error %1: %2"));
     }
     return (bResult);
 }
@@ -122,13 +126,9 @@ bool unmountVolume(HANDLE handle)
     bResult = DeviceIoControl(handle, FSCTL_DISMOUNT_VOLUME, NULL, 0, NULL, 0, &junk, NULL);
     if (!bResult)
     {
-        wchar_t *errormessage=NULL;
-        FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Dismount Error"),
-                              QObject::tr("An error occurred when attempting to dismount the volume.\n"
-                                          "Error %1: %2").arg(GetLastError()).arg(errText));
-        LocalFree(errormessage);
+        reportWin32Error(QObject::tr("Dismount Error"),
+                         QObject::tr("An error occurred when attempting to dismount the volume.\n"
+                         "Error %1: %2"));
     }
     return (bResult);
 }
@@ -150,13 +150,9 @@ char *readSectorDataFromHandle(HANDLE handle, unsigned long long startsector, un
     SetFilePointer(handle, li.LowPart, &li.HighPart, FILE_BEGIN);
     if (!ReadFile(handle, data, sectorsize * numsectors, &bytesread, NULL))
     {
-        wchar_t *errormessage=NULL;
-        FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Read Error"),
-                              QObject::tr("An error occurred when attempting to read data from handle.\n"
-                                          "Error %1: %2").arg(GetLastError()).arg(errText));
-        LocalFree(errormessage);
+        reportWin32Error(QObject::tr("Read Error"),
+                         QObject::tr("An error occurred when attempting to read data from handle.\n"
+                         "Error %1: %2"));
         delete[] data;
         data = NULL;
     }
@@ -177,13 +173,9 @@ bool writeSectorDataToHandle(HANDLE handle, char *data, unsigned long long start
     bResult = WriteFile(handle, data, sectorsize * numsectors, &byteswritten, NULL);
     if (!bResult)
     {
-        wchar_t *errormessage=NULL;
-        FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Write Error"),
-                              QObject::tr("An error occurred when attempting to write data to handle.\n"
-                                          "Error %1: %2").arg(GetLastError()).arg(errText));
-        LocalFree(errormessage);
+        reportWin32Error(QObject::tr("Write Error"),
+                         QObject::tr("An error occurred when attempting to write data to handle.\n"
+                         "Error %1: %2"));
     }
     return (bResult);
 }
@@ -196,13 +188,9 @@ unsigned long long getNumberOfSectors(HANDLE handle, unsigned long long *sectors
     bResult = DeviceIoControl(handle, IOCTL_DISK_GET_DRIVE_GEOMETRY_EX, NULL, 0, &diskgeometry, sizeof(diskgeometry), &junk, NULL);
     if (!bResult)
     {
-        wchar_t *errormessage=NULL;
-        FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Device Error"),
-                              QObject::tr("An error occurred when attempting to get the device's geometry.\n"
-                                          "Error %1: %2").arg(GetLastError()).arg(errText));
-        LocalFree(errormessage);
+        reportWin32Error(QObject::tr("Device Error"),
+                         QObject::tr("An error occurred when attempting to get the device's geometry.\n"
+                         "Error %1: %2"));
         return 0;
     }
     if (sectorsize != NULL)
@@ -221,13 +209,9 @@ unsigned long long getFileSizeInSectors(HANDLE handle, unsigned long long sector
         if(GetFileSizeEx(handle, &filesize) == 0)
         {
             // error
-            wchar_t *errormessage=NULL;
-            FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-            QString errText = QString::fromUtf16((const char16_t *)errormessage);
-            QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("File Error"),
-                                  QObject::tr("An error occurred while getting the file size.\n"
-                                              "Error %1: %2").arg(GetLastError()).arg(errText));
-            LocalFree(errormessage);
+            reportWin32Error(QObject::tr("File Error"),
+                             QObject::tr("An error occurred while getting the file size.\n"
+                             "Error %1: %2"));
             retVal = 0;
         }
         else
@@ -245,13 +229,10 @@ bool spaceAvailable(char *location, unsigned long long spaceneeded)
     bResult = GetDiskFreeSpaceEx(location, NULL, NULL, &freespace);
     if (!bResult)
     {
-        wchar_t *errormessage=NULL;
-        FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, NULL, GetLastError(), 0, (LPWSTR)&errormessage, 0, NULL);
-        QString errText = QString::fromUtf16((const char16_t *)errormessage);
-        QMessageBox::critical(MainWindow::getInstanceIfAvailable(), QObject::tr("Free Space Error"),
-                              QObject::tr("Failed to get the free space on drive %1.\n"
-                                          "Error %2: %3\n"
-                                          "Checking of free space will be skipped.").arg(location).arg(GetLastError()).arg(errText));
+        reportWin32Error(QObject::tr("Free Space Error"),
+                         QObject::tr("Failed to get the free space on drive %1.\n"
+                                     "Error %2: %3\n"
+                                     "Checking of free space will be skipped.").arg(location));
         return true;
     }
     return (spaceneeded <= freespace.QuadPart);
@@ -617,6 +598,22 @@ static bool rawSeekWrite(HANDLE h, unsigned long long offset, const void *buf, D
     return WriteFile(h, buf, len, &put, NULL) && put == len;
 }
 
+// Validate a GPT header's entry-array geometry and report the space it takes.
+// The signature is the caller's business: some of them tell "no GPT here" apart
+// from "a GPT that makes no sense", and the two mean different things.
+static bool gptEntryGeometry(const unsigned char *hdr, unsigned long long sectorsize,
+                             unsigned long long *entrysectors)
+{
+    unsigned long long numentries = rd32(hdr, GPT_OFF_NUMENTRIES);
+    unsigned long long entrysize  = rd32(hdr, GPT_OFF_ENTRYSIZE);
+    if (numentries == 0 || numentries > 65536 || entrysize < 128 || entrysize > 4096)
+    {
+        return false;
+    }
+    *entrysectors = (numentries * entrysize + sectorsize - 1) / sectorsize;
+    return true;
+}
+
 GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
                                unsigned long long devicesectors, QString *detail)
 {
@@ -907,17 +904,13 @@ GptRewriteRisk gptRewriteRisk(HANDLE hRawDisk, unsigned long long sectorsize)
         return GPT_RISK_NO_GPT;
     }
 
-    unsigned long long numentries  = rd32(hdr, GPT_OFF_NUMENTRIES);
-    unsigned long long entrysize   = rd32(hdr, GPT_OFF_ENTRYSIZE);
     unsigned long long entrylba    = rd64(hdr, GPT_OFF_ENTRYLBA);
     unsigned long long firstusable = rd64(hdr, GPT_OFF_FIRSTUSABLE);
-    if (numentries == 0 || numentries > 65536 || entrysize < 128 || entrysize > 4096)
+    unsigned long long entrysectors = 0ull;
+    if (!gptEntryGeometry(hdr, sectorsize, &entrysectors))
     {
         return GPT_RISK_UNKNOWN;
     }
-
-    unsigned long long entrysectors =
-        (numentries * entrysize + sectorsize - 1) / sectorsize;
     if (firstusable < entrysectors)
     {
         return GPT_RISK_UNKNOWN;
@@ -943,17 +936,12 @@ bool gptImageBackupRange(const unsigned char *lba1, unsigned long long sectorsiz
         return false;
     }
 
-    unsigned long long backuphdr  = rd64(lba1, GPT_OFF_ALTLBA);
-    unsigned long long numentries = rd32(lba1, GPT_OFF_NUMENTRIES);
-    unsigned long long entrysize  = rd32(lba1, GPT_OFF_ENTRYSIZE);
-    if (backuphdr < 2 || numentries == 0 || numentries > 65536
-        || entrysize < 128 || entrysize > 4096)
+    unsigned long long backuphdr = rd64(lba1, GPT_OFF_ALTLBA);
+    unsigned long long entrysectors = 0ull;
+    if (backuphdr < 2 || !gptEntryGeometry(lba1, sectorsize, &entrysectors))
     {
         return false;
     }
-
-    unsigned long long entrysectors =
-        (numentries * entrysize + sectorsize - 1) / sectorsize;
 
     // Same shape as the clearing code in relocateBackupGPT: the entry array
     // sits directly below the header, and where it does not, only the header
@@ -989,15 +977,11 @@ bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
         return false;
     }
 
-    unsigned long long numentries = rd32(hdr, GPT_OFF_NUMENTRIES);
-    unsigned long long entrysize  = rd32(hdr, GPT_OFF_ENTRYSIZE);
-    if (numentries == 0 || numentries > 65536 || entrysize < 128 || entrysize > 4096)
+    unsigned long long entrysectors = 0ull;
+    if (!gptEntryGeometry(hdr, sectorsize, &entrysectors))
     {
         return false;
     }
-
-    unsigned long long entrysectors =
-        (numentries * entrysize + sectorsize - 1) / sectorsize;
     if (entrysectors + 2 >= devicesectors)
     {
         return false;

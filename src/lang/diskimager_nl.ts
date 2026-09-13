@@ -147,7 +147,7 @@
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+361"/>
+        <location filename="../mainwindow.cpp" line="+455"/>
         <location line="+10"/>
         <location line="+10"/>
         <source>Exit?</source>
@@ -190,8 +190,8 @@ Are you sure you want to cancel?</source>
     <message>
         <location line="+30"/>
         <location line="+6"/>
-        <location line="+75"/>
-        <location line="+124"/>
+        <location line="+39"/>
+        <location line="+90"/>
         <location line="+37"/>
         <location line="+22"/>
         <location line="+231"/>
@@ -200,14 +200,14 @@ Are you sure you want to cancel?</source>
         <translation>Schrijffout</translation>
     </message>
     <message>
-        <location line="-558"/>
-        <location line="+495"/>
+        <location line="-488"/>
+        <location line="+425"/>
         <location line="+168"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Image bestand kan niet gevonden worden op het doel apparaat.</translation>
     </message>
     <message>
-        <location line="-654"/>
+        <location line="-584"/>
         <source>Confirm overwrite</source>
         <translation>Overschrijven bevestigen</translation>
     </message>
@@ -231,21 +231,21 @@ Are you sure you want to cancel?</source>
 Weet u zeker dat u wilt fabreken?</translation>
     </message>
     <message>
-        <location line="+140"/>
-        <location line="+63"/>
+        <location line="+102"/>
+        <location line="+31"/>
         <source>Not enough available space!</source>
         <translation>Noet genoeg beschikbare ruimte!</translation>
     </message>
     <message>
-        <location line="-278"/>
+        <location line="-208"/>
         <location line="+11"/>
-        <location line="+184"/>
-        <location line="+333"/>
+        <location line="+146"/>
+        <location line="+301"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+280"/>
-        <location line="+270"/>
+        <location line="+242"/>
+        <location line="+239"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -271,41 +271,41 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Verwijder het apparaat NU fysiek, voordat u iets anders doet, en plaats het niet opnieuw in deze computer. Plaats het in plaats daarvan in de doelhardware.</translation>
     </message>
     <message>
-        <location line="-597"/>
-        <location line="+574"/>
+        <location line="-528"/>
+        <location line="+505"/>
         <source>The selected file does not exist.</source>
         <translation>Het gekozen bestand bestaat niet.</translation>
     </message>
     <message>
-        <location line="-906"/>
-        <location line="+342"/>
-        <location line="+295"/>
-        <location line="+279"/>
+        <location line="-805"/>
+        <location line="+310"/>
+        <location line="+257"/>
+        <location line="+248"/>
         <source>The specified file contains no data.</source>
         <translation>Het gekozen bestand bevat geen data.</translation>
     </message>
     <message>
-        <location line="-570"/>
+        <location line="-501"/>
         <location line="+181"/>
-        <location line="+393"/>
+        <location line="+324"/>
         <source>Done.</source>
         <translation>Voltooid.</translation>
     </message>
     <message>
-        <location line="-389"/>
+        <location line="-320"/>
         <location line="+2"/>
-        <location line="+366"/>
+        <location line="+297"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Afgerond</translation>
     </message>
     <message>
-        <location line="-574"/>
+        <location line="-505"/>
         <source>Write Successful.</source>
         <translation>Schrijven is gelukt.</translation>
     </message>
     <message>
-        <location line="-758"/>
+        <location line="-688"/>
         <location line="+2"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Schijf-images (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -365,32 +365,27 @@ Controleer of %2 geen station is dat u wilde behouden.
 Toch naar dit apparaat schrijven?</translation>
     </message>
     <message>
-        <location line="+25"/>
-        <location line="+10"/>
-        <location line="+15"/>
-        <location line="+12"/>
-        <location line="+19"/>
+        <location line="+22"/>
         <location line="+21"/>
-        <location line="+87"/>
+        <location line="+21"/>
+        <location line="+55"/>
         <location line="+37"/>
         <location line="+23"/>
         <source>Write failed.</source>
         <translation>Schrijven mislukt.</translation>
     </message>
     <message>
-        <location line="-206"/>
-        <location line="+638"/>
+        <location line="-677"/>
         <source>Device Error</source>
         <translation>Apparaatfout</translation>
     </message>
     <message>
-        <location line="-637"/>
-        <location line="+638"/>
+        <location line="+1"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Het apparaat meldt een grootte van nul. Als het een kaartlezer is, is de kaart mogelijk verwijderd.</translation>
     </message>
     <message>
-        <location line="-592"/>
+        <location line="+549"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -409,7 +404,7 @@ Het einde van de image wordt niet geschreven, dus het apparaat bevat geen volled
 Toch doorgaan?</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+25"/>
         <source>More space required than is available:
   Required: %1 sectors
   Available: %2 sectors
@@ -580,12 +575,12 @@ Windows herschrijft de tabel bij een herscan nog steeds, omdat de reserve-GPT ni
     </message>
     <message>
         <location line="+15"/>
-        <location line="+574"/>
+        <location line="+505"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>U heeft geen rechten om het geselecteerde bestand te lezen.</translation>
     </message>
     <message>
-        <location line="-524"/>
+        <location line="-455"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -604,19 +599,16 @@ Gecomprimeerde images (.img.gz, .img.xz) kunnen wel worden geschreven en geverif
         <translation>Lezen mislukt.</translation>
     </message>
     <message>
-        <location line="+82"/>
-        <location line="+11"/>
-        <location line="+15"/>
-        <location line="+12"/>
-        <location line="+18"/>
+        <location line="+80"/>
+        <location line="+20"/>
         <location line="+21"/>
-        <location line="+105"/>
+        <location line="+74"/>
         <location line="+21"/>
         <source>Verify failed.</source>
         <translation>Verifiëren mislukt.</translation>
     </message>
     <message>
-        <location line="-138"/>
+        <location line="-107"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -635,7 +627,7 @@ Alleen het deel dat past kan worden vergeleken.
 Toch doorgaan?</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+22"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -674,19 +666,19 @@ Toch doorgaan?</translation>
         <translation>[Schijf %1]</translation>
     </message>
     <message>
-        <location line="-632"/>
-        <location line="+573"/>
+        <location line="-563"/>
+        <location line="+504"/>
         <source>Please specify an image file to use.</source>
         <translation>Specificeer alstublieft een image bestand om te gebruiken.</translation>
     </message>
     <message>
-        <location line="-1113"/>
+        <location line="-974"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+317"/>
+        <location line="+247"/>
         <source>Writing...</source>
         <translation>Bezig met schrijven…</translation>
     </message>
@@ -837,18 +829,18 @@ Verwijder het apparaat NU en plaats het hier niet opnieuw. Steek het meteen in d
     <message>
         <location line="+23"/>
         <location line="+6"/>
-        <location line="+50"/>
-        <location line="+144"/>
+        <location line="+14"/>
+        <location line="+111"/>
         <source>Verify Error</source>
         <translation>Fout in Controle</translation>
     </message>
     <message>
-        <location line="-194"/>
+        <location line="-125"/>
         <source>Please select a device to verify against.</source>
         <translation>Selecteer een apparaat om mee te vergelijken.</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+70"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -886,8 +878,8 @@ De extra ruimte lijkt geen gegevens te bevatten
 Toch doorgaan?</translation>
     </message>
     <message>
-        <location line="-55"/>
-        <location line="+59"/>
+        <location line="-24"/>
+        <location line="+28"/>
         <source>Size Mismatch!</source>
         <translation>Grootte komt niet overeen!</translation>
     </message>
@@ -949,39 +941,39 @@ Het apparaat kon NIET automatisch offline worden gehaald.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../disk.cpp" line="+48"/>
-        <location line="+179"/>
+        <location filename="../disk.cpp" line="+64"/>
+        <location line="+148"/>
         <source>File Error</source>
         <translation>Bestandsfout</translation>
     </message>
     <message>
-        <location line="-179"/>
+        <location line="-147"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het opvragen van de handle van het bestand.
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+26"/>
-        <location line="+128"/>
+        <location line="+22"/>
+        <location line="+104"/>
         <source>Device Error</source>
         <translation>Apparaat fout</translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="-103"/>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het opvragen van de handle van het apparaat.
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+17"/>
-        <location line="+370"/>
+        <location line="+13"/>
+        <location line="+342"/>
         <source>Lock Error</source>
         <translation>Vergrendelingsfout</translation>
     </message>
     <message>
-        <location line="-369"/>
+        <location line="-341"/>
         <source>An error occurred when attempting to lock the volume.
 Error %1: %2</source>
         <translatorcomment>wat is de nederlandse vertaling van volume?</translatorcomment>
@@ -989,7 +981,7 @@ Error %1: %2</source>
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+13"/>
         <source>Unlock Error</source>
         <translation>Ontgrendelingsfout</translation>
     </message>
@@ -1002,7 +994,7 @@ Error %1: %2</source>
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+13"/>
         <source>Dismount Error</source>
         <translation>Ontkoppelfout</translation>
     </message>
@@ -1015,7 +1007,7 @@ Error %1: %2</source>
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+23"/>
         <source>Read Error</source>
         <translation>Leesfout</translation>
     </message>
@@ -1027,7 +1019,7 @@ Error %1: %2</source>
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+22"/>
         <source>Write Error</source>
         <translation>Schrijffout</translation>
     </message>
@@ -1039,21 +1031,21 @@ Error %1: %2</source>
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+15"/>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het opvragen van de geometrie van het apparaat.
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+21"/>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het opvragen van de bestandsgrootte.
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+19"/>
         <source>Free Space Error</source>
         <translation>Beschikbare ruimte fout</translation>
     </message>
@@ -1081,7 +1073,7 @@ Sluit elk programma dat het apparaat gebruikt en probeer het opnieuw.
 Fout %2</translation>
     </message>
     <message>
-        <location line="+179"/>
+        <location line="+195"/>
         <source>the primary GPT header size is out of range</source>
         <translation>de grootte van de primaire GPT-header ligt buiten het bereik</translation>
     </message>
