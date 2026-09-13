@@ -1,0 +1,9 @@
+<!-- Browse for an image file. An outline folder, in slate rather than a colour:
+     the three action icons use colour to mean something (amber for write, blue
+     for read, violet for verify) and this one is chrome, not an action. Drawn
+     as a line rather than a solid so it sits beside the text field without
+     shouting, and stays legible at the 16px the button gives it. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <path d="M3.1 17.9V6.7a1.9 1.9 0 0 1 1.9-1.9h3.8c.55 0 1.07.24 1.43.66l1.18 1.38h7.5a1.9 1.9 0 0 1 1.9 1.9v9.2a1.9 1.9 0 0 1-1.9 1.9H5a1.9 1.9 0 0 1-1.9-1.9z"
+        fill="none" stroke="#4E6B88" stroke-width="1.8" stroke-linejoin="round"/>
+</svg>

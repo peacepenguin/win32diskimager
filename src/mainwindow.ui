@@ -70,7 +70,7 @@
            </property>
            <property name="icon">
             <iconset resource="gui_icons.qrc">
-             <normaloff>:/images/images/browse.png</normaloff>:/images/images/browse.png</iconset>
+             <normaloff>:/images/images/browse.svg</normaloff>:/images/images/browse.svg</iconset>
            </property>
           </widget>
          </item>

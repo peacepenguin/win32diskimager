@@ -1,6 +1,6 @@
 <RCC>
   <qresource prefix="/images" >
-    <file>images/browse.png</file>
+    <file>images/browse.svg</file>
     <file>images/write.svg</file>
     <file>images/read.svg</file>
     <file>images/verify.svg</file>
