@@ -85,6 +85,8 @@ private:
         void defaultHashTypeForFile();
         // Shows or hides the progress group; see mainwindow.cpp.
         void showProgress(bool show);
+        // Puts the window back to idle and says why; see mainwindow.cpp.
+        void endRun(const QString &message);
 
         HANDLE hFile;
         HANDLE hRawDisk;

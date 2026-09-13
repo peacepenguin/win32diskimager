@@ -259,6 +259,16 @@ static void caseRelocate(const char *name, unsigned long long firstusable,
 
     check(rangeIsZero(a, dk.imgbackupentries, dk.imglast),
           "stale backup GPT and its entry array are zeroed");
+
+    // Verify has to forgive exactly those sectors. It works the range out from
+    // the image's own header, because once the repair has run the device no
+    // longer says where the stale copy was. If the two disagree, a good card
+    // fails verification at the first sector the repair cleared.
+    unsigned long long vfirst = 0, vlast = 0;
+    bool vknown = gptImageBackupRange((const unsigned char *)dk.bytes.constData() + SEC,
+                                      SEC, &vfirst, &vlast);
+    check(vknown && vfirst == dk.imgbackupentries && vlast == dk.imglast,
+          "verify forgives exactly the sectors the repair zeroed");
     check(memcmp(a + dk.imglast * SEC, "EFI PART", 8) != 0,
           "no stray EFI PART signature mid-device");
 

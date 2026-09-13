@@ -22,9 +22,7 @@
 #endif
 
 #include <QApplication>
-#include <cstdlib>
 #include <windows.h>
-#include <winioctl.h>
 #include "mainwindow.h"
 
 
@@ -32,18 +30,15 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     app.setApplicationDisplayName(VER);
-    app.setAttribute(Qt::AA_UseDesktopOpenGL);
 
-    // Qt's own strings -- the buttons in QMessageBox, the file dialog -- ship
-    // as qtbase_*.qm in translations/ next to the exe.
+    // Qt's own strings -- QMessageBox buttons, the file dialog -- ship as
+    // qtbase_*.qm in translations/ next to the exe.
     QTranslator qttranslator;
     if (qttranslator.load(QLocale::system(), "qtbase", "_",
                           QCoreApplication::applicationDirPath() + "/translations"))
         app.installTranslator(&qttranslator);
 
-    // The app's own strings are compiled into the binary by translations.qrc,
-    // which puts them under :/lang. Loading "translations/..." looked for a
-    // directory that is never shipped, so no translation was ever installed.
+    // The app's own strings are compiled in by translations.qrc, under :/lang.
     QTranslator translator;
     if (translator.load(QLocale::system(), "diskimager", "_", ":/lang"))
         app.installTranslator(&translator);

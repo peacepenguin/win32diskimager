@@ -931,6 +931,44 @@ GptRewriteRisk gptRewriteRisk(HANDLE hRawDisk, unsigned long long sectorsize)
     return (firstusable - entrysectors == entrylba) ? GPT_RISK_SAFE : GPT_RISK_AFFECTED;
 }
 
+bool gptImageBackupRange(const unsigned char *lba1, unsigned long long sectorsize,
+                         unsigned long long *first, unsigned long long *last)
+{
+    if (lba1 == NULL || sectorsize < 512)
+    {
+        return false;
+    }
+    if (memcmp(lba1 + GPT_OFF_SIGNATURE, "EFI PART", 8) != 0)
+    {
+        return false;
+    }
+
+    unsigned long long backuphdr  = rd64(lba1, GPT_OFF_ALTLBA);
+    unsigned long long numentries = rd32(lba1, GPT_OFF_NUMENTRIES);
+    unsigned long long entrysize  = rd32(lba1, GPT_OFF_ENTRYSIZE);
+    if (backuphdr < 2 || numentries == 0 || numentries > 65536
+        || entrysize < 128 || entrysize > 4096)
+    {
+        return false;
+    }
+
+    unsigned long long entrysectors =
+        (numentries * entrysize + sectorsize - 1) / sectorsize;
+
+    // Same shape as the clearing code in relocateBackupGPT: the entry array
+    // sits directly below the header, and where it does not, only the header
+    // sector carries the signature and only that one gets cleared.
+    unsigned long long lo = backuphdr;
+    if (entrysectors < backuphdr - 1)
+    {
+        lo = backuphdr - entrysectors;
+    }
+
+    if (first) *first = lo;
+    if (last)  *last  = backuphdr;
+    return true;
+}
+
 bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
                      unsigned long long devicesectors,
                      unsigned long long *frontend, unsigned long long *tailstart)

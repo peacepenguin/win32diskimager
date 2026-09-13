@@ -156,6 +156,14 @@ GptRewriteRisk gptRewriteRisk(HANDLE hRawDisk, unsigned long long sectorsize);
 // entry array; the tail range [*tailstart, devicesectors) covers the relocated
 // backup entry array and header. Returns false if the device holds no usable
 // GPT, in which case neither output is set.
+// Where the image's own backup GPT sits, read from the image's header rather
+// than the device. The fix zeroes that stale copy after relocating it, so those
+// sectors differ from the image by design -- and once it has run, the device no
+// longer records where the copy used to be. lba1 is the image's sector 1.
+// Returns false if the image holds no usable GPT.
+bool gptImageBackupRange(const unsigned char *lba1, unsigned long long sectorsize,
+                         unsigned long long *first, unsigned long long *last);
+
 bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
                      unsigned long long devicesectors,
                      unsigned long long *frontend, unsigned long long *tailstart);

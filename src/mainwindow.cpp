@@ -143,6 +143,18 @@ void MainWindow::showProgress(bool show)
 //
 // Taken from the palette rather than written down, so it follows the system
 // theme: a touch darker on a light background, a touch lighter on a dark one.
+// Every run that stops -- failed, cancelled or done -- ends the same way. It
+// was written out at all 25 exits before, so a new one only had to forget a
+// line to leave the buttons disabled or the progress bar up.
+void MainWindow::endRun(const QString &message)
+{
+    status = STATUS_IDLE;
+    showProgress(false);
+    statusbar->showMessage(message);
+    bCancel->setEnabled(false);
+    setReadWriteButtonState();
+}
+
 static void shadeStatusBar(QStatusBar *bar)
 {
     const QColor window = bar->palette().color(QPalette::Window);
@@ -317,10 +329,11 @@ void MainWindow::initializeHomeDir()
                                  0xc4, 0x92, 0x5e, 0x46, 0x7b}};
         if (SHGetKnownFolderPath(downloads, 0, 0, &pPath) == S_OK) {
             downloadPath = QDir::fromNativeSeparators(QString::fromWCharArray(pPath));
-            LocalFree(pPath);
-            if (downloadPath.isEmpty() || !QDir(downloadPath).exists()) {
-                downloadPath = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
-            }
+            CoTaskMemFree(pPath);
+        }
+        // Also when the shell gave no answer at all, not just a stale one.
+        if (downloadPath.isEmpty() || !QDir(downloadPath).exists()) {
+            downloadPath = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
         }
     }
     if (downloadPath.isEmpty())
@@ -448,20 +461,25 @@ void MainWindow::generateHash(const QString &filename, int hashish)
     if (!file.open(QFile::ReadOnly))
     {
         hashLabel->setText(tr("Error"));
-    hashLabel->setVisible(true);
         bHashCopy->setEnabled(false);
         QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, tr("File Error"),
                               tr("Could not open the file to generate a checksum:\n%1").arg(file.errorString()));
         return;
     }
-    filehash.addData(&file);
+    // A read that stops part-way still returns a well-formed digest -- of the
+    // wrong bytes. Reporting that as the file's checksum defeats the point.
+    if (!filehash.addData(&file))
+    {
+        hashLabel->setText(tr("Error"));
+        bHashCopy->setEnabled(false);
+        QApplication::restoreOverrideCursor();
+        QMessageBox::critical(this, tr("File Error"),
+                              tr("Could not read the whole file to generate a checksum:\n%1").arg(file.errorString()));
+        return;
+    }
 
-    QByteArray hash = filehash.result();
-
-    // display it in the textbox
-    hashLabel->setText(hash.toHex());
-    hashLabel->setVisible(true);
+    hashLabel->setText(filehash.result().toHex());
     bHashCopy->setEnabled(true);
     // redisplay the normal cursor
     QApplication::restoreOverrideCursor();
@@ -589,11 +607,7 @@ void MainWindow::on_bWrite_clicked()
             LockedVolumes locked;
             if (!locked.lockAll(deviceID))
             {
-                status = STATUS_IDLE;
-                showProgress(false);
-                statusbar->showMessage(tr("Write failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Write failed."));
                 return;
             }
             // The device is opened first: the image reader needs the sector
@@ -603,11 +617,7 @@ void MainWindow::on_bWrite_clicked()
             if (hRawDisk == INVALID_HANDLE_VALUE)
             {
                 locked.release();
-                status = STATUS_IDLE;
-                showProgress(false);
-                statusbar->showMessage(tr("Write failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Write failed."));
                 return;
             }
             availablesectors = getNumberOfSectors(hRawDisk, &sectorsize);
@@ -622,11 +632,7 @@ void MainWindow::on_bWrite_clicked()
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 passfail = false;
-                status = STATUS_IDLE;
-                showProgress(false);
-                statusbar->showMessage(tr("Write failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Write failed."));
                 return;
             }
             // A .img.gz or .img.xz is decompressed on the fly as it is written,
@@ -638,11 +644,7 @@ void MainWindow::on_bWrite_clicked()
                 locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
-                status = STATUS_IDLE;
-                showProgress(false);
-                statusbar->showMessage(tr("Write failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Write failed."));
                 return;
             }
             // gzip only records the uncompressed size modulo 4 GiB, so for any
@@ -661,11 +663,7 @@ void MainWindow::on_bWrite_clicked()
                 locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
-                status = STATUS_IDLE;
-                showProgress(false);
-                statusbar->showMessage(tr("Write failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Write failed."));
                 return;
             }
             // An estimated size is only a lower bound, but a lower bound that
@@ -685,12 +683,8 @@ void MainWindow::on_bWrite_clicked()
                 {
                     locked.release();
                     CloseHandle(hRawDisk);
-                    status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    showProgress(false);
-                    statusbar->showMessage(tr("Write failed."));
-                    bCancel->setEnabled(false);
-                    setReadWriteButtonState();
+                    endRun(tr("Write failed."));
                     return;
                 }
             }
@@ -757,12 +751,8 @@ void MainWindow::on_bWrite_clicked()
                 {
                     locked.release();
                     CloseHandle(hRawDisk);
-                    status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    showProgress(false);
-                    statusbar->showMessage(tr("Write cancelled."));
-                    bCancel->setEnabled(false);
-                    setReadWriteButtonState();
+                    endRun(tr("Write cancelled."));
                     return;
                 }
             }
@@ -780,12 +770,8 @@ void MainWindow::on_bWrite_clicked()
                                   "a usable image. Write the image again before using it."));
                 locked.release();
                 CloseHandle(hRawDisk);
-                status = STATUS_IDLE;
                 hRawDisk = INVALID_HANDLE_VALUE;
-                showProgress(false);
-                statusbar->showMessage(tr("Write failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Write failed."));
                 return;
             }
 
@@ -821,12 +807,8 @@ void MainWindow::on_bWrite_clicked()
                                       "a usable image. Write the image again before using it."));
                     locked.release();
                     CloseHandle(hRawDisk);
-                    status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    showProgress(false);
-                    statusbar->showMessage(tr("Write failed."));
-                    bCancel->setEnabled(false);
-                    setReadWriteButtonState();
+                    endRun(tr("Write failed."));
                     return;
                 }
                 if (got == 0ull)
@@ -847,13 +829,9 @@ void MainWindow::on_bWrite_clicked()
                     delete[] sectorData;
                     locked.release();
                     CloseHandle(hRawDisk);
-                    status = STATUS_IDLE;
                     sectorData = NULL;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    showProgress(false);
-                    statusbar->showMessage(tr("Write failed."));
-                    bCancel->setEnabled(false);
-                    setReadWriteButtonState();
+                    endRun(tr("Write failed."));
                     return;
                 }
                 delete[] sectorData;
@@ -1108,22 +1086,14 @@ void MainWindow::on_bRead_clicked()
         LockedVolumes locked;
         if (!locked.lockAll(deviceID))
         {
-            status = STATUS_IDLE;
-            showProgress(false);
-            statusbar->showMessage(tr("Read failed."));
-            bCancel->setEnabled(false);
-            setReadWriteButtonState();
+            endRun(tr("Read failed."));
             return;
         }
         hFile = getHandleOnFile(LPCWSTR(myFile.data()), GENERIC_WRITE);
         if (hFile == INVALID_HANDLE_VALUE)
         {
             locked.release();
-            status = STATUS_IDLE;
-            showProgress(false);
-            statusbar->showMessage(tr("Read failed."));
-            bCancel->setEnabled(false);
-            setReadWriteButtonState();
+            endRun(tr("Read failed."));
             return;
         }
         hRawDisk = getHandleOnDevice(deviceID, GENERIC_READ);
@@ -1131,12 +1101,8 @@ void MainWindow::on_bRead_clicked()
         {
             locked.release();
             CloseHandle(hFile);
-            status = STATUS_IDLE;
             hFile = INVALID_HANDLE_VALUE;
-            showProgress(false);
-            statusbar->showMessage(tr("Read failed."));
-            bCancel->setEnabled(false);
-            setReadWriteButtonState();
+            endRun(tr("Read failed."));
             return;
         }
         numsectors = getNumberOfSectors(hRawDisk, &sectorsize);
@@ -1155,14 +1121,10 @@ void MainWindow::on_bRead_clicked()
             locked.release();
             CloseHandle(hRawDisk);
             CloseHandle(hFile);
-            status = STATUS_IDLE;
             sectorData = NULL;
             hRawDisk = INVALID_HANDLE_VALUE;
             hFile = INVALID_HANDLE_VALUE;
-            showProgress(false);
-            statusbar->showMessage(tr("Read failed."));
-            bCancel->setEnabled(false);
-            setReadWriteButtonState();
+            endRun(tr("Read failed."));
             return;
         }
         statusbar->showMessage(tr("Reading..."));
@@ -1186,13 +1148,9 @@ void MainWindow::on_bRead_clicked()
                 locked.release();
                 CloseHandle(hRawDisk);
                 CloseHandle(hFile);
-                status = STATUS_IDLE;
                 hRawDisk = INVALID_HANDLE_VALUE;
                 hFile = INVALID_HANDLE_VALUE;
-                showProgress(false);
-                statusbar->showMessage(tr("Read failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Read failed."));
                 return;
             }
             if (!writeSectorDataToHandle(hFile, sectorData, i, (numsectors - i >= 1024ul) ? 1024ul:(numsectors - i), sectorsize))
@@ -1201,14 +1159,10 @@ void MainWindow::on_bRead_clicked()
                 locked.release();
                 CloseHandle(hRawDisk);
                 CloseHandle(hFile);
-                status = STATUS_IDLE;
                 sectorData = NULL;
                 hRawDisk = INVALID_HANDLE_VALUE;
                 hFile = INVALID_HANDLE_VALUE;
-                showProgress(false);
-                statusbar->showMessage(tr("Read failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Read failed."));
                 return;
             }
             delete[] sectorData;
@@ -1290,11 +1244,7 @@ void MainWindow::on_bVerify_clicked()
             LockedVolumes locked;
             if (!locked.lockAll(deviceID))
             {
-                status = STATUS_IDLE;
-                showProgress(false);
-                statusbar->showMessage(tr("Verify failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Verify failed."));
                 return;
             }
             // The device is opened first: the image reader needs the sector
@@ -1305,11 +1255,7 @@ void MainWindow::on_bVerify_clicked()
             if (hRawDisk == INVALID_HANDLE_VALUE)
             {
                 locked.release();
-                status = STATUS_IDLE;
-                showProgress(false);
-                statusbar->showMessage(tr("Verify failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Verify failed."));
                 return;
             }
             availablesectors = getNumberOfSectors(hRawDisk, &sectorsize);
@@ -1324,11 +1270,7 @@ void MainWindow::on_bVerify_clicked()
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 passfail = false;
-                status = STATUS_IDLE;
-                showProgress(false);
-                statusbar->showMessage(tr("Verify failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Verify failed."));
                 return;
             }
             // A compressed image is decompressed on the fly and compared as it
@@ -1340,11 +1282,7 @@ void MainWindow::on_bVerify_clicked()
                 locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
-                status = STATUS_IDLE;
-                showProgress(false);
-                statusbar->showMessage(tr("Verify failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Verify failed."));
                 return;
             }
             // gzip only records the uncompressed size modulo 4 GiB, so for any
@@ -1362,11 +1300,7 @@ void MainWindow::on_bVerify_clicked()
                 locked.release();
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
-                status = STATUS_IDLE;
-                showProgress(false);
-                statusbar->showMessage(tr("Verify failed."));
-                bCancel->setEnabled(false);
-                setReadWriteButtonState();
+                endRun(tr("Verify failed."));
                 return;
             }
             // An estimated size is only a lower bound, but a lower bound that
@@ -1386,12 +1320,8 @@ void MainWindow::on_bVerify_clicked()
                 {
                     locked.release();
                     CloseHandle(hRawDisk);
-                    status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    showProgress(false);
-                    statusbar->showMessage(tr("Verify failed."));
-                    bCancel->setEnabled(false);
-                    setReadWriteButtonState();
+                    endRun(tr("Verify failed."));
                     return;
                 }
             }
@@ -1454,12 +1384,8 @@ void MainWindow::on_bVerify_clicked()
                 {
                     locked.release();
                     CloseHandle(hRawDisk);
-                    status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    showProgress(false);
-                    statusbar->showMessage(tr("Verify cancelled."));
-                    bCancel->setEnabled(false);
-                    setReadWriteButtonState();
+                    endRun(tr("Verify cancelled."));
                     return;
                 }
             }
@@ -1470,6 +1396,11 @@ void MainWindow::on_bVerify_clicked()
             unsigned long long gptfrontend = 0ull, gpttailstart = 0ull;
             bool gptknown = gptOwnedSectors(hRawDisk, sectorsize, availablesectors,
                                             &gptfrontend, &gpttailstart);
+            // The fix also zeroes the stale backup GPT the image left mid-device,
+            // which is in neither range above. Its location comes from the
+            // image's own header, read out of the first chunk below.
+            unsigned long long stalefirst = 0ull, stalelast = 0ull;
+            bool staleknown = false;
             bool gptonly = false;
 
             unsigned long long progresstotal = numsectors;
@@ -1494,12 +1425,8 @@ void MainWindow::on_bVerify_clicked()
                     QMessageBox::critical(this, tr("Verify Error"), image.errorString());
                     locked.release();
                     CloseHandle(hRawDisk);
-                    status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    showProgress(false);
-                    statusbar->showMessage(tr("Verify failed."));
-                    bCancel->setEnabled(false);
-                    setReadWriteButtonState();
+                    endRun(tr("Verify failed."));
                     return;
                 }
                 if (got == 0ull)
@@ -1519,13 +1446,15 @@ void MainWindow::on_bVerify_clicked()
                     sectorData = NULL;
                     locked.release();
                     CloseHandle(hRawDisk);
-                    status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    showProgress(false);
-                    statusbar->showMessage(tr("Verify failed."));
-                    bCancel->setEnabled(false);
-                    setReadWriteButtonState();
+                    endRun(tr("Verify failed."));
                     return;
+                }
+                if (i == 0ull && got >= 2ull)
+                {
+                    staleknown = gptImageBackupRange(
+                        (const unsigned char *)(sectorData + sectorsize),
+                        sectorsize, &stalefirst, &stalelast);
                 }
                 unsigned long chunk = (unsigned long)got;
                 result = memcmp(sectorData, sectorData2, chunk * sectorsize);
@@ -1543,6 +1472,11 @@ void MainWindow::on_bVerify_clicked()
                         }
                         unsigned long long lba = i + s;
                         if (gptknown && (lba < gptfrontend || lba >= gpttailstart))
+                        {
+                            gptonly = true;
+                            continue;
+                        }
+                        if (staleknown && lba >= stalefirst && lba <= stalelast)
                         {
                             gptonly = true;
                             continue;
