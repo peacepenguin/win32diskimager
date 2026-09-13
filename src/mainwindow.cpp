@@ -130,6 +130,16 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
     return QMainWindow::eventFilter(watched, event);
 }
 
+// An idle progress bar is a line that means nothing, so the bar is hidden until
+// something is running. The group it sits in stays where it is, and the bar goes
+// on reserving its space while hidden, so the window neither empties out nor
+// shifts when an operation starts.
+void MainWindow::showProgress(bool show)
+{
+    progressbar->reset();
+    progressbar->setVisible(show);
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
@@ -140,7 +150,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     elapsed_timer = new ElapsedTimer();
     statusbar->addPermanentWidget(elapsed_timer);   // "addpermanent" puts it on the RHS of the statusbar
     status = STATUS_IDLE;
-    progressbar->reset();
+    {
+        // Hiding a widget normally takes its space with it; this keeps it.
+        QSizePolicy sp = progressbar->sizePolicy();
+        sp.setRetainSizeWhenHidden(true);
+        progressbar->setSizePolicy(sp);
+    }
+    showProgress(false);
     clipboard = QApplication::clipboard();
     statusbar->showMessage(tr("Waiting for a task."));
     hFile = INVALID_HANDLE_VALUE;
@@ -378,6 +394,7 @@ void MainWindow::on_bHashCopy_clicked()
 void MainWindow::generateHash(const QString &filename, int hashish)
 {
     hashLabel->setText(tr("Generating..."));
+    hashLabel->setVisible(true);
     QApplication::processEvents();
 
     QCryptographicHash filehash((QCryptographicHash::Algorithm)hashish);
@@ -389,6 +406,7 @@ void MainWindow::generateHash(const QString &filename, int hashish)
     if (!file.open(QFile::ReadOnly))
     {
         hashLabel->setText(tr("Error"));
+    hashLabel->setVisible(true);
         bHashCopy->setEnabled(false);
         QApplication::restoreOverrideCursor();
         QMessageBox::critical(this, tr("File Error"),
@@ -401,6 +419,7 @@ void MainWindow::generateHash(const QString &filename, int hashish)
 
     // display it in the textbox
     hashLabel->setText(hash.toHex());
+    hashLabel->setVisible(true);
     bHashCopy->setEnabled(true);
     // redisplay the normal cursor
     QApplication::restoreOverrideCursor();
@@ -484,6 +503,7 @@ void MainWindow::on_bWrite_clicked()
                 }
             }
             status = STATUS_WRITING;
+            showProgress(true);
             bCancel->setEnabled(true);
             bWrite->setEnabled(false);
             bRead->setEnabled(false);
@@ -497,7 +517,7 @@ void MainWindow::on_bWrite_clicked()
             if (!locked.lockAll(deviceID))
             {
                 status = STATUS_IDLE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -511,7 +531,7 @@ void MainWindow::on_bWrite_clicked()
             {
                 locked.release();
                 status = STATUS_IDLE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -530,7 +550,7 @@ void MainWindow::on_bWrite_clicked()
                 hRawDisk = INVALID_HANDLE_VALUE;
                 passfail = false;
                 status = STATUS_IDLE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -546,7 +566,7 @@ void MainWindow::on_bWrite_clicked()
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -569,7 +589,7 @@ void MainWindow::on_bWrite_clicked()
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -594,7 +614,7 @@ void MainWindow::on_bWrite_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    progressbar->reset();
+                    showProgress(false);
                     statusbar->showMessage(tr("Write failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
@@ -666,7 +686,7 @@ void MainWindow::on_bWrite_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    progressbar->reset();
+                    showProgress(false);
                     statusbar->showMessage(tr("Write cancelled."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
@@ -689,7 +709,7 @@ void MainWindow::on_bWrite_clicked()
                 CloseHandle(hRawDisk);
                 status = STATUS_IDLE;
                 hRawDisk = INVALID_HANDLE_VALUE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Write failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -727,7 +747,7 @@ void MainWindow::on_bWrite_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    progressbar->reset();
+                    showProgress(false);
                     statusbar->showMessage(tr("Write failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
@@ -754,7 +774,7 @@ void MainWindow::on_bWrite_clicked()
                     status = STATUS_IDLE;
                     sectorData = NULL;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    progressbar->reset();
+                    showProgress(false);
                     statusbar->showMessage(tr("Write failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
@@ -926,7 +946,7 @@ void MainWindow::on_bWrite_clicked()
             QMessageBox::critical(this, tr("File Error"), tr("The specified file contains no data."));
             passfail = false;
         }
-        progressbar->reset();
+        showProgress(false);
         statusbar->showMessage(tr("Done."));
         bCancel->setEnabled(false);
         setReadWriteButtonState();
@@ -999,6 +1019,7 @@ void MainWindow::on_bRead_clicked()
         bRead->setEnabled(false);
         bVerify->setEnabled(false);
         status = STATUS_READING;
+        showProgress(true);
         double mbpersec;
         unsigned long long i, lasti, numsectors, filesize, spaceneeded = 0ull;
         // Lock and dismount every volume on the source disk, so no filesystem
@@ -1008,7 +1029,7 @@ void MainWindow::on_bRead_clicked()
         if (!locked.lockAll(deviceID))
         {
             status = STATUS_IDLE;
-            progressbar->reset();
+            showProgress(false);
             statusbar->showMessage(tr("Read failed."));
             bCancel->setEnabled(false);
             setReadWriteButtonState();
@@ -1019,7 +1040,7 @@ void MainWindow::on_bRead_clicked()
         {
             locked.release();
             status = STATUS_IDLE;
-            progressbar->reset();
+            showProgress(false);
             statusbar->showMessage(tr("Read failed."));
             bCancel->setEnabled(false);
             setReadWriteButtonState();
@@ -1032,7 +1053,7 @@ void MainWindow::on_bRead_clicked()
             CloseHandle(hFile);
             status = STATUS_IDLE;
             hFile = INVALID_HANDLE_VALUE;
-            progressbar->reset();
+            showProgress(false);
             statusbar->showMessage(tr("Read failed."));
             bCancel->setEnabled(false);
             setReadWriteButtonState();
@@ -1058,7 +1079,7 @@ void MainWindow::on_bRead_clicked()
             sectorData = NULL;
             hRawDisk = INVALID_HANDLE_VALUE;
             hFile = INVALID_HANDLE_VALUE;
-            progressbar->reset();
+            showProgress(false);
             statusbar->showMessage(tr("Read failed."));
             bCancel->setEnabled(false);
             setReadWriteButtonState();
@@ -1087,7 +1108,7 @@ void MainWindow::on_bRead_clicked()
                 status = STATUS_IDLE;
                 hRawDisk = INVALID_HANDLE_VALUE;
                 hFile = INVALID_HANDLE_VALUE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Read failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -1103,7 +1124,7 @@ void MainWindow::on_bRead_clicked()
                 sectorData = NULL;
                 hRawDisk = INVALID_HANDLE_VALUE;
                 hFile = INVALID_HANDLE_VALUE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Read failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -1127,7 +1148,7 @@ void MainWindow::on_bRead_clicked()
         CloseHandle(hFile);
         hRawDisk = INVALID_HANDLE_VALUE;
         hFile = INVALID_HANDLE_VALUE;
-        progressbar->reset();
+        showProgress(false);
         statusbar->showMessage(tr("Done."));
         bCancel->setEnabled(false);
         setReadWriteButtonState();
@@ -1174,6 +1195,7 @@ void MainWindow::on_bVerify_clicked()
                 return;
             }
             status = STATUS_VERIFYING;
+            showProgress(true);
             bCancel->setEnabled(true);
             bWrite->setEnabled(false);
             bRead->setEnabled(false);
@@ -1186,7 +1208,7 @@ void MainWindow::on_bVerify_clicked()
             if (!locked.lockAll(deviceID))
             {
                 status = STATUS_IDLE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Verify failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -1201,7 +1223,7 @@ void MainWindow::on_bVerify_clicked()
             {
                 locked.release();
                 status = STATUS_IDLE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Verify failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -1220,7 +1242,7 @@ void MainWindow::on_bVerify_clicked()
                 hRawDisk = INVALID_HANDLE_VALUE;
                 passfail = false;
                 status = STATUS_IDLE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Verify failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -1236,7 +1258,7 @@ void MainWindow::on_bVerify_clicked()
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Verify failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -1258,7 +1280,7 @@ void MainWindow::on_bVerify_clicked()
                 CloseHandle(hRawDisk);
                 hRawDisk = INVALID_HANDLE_VALUE;
                 status = STATUS_IDLE;
-                progressbar->reset();
+                showProgress(false);
                 statusbar->showMessage(tr("Verify failed."));
                 bCancel->setEnabled(false);
                 setReadWriteButtonState();
@@ -1283,7 +1305,7 @@ void MainWindow::on_bVerify_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    progressbar->reset();
+                    showProgress(false);
                     statusbar->showMessage(tr("Verify failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
@@ -1351,7 +1373,7 @@ void MainWindow::on_bVerify_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    progressbar->reset();
+                    showProgress(false);
                     statusbar->showMessage(tr("Verify cancelled."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
@@ -1390,7 +1412,7 @@ void MainWindow::on_bVerify_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    progressbar->reset();
+                    showProgress(false);
                     statusbar->showMessage(tr("Verify failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
@@ -1415,7 +1437,7 @@ void MainWindow::on_bVerify_clicked()
                     CloseHandle(hRawDisk);
                     status = STATUS_IDLE;
                     hRawDisk = INVALID_HANDLE_VALUE;
-                    progressbar->reset();
+                    showProgress(false);
                     statusbar->showMessage(tr("Verify failed."));
                     bCancel->setEnabled(false);
                     setReadWriteButtonState();
@@ -1535,7 +1557,7 @@ void MainWindow::on_bVerify_clicked()
             QMessageBox::critical(this, tr("File Error"), tr("The specified file contains no data."));
             passfail = false;
         }
-        progressbar->reset();
+        showProgress(false);
         statusbar->showMessage(tr("Done."));
         bCancel->setEnabled(false);
         setReadWriteButtonState();
@@ -1692,6 +1714,10 @@ void MainWindow::updateHashControls()
 
     bHashCopy->setEnabled(false);
     hashLabel->clear();
+    // An empty hash line is a blank row; let the group close up until there is
+    // something to show. This one does not retain its space: the point is the
+    // height it gives back.
+    hashLabel->setVisible(false);
 
     if (cboxHashType->currentIndex() != 0 && !leFile->text().isEmpty() && validFile)
     {

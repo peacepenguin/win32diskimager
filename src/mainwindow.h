@@ -84,6 +84,8 @@ private:
         void loadSettings();
         void initializeHomeDir();
         void updateHashControls();
+        // Shows or hides the progress group; see mainwindow.cpp.
+        void showProgress(bool show);
 
         HANDLE hFile;
         HANDLE hRawDisk;
