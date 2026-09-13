@@ -90,10 +90,53 @@ static void wrapLongToolTips(QWidget *root)
     }
 }
 
+// Qt keeps one tooltip label alive and resizes it for the next tooltip instead
+// of building a fresh one, and that resize does not always come out right:
+// going straight from one tooltip to a wider one leaves the label at the old
+// width, with the text clipped at both ends. Let the first tooltip disappear on
+// its own first and the next one is correct, because it is then built from
+// scratch.
+//
+// QToolTip::hideText() does not help: it only schedules the hide, so the label
+// is still visible when the next tooltip is shown and gets reused anyway -- and
+// the hide it scheduled then takes that new tooltip away a second later.
+// Hiding the widget is what makes Qt build a new one.
+//
+// Qt's own class, found by name because it is not public. If that name ever
+// changes nothing matches, and tooltips behave as they would without this.
+static void dropShowingToolTip()
+{
+    const QWidgetList tops = QApplication::topLevelWidgets();
+    for (QWidget *w : tops)
+    {
+        if (w->isVisible() && qstrcmp(w->metaObject()->className(), "QTipLabel") == 0)
+        {
+            w->hide();
+        }
+    }
+}
+
+// Only when the pointer reaches a different widget: that is the only time the
+// tooltip has to change size. Qt sends this event repeatedly while the pointer
+// moves within one widget, and acting on every one of those would throw away
+// the tooltip that is already up and correct.
+bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    if (event->type() == QEvent::ToolTip && watched != myLastToolTipTarget)
+    {
+        myLastToolTipTarget = watched;
+        dropShowingToolTip();
+    }
+    return QMainWindow::eventFilter(watched, event);
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
     wrapLongToolTips(this);
+    // Application-wide: the filter has to see the event before the widget that
+    // is about to show its own tooltip does.
+    qApp->installEventFilter(this);
     elapsed_timer = new ElapsedTimer();
     statusbar->addPermanentWidget(elapsed_timer);   // "addpermanent" puts it on the RHS of the statusbar
     status = STATUS_IDLE;
