@@ -15,7 +15,7 @@ A second Windows VM is optional — the host itself can mount the VHDX instead.
 > `tools/make-test-images.sh` builds both of these for you, as
 > `test-gpt-affected.img` (the `first-lba: 2048` image below) and
 > `test-gpt-safe.img` (the `first-lba: 34` control from
-> [the end of this file](#how-to-create-a-test-image-that-is-not-affected-by-the-windows-gpt-rewrite-bug)).
+> [the end of this file](#the-control-image-which-the-rewrite-cannot-damage)).
 > Build them by hand as below when you want to vary the layout.
 
 On the Linux VM. `first-lba: 2048` is the field under test; `sfdisk` can set it
@@ -163,7 +163,7 @@ image do not need rebuilding.
 
 ---
 
-# What is actually happening
+## What is actually happening
 
 On rescan, Windows relocates the backup GPT to the end of the device. That part
 is correct and is what `sgdisk -e` does: `AlternateLBA` and `LastUsableLBA` are
@@ -253,7 +253,7 @@ whose last LBA is 203124. That gap is the setup.
   side are the clearest artifact: same DiskGUID, same entries on disk, valid
   header CRC, and a `PartEntryLBA` pointing where the entries are not.
 
-#### How to create a test image that is NOT affected by the Windows GPT rewrite bug:
+## The control image, which the rewrite cannot damage
 
 `sgdisk` leaves `FirstUsableLBA` at the default 34, which is the case
 [the rewrite gets away with](#why-first-lba-2048). Run this image through the

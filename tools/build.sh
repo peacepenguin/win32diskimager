@@ -3,8 +3,8 @@
 #
 #   tools/build.sh              # configure (if needed) and build into build/
 #   tools/build.sh clean        # drop the build dir first
-#   tools/build.sh test         # build-test/, a binary that asks for no
-#                               # elevation, for working on the interface
+#   tools/build.sh test         # into build/ as usual, but a binary that asks
+#                               # for no elevation, for working on the interface
 #   tools/build.sh test clean
 #
 # Package what this produces with tools/deploy.sh. To build for Windows from

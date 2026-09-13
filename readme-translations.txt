@@ -5,12 +5,10 @@ repository.
 ===========
 Getting Qt:
 ===========
-You will need Qt Linguist. Install it via MSYS2 (see BUILD.md for the
-environment setup), then:
+You will need Qt Linguist. The MSYS2 setup in BUILD.md already installs it,
+as part of mingw-w64-ucrt-x86_64-qt6-tools, and it lands at
 
-    pacman -S --needed mingw-w64-ucrt-x86_64-qt6-tools
-
-Linguist is then at C:\msys64\ucrt64\bin\linguist.exe
+    C:\msys64\ucrt64\bin\linguist.exe
 
 ======================
 Add a new translation:

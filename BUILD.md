@@ -207,11 +207,17 @@ The sources are in `tools/gpttest/`, a separate cmake project that builds into
 `build-gpttest/` rather than `build/`, so it cannot fight the application's
 cache.
 
-Seven cases, 60 checks. Three relocate a backup stranded mid-device; the other
-four are cases where **nothing may be written** — a stale copy covered by a
-partition, no GPT at all, a backup already at the last LBA, and a corrupt
-header. Those are the point. When changing the repair, confirm the harness still
-fails when it should: break a guard on purpose, watch it go red, put it back.
+Nine cases; the harness prints the check total when it finishes. Three relocate
+a backup stranded mid-device. Three are cases where **nothing may be written** —
+no GPT at all, a backup already at the last LBA, and a corrupt header. One has a
+partition sitting over the stale copy: the relocate still happens, but nothing
+inside the partition may be zeroed. Two start from a table Windows has already
+rewritten — one that must be detected and repaired, and the ordinary layout,
+which must *not* be reported as damage.
+
+The cases where nothing may happen are the point. When changing the repair,
+confirm the harness still fails when it should: break a guard on purpose, watch
+it go red, put it back.
 
 ## Changing the icons
 
@@ -302,13 +308,18 @@ tools/build-env.sh print SYSROOT    # where it expects the MinGW tree
 
 **The shipped languages** live in `src/CMakeLists.txt`, and both deploy scripts
 read the list from there, so trimming Qt's translations cannot drift from the set
-the build compiles. Add a language in one place:
+the build compiles:
 
 ```
 set(LANGUAGES es it pl nl de fr zh_CN zh_TW ta_IN ko ja)
 ```
 
-## Notes
+Adding one takes two edits, not one: that list, and a matching
+`<file>lang/diskimager_xx.qm</file>` in `src/translations.qrc`, which names every
+embedded file explicitly. Miss the second and the language compiles but is never
+shipped.
+
+## Why the deploy scripts look alike
 
 The two deploy scripts are deliberately parallel — same files copied in, same Qt
 plugin groups, same trimming of Qt's translations, same iterate-until-stable DLL
