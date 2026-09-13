@@ -32,11 +32,14 @@ Every build lands in `build/`, whichever route it took.
   You run this on the host; it is the *build* that happens in a container. The
   script is a wrapper and nothing else.
 
-**On Linux, whichever is available:**
+**On Windows or Linux:**
 
-- **`tools/lupdate-cross.sh`** → `src/lang/*.ts`
-  - `lupdate` directly if this host has it, else podman running *itself* in the
-    image
+- **`tools/lupdate.sh`** → `src/lang/*.ts`
+  - whichever Qt 6 `lupdate` the host has — MSYS2's `lupdate`, Fedora's
+    `lupdate-qt6` — else podman running *itself* in the image
+
+**On Linux:**
+
 - **`tools/make-test-images.sh`** → test images
   - `sfdisk`, `mkfs.vfat`, gzip and xz
 - **`tools/verify-flashed.sh`** → pass or fail
@@ -176,13 +179,14 @@ not reach the `.ts` files on its own — until they are refreshed, a new string
 falls back to English and a *reworded* one silently loses the translation it had.
 
 ```
-tools/lupdate-cross.sh              # every language
-tools/lupdate-cross.sh de fr        # only those
+tools/lupdate.sh              # every language
+tools/lupdate.sh de fr        # only those
 ```
 
-It runs `lupdate` directly when the toolchain is installed on this host, and in
-the container when it is not — the same two routes as building, and the same
-result either way, so it needs no Qt on the host.
+This works anywhere: it uses whichever Qt 6 `lupdate` it can find — MSYS2's
+`lupdate` on Windows, Fedora's `lupdate-qt6` — and falls back to running itself
+in the container when the host has neither. Only version 6 is accepted, since a
+Qt 5 `lupdate` writes `.ts` files the Qt 6 build then has to interpret.
 
 Unlike the build scripts it rewrites tracked files, so review the diff:
 
@@ -210,7 +214,7 @@ different toolchains. Each path can be pointed elsewhere for a host that lays
 them out differently:
 
 ```
-CROSS_LUPDATE=/usr/bin/lupdate-qt6 tools/lupdate-cross.sh
+CROSS_LUPDATE=/usr/bin/lupdate-qt6 tools/lupdate.sh
 ```
 
 ```

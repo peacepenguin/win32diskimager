@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 # Refresh src/lang/*.ts from the current sources.
 #
-#   tools/lupdate-cross.sh           # update every .ts in src/lang
-#   tools/lupdate-cross.sh de fr     # only those languages
+#   tools/lupdate.sh           # update every .ts in src/lang
+#   tools/lupdate.sh de fr     # only those languages
 #
-# Runs lupdate directly when the toolchain is installed on this host, and in the
-# Fedora container when it is not — the same pair of routes as building, and the
-# same result either way.
+# Runs anywhere: it uses whichever Qt 6 lupdate the host has -- plain "lupdate"
+# in MSYS2 UCRT64, "lupdate-qt6" from Fedora's qt6-linguist -- and falls back to
+# running itself in the Fedora container when the host has neither. Only version
+# 6 is accepted; a Qt 5 lupdate writes .ts files the Qt 6 build then has to
+# interpret.
 #
 # lupdate is a *native* tool, from qt6-linguist, the same package that provides
 # the lrelease the cross build uses. It is not part of the MinGW Qt: Qt6::lupdate
@@ -30,15 +32,24 @@ for lang in "$@"; do
         || { echo "error: no src/lang/diskimager_$lang.ts" >&2; exit 1; }
 done
 
-if [ ! -x "$CROSS_LUPDATE" ]; then
+if ! LUPDATE=$(lupdate_path); then
     # Inside the container this means the image is broken; going round again
     # would only loop.
     if [ -n "${W32DI_IN_CONTAINER:-}" ]; then
-        echo "error: $CROSS_LUPDATE missing inside the container image." >&2
+        echo "error: no Qt 6 lupdate inside the container image." >&2
         echo "       Rebuild it: podman build -t $CROSS_IMAGE -f tools/Containerfile.build ." >&2
         exit 1
     fi
-    container_run "$REPO" /src/tools/lupdate-cross.sh "$@"
+    # Nothing local, so try the container. On Windows there is none, and the
+    # tool is one package away.
+    if ! command -v podman >/dev/null 2>&1; then
+        echo "error: no Qt 6 lupdate on this host." >&2
+        echo "       MSYS2 UCRT64:  pacman -S --needed mingw-w64-ucrt-x86_64-qt6-tools" >&2
+        echo "       Fedora:        sudo bash tools/build-env.sh install" >&2
+        echo "       Anywhere else: install podman and this will use a container." >&2
+        exit 1
+    fi
+    container_run "$REPO" /src/tools/lupdate.sh "$@"
     exit $?
 fi
 
@@ -56,4 +67,4 @@ fi
 # Run from src/ so the <location> paths lupdate writes stay relative to the .ts
 # files the way the existing ones are ("../mainwindow.ui").
 cd "$REPO/src"
-"$CROSS_LUPDATE" -locations relative *.cpp *.h *.ui -ts "${TSFILES[@]}"
+"$LUPDATE" -locations relative *.cpp *.h *.ui -ts "${TSFILES[@]}"

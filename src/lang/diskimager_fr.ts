@@ -1089,7 +1089,7 @@ Erreur %2</translation>
     <message>
         <location line="+139"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
-        <translation>GPT de secours déplacée vers le LBA %1 ; le dernier LBA utilisable est maintenant %2 ; l'ancienne copie au LBA %3 a été effacée</translation>
+        <translation>GPT de secours déplacée vers le LBA %1 ; le dernier LBA utilisable est maintenant %2 ; l&apos;ancienne copie au LBA %3 a été effacée</translation>
     </message>
     <message>
         <location line="+3"/>

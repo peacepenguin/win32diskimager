@@ -4,7 +4,7 @@
 #
 # Everything that cross-builds reads this file, so none of it is written down
 # twice: tools/Containerfile.build, tools/build-cross.sh, tools/build-container.sh,
-# tools/lupdate-cross.sh, tools/deploy-cross.sh and .github/workflows/build.yml.
+# tools/lupdate.sh, tools/deploy-cross.sh and .github/workflows/build.yml.
 # BUILD.md points here rather than repeating the values.
 #
 # Use it either way. As a library:
@@ -32,7 +32,7 @@ CROSS_BASE_IMAGE="fedora:44"
 # qt6-linguist is the *native* Linguist build, and carries both halves of the
 # translation workflow: lrelease-qt6, which the build runs to compile lang/*.ts
 # into the .qm files translations.qrc embeds, and lupdate-qt6, which
-# tools/lupdate-cross.sh runs to refresh those .ts files from the sources.
+# tools/lupdate.sh runs to refresh those .ts files from the sources.
 # Neither can come from mingw64-qt6-qttools: those are Windows .exe files.
 CROSS_PACKAGES="cmake ninja-build file findutils binutils
                 mingw64-gcc-c++ mingw64-qt6-qtbase mingw64-qt6-qttools
@@ -113,6 +113,29 @@ cross_configure()
         -DCMAKE_BUILD_TYPE=Release \
         -DLRELEASE_EXECUTABLE="$CROSS_LRELEASE" \
         "$@"
+}
+
+# lupdate_path
+#
+# Prints the path to a Qt 6 lupdate, or nothing. Each platform names it
+# differently: Fedora's qt6-linguist installs lupdate-qt6, MSYS2 UCRT64 installs
+# plain lupdate. A bare "lupdate" on a Fedora host is usually Qt 5's, which
+# writes .ts files the Qt 6 lrelease then has to make sense of, so every
+# candidate is asked its version and only 6 is accepted.
+lupdate_path()
+{
+    local c p
+    for c in "$CROSS_LUPDATE" lupdate-qt6 lupdate6 lupdate; do
+        if [ -x "$c" ]; then
+            p=$c
+        else
+            p=$(command -v "$c" 2>/dev/null) || continue
+        fi
+        case "$("$p" -version 2>/dev/null)" in
+            *"lupdate version 6"*) echo "$p"; return 0 ;;
+        esac
+    done
+    return 1
 }
 
 # drop_foreign_cache BUILDDIR [EXPECTED_TOOLCHAIN]
