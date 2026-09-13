@@ -46,7 +46,16 @@ add_custom_target(translations DEPENDS ${QM_FILES})
 # not the machine being built for. So it is configured on its own, without the
 # cross toolchain, and picks up the host's native Qt.
 set(ICON_SVG ${CMAKE_CURRENT_SOURCE_DIR}/images/Win32DiskImager.svg)
-set(ICON_ICO ${CMAKE_CURRENT_SOURCE_DIR}/images/Win32DiskImager.ico)
+# Into the build tree, not the source tree. The rendering is identical
+# everywhere -- the six DIB sizes come out byte for byte the same on MSYS2 and
+# in the Fedora container -- but the 128 and 256 entries are PNG, and different
+# zlib versions compress identical pixels to different bytes. Committing the
+# result meant every cross build dirtied the working tree over nothing.
+#
+# So the .ico is no longer a file in the repository: the SVG is the icon, and
+# this is a build artefact like any other.
+set(ICON_ICO ${CMAKE_CURRENT_BINARY_DIR}/images/Win32DiskImager.ico)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/images)
 set(MKICON_BUILD ${CMAKE_BINARY_DIR}/mkicon-host)
 if(CMAKE_HOST_WIN32)
     set(MKICON_EXE ${MKICON_BUILD}/mkicon.exe)
@@ -123,6 +132,9 @@ qt_add_executable(Win32DiskImager WIN32
     DiskImager.rc
 )
 add_dependencies(Win32DiskImager translations appicon)
+# DiskImager.rc names the icon by a relative path, and windres looks for it
+# along its include path. The generated one lives here.
+target_include_directories(Win32DiskImager PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 # windres reads the .ico while compiling the resource script.
 set_property(SOURCE DiskImager.rc APPEND PROPERTY OBJECT_DEPENDS ${ICON_ICO})
 
@@ -138,9 +150,9 @@ if(TEST_NO_ADMIN)
     file(READ "${CMAKE_CURRENT_SOURCE_DIR}/DiskImager.manifest" _manifest)
     string(REPLACE "requireAdministrator" "asInvoker" _manifest "${_manifest}")
     file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/DiskImager-asinvoker.manifest" "${_manifest}")
-    # windres looks for the referenced file along its include path.
+    # windres looks for the referenced manifest along its include path, which
+    # already has the build directory on it.
     set_property(SOURCE DiskImager.rc APPEND PROPERTY COMPILE_DEFINITIONS TEST_NO_ADMIN)
-    target_include_directories(Win32DiskImager PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
     target_compile_definitions(Win32DiskImager PRIVATE TEST_NO_ADMIN)
 endif()
 

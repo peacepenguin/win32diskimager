@@ -1,6 +1,7 @@
 build/
 dist/
 src/lang/*.qm
+src/images/*.ico
 test-images/
 build-gpttest/
 build-imgtest/

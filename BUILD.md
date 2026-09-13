@@ -20,7 +20,7 @@ Every build lands in `build/`, whichever route it took.
 - **`tools/imgtest.sh`** → pass or fail
   - the same idea for `src/imagesource.cpp`: reads images back and compares
     them with what went in. Builds its own fixtures
-- **`tools/mkicon/`** → `src/images/Win32DiskImager.ico`
+- **`tools/mkicon/`** → the executable's `.ico`, into the build directory
   - renders the app icon SVG into the multi-size `.ico` the executable needs.
     Run by the build itself, on both platforms; never invoked by hand
 - **`tools/gui-probe.ps1`** → measurements of the running window
@@ -254,14 +254,17 @@ is nothing to regenerate by hand.
 
 The executable's icon takes one extra step, because the resource compiler accepts
 an `.ico` and nothing else. The build renders it: `tools/mkicon` turns the SVG
-into `src/images/Win32DiskImager.ico` whenever the SVG is newer, writing eight
-sizes into one file — 16 through 64 as DIBs, which every version of Windows
-reads, and 128 and 256 as PNG, which is what the format expects for the large
-ones and keeps the file to tens of kilobytes rather than hundreds.
+into an `.ico` in the build directory, writing eight sizes into one file — 16
+through 64 as DIBs, which every version of Windows reads, and 128 and 256 as
+PNG, which is what the format expects for the large ones and keeps the file to
+tens of kilobytes rather than hundreds.
 
-The rendered `.ico` is committed as well, so a change to the SVG shows up as a
-change to both. The render is deterministic: the same SVG produces the same
-bytes, so the `.ico` in a commit can be checked by deleting it and building.
+The `.ico` is not in the repository. The SVG is the icon; the `.ico` is a build
+artefact like the `.qm` files. It was committed once, and every cross build
+then showed it as modified: the rendering is identical everywhere -- all six
+DIB sizes come out byte for byte the same on MSYS2 and in the container -- but
+the two PNG entries are compressed, and different zlib versions turn identical
+pixels into different bytes.
 
 mkicon has to run on the machine doing the build, which when cross-compiling is
 not the machine being built for. So the application's cmake configures it
