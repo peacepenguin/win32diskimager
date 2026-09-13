@@ -35,14 +35,15 @@ for arg in "$@"; do
     esac
 done
 
+build=${BUILD_DIR:-$REPO/build}
+# Always stated, never left to whatever the cache happens to hold, so switching
+# between a normal and a test build is just a matter of the argument.
 if [ "$mode" = test ]; then
     # Asks for no elevation, so it starts without a UAC prompt -- and cannot
     # open a device either. For working on the interface, never for shipping.
-    build=${BUILD_DIR:-$REPO/build-cross-test}
     extra=(-DTEST_NO_ADMIN=ON)
 else
-    build=${BUILD_DIR:-$REPO/build-cross}
-    extra=()
+    extra=(-DTEST_NO_ADMIN=OFF)
 fi
 
 command -v cmake >/dev/null 2>&1 || { echo "error: cmake not found" >&2; exit 1; }
@@ -56,15 +57,30 @@ if ! cross_check; then
 fi
 
 [ "$clean" = 1 ] && rm -rf "$build"
+# build/ is shared with the native build and the container, which sees this tree
+# as /src. A cache from either of those is no use here.
+drop_foreign_cache "$build" "$CROSS_TOOLCHAIN"
 
 # Configuring costs far more than an incremental build, so only do it when there
-# is no cache yet; ninja re-runs cmake itself when CMakeLists.txt changes.
+# is no cache yet; ninja re-runs cmake itself when CMakeLists.txt changes. The
+# -D above is passed either way, so a mode switch reconfigures on its own.
 if [ ! -f "$build/CMakeCache.txt" ]; then
     cross_configure "$REPO/src" "$build" "${extra[@]}"
+else
+    cmake -S "$REPO/src" -B "$build" "${extra[@]}" >/dev/null
 fi
 cmake --build "$build"
 
+# A host compiler picked up by mistake produces an ELF binary that looks like a
+# successful build until someone tries to run it. Check here, so every route
+# into this script is covered rather than only CI.
+if ! file "$build/Win32DiskImager.exe" | grep -q 'PE32+'; then
+    echo "error: $build/Win32DiskImager.exe is not a win64 PE binary:" >&2
+    file "$build/Win32DiskImager.exe" >&2
+    exit 1
+fi
 file "$build/Win32DiskImager.exe"
+
 echo
 echo "built $build/Win32DiskImager.exe"
 if [ "$mode" = test ]; then

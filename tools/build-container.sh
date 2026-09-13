@@ -10,10 +10,10 @@
 # script. Use this when the host is not Fedora, or is but would rather not
 # install the toolchain. The image builds itself on first use.
 #
-# The build lands in build/, while a build-cross.sh run on the host lands in
-# build-cross/. That is deliberate: a cmake cache records the absolute path it
-# was generated for, and the container sees this tree as /src, so one shared
-# directory would make every switch between them fail.
+# The build lands in build/, the same directory every other route uses. A cmake
+# cache is tied to the path it was generated for, and the container sees this
+# tree as /src, so switching between here and a build on the host drops the
+# cache and reconfigures -- which build-cross.sh does for itself, and says so.
 #
 # Copyright (C) 2026 peacepenguin, GPL-2.0-or-later.
 set -euo pipefail

@@ -1,18 +1,52 @@
 # Build
 
-Everything is done by a script in `tools/`. This file says which one to run and
-why; the details are in the scripts themselves.
+Everything is done by a script in `tools/`. You run all of them the same way —
+from the repo root, on your own machine. What differs is where the work then
+happens.
 
-| | |
-| --- | --- |
-| `tools/build.sh` | build on Windows, in the MSYS2 UCRT64 shell |
-| `tools/deploy.sh` | package that build into a standalone `dist/` |
-| `tools/build-cross.sh` | build for Windows from Linux |
-| `tools/build-container.sh` | the same, run inside the container |
-| `tools/deploy-cross.sh` | package a cross build |
-| `tools/lupdate-cross.sh` | refresh `src/lang/*.ts` after changing any text |
-| `tools/gpttest/` | test the GPT repair without a card |
-| `tools/build-env.sh` | the toolchain itself: packages, paths, cmake flags |
+Every build lands in `build/`, whichever route it took.
+
+## What runs what
+
+**On Windows**, in the MSYS2 UCRT64 shell:
+
+- **`tools/build.sh`** → `build/`
+  - cmake and ninja against the native Qt
+- **`tools/deploy.sh`** → `dist/`
+  - `windeployqt6`, then `ntldd` for what it misses
+- **`tools/gpttest/`** → pass or fail
+  - links the real `src/disk.cpp` and exercises the GPT repair
+
+**On Linux, with the cross toolchain installed:**
+
+- **`tools/build-cross.sh`** → `build/`
+  - cmake and ninja against the MinGW Qt
+- **`tools/deploy-cross.sh`** → `dist/`
+  - `objdump`, and the Qt plugins gathered by hand
+
+**On Linux, without it** — the same build, one step further out:
+
+- **`tools/build-container.sh`** → `build/`
+  - podman, which runs **`tools/build-cross.sh`** inside the image
+
+  You run this on the host; it is the *build* that happens in a container. The
+  script is a wrapper and nothing else.
+
+**On Linux, whichever is available:**
+
+- **`tools/lupdate-cross.sh`** → `src/lang/*.ts`
+  - `lupdate` directly if this host has it, else podman running *itself* in the
+    image
+- **`tools/make-test-images.sh`** → test images
+  - `sfdisk`, `mkfs.vfat`, gzip and xz
+- **`tools/verify-flashed.sh`** → pass or fail
+  - `cmp`, an image against a device
+
+Everything that cross-builds reads **`tools/build-env.sh`** for the packages,
+toolchain paths, cmake flags and podman plumbing — including
+`tools/Containerfile.build` when it builds the image, and
+[.github/workflows/build.yml](.github/workflows/build.yml), which runs
+`tools/build-cross.sh` the same as anyone else.
 
 ## Windows, natively
 
@@ -48,11 +82,14 @@ Every launch of the real binary raises a UAC prompt, which gets old when the
 change under test is a tooltip. This builds one that does not:
 
 ```
-tools/build.sh test            # into build-test/
+tools/build.sh test
 ```
 
-It also **cannot open a device**, so use it for layout, tooltips, translations
-and dialog text, and a normal build for anything that touches a card. Both
+It lands in `build/` like any other build, replacing whatever was there, so
+switching back is just `tools/build.sh` again.
+
+It **cannot open a device**, so use it for layout, tooltips, translations and
+dialog text, and a normal build for anything that touches a card. Both
 deploy scripts refuse to package one, since the two are indistinguishable once
 the exe sits in a folder of its own. To tell them apart by hand:
 
@@ -64,8 +101,13 @@ grep -ac 'level="asInvoker"' build/Win32DiskImager.exe    # 1 = test build
 
 It has to be Fedora: Debian and Ubuntu ship no MinGW Qt6 packages, so there is
 nothing to link against there. That is why CI runs `ubuntu-latest` but inside a
-`fedora:44` container. Two ways in, same toolchain and flags either way, since
-both are driven by `tools/build-env.sh`.
+`fedora:44` container.
+
+`tools/build-cross.sh` *is* the cross build. Run it on a Fedora host and it
+builds; `tools/build-container.sh` runs that same script inside the container;
+[.github/workflows/build.yml](.github/workflows/build.yml) runs it too. However
+this is built, it is built by that one script, with the toolchain and flags from
+`tools/build-env.sh`.
 
 **On a Fedora host.** Install the toolchain once:
 
@@ -76,35 +118,33 @@ sudo bash tools/build-env.sh install
 then:
 
 ```
-tools/build-cross.sh              # into build-cross/
-tools/deploy-cross.sh build-cross dist
+tools/build-cross.sh
+tools/deploy-cross.sh build dist
 ```
 
 **Anywhere podman runs**, including a Fedora host that would rather not install
 the toolchain. The image builds itself on first use:
 
 ```
-tools/build-container.sh          # into build/
+tools/build-container.sh
 tools/deploy-cross.sh build dist
 ```
 
 That script is a wrapper: it starts the container and runs `build-cross.sh`
-inside it, where the toolchain is already installed. So the build is the same
-code either way, and both take the same arguments — `clean` to start over,
-`test` for a no-elevation build.
+inside it, where the toolchain is already installed. Both take the same
+arguments — `clean` to start over, `test` for a no-elevation build — and both
+fail if what comes out is not a win64 PE binary, which is what a host compiler
+picked up by mistake would produce.
 
-This is what [.github/workflows/build.yml](.github/workflows/build.yml) does on
-every push, so running it before pushing catches a broken cross build without
-waiting on the workflow.
+Either one before a push catches a broken cross build without waiting on the
+workflow. Everything they write is gitignored, so the build directory persists
+and ninja stays incremental: a no-op rebuild is well under a second, a one-file
+change around twenty.
 
-Everything they write is gitignored, so the build directory persists and ninja
-stays incremental: a no-op rebuild is well under a second, a one-file change
-around twenty.
-
-They use **different build directories on purpose**. A cmake cache records the
-absolute path it was generated for, and the container sees this tree as `/src`,
-so one shared directory would make every switch between them fail. Override with
-`BUILD_DIR=...` if the defaults are inconvenient.
+They share `build/`, and switching between them costs one reconfigure. A cmake
+cache is tied to the path it was generated for, and the container sees this tree
+as `/src`, so a cache from the other route is dropped and rebuilt -- the script
+says so when it happens. `BUILD_DIR=...` overrides the directory.
 
 ## Testing the GPT repair
 

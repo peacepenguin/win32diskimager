@@ -27,15 +27,15 @@ for arg in "$@"; do
     esac
 done
 
+build=${BUILD_DIR:-$REPO/build}
+# Always stated, never left to whatever the cache happens to hold, so switching
+# between a normal and a test build is just a matter of the argument.
 if [ "$mode" = test ]; then
     # A build that asks for no elevation: no UAC prompt on every launch, and no
-    # ability to open a device either. Kept in its own directory so the option
-    # cannot linger in the cache of the build that gets shipped.
-    build="$REPO/build-test"
+    # ability to open a device either.
     extra=(-DTEST_NO_ADMIN=ON)
 else
-    build="$REPO/build"
-    extra=()
+    extra=(-DTEST_NO_ADMIN=OFF)
 fi
 
 for tool in cmake ninja g++ windeployqt6; do
@@ -48,11 +48,17 @@ for tool in cmake ninja g++ windeployqt6; do
 done
 
 [ "$clean" = 1 ] && rm -rf "$build"
+# build/ is shared with the cross build and the container; a cache from either
+# of those is no use here. A native build uses no toolchain file.
+drop_foreign_cache "$build" ""
 
 # Configuring costs far more than an incremental build, so only do it when there
-# is no cache yet; ninja re-runs cmake itself when CMakeLists.txt changes.
+# is no cache yet; ninja re-runs cmake itself when CMakeLists.txt changes. The
+# -D above is passed either way, so a mode switch reconfigures on its own.
 if [ ! -f "$build/CMakeCache.txt" ]; then
     cmake -S "$REPO/src" -B "$build" -G Ninja -DCMAKE_BUILD_TYPE=Release "${extra[@]}"
+else
+    cmake -S "$REPO/src" -B "$build" "${extra[@]}" >/dev/null
 fi
 cmake --build "$build"
 

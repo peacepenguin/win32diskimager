@@ -39,14 +39,12 @@ jobs:
       - name: Trust the workspace
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Configure
-        run: bash tools/build-env.sh configure src build
-
+      # The same script a developer runs on a Fedora host, and the same one
+      # tools/build-container.sh runs inside the image -- so however this is
+      # built, it is built by this. It configures, builds into build/, and
+      # fails if the result is not a win64 PE binary.
       - name: Build
-        run: cmake --build build
-
-      - name: Verify it is a PE binary
-        run: file build/Win32DiskImager.exe | grep -q 'PE32+'
+        run: bash tools/build-cross.sh
 
       # The sysroot defaults to the one in tools/build-env.sh.
       - name: Package

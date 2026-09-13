@@ -115,6 +115,45 @@ cross_configure()
         "$@"
 }
 
+# drop_foreign_cache BUILDDIR [EXPECTED_TOOLCHAIN]
+#
+# Everything builds into build/: the native build, the cross build, and the
+# container, which sees this tree as /src. A cmake cache is tied to the absolute
+# path it was generated for and to the toolchain it was generated with, so a
+# cache left by a different one of those cannot be reused. Drop it and say why,
+# rather than letting cmake fail with a message about a moved directory.
+drop_foreign_cache()
+{
+    local build=$1 want=${2:-}
+    local cache="$build/CMakeCache.txt"
+    [ -f "$cache" ] || return 0
+
+    local dir tc here why=""
+    dir=$(sed -n 's/^CMAKE_CACHEFILE_DIR:INTERNAL=//p' "$cache" | tr -d '\r')
+    tc=$(sed -n 's/^CMAKE_TOOLCHAIN_FILE:FILEPATH=//p' "$cache" | tr -d '\r')
+
+    # cmake writes Windows paths as c:/..., which is what cygpath -m produces
+    # apart from the drive letter's case -- and there, case does not distinguish
+    # two paths. Compare folded, or an unchanged directory reads as a moved one
+    # and every build starts from scratch.
+    if command -v cygpath >/dev/null 2>&1; then
+        here=$(cygpath -m "$build" | tr 'A-Z' 'a-z')
+        dir=$(printf '%s' "$dir" | tr 'A-Z' 'a-z')
+    else
+        here=$build
+    fi
+
+    if [ -n "$dir" ] && [ "$dir" != "$here" ]; then
+        why="it was generated for $dir"
+    elif [ "$tc" != "$want" ]; then
+        why="it was generated with toolchain '${tc:-none}', wanted '${want:-none}'"
+    fi
+    [ -n "$why" ] || return 0
+
+    echo "dropping the cmake cache in $build: $why"
+    rm -rf "$build"
+}
+
 # container_run REPO COMMAND...
 #
 # Runs COMMAND in the Fedora image with REPO mounted at /src, building the image
