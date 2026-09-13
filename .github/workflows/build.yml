@@ -46,9 +46,9 @@ jobs:
       - name: Build
         run: bash tools/build-cross.sh
 
-      # The sysroot defaults to the one in tools/build-env.sh.
+      # Directories and sysroot all default; see tools/build-env.sh.
       - name: Package
-        run: bash tools/deploy-cross.sh build dist
+        run: bash tools/deploy-cross.sh
 
       - uses: actions/upload-artifact@v7
         with:

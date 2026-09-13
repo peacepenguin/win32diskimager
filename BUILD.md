@@ -160,7 +160,7 @@ then:
 
 ```
 tools/build-cross.sh
-tools/deploy-cross.sh build dist
+tools/deploy-cross.sh
 ```
 
 **Anywhere podman runs**, including a Fedora host that would rather not install
@@ -168,7 +168,7 @@ the toolchain. The image builds itself on first use:
 
 ```
 tools/build-container.sh
-tools/deploy-cross.sh build dist
+tools/deploy-cross.sh
 ```
 
 That script is a wrapper: it starts the container and runs `build-cross.sh`

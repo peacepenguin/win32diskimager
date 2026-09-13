@@ -85,6 +85,9 @@ echo
 echo "built $build/Win32DiskImager.exe"
 if [ "$mode" = test ]; then
     echo "this build asks for no elevation and CANNOT write to a device"
+elif [ "$build" = "$REPO/build" ]; then
+    echo "package it with: tools/deploy-cross.sh"
 else
-    echo "package it with: tools/deploy-cross.sh ${build#"$REPO"/} dist"
+    # BUILD_DIR was overridden, so the defaults would not find this build.
+    echo "package it with: tools/deploy-cross.sh $build dist"
 fi

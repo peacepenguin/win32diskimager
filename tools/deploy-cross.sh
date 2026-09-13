@@ -1,20 +1,22 @@
 #!/usr/bin/env bash
 # Assemble a standalone Windows folder from a cross-compiled build.
 #
-#   tools/deploy-cross.sh <build-dir> <dist-dir> <mingw-sysroot>
+#   tools/deploy-cross.sh                          # build/ -> dist/
+#   tools/deploy-cross.sh <build-dir> <dist-dir> [mingw-sysroot]
 #
 # windeployqt is itself a Windows binary and cannot run on the build host, so
 # the Qt DLLs, plugins and translations are gathered by hand and the dependency
 # closure is resolved with objdump.
 set -euo pipefail
 
-build=${1:?usage: deploy-cross.sh <build-dir> <dist-dir> [mingw-sysroot]}
-dist=${2:?}
-
 root="$(cd "$(dirname "$0")/.." && pwd)"
 # Toolchain paths shared with the build scripts, CI and the container image.
 . "$root/tools/build-env.sh"
 
+# The same two directories every build script uses, so the common case needs no
+# arguments. They are still overridable, positionally, for a build kept aside.
+build=${1:-$root/build}
+dist=${2:-$root/dist}
 sysroot=${3:-$CROSS_SYSROOT}
 objdump=${OBJDUMP:-x86_64-w64-mingw32-objdump}
 bin="$sysroot/bin"
