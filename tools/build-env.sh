@@ -34,11 +34,16 @@ CROSS_BASE_IMAGE="fedora:44"
 # into the .qm files translations.qrc embeds, and lupdate-qt6, which
 # tools/lupdate.sh runs to refresh those .ts files from the sources.
 # Neither can come from mingw64-qt6-qttools: those are Windows .exe files.
+# gcc-c++ and the native qt6 -devel packages are not for the application, which
+# is built entirely with the mingw64- ones. They are for tools/mkicon, which
+# renders the application icon during the build and therefore has to run on this
+# machine rather than on the Windows machine being built for.
 CROSS_PACKAGES="cmake ninja-build file findutils binutils
                 mingw64-gcc-c++ mingw64-qt6-qtbase mingw64-qt6-qttools
                 mingw64-qt6-qttranslations mingw64-qt6-qtsvg
                 mingw64-zlib mingw64-xz
-                qt6-linguist"
+                qt6-linguist
+                gcc-c++ qt6-qtbase-devel qt6-qtsvg-devel"
 
 # Only CI needs these: zip and gh to publish a release, git for the checkout.
 CROSS_CI_PACKAGES="git zip gh"
@@ -64,7 +69,12 @@ CROSS_LUPDATE="${CROSS_LUPDATE:-/usr/bin/lupdate-qt6}"
 CROSS_SYSROOT="${CROSS_SYSROOT:-/usr/x86_64-w64-mingw32/sys-root/mingw}"
 
 # The image tools/Containerfile.build produces. Override with IMAGE=...
-CROSS_IMAGE="${IMAGE:-w32di-build}"
+#
+# The tag carries a checksum of the package list, because container_run only
+# builds the image when one by that name does not already exist. Without this a
+# machine that had built the image once would keep the old toolchain for ever,
+# and adding a package here would appear to do nothing.
+CROSS_IMAGE="${IMAGE:-w32di-build:$(printf '%s' "$CROSS_PACKAGES" | cksum | cut -d' ' -f1)}"
 
 # Extra "podman run" arguments a caller wants, as an array.
 CONTAINER_ENV=()
@@ -223,7 +233,8 @@ if [ "${BASH_SOURCE[0]}" = "$0" ]; then
         packages-msys2)  echo $MSYS2_PACKAGES ;;
         print)
             case "${1:-}" in
-                IMAGE)     echo "$CROSS_BASE_IMAGE" ;;
+                BASE_IMAGE) echo "$CROSS_BASE_IMAGE" ;;
+                IMAGE)     echo "$CROSS_IMAGE" ;;
                 TOOLCHAIN) echo "$CROSS_TOOLCHAIN" ;;
                 LRELEASE)  echo "$CROSS_LRELEASE" ;;
                 LUPDATE)   echo "$CROSS_LUPDATE" ;;

@@ -1,11 +1,11 @@
 # Builds mkicon, which renders an SVG into a multi-size Windows .ico.
 #
-#   cmake -S tools/mkicon -B build-mkicon -G Ninja
-#   cmake --build build-mkicon
-#   ./build-mkicon/mkicon.exe src/images/Win32DiskImager.svg src/images/Win32DiskImager.ico
+#   mkicon <in.svg> <out.ico>
 #
-# Not part of the application build: the .ico it produces is committed, and this
-# only has to run when the icon changes. See BUILD.md.
+# The application's cmake configures and builds this itself, separately from the
+# rest, because it has to run on the machine doing the build rather than the
+# Windows machine being built for. It is not meant to be invoked by hand.
+# See BUILD.md.
 cmake_minimum_required(VERSION 3.21)
 project(mkicon LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)

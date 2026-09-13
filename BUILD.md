@@ -19,7 +19,7 @@ Every build lands in `build/`, whichever route it took.
     `src/disk.cpp`, and runs it
 - **`tools/mkicon/`** → `src/images/Win32DiskImager.ico`
   - renders the app icon SVG into the multi-size `.ico` the executable needs.
-    Only when the icon changes
+    Run by the build itself, on both platforms; never invoked by hand
 - **`tools/gui-probe.ps1`** → measurements of the running window
   - PowerShell and UI Automation, against a test build already on screen
 
@@ -224,23 +224,26 @@ it go red, put it back.
 The icons are SVGs in `src/images/`, embedded through `gui_icons.qrc`: the three
 action icons on the buttons, the folder on the browse button, and
 `Win32DiskImager.svg`, which is both the window icon and the source of the
-executable's icon. Edit the SVG and rebuild, and everything except the
-executable's icon follows.
+executable's icon. Edit an SVG, rebuild, and the change is in the program. There
+is nothing to regenerate by hand.
 
-The executable's icon is the exception, because the resource compiler takes an
-`.ico` and nothing else. Regenerate it from the SVG rather than editing it:
+The executable's icon takes one extra step, because the resource compiler accepts
+an `.ico` and nothing else. The build renders it: `tools/mkicon` turns the SVG
+into `src/images/Win32DiskImager.ico` whenever the SVG is newer, writing eight
+sizes into one file — 16 through 64 as DIBs, which every version of Windows
+reads, and 128 and 256 as PNG, which is what the format expects for the large
+ones and keeps the file to tens of kilobytes rather than hundreds.
 
-```
-cmake -S tools/mkicon -B build-mkicon -G Ninja
-cmake --build build-mkicon
-./build-mkicon/mkicon.exe src/images/Win32DiskImager.svg src/images/Win32DiskImager.ico
-```
+The rendered `.ico` is committed as well, so a change to the SVG shows up as a
+change to both. The render is deterministic: the same SVG produces the same
+bytes, so the `.ico` in a commit can be checked by deleting it and building.
 
-That writes eight sizes in one file: 16 through 64 as DIBs, which every version
-of Windows reads, and 128 and 256 as PNG, which is what the format expects for
-the large ones and keeps the file to tens of kilobytes rather than hundreds. The
-`.ico` is committed, so this only has to run when the icon changes. MSYS2 UCRT64
-only, like the rest of the native build.
+mkicon has to run on the machine doing the build, which when cross-compiling is
+not the machine being built for. So the application's cmake configures it
+separately, without the cross toolchain, against the host's own Qt — which is
+why `gcc-c++`, `qt6-qtbase-devel` and `qt6-qtsvg-devel` are in the Fedora package
+list even though the application itself is built entirely with the `mingw64-`
+ones. MSYS2 already has what it needs.
 
 To see an icon at the sizes it will actually be used at, before committing to
 it, `QIcon` renders an SVG at any size -- a dozen-line Qt program showing the
