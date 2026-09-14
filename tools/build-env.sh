@@ -377,6 +377,62 @@ build_report()
     fi
 }
 
+# deploy_resolve_closure OBJDUMP BINDIR DIST
+#
+# Copy into DIST every DLL its binaries import that is not there already and can
+# be found in BINDIR, repeating until a pass adds nothing: a DLL copied in has
+# imports of its own. Windows' own DLLs are left alone by not being in BINDIR,
+# which is the whole of the filter.
+#
+# Both deploy scripts use this, which is the point of it being here. They differ
+# in everything around it -- one has windeployqt to pick the Qt payload and the
+# other assembles it by hand -- but what a finished folder must contain is not a
+# platform opinion, and when the two drifted the difference was invisible until
+# something failed to start.
+#
+# objdump rather than ntldd, which this used natively: ntldd is itself a Windows
+# executable, so it cannot run on the machine doing a cross build, and it is not
+# in the package list this project tells people to install. objdump arrives with
+# the compiler on both sides, so it is the only lister the two can share.
+#
+# One objdump for a whole pass rather than one per binary, and each binary read
+# only once however many passes it takes. Nearly all the cost is in starting
+# objdump, so per binary a pass costs 0.8 s each; and re-reading everything on
+# every pass cost 24 s of a 30 s package for answers already known. Scanning
+# only what arrived since the last pass makes the total one read per file.
+#
+# The set of scanned files is also what ends the loop: when a pass turns up no
+# binary that has not been read, there is nothing left that could name a new
+# dependency.
+deploy_resolve_closure()
+{
+    local objdump=${1:?usage: deploy_resolve_closure OBJDUMP BINDIR DIST}
+    local bindir=${2:?}
+    local dist=${3:?}
+    local f dll
+    local -a bins pending
+    local -A seen=()
+
+    while :; do
+        mapfile -t bins < <(find "$dist" \( -name '*.exe' -o -name '*.dll' \))
+        pending=()
+        for f in "${bins[@]}"; do
+            [ -n "${seen[$f]:-}" ] || pending+=("$f")
+        done
+        [ ${#pending[@]} -eq 0 ] && break
+        for f in "${pending[@]}"; do seen[$f]=1; done
+
+        # "|| true" because this runs under pipefail: one binary objdump cannot
+        # read would otherwise abort the caller, and it is handed dozens.
+        { "$objdump" -p "${pending[@]}" 2>/dev/null || true; } \
+            | awk '/DLL Name:/ {print $3}' | sort -u | while read -r dll; do
+            if [ ! -f "$dist/$dll" ] && [ -f "$bindir/$dll" ]; then
+                cp "$bindir/$dll" "$dist/"
+            fi
+        done
+    done
+}
+
 # ------------------------------------------------------------------ command ---
 
 # Only when run, not when sourced.

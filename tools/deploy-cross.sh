@@ -78,19 +78,20 @@ if [ -z "$(ls -A "$dist/translations")" ]; then
     exit 1
 fi
 
+# Checked rather than assumed, for the reason the strip check below gives: a
+# missing lister is silent. The closure would find nothing, no runtime DLL
+# would be copied, and the folder would be reported ready around an executable
+# that cannot start.
+command -v "$objdump" >/dev/null 2>&1 || {
+    echo "error: $objdump not found, so the DLLs the build depends on could not" >&2
+    echo "       be resolved. It comes with binutils; see tools/build-env.sh." >&2
+    exit 1
+}
+
 # Resolve the DLL closure: scan every binary already in dist, copy in anything
 # it imports that exists in the sysroot, and repeat until nothing new appears.
-while :; do
-    before=$(find "$dist" -name '*.dll' | wc -l)
-    while read -r f; do
-        "$objdump" -p "$f" 2>/dev/null | awk '/DLL Name:/ {print $3}'
-    done < <(find "$dist" -name '*.exe' -o -name '*.dll') | sort -u | while read -r dll; do
-        if [ ! -f "$dist/$dll" ] && [ -f "$bin/$dll" ]; then
-            cp "$bin/$dll" "$dist/"
-        fi
-    done
-    [ "$(find "$dist" -name '*.dll' | wc -l)" -eq "$before" ] && break
-done
+# Shared with the native build; see deploy_resolve_closure in tools/build-env.sh.
+deploy_resolve_closure "$objdump" "$bin" "$dist"
 
 # Fedora ships its MinGW DLLs unstripped; libstdc++ alone is ~26 MB of debug
 # symbols that do nothing in a shipped build.

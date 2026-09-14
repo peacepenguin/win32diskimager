@@ -5,6 +5,19 @@ set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$root"
+# The same file the cross build reads. This script is the one that did not, and
+# so was the one with no check that its tools were installed.
+. "$root/tools/build-env.sh"
+
+# windeployqt6 brings the Qt payload; objdump resolves everything it leaves out.
+# Neither was checked for before, and a missing one is silent: the closure finds
+# nothing, no runtime DLLs are copied, and the folder is reported ready with an
+# executable in it that cannot start.
+need_msys2_tools windeployqt6 objdump
+
+# Qt's DLLs and the MinGW runtime sit beside the tools, so the prefix is asked
+# for rather than written down.
+MSYS2_BIN=$(dirname "$(command -v objdump)")
 
 [ -f build/Win32DiskImager.exe ] || {
     echo "error: no build/Win32DiskImager.exe -- build it first" >&2
@@ -85,25 +98,9 @@ fi
 
 # windeployqt does not pull in the MinGW runtime or Qt's third-party
 # dependencies on MSYS2, so resolve them ourselves. Plugins in the
-# subdirectories have dependencies of their own, so scan everything and
-# repeat until no new DLLs appear.
-# ntldd takes any number of files, and the whole cost is in starting it:
-# 0.66 s a call whether it is given one binary or asked to resolve nothing.
-# Called once per binary this loop took 24 s; called once with all of them, 2 s.
-# Nothing else changes -- same recursion, same resolved paths, same ucrt64
-# filter -- so it finds the same set.
-#
-# "|| true" because the pipeline runs under pipefail: ntldd reporting a
-# dependency it cannot resolve in one binary would otherwise abort the whole
-# script, and it has 39 chances to.
-while :; do
-    before=$(find dist -name '*.dll' | wc -l)
-    mapfile -t bins < <(find dist -name '*.exe' -o -name '*.dll')
-    { ntldd -R "${bins[@]}" 2>/dev/null || true; } \
-        | awk '/ucrt64/ {print $3}' | sort -u | while read -r dll; do
-        [ -f "dist/${dll##*/}" ] || cp "$dll" dist/
-    done
-    [ "$(find dist -name '*.dll' | wc -l)" -eq "$before" ] && break
-done
+# subdirectories have dependencies of their own, so everything is scanned and
+# the pass repeated until no new DLLs appear. Shared with the cross build; see
+# deploy_resolve_closure in tools/build-env.sh.
+deploy_resolve_closure objdump "$MSYS2_BIN" dist
 
 echo "dist/ is ready ($(du -sh dist | cut -f1))"
