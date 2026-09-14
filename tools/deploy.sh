@@ -41,8 +41,17 @@ LANGUAGES=$(sed -n 's/^set(LANGUAGES \(.*\))$/\1/p' src/CMakeLists.txt)
     --no-system-d3d-compiler \
     Win32DiskImager.exe)
 
-# Nothing in the app links Qt6Network; windeployqt ships it speculatively.
-rm -rf dist/Qt6Network.dll dist/tls dist/networkinformation
+# Qt6Network is not left out, because it cannot be. generic/qtuiotouchplugin.dll
+# links it, and windeployqt says as much while deploying: "Adding Qt6Network for
+# qtuiotouchplugin.dll from plugin type: generic". Deleting the DLL here achieved
+# nothing -- the dependency scan at the end of this script reads the same import
+# table and copies it straight back in -- so it is left where the tooling put it.
+# The cross build ends up with it for the same reason.
+#
+# Its plugins are a different matter. Nothing imports them: they are loaded by
+# name at runtime, which is why the scan below never asks for them and these
+# deletions do stick. No code path in the app opens a socket.
+rm -rf dist/tls dist/networkinformation
 
 for f in dist/translations/*.qm; do
     keep=""
@@ -51,6 +60,23 @@ for f in dist/translations/*.qm; do
     done
     [ -n "$keep" ] || rm -f "$f"
 done
+
+# The same post-condition the cross script keeps on its own copy of this step.
+# windeployqt decides by itself what to write here and under what names -- it
+# merges Qt's per-module catalogues into one qt_<lang>.qm -- so a change on its
+# side, or to the trim above, could empty this directory while everything else
+# in this script still succeeded. The package would look right, start fine, and
+# have every Qt-supplied string in it silently in English.
+#
+# Emptiness is the test, not one file per language: Qt ships no translation at
+# all for some of the languages the app itself covers (ta_IN among them), and
+# those gaps are normal.
+if [ -z "$(ls -A dist/translations 2>/dev/null)" ]; then
+    echo "error: no Qt translations in dist/translations." >&2
+    echo "       windeployqt writes them and the loop above trims them to" >&2
+    echo "       LANGUAGES; see its output above for what it actually did." >&2
+    exit 1
+fi
 
 # windeployqt does not pull in the MinGW runtime or Qt's third-party
 # dependencies on MSYS2, so resolve them ourselves. Plugins in the
