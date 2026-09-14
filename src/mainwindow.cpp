@@ -1763,6 +1763,11 @@ static QString formatDeviceSize(unsigned long long bytes)
 // is already on screen rather than arriving with the delay.
 static const int SCAN_MESSAGE_MS = 1000;
 
+// How long the interface is left running before a scan started by clicking
+// something blocks it. Long enough for the control to finish drawing itself;
+// see on_showAllDevicesCheckBox_toggled().
+static const int SCAN_SETTLE_MS = 250;
+
 // Rescan behind a status message. Both rescans anyone waits on come through
 // here: the one after the window appears, and the one the device list runs as
 // it is opened.
@@ -1779,15 +1784,25 @@ void MainWindow::rescanDevices()
         return;
     }
     statusbar->showMessage(tr("Scanning disks..."));
+    // A wait cursor as well as the message. A scan that has to spin a disk up
+    // takes twelve seconds, and for every one of them the window is frozen --
+    // it does not repaint and does not answer. The message says what is
+    // happening; the cursor says it where the pointer already is, over the
+    // control that was just clicked.
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-    // Painted before the scan rather than left in the queue behind it.
-    // getLogicalDrives() blocks this thread, so a message merely posted would
-    // not reach the screen until the wait it explains was already over.
+    // Painted before the scan rather than left in the queue behind it. This
+    // flushes the message, the cursor, and the repaint still pending on
+    // whatever was clicked to get here -- getLogicalDrives() blocks this
+    // thread, so anything merely posted would not reach the screen until the
+    // wait it explains was already over, and a checkbox would sit there drawn
+    // in the state it was clicked in looking like a hung program.
     QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
     QElapsedTimer scan;
     scan.start();
     getLogicalDrives();
+    QApplication::restoreOverrideCursor();
 
     const qint64 held = SCAN_MESSAGE_MS - scan.elapsed();
     if (held <= 0)
@@ -1888,7 +1903,21 @@ bool MainWindow::fileIsOnSelectedDevice(const QString &file)
 
 void MainWindow::on_showAllDevicesCheckBox_toggled(bool)
 {
-    getLogicalDrives();
+    // Through rescanDevices(), not straight to getLogicalDrives(). Ticking
+    // this box is what asks for the fixed disks, which are the ones that may
+    // be spun down -- so of the three places a scan starts, this is the one
+    // most likely to take twelve seconds, and it was the one that showed
+    // nothing at all while it did.
+    //
+    // Deferred, and deliberately not by zero. The tick is animated by the
+    // Windows style, and an animation advances only while the event loop is
+    // running: a single pass of processEvents draws its first frame, which is
+    // an empty box. Scanning straight from this slot therefore left the
+    // checkbox drawn unticked for the whole wait, next to a status bar saying
+    // it was scanning -- which reads as the click having been ignored, and was
+    // measured doing exactly that four seconds into a stalled scan. Letting
+    // the loop run first costs a quarter second against a wait of twelve.
+    QTimer::singleShot(SCAN_SETTLE_MS, this, [this]() { rescanDevices(); });
 }
 
 // register to receive notifications when USB devices are inserted or removed
