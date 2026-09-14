@@ -844,7 +844,6 @@ void MainWindow::on_bWrite_clicked()
             if (!acquireDeviceAndImage(deviceID, locked, image, &availablesectors,
                                        tr("Write Error"), tr("Write failed.")))
             {
-                passfail = false;
                 return;
             }
             // gzip only records the uncompressed size modulo 4 GiB, so for any
@@ -1411,7 +1410,6 @@ void MainWindow::on_bVerify_clicked()
             if (!acquireDeviceAndImage(deviceID, locked, image, &availablesectors,
                                        tr("Verify Error"), tr("Verify failed.")))
             {
-                passfail = false;
                 return;
             }
             // gzip only records the uncompressed size modulo 4 GiB, so for any

@@ -211,6 +211,15 @@ unsigned long long getNumberOfSectors(HANDLE handle, unsigned long long *sectors
     {
         *sectorsize = (unsigned long long)diskgeometry.Geometry.BytesPerSector;
     }
+    if (diskgeometry.Geometry.BytesPerSector == 0)
+    {
+        // Nothing else here divides by a sector size without checking it first,
+        // and this is the one place that would fault the process rather than
+        // return something wrong. Zero is a size every caller already stops on;
+        // what they then say -- that the device reports no size -- is near
+        // enough to a device that reports no sector size.
+        return 0;
+    }
     return (unsigned long long)diskgeometry.DiskSize.QuadPart / (unsigned long long)diskgeometry.Geometry.BytesPerSector;
 }
 
