@@ -64,7 +64,21 @@ else
     done
 fi
 
-# Run from src/ so the <location> paths lupdate writes stay relative to the .ts
-# files the way the existing ones are ("../mainwindow.ui").
+# Run from src/ so the source files are found by the plain names below.
 cd "$REPO/src"
-"$LUPDATE" -locations relative *.cpp *.h *.ui -ts "${TSFILES[@]}"
+
+# -locations none: the .ts files record no line numbers.
+#
+# They are only ever read by a person in Linguist, to see where a string comes
+# from. Nothing in the build wants them: lrelease ignores them, and a .ts
+# stripped of every <location> compiles to a byte-identical .qm. What they cost
+# is the history -- adding one string moved the line numbers under every string
+# after it, so a one-line change arrived as a hundred-line diff in each of
+# twelve files and the real change had to be hunted for.
+#
+# Matching is by context and source text, not by position, so existing
+# translations survive the change and later runs still find them.
+#
+# Anyone who does want the source references can have them for a look without
+# committing them:  lupdate -locations relative *.cpp *.h *.ui -ts lang/foo.ts
+"$LUPDATE" -locations none *.cpp *.h *.ui -ts "${TSFILES[@]}"
