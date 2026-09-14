@@ -124,6 +124,14 @@ def show_entries(f, plba, pnum, psize, pcrc, last=None):
         print(f"   [{i}] {sl:>10}-{el:<10} attr={attr:#018x} "
               f"type={uuid.UUID(bytes_le=tguid)} name={nm!r}")
 
+def show_table(f, title, lba, last):
+    """Header at lba, then the entries it points at. Returns the header fields,
+    or None when there is no GPT there."""
+    h = show_header(title, read_at(f, lba), last)
+    if h:
+        show_entries(f, *h[1], last)
+    return h
+
 def main(path):
     with open(path, "rb") as f:
         size = dev_size(path, f)
@@ -139,8 +147,7 @@ def main(path):
             print(f"   [{i}] type={e[4]:#04x} start={st} count={cnt}")
         print()
 
-        h = show_header("Primary GPT (LBA 1)", read_at(f, 1), last)
-        if h: show_entries(f, *h[1], last)
+        h = show_table(f, "Primary GPT (LBA 1)", 1, last)
         print()
 
         # An image written to a larger device leaves its backup GPT where the
@@ -149,14 +156,12 @@ def main(path):
         # actually in use. Follow the primary's AlternateLBA as well.
         alt = h[0] if h else None
         if alt is not None and alt != last:
-            hb = show_header(f"Backup GPT where the primary points (LBA {alt})",
-                             read_at(f, alt), last)
-            if hb: show_entries(f, *hb[1], last)
+            show_table(f, f"Backup GPT where the primary points (LBA {alt})",
+                       alt, last)
             print()
 
         if last:
-            hb = show_header(f"Backup GPT at device end (LBA {last})", read_at(f, last), last)
-            if hb: show_entries(f, *hb[1], last)
+            show_table(f, f"Backup GPT at device end (LBA {last})", last, last)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

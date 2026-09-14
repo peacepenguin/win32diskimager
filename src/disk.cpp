@@ -91,20 +91,6 @@ HANDLE getHandleOnDevice(int device, DWORD access)
     return hDevice;
 }
 
-bool getLockOnVolume(HANDLE handle)
-{
-    DWORD bytesreturned;
-    BOOL bResult;
-    bResult = DeviceIoControl(handle, FSCTL_LOCK_VOLUME, NULL, 0, NULL, 0, &bytesreturned, NULL);
-    if (!bResult)
-    {
-        reportWin32Error(QObject::tr("Lock Error"),
-                         QObject::tr("An error occurred when attempting to lock the volume.\n"
-                         "Error %1: %2"));
-    }
-    return (bResult);
-}
-
 bool removeLockOnVolume(HANDLE handle)
 {
     DWORD junk;
@@ -131,14 +117,6 @@ bool unmountVolume(HANDLE handle)
                          "Error %1: %2"));
     }
     return (bResult);
-}
-
-bool isVolumeUnmounted(HANDLE handle)
-{
-    DWORD junk;
-    BOOL bResult;
-    bResult = DeviceIoControl(handle, FSCTL_IS_VOLUME_MOUNTED, NULL, 0, NULL, 0, &junk, NULL);
-    return (!bResult);
 }
 
 char *readSectorDataFromHandle(HANDLE handle, unsigned long long startsector, unsigned long long numsectors, unsigned long long sectorsize)
@@ -277,27 +255,43 @@ bool spaceAvailable(char *location, unsigned long long spaceneeded)
 
 
 
-// Physical disk a mounted volume lives on, or -1 if it cannot be determined.
-static int diskNumberOfVolume(char letter)
+// Open a volume by drive letter and report which physical disk it lives on.
+// access is what CreateFile is asked for: 0 puts the question without needing
+// the volume to be readable by us and without disturbing whatever else has it
+// open, while a caller that means to lock the volume asks for read and write.
+// Returns INVALID_HANDLE_VALUE unless the volume opened and named a disk, so
+// *disk is set whenever a handle comes back.
+static HANDLE openVolumeOnDisk(char letter, DWORD access, int *disk)
 {
     char volumename[] = "\\\\.\\A:";
     volumename[4] = letter;
-    // No access rights are requested: this only queries the volume, and asking
-    // for read access would need the volume to be readable by us.
-    HANDLE h = CreateFile(volumename, 0, FILE_SHARE_READ | FILE_SHARE_WRITE,
+    HANDLE h = CreateFile(volumename, access, FILE_SHARE_READ | FILE_SHARE_WRITE,
                           NULL, OPEN_EXISTING, 0, NULL);
     if (h == INVALID_HANDLE_VALUE)
     {
-        return -1;
+        return INVALID_HANDLE_VALUE;
     }
     VOLUME_DISK_EXTENTS sd;
     DWORD bytesreturned;
-    int disk = -1;
-    if (DeviceIoControl(h, IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS, NULL, 0,
-                        &sd, sizeof(sd), &bytesreturned, NULL)
-        && sd.NumberOfDiskExtents > 0)
+    if (!DeviceIoControl(h, IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS, NULL, 0,
+                         &sd, sizeof(sd), &bytesreturned, NULL)
+        || sd.NumberOfDiskExtents == 0)
     {
-        disk = (int)sd.Extents[0].DiskNumber;
+        CloseHandle(h);
+        return INVALID_HANDLE_VALUE;
+    }
+    *disk = (int)sd.Extents[0].DiskNumber;
+    return h;
+}
+
+// Physical disk a mounted volume lives on, or -1 if it cannot be determined.
+static int diskNumberOfVolume(char letter)
+{
+    int disk = -1;
+    HANDLE h = openVolumeOnDisk(letter, 0, &disk);
+    if (h == INVALID_HANDLE_VALUE)
+    {
+        return -1;
     }
     CloseHandle(h);
     return disk;
@@ -353,8 +347,7 @@ QList<PhysicalDevice> enumeratePhysicalDevices(bool includeFixed)
     for (ULONG n = 0; n < 128; ++n)
     {
         QString devicename = QString("\\\\.\\PhysicalDrive%1").arg(n);
-        // Querying needs no access rights, so this works without the disk being
-        // readable and without disturbing whatever else has it open.
+        // No access rights, for the same reason as openVolumeOnDisk above.
         HANDLE hDevice = CreateFile(devicename.toLatin1().data(), 0,
                                     FILE_SHARE_READ | FILE_SHARE_WRITE, NULL,
                                     OPEN_EXISTING, 0, NULL);
@@ -444,19 +437,14 @@ bool LockedVolumes::lockAll(DWORD deviceID)
         {
             continue;
         }
-        char volumename[] = "\\\\.\\A:";
-        volumename[4] = 'A' + i;
-        HANDLE h = CreateFile(volumename, GENERIC_READ | GENERIC_WRITE,
-                              FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+        int disk = -1;
+        HANDLE h = openVolumeOnDisk((char)('A' + i),
+                                    GENERIC_READ | GENERIC_WRITE, &disk);
         if (h == INVALID_HANDLE_VALUE)
         {
             continue;
         }
-        VOLUME_DISK_EXTENTS sd;
-        DWORD bytesreturned;
-        if (!DeviceIoControl(h, IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS, NULL, 0,
-                             &sd, sizeof(sd), &bytesreturned, NULL)
-            || sd.Extents[0].DiskNumber != deviceID)
+        if (disk != (int)deviceID)
         {
             CloseHandle(h);
             continue;
@@ -551,6 +539,10 @@ bool ejectDevice(HANDLE handle)
 #define GPT_OFF_NUMENTRIES    80
 #define GPT_OFF_ENTRYSIZE     84
 #define GPT_OFF_ENTRIESCRC    88
+// Offsets within one partition entry.
+#define GPT_ENT_TYPEGUID       0
+#define GPT_ENT_FIRSTLBA      32
+#define GPT_ENT_LASTLBA       40
 
 static DWORD gptCrc32(const unsigned char *data, size_t len)
 {
@@ -632,6 +624,21 @@ static bool rawSeekWrite(HANDLE h, unsigned long long offset, const void *buf, D
         return false;
     }
     return WriteFile(h, buf, len, &put, NULL) && put == len;
+}
+
+// An entry describes a partition when its type GUID is anything but zero. The
+// array is mostly empty on a normal table -- 128 slots, a handful used -- so
+// every walk over it has to skip the rest.
+static bool gptEntryInUse(const unsigned char *e)
+{
+    for (int b = 0; b < 16; ++b)
+    {
+        if (e[GPT_ENT_TYPEGUID + b] != 0)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 // Validate a GPT header's entry-array geometry and report the space it takes.
@@ -753,16 +760,11 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     for (unsigned long long i = 0; i < numentries; ++i)
     {
         const unsigned char *e = (const unsigned char *)entries.constData() + i * entrysize;
-        bool empty = true;
-        for (int b = 0; b < 16; ++b)
-        {
-            if (e[b] != 0) { empty = false; break; }
-        }
-        if (empty)
+        if (!gptEntryInUse(e))
         {
             continue;
         }
-        if (rd64(e, 40) > lastusable)
+        if (rd64(e, GPT_ENT_LASTLBA) > lastusable)
         {
             if (detail) *detail = QObject::tr("a partition extends past the end of the device");
             return GPT_FIX_FAILED;
@@ -868,17 +870,12 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
             {
                 const unsigned char *e =
                     (const unsigned char *)entries.constData() + i * entrysize;
-                bool empty = true;
-                for (int b = 0; b < 16; ++b)
-                {
-                    if (e[b] != 0) { empty = false; break; }
-                }
-                if (empty)
+                if (!gptEntryInUse(e))
                 {
                     continue;
                 }
-                unsigned long long pstart = rd64(e, 32);
-                unsigned long long pend   = rd64(e, 40);
+                unsigned long long pstart = rd64(e, GPT_ENT_FIRSTLBA);
+                unsigned long long pend   = rd64(e, GPT_ENT_LASTLBA);
                 if (pstart <= stalelast && stalefirst <= pend)
                 {
                     safe = false;
@@ -971,11 +968,7 @@ GptRewriteRisk gptRewriteRisk(HANDLE hRawDisk, unsigned long long sectorsize)
         return GPT_RISK_UNKNOWN;
     }
 
-    // Windows recomputes the primary header's PartitionEntryLBA as
-    // FirstUsableLBA minus the length of the entry array. Where that happens to
-    // equal the real PartitionEntryLBA -- the usual layout, FirstUsableLBA 34
-    // with a 32-sector array at LBA 2 -- the rewrite is harmless. Where the
-    // image reserves space ahead of its first partition, it is not.
+    // The value Windows would write, against the one that is there.
     return (firstusable - entrysectors == entrylba) ? GPT_RISK_SAFE : GPT_RISK_AFFECTED;
 }
 

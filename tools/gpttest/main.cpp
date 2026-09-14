@@ -50,10 +50,14 @@ static const unsigned long long ENTRIES = 128;
 static const unsigned long long ENTRYSIZE = 128;
 static const unsigned long long ENTRYSECTORS = (ENTRIES * ENTRYSIZE) / SEC;   // 32
 
-// GPT header field offsets, as in disk.cpp.
+// GPT field offsets, from the UEFI specification. disk.cpp states them too,
+// and that repetition is the point: the harness builds its fixtures from these
+// and disk.cpp reads them back through its own. Sharing one set of constants
+// would leave a wrong offset agreeing with itself and the tests still passing.
+// Header:
 enum { H_MYLBA = 24, H_ALTLBA = 32, H_FIRSTUSABLE = 40, H_LASTUSABLE = 48,
        H_ENTRYLBA = 72, H_HEADERCRC = 16 };
-// Partition entry field offsets.
+// Partition entry:
 enum { P_START = 32, P_END = 40 };
 
 static unsigned long long rd64(const unsigned char *p, int o)
@@ -400,7 +404,6 @@ static void caseUntouched(const char *name, GptFixResult expect,
     printf("\n");
 }
 
-static void damageNone(unsigned char *, unsigned long long) {}
 static void damageSignature(unsigned char *d, unsigned long long)
 {
     memset(d + SEC, 0, 8);                       // wipe "EFI PART"
@@ -530,7 +533,6 @@ int main(int argc, char **argv)
     // After Windows has already mangled it, with "Fix GPT after write" off.
     caseAfterTheFact("windows rewrote the table (reserved-space layout)", 2048, true);
     caseAfterTheFact("windows rewrote the table (ordinary layout)", 34, false);
-    (void)damageNone;
 
     DeleteFileA(TESTFILE);
     printf("%d checks, %d failures\n", checks, failures);

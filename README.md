@@ -47,26 +47,38 @@ produces no device-arrival broadcast at all.
 ## Partition tables
 
 Writing an image smaller than the card leaves the backup GPT where the *image*
-ends rather than where the *device* ends. Linux leaves that alone; Windows
-treats it as damage and repairs it on the next rescan - and gets it wrong.
+ends rather than where the *device* ends. Linux leaves that alone.
 
-Most of that repair is correct: the backup GPT is moved to the end of the
-device and `AlternateLBA` and `LastUsableLBA` are updated to match. But Windows
-also rewrites the primary header's `PartitionEntryLBA` to `FirstUsableLBA - 32`
-instead of leaving it pointing at the entry array, which has not moved.
+**Windows always rewrites it.** Any time it rescans a disk whose image was
+smaller than the disk - which is every time such a card is plugged in - it
+rewrites the partition table to match the device. That happens on every card,
+every time, and most of what it does is right and worth having: the backup GPT
+is moved to the end of the device and `AlternateLBA` and `LastUsableLBA` are
+updated to match, which is what `sgdisk -e` would do and what the card wanted
+anyway.
 
-On an ordinary image `FirstUsableLBA` is 34, so `34 - 32 = 2` is accidentally
-correct and nothing breaks. ARM board images reserve space ahead of the first
-partition - rk3588 keeps idbloader and u-boot below LBA 2048 - and there
-`2048 - 32 = 2016` points at empty space. The primary table is then rejected:
-`parted` says `Partition Table: unknown`, and a Rock 5B fails to boot because
-U-Boot looks its partitions up by GPT name.
+**Sometimes it corrupts the table doing it.** While rewriting, Windows also
+recomputes the primary header's `PartitionEntryLBA` as `FirstUsableLBA - 32`,
+rather than leaving it pointing at the entry array, which has not moved.
+Whether that ruins the table depends entirely on the image:
 
-No data sector is touched, and Windows validates the backup header - the half
-it wrote correctly - so Disk Management and Rufus still show a healthy disk.
-Rufus triggers the same repair, so this is Windows behaviour rather than a bug
-in any one imaging tool. The full analysis, and a 48 MB reproducer that shows
-the damage in about a minute, are in [TESTING-GPT-BUG.md](TESTING-GPT-BUG.md).
+- **`FirstUsableLBA` is 34** - the ordinary case, and most desktop and
+  Raspberry Pi images. `34 - 32 = 2` is exactly where the entry array already
+  is, so the wrong formula arrives at the right answer and nothing breaks.
+  This is why the defect went unnoticed for so long.
+- **`FirstUsableLBA` is higher** - ARM board images reserve space ahead of the
+  first partition; rk3588 keeps idbloader and u-boot below LBA 2048. There
+  `2048 - 32 = 2016` points at empty space, `PartitionEntryArrayCRC32` no
+  longer describes what the header points at, and the primary table is
+  corrupt. `parted` says `Partition Table: unknown`, and a Rock 5B fails to
+  boot because U-Boot looks its partitions up by GPT name.
+
+No data sector is touched either way, and Windows validates the backup header -
+the half it wrote correctly - so Disk Management and Rufus still show a healthy
+disk even when the primary table is ruined. Rufus triggers the same rewrite, so
+this is Windows behaviour rather than a bug in any one imaging tool. The full
+analysis, and a 48 MB reproducer that shows the damage in about a minute, are
+in [TESTING-GPT-BUG.md](TESTING-GPT-BUG.md).
 
 ### Fix GPT after write
 
@@ -79,8 +91,8 @@ can be handled normally afterwards.
 **Unchecked - preserve the image byte for byte.** The disk is taken offline and
 ejected before the volume locks are released, so nothing can rescan it, and a
 dialog tells you to remove the card without re-inserting it. The card ends up
-identical to a Linux `dd`. Re-inserting it in Windows lets Windows "fix" the
-table, with the result described above.
+identical to a Linux `dd`. Re-inserting it in Windows lets Windows rewrite the
+table, which corrupts it if the image's `FirstUsableLBA` is not 34.
 
 ### Repairing a table Windows has already broken
 

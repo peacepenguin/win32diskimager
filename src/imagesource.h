@@ -55,7 +55,6 @@ public:
     bool open(const QString &path, unsigned long long sectorsize);
     void close();
 
-    Format format() const { return myFormat; }
     bool isCompressed() const { return myFormat != FORMAT_RAW; }
     // True when sizeInSectors() is the exact size of the image. xz carries an
     // index, so it usually is -- but readXzSize reports the size unknown rather
@@ -68,8 +67,6 @@ public:
     // estimate, or 0 when even that could not be worked out. Never use it to
     // decide where the image ends unless sizeKnown().
     unsigned long long sizeInSectors() const { return mySectors; }
-    // Compressed bytes consumed so far, for progress on an unknown size.
-    unsigned long long compressedSize() const { return myCompressedSize; }
     const QString &errorString() const { return myError; }
 
     // Reads count sectors starting at startsector into a newly allocated
@@ -89,6 +86,12 @@ private:
     // than padding or a trailer that is not ours to decode.
     bool nextMemberFollows(bool *follows);
     bool skipTo(unsigned long long startsector);
+    // The size probes share a convention. A false return means only that the
+    // size could not be worked out, which the write survives by running until
+    // the stream ends; a set errorString() means the file itself could not be
+    // read, which it does not. Without the distinction a disk error during the
+    // probe would pass for "size unknown" and the write would run to the end of
+    // the device instead of stopping.
     bool readAt(unsigned long long offset, void *buf, unsigned long len);
     bool readGzipSize(unsigned long long filesize);
     bool readXzSize(unsigned long long filesize);

@@ -82,7 +82,6 @@ QString driveLettersOnDevice(ULONG deviceID);
 
 HANDLE getHandleOnFile(LPCWSTR filelocation, DWORD access);
 HANDLE getHandleOnDevice(int device, DWORD access);
-bool getLockOnVolume(HANDLE handle);
 bool removeLockOnVolume(HANDLE handle);
 bool unmountVolume(HANDLE handle);
 
@@ -101,11 +100,29 @@ private:
     QList<HANDLE> handles;
 };
 
-// Erase any existing partition tables before writing an image. A card that
-// previously held a larger image still has that image's backup GPT sitting at
-// the very end of the device; writing a smaller image over the front leaves it
-// there, and Windows then tries to reconcile the new primary header with the
-// stale backup. Zeroing both ends first removes the trace.
+// ---------------------------------------------------------------------------
+// GPT
+//
+// Writing an image smaller than the device leaves the image's backup GPT
+// stranded where the image ends rather than at the end of the disk. Windows
+// does not leave that alone: whenever it rescans such a disk it rewrites the
+// partition table to match the device. Most of that rewrite is what "sgdisk -e"
+// would do and is welcome, but it also recomputes the primary header's
+// PartitionEntryLBA as FirstUsableLBA minus the length of the entry array,
+// rather than leaving it pointing at the entry array, which has not moved. On
+// the ordinary layout -- FirstUsableLBA 34, a 32-sector array at LBA 2 -- the
+// wrong formula arrives at the right answer and nothing breaks. On an image
+// that reserves space ahead of its first partition, as ARM board images do, it
+// points at empty space and the primary table is corrupt.
+//
+// The functions below either keep that rewrite from being provoked, report
+// whether it would do harm, or undo it after the fact. README.md tells the
+// whole story; the comments here assume it.
+// ---------------------------------------------------------------------------
+
+// Erase any existing partition tables before writing an image, so a previous
+// larger image's backup GPT cannot survive at the end of the device and be
+// reconciled against the new one. Zeroing both ends removes the trace.
 bool wipePartitionTables(HANDLE hRawDisk, unsigned long long sectorsize,
                          unsigned long long devicesectors);
 
@@ -121,10 +138,8 @@ enum GptFixResult
 };
 
 // Move the backup GPT to the true last LBA of the device and update
-// AlternateLBA/LastUsableLBA to match, the way "sgdisk -e" does. Writing an
-// image smaller than the target leaves the backup GPT stranded mid-device;
-// Windows treats that as damage and silently rewrites the table. Making the
-// table consistent ourselves removes the trigger.
+// AlternateLBA/LastUsableLBA to match, the way "sgdisk -e" does. Making the
+// table consistent with the device ourselves leaves Windows nothing to rewrite.
 GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
                                unsigned long long devicesectors, QString *detail);
 
@@ -133,8 +148,7 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
 // no partition table at all" when reporting that there is no GPT to repair.
 bool deviceHasMbrTable(HANDLE hRawDisk, unsigned long long sectorsize);
 
-// Whether this table would survive Windows' rewrite if the device were
-// rescanned with the backup GPT still stranded mid-device.
+// Whether this table would survive the rewrite.
 enum GptRewriteRisk
 {
     GPT_RISK_UNKNOWN,   // could not be determined
@@ -143,18 +157,12 @@ enum GptRewriteRisk
     GPT_RISK_AFFECTED   // the rewrite would invalidate the primary table
 };
 
-// Compare the real PartitionEntryLBA against the value Windows computes for it,
-// FirstUsableLBA minus the length of the entry array. They differ exactly when
-// the image reserves space ahead of its first partition, which is what makes
-// ARM board images vulnerable and ordinary ones immune.
+// Compare the real PartitionEntryLBA against the value Windows would compute
+// for it. They differ exactly when the image reserves space ahead of its first
+// partition, which is what makes ARM board images vulnerable and ordinary ones
+// immune.
 GptRewriteRisk gptRewriteRisk(HANDLE hRawDisk, unsigned long long sectorsize);
 
-// Report the sectors that "Fix GPT after write" may rewrite, so a verify can
-// tell a deliberate GPT rewrite apart from a bad card. The front range
-// [0, *frontend) covers the protective MBR, the primary header and the primary
-// entry array; the tail range [*tailstart, devicesectors) covers the relocated
-// backup entry array and header. Returns false if the device holds no usable
-// GPT, in which case neither output is set.
 // What state the device's primary GPT is in, judged against itself.
 enum GptPrimaryState
 {
@@ -165,11 +173,9 @@ enum GptPrimaryState
 };
 
 // Detect a primary table that has been left pointing somewhere the partition
-// entries are not. That is what Windows leaves behind on a disk whose
-// FirstUsableLBA is not 34: it rewrites PartitionEntryLBA, recomputes the
-// header checksum over the new value, and so leaves a header that passes its
-// own CRC while PartitionEntryArrayCRC32 no longer describes what is there.
-// Nothing reading the primary table will accept it.
+// entries are not. Windows recomputes the header checksum over the value it
+// wrote, so the header passes its own CRC while PartitionEntryArrayCRC32 no
+// longer describes what it points at. Nothing reading the table will accept it.
 GptPrimaryState gptPrimaryState(HANDLE hRawDisk, unsigned long long sectorsize,
                                 unsigned long long devicesectors);
 
@@ -189,6 +195,12 @@ bool repairPrimaryGpt(HANDLE hRawDisk, unsigned long long sectorsize,
 bool gptImageBackupRange(const unsigned char *lba1, unsigned long long sectorsize,
                          unsigned long long *first, unsigned long long *last);
 
+// Report the sectors that "Fix GPT after write" may rewrite, so a verify can
+// tell a deliberate GPT rewrite apart from a bad card. The front range
+// [0, *frontend) covers the protective MBR, the primary header and the primary
+// entry array; the tail range [*tailstart, devicesectors) covers the relocated
+// backup entry array and header. Returns false if the device holds no usable
+// GPT, in which case neither output is set.
 bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
                      unsigned long long devicesectors,
                      unsigned long long *frontend, unsigned long long *tailstart);
@@ -196,7 +208,6 @@ bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
 bool flushDevice(HANDLE handle);
 bool setDiskOffline(HANDLE handle, bool offline);
 bool ejectDevice(HANDLE handle);
-bool isVolumeUnmounted(HANDLE handle);
 char *readSectorDataFromHandle(HANDLE handle, unsigned long long startsector, unsigned long long numsectors, unsigned long long sectorsize);
 bool writeSectorDataToHandle(HANDLE handle, char *data, unsigned long long startsector, unsigned long long numsectors, unsigned long long sectorsize);
 // Sectors on the device, or 0. *reported is set when the failure has already

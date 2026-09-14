@@ -74,14 +74,13 @@ if [ -z "$REFERENCE" ] && [ "$kind" != raw ]; then
     fi
 fi
 
+echo "image:     $IMAGE ($kind)"
 if [ -n "$REFERENCE" ]; then
     [ -f "$REFERENCE" ] || { echo "no such reference: $REFERENCE" >&2; exit 1; }
-    echo "image:     $IMAGE ($kind)"
     echo "reference: $REFERENCE (uncompressed, read directly)"
     size=$(stat -c%s "$REFERENCE")
     source=(cat "$REFERENCE")
 else
-    echo "image:     $IMAGE ($kind)"
     case "$kind" in
         gzip) source=(gzip -dc "$IMAGE") ;;
         xz)   source=(xz -dc "$IMAGE") ;;

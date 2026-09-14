@@ -157,7 +157,7 @@
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+498"/>
+        <location filename="../mainwindow.cpp" line="+523"/>
         <source>Exit?</source>
         <translation>Exit?</translation>
     </message>
@@ -181,12 +181,12 @@ Are you sure you want to exit?</translation>
         <translation>Select a disk image</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+42"/>
         <source>Generating...</source>
         <translation>Generating...</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+183"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>Cancel?</translation>
@@ -203,7 +203,7 @@ Are you sure you want to cancel?</translation>
         <location line="+6"/>
         <location line="+38"/>
         <location line="+91"/>
-        <location line="+37"/>
+        <location line="+24"/>
         <location line="+22"/>
         <location line="+224"/>
         <location line="+81"/>
@@ -211,31 +211,31 @@ Are you sure you want to cancel?</translation>
         <translation>Write Error</translation>
     </message>
     <message>
-        <location line="-499"/>
-        <location line="+418"/>
-        <location line="+179"/>
+        <location line="-486"/>
+        <location line="+405"/>
+        <location line="+168"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>Image file cannot be located on the target device.</translation>
     </message>
     <message>
-        <location line="-588"/>
+        <location line="-564"/>
         <source>Confirm overwrite</source>
         <translation>Confirm overwrite</translation>
     </message>
     <message>
-        <location line="-450"/>
+        <location line="-442"/>
         <source>Waiting for a task.</source>
         <translation>Waiting for a task.</translation>
     </message>
     <message>
-        <location line="+149"/>
+        <location line="+145"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Exiting now will cancel verifying image.
 Are you sure you want to exit?</translation>
     </message>
     <message>
-        <location line="+271"/>
+        <location line="+267"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Cancel Verify.
@@ -248,15 +248,15 @@ Are you sure you want to cancel?</translation>
         <translation>Not enough available space!</translation>
     </message>
     <message>
-        <location line="-312"/>
+        <location line="-310"/>
         <location line="+11"/>
-        <location line="+250"/>
-        <location line="+294"/>
+        <location line="+248"/>
+        <location line="+281"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+253"/>
-        <location line="+281"/>
+        <location line="+242"/>
+        <location line="+271"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+13"/>
@@ -282,41 +282,41 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 Physically remove the device NOW, before doing anything else, and do not re-insert it into this computer. Insert it into the target hardware instead.</translation>
     </message>
     <message>
-        <location line="-581"/>
-        <location line="+558"/>
+        <location line="-560"/>
+        <location line="+537"/>
         <source>The selected file does not exist.</source>
         <translation>The selected file does not exist.</translation>
     </message>
     <message>
-        <location line="-851"/>
-        <location line="+303"/>
-        <location line="+268"/>
+        <location line="-817"/>
         <location line="+290"/>
+        <location line="+257"/>
+        <location line="+280"/>
         <source>The specified file contains no data.</source>
         <translation>The specified file contains no data.</translation>
     </message>
     <message>
-        <location line="-554"/>
-        <location line="+192"/>
-        <location line="+366"/>
+        <location line="-533"/>
+        <location line="+181"/>
+        <location line="+356"/>
         <source>Done.</source>
         <translation>Done.</translation>
     </message>
     <message>
-        <location line="-362"/>
+        <location line="-352"/>
         <location line="+2"/>
-        <location line="+339"/>
+        <location line="+329"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>Complete</translation>
     </message>
     <message>
-        <location line="-558"/>
+        <location line="-537"/>
         <source>Write Successful.</source>
         <translation>Write Successful.</translation>
     </message>
     <message>
-        <location line="-576"/>
+        <location line="-561"/>
         <location line="+11"/>
         <source>Error</source>
         <translation>Error</translation>
@@ -329,7 +329,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 %1</translation>
     </message>
     <message>
-        <location line="+205"/>
+        <location line="+203"/>
         <source>Please select a target device.</source>
         <translation>Please select a target device.</translation>
     </message>
@@ -369,28 +369,28 @@ Write to this device anyway?</translation>
         <location line="+22"/>
         <location line="+21"/>
         <location line="+55"/>
-        <location line="+37"/>
+        <location line="+24"/>
         <location line="+23"/>
         <source>Write failed.</source>
         <translation>Write failed.</translation>
     </message>
     <message>
-        <location line="-793"/>
-        <location line="+459"/>
+        <location line="-781"/>
+        <location line="+462"/>
         <location line="+24"/>
-        <location line="+581"/>
+        <location line="+566"/>
         <source>Device Error</source>
         <translation>Device Error</translation>
     </message>
     <message>
-        <location line="-1063"/>
-        <location line="+483"/>
-        <location line="+581"/>
+        <location line="-1051"/>
+        <location line="+486"/>
+        <location line="+566"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>The device reports a size of zero. If it is a card reader, the card may have been removed.</translation>
     </message>
     <message>
-        <location line="-399"/>
+        <location line="-386"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -482,7 +482,7 @@ Continue Anyway?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+37"/>
+        <location line="+24"/>
         <location line="+21"/>
         <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
         <translation>The device has been partially written and no longer holds a usable image. Write the image again before using it.</translation>
@@ -588,12 +588,12 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+558"/>
+        <location line="+537"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>You do not have permission to read the selected file.</translation>
     </message>
     <message>
-        <location line="-508"/>
+        <location line="-487"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -607,7 +607,7 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</translation>
         <location line="+15"/>
         <location line="+9"/>
         <location line="+21"/>
-        <location line="+26"/>
+        <location line="+15"/>
         <location line="+12"/>
         <source>Read failed.</source>
         <translation>Read failed.</translation>
@@ -616,13 +616,13 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</translation>
         <location line="+72"/>
         <location line="+21"/>
         <location line="+21"/>
-        <location line="+76"/>
+        <location line="+66"/>
         <location line="+24"/>
         <source>Verify failed.</source>
         <translation>Verify failed.</translation>
     </message>
     <message>
-        <location line="-112"/>
+        <location line="-102"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Device: %2 sectors
@@ -665,13 +665,13 @@ Continue Anyway?</translation>
         <translation>Verify cancelled.</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+22"/>
         <source>Verifying...</source>
         <translation>Verifying...</translation>
     </message>
     <message>
-        <location line="-886"/>
-        <location line="+1040"/>
+        <location line="-850"/>
+        <location line="+1004"/>
         <source>Partition table damaged</source>
         <translation>Partition table damaged</translation>
     </message>
@@ -688,7 +688,7 @@ This is what Windows leaves behind when it rescans a card written without &quot;
 Repair the partition table now?</translation>
     </message>
     <message>
-        <location line="-1022"/>
+        <location line="-986"/>
         <source>Repair failed</source>
         <translation>Repair failed</translation>
     </message>
@@ -698,7 +698,7 @@ Repair the partition table now?</translation>
         <translation>The partition table could not be repaired: %1</translation>
     </message>
     <message>
-        <location line="+1010"/>
+        <location line="+974"/>
         <source>Image larger than device</source>
         <translation>Image larger than device</translation>
     </message>
@@ -716,13 +716,13 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>[Disk %1]</translation>
     </message>
     <message>
-        <location line="-616"/>
-        <location line="+557"/>
+        <location line="-595"/>
+        <location line="+536"/>
         <source>Please specify an image file to use.</source>
         <translation>Please specify an image file to use.</translation>
     </message>
     <message>
-        <location line="-1327"/>
+        <location line="-1287"/>
         <location line="+1"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Disk Images (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -733,7 +733,7 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)</translation>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+197"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation>Could not read the whole file to generate a checksum:
@@ -820,7 +820,7 @@ Repair the partition table now?</translation>
         <translation>The partition table could not be read, or is damaged in some way other than the one this repairs.</translation>
     </message>
     <message>
-        <location line="+237"/>
+        <location line="+222"/>
         <source>Writing...</source>
         <translation>Writing...</translation>
     </message>
@@ -949,7 +949,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <translation>Reading...</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+45"/>
         <source>Read Canceled.</source>
         <translation>Read Canceled.</translation>
     </message>
@@ -972,13 +972,13 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <location line="+23"/>
         <location line="+6"/>
         <location line="+13"/>
-        <location line="+114"/>
+        <location line="+104"/>
         <location line="+21"/>
         <source>Verify Error</source>
         <translation>Verify Error</translation>
     </message>
     <message>
-        <location line="-148"/>
+        <location line="-138"/>
         <source>Please select a device to verify against.</source>
         <translation>Please select a device to verify against.</translation>
     </message>
@@ -1021,7 +1021,7 @@ The extra space does not appear to contain data
 Continue Anyway?</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+66"/>
         <source>The device could not be read at sector %1.</source>
         <translation>The device could not be read at sector %1.</translation>
     </message>
@@ -1036,13 +1036,13 @@ Continue Anyway?</translation>
         <translation>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</translation>
     </message>
     <message>
-        <location line="-226"/>
+        <location line="-216"/>
         <location line="+28"/>
         <source>Size Mismatch!</source>
         <translation>Size Mismatch!</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+107"/>
         <source>Verify Failure</source>
         <translation>Verify Failure</translation>
     </message>
@@ -1124,12 +1124,12 @@ The device could NOT be taken offline automatically.</translation>
     <name>QObject</name>
     <message>
         <location filename="../disk.cpp" line="+64"/>
-        <location line="+184"/>
+        <location line="+162"/>
         <source>File Error</source>
         <translation>File Error</translation>
     </message>
     <message>
-        <location line="-183"/>
+        <location line="-161"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>An error occurred when attempting to get a handle on the file.
@@ -1137,32 +1137,30 @@ Error %1: %2</translation>
     </message>
     <message>
         <location line="+22"/>
-        <location line="+137"/>
+        <location line="+115"/>
         <source>Device Error</source>
         <translation>Device Error</translation>
     </message>
     <message>
-        <location line="-136"/>
+        <location line="-114"/>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>An error occurred when attempting to get a handle on the device.
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location line="+378"/>
+        <location line="+379"/>
         <source>Lock Error</source>
         <translation>Lock Error</translation>
     </message>
     <message>
-        <location line="-377"/>
         <source>An error occurred when attempting to lock the volume.
 Error %1: %2</source>
-        <translation>An error occurred when attempting to lock the volume.
+        <translation type="vanished">An error occurred when attempting to lock the volume.
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-366"/>
         <source>Unlock Error</source>
         <translation>Unlock Error</translation>
     </message>
@@ -1186,7 +1184,7 @@ Error %1: %2</source>
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+17"/>
         <location line="+8"/>
         <source>Read Error</source>
         <translation>Read Error</translation>
@@ -1248,12 +1246,12 @@ Error %2: %3
 Checking of free space will be skipped.</translation>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+173"/>
         <source>Unknown device</source>
         <translation>Unknown device</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+48"/>
         <source>Could not lock volume %1: it is still in use.
 Close any program using the device and try again.
 Error %2</source>
@@ -1262,7 +1260,7 @@ Close any program using the device and try again.
 Error %2</translation>
     </message>
     <message>
-        <location line="+195"/>
+        <location line="+214"/>
         <source>the primary GPT header size is out of range</source>
         <translation>the primary GPT header size is out of range</translation>
     </message>
@@ -1287,12 +1285,12 @@ Error %2</translation>
         <translation>the GPT partition entry array checksum is invalid</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+28"/>
         <source>a partition extends past the end of the device</source>
         <translation>a partition extends past the end of the device</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+131"/>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</source>
         <translation>backup GPT moved to LBA %1; last usable LBA is now %2; the stale copy at LBA %3 was cleared</translation>
     </message>
@@ -1302,7 +1300,7 @@ Error %2</translation>
         <translation>backup GPT moved to LBA %1; last usable LBA is now %2</translation>
     </message>
     <message>
-        <location line="+152"/>
+        <location line="+148"/>
         <source>the device geometry is not usable</source>
         <translation>the device geometry is not usable</translation>
     </message>
@@ -1358,20 +1356,20 @@ Error %2</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location line="+69"/>
+        <location line="+65"/>
         <location line="+7"/>
-        <location line="+184"/>
+        <location line="+183"/>
         <location line="+198"/>
         <source>The image file could not be read (error %1).</source>
         <translation>The image file could not be read (error %1).</translation>
     </message>
     <message>
-        <location line="-414"/>
+        <location line="-411"/>
         <source>The image file could not be rewound (error %1).</source>
         <translation>The image file could not be rewound (error %1).</translation>
     </message>
     <message>
-        <location line="+181"/>
+        <location line="+178"/>
         <source>The gzip decompressor could not be started (zlib error %1).</source>
         <translation>The gzip decompressor could not be started (zlib error %1).</translation>
     </message>

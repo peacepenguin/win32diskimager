@@ -47,13 +47,13 @@
 
 MainWindow* MainWindow::instance = NULL;
 
-// QProgressBar counts in int, and a multi-terabyte disk has more sectors than
-// an int holds -- which "Show all devices" makes reachable. Progress is
-// reported shifted right by this much so the bar does not wrap negative.
 // Sectors moved per pass through a transfer loop, and the step the progress
 // bar advances by. Named once so read, write and verify cannot drift apart.
 static const unsigned long long TRANSFER_SECTORS = 1024ull;
 
+// QProgressBar counts in int, and a multi-terabyte disk has more sectors than
+// an int holds -- which "Show all devices" makes reachable. Progress is
+// reported shifted right by this much so the bar does not wrap negative.
 static int progressShift(unsigned long long total)
 {
     int shift = 0;
@@ -62,6 +62,20 @@ static int progressShift(unsigned long long total)
         ++shift;
     }
     return shift;
+}
+
+// How far the bar should count. The loop runs to the device size when the image
+// size is only an estimate, but the bar tracks the estimate: it then describes
+// the image rather than the card.
+static unsigned long long progressTotalFor(const ImageSource &image,
+                                           unsigned long long numsectors)
+{
+    if (!image.sizeKnown() && image.sizeInSectors() > 0ull
+        && image.sizeInSectors() < numsectors)
+    {
+        return image.sizeInSectors();
+    }
+    return numsectors;
 }
 
 // Qt turns word wrap on for a tooltip only when the text looks like rich text
@@ -131,6 +145,20 @@ static void wrapLongToolTips(QWidget *root)
     }
 }
 
+// Point the bar at a run of total sectors, start the clocks, and reset the
+// marker showThroughput() measures from. Returns the shift the loop has to
+// apply before calling setValue(), since the bar counts in int and the sector
+// count does not.
+int MainWindow::beginProgress(unsigned long long total, unsigned long long *lastsector)
+{
+    const int shift = progressShift(total);
+    progressbar->setRange(0, (total == 0ull) ? 100 : (int)(total >> shift));
+    *lastsector = 0ull;
+    update_timer.start();
+    elapsed_timer->start();
+    return shift;
+}
+
 // An idle progress bar is a line that means nothing, so the bar is hidden until
 // something is running. The group it sits in stays where it is, and the bar goes
 // on reserving its space while hidden, so the window neither empties out nor
@@ -141,18 +169,10 @@ void MainWindow::showProgress(bool show)
     progressbar->setVisible(show);
 }
 
-// The status bar carries a message most of the time, but when it is empty it
-// reads as blank space rather than as a part of the window with a job. A shade
-// off the window colour and a hairline above it give it an edge to sit in.
-//
-// Taken from the palette rather than written down, so it follows the system
-// theme: a touch darker on a light background, a touch lighter on a dark one.
-// Every run that stops -- failed, cancelled or done -- ends the same way. It
-// was written out at all 25 exits before, so a new one only had to forget a
-// line to leave the buttons disabled or the progress bar up.
 // Take the device and open the image, which write and verify both have to do
 // before they can start. On failure it has already reported, cleaned up and
 // put the window back to idle, so the caller only returns.
+//
 // Every failure path below closes the disk before releasing the volume locks,
 // the same order the successful write uses and for the same reason: unlocking
 // lets mountmgr rescan the disk at once, and a rescan is what triggers the
@@ -278,6 +298,9 @@ void MainWindow::showThroughput(unsigned long long sector, unsigned long long to
     *lastsector = sector;
 }
 
+// Every run that stops -- failed, cancelled or done -- ends the same way. It
+// was written out at all 25 exits before, so a new one only had to forget a
+// line to leave the buttons disabled or the progress bar up.
 void MainWindow::endRun(const QString &message)
 {
     status = STATUS_IDLE;
@@ -287,6 +310,13 @@ void MainWindow::endRun(const QString &message)
     setReadWriteButtonState();
 }
 
+// The status bar carries a message most of the time, but when it is empty it
+// reads as blank space rather than as a part of the window with a job. A shade
+// off the window colour and a hairline above it give it an edge to sit in.
+//
+// The shade is taken from the palette rather than written down, so it follows
+// the system theme: a touch darker on a light background, a touch lighter on a
+// dark one.
 static void shadeStatusBar(QStatusBar *bar)
 {
     const QColor window = bar->palette().color(QPalette::Window);
@@ -304,12 +334,11 @@ static void shadeStatusBar(QStatusBar *bar)
 // background does change, from #F6F6F6 to #F5F5F5: one level out of 255, which
 // nobody can see. Give it a fill a clear step beyond the one hover uses.
 //
-// Taken from the palette rather than written as a fixed grey, the same as the
-// status bar shading, so it follows a dark desktop instead of turning into a
-// light patch on one. The rule names the button's own class so that it cannot
-// leak into anything else -- an unscoped rule here is inherited by the widget's
-// tooltip, which is how two other buttons ended up with padded tooltips and no
-// pressed state at all.
+// Shaded from the palette like the status bar above, so it follows a dark
+// desktop instead of turning into a light patch on one. The rule names the
+// button's own class so that it cannot leak into anything else -- an
+// unscoped rule here is inherited by the widget's tooltip, which is how two
+// other buttons ended up with padded tooltips and no pressed state at all.
 static void shadePressedIconButton(QAbstractButton *button)
 {
     const QColor base = button->palette().color(QPalette::Button);
@@ -356,9 +385,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(this->cboxHashType, SIGNAL(currentIndexChanged(int)), SLOT(on_cboxHashType_IdxChg()));
     // An image named on the command line counts as a selection too. After the
     // list is filled, or there would be nothing to select.
-    defaultHashTypeForFile();
-    updateHashControls();
-    setReadWriteButtonState();
+    imageFileChanged();
     sectorData = NULL;
     sectorData2 = NULL;
     sectorsize = 0ul;
@@ -430,11 +457,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeHomeDir()
 {
-    myHomeDir = QDir::homePath();
-    if (myHomeDir.isNull()){
-        myHomeDir = qgetenv("USERPROFILE");
-    }
-    /* Get Downloads the Windows way */
+    // Straight to the downloads directory. Nothing reads myHomeDir before the
+    // end of this function, so working out a home directory first and then
+    // overwriting it unconditionally achieved nothing.
     QString downloadPath = qgetenv("DiskImagesDir");
     if (downloadPath.isEmpty()) {
         PWSTR pPath = NULL;
@@ -546,9 +571,7 @@ void MainWindow::on_tbBrowse_clicked()
             QFileInfo newFileInfo(fileLocation);
             myHomeDir = newFileInfo.absolutePath();
         }
-        defaultHashTypeForFile();
-        setReadWriteButtonState();
-        updateHashControls();
+        imageFileChanged();
     }
 }
 
@@ -740,9 +763,7 @@ void MainWindow::on_leFile_editingFinished()
     {
         leFile->setText(native);
     }
-    defaultHashTypeForFile();
-    setReadWriteButtonState();
-    updateHashControls();
+    imageFileChanged();
 }
 
 void MainWindow::on_bCancel_clicked()
@@ -925,21 +946,8 @@ void MainWindow::on_bWrite_clicked()
                 return;
             }
 
-            // The loop runs to the device size when the size is only an
-            // estimate, but the bar tracks the estimate: it then describes the
-            // image rather than the card.
-            unsigned long long progresstotal = numsectors;
-            if (!image.sizeKnown() && image.sizeInSectors() > 0ull
-                && image.sizeInSectors() < progresstotal)
-            {
-                progresstotal = image.sizeInSectors();
-            }
-            const int progshift = progressShift(progresstotal);
-            progressbar->setRange(0, (progresstotal == 0ull) ? 100
-                                                             : (int)(progresstotal >> progshift));
-            lasti = 0ul;
-            update_timer.start();
-            elapsed_timer->start();
+            const unsigned long long progresstotal = progressTotalFor(image, numsectors);
+            const int progshift = beginProgress(progresstotal, &lasti);
             // Until the first throughput figure a second from now, the status
             // bar would otherwise still read "Clearing old partition tables".
             statusbar->showMessage(tr("Writing..."));
@@ -1289,18 +1297,7 @@ void MainWindow::on_bRead_clicked()
             return;
         }
         statusbar->showMessage(tr("Reading..."));
-        const int progshift = progressShift(numsectors);
-        if (numsectors == 0ul)
-        {
-            progressbar->setRange(0, 100);
-        }
-        else
-        {
-            progressbar->setRange(0, (int)(numsectors >> progshift));
-        }
-        lasti = 0ul;
-        update_timer.start();
-        elapsed_timer->start();
+        const int progshift = beginProgress(numsectors, &lasti);
         for (i = 0ul; i < numsectors && status == STATUS_READING; i += TRANSFER_SECTORS)
         {
             sectorData = readSectorDataFromHandle(hRawDisk, i, (numsectors - i >= TRANSFER_SECTORS) ? TRANSFER_SECTORS:(numsectors - i), sectorsize);
@@ -1490,18 +1487,8 @@ void MainWindow::on_bVerify_clicked()
             bool gptrepaired = false, gptleftdamaged = false;
             GptPrimaryState gptstate = GPT_PRIMARY_UNKNOWN;
 
-            unsigned long long progresstotal = numsectors;
-            if (!image.sizeKnown() && image.sizeInSectors() > 0ull
-                && image.sizeInSectors() < progresstotal)
-            {
-                progresstotal = image.sizeInSectors();
-            }
-            const int progshift = progressShift(progresstotal);
-            progressbar->setRange(0, (progresstotal == 0ull) ? 100
-                                                             : (int)(progresstotal >> progshift));
-            update_timer.start();
-            elapsed_timer->start();
-            lasti = 0ul;
+            const unsigned long long progresstotal = progressTotalFor(image, numsectors);
+            const int progshift = beginProgress(progresstotal, &lasti);
             statusbar->showMessage(tr("Verifying..."));
             for (i = 0ul; i < numsectors && status == STATUS_VERIFYING; i += TRANSFER_SECTORS)
             {
@@ -1876,9 +1863,18 @@ void MainWindow::updateHashControls()
         bHashGen->setEnabled(false);
     }
 
-    // if there's a value in the md5 label make the copy button visible
-    bool haveHash = !(hashLabel->text().isEmpty());
-    bHashCopy->setEnabled(haveHash );
+    // Copy stays disabled: this function has just cleared the label, so there
+    // is nothing to copy. generateHash() enables it once a digest exists.
+}
+
+// A different image file has been named -- typed, browsed to, dropped, or given
+// on the command line. Everything that depends on which file it is is settled
+// here, so a fourth way of naming one cannot end up doing two thirds of it.
+void MainWindow::imageFileChanged()
+{
+    defaultHashTypeForFile();
+    setReadWriteButtonState();
+    updateHashControls();
 }
 
 void MainWindow::on_cboxHashType_IdxChg()

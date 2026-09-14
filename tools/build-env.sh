@@ -237,6 +237,53 @@ container_run()
 # than in each script because a build step that exists twice is a build step
 # somebody eventually changes once.
 
+# need_msys2_tools TOOL...
+#
+# Assert the native Windows toolchain is on the path, and say how to get it if
+# it is not. Written once because build.sh and both test harnesses ask the same
+# question and should give the same answer.
+need_msys2_tools()
+{
+    local tool
+    for tool in "$@"; do
+        command -v "$tool" >/dev/null 2>&1 || {
+            echo "error: $tool not found. In the MSYS2 UCRT64 shell, install the" >&2
+            echo "       toolchain with:" >&2
+            echo "         pacman -S --needed \$(bash tools/build-env.sh packages-msys2)" >&2
+            exit 1
+        }
+    done
+}
+
+# harness_run REPO NAME [clean]
+#
+# Build and run the standalone test harness in tools/NAME/, which compiles a
+# real source file from src/ against a harness that drives it -- no card, no VM,
+# no UAC prompt. MSYS2 UCRT64 only: it is Win32 code.
+#
+# Each gets its own build directory rather than build/, because it is a separate
+# cmake project and would otherwise fight the application's cache. It is run
+# from that directory, since it writes scratch files into the working directory
+# and those belong next to the binary rather than in the repo root.
+harness_run()
+{
+    local repo=${1:?usage: harness_run REPO NAME [clean]}
+    local name=${2:?}
+    local build="$repo/build-$name"
+    case "${3:-}" in
+        clean) rm -rf "$build" ;;
+        "")    ;;
+        *)     echo "usage: ${0##*/} [clean]" >&2; exit 2 ;;
+    esac
+    need_msys2_tools cmake ninja g++
+    if [ ! -f "$build/CMakeCache.txt" ]; then
+        cmake -S "$repo/tools/$name" -B "$build" -G Ninja
+    fi
+    cmake --build "$build"
+    cd "$build"
+    "./$name.exe"
+}
+
 # build_parse_args [test] [clean]
 #
 # Sets BUILD_MODE, BUILD_CLEAN and BUILD_EXTRA. Returns 2 on an unknown word, so

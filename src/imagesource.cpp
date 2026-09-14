@@ -168,9 +168,7 @@ bool ImageSource::open(const QString &path, unsigned long long sectorsize)
         return true;
     }
 
-    // A false return only means the size could not be worked out, which is
-    // recoverable -- the write runs until the stream ends. myError is set only
-    // when the file itself could not be read, which is not.
+    // False is recoverable, a set myError is not; see imagesource.h.
     bool gotsize = (myFormat == FORMAT_GZIP) ? readGzipSize(myCompressedSize)
                                              : readXzSize(myCompressedSize);
     if (!myError.isEmpty())
@@ -199,10 +197,8 @@ bool ImageSource::open(const QString &path, unsigned long long sectorsize)
 }
 
 // Every caller computes an offset it has already checked to be inside the file,
-// so a failure here is a real I/O problem rather than a fact about the format.
-// It is recorded as one: without that, a disk error while probing for the size
-// would be silently downgraded to "size unknown" and the write would run to the
-// end of the device instead of stopping.
+// so a failure here is a real I/O problem rather than a fact about the format,
+// and is recorded as one.
 bool ImageSource::readAt(unsigned long long offset, void *buf, DWORD len)
 {
     LARGE_INTEGER pos;
@@ -242,8 +238,7 @@ bool ImageSource::readGzipSize(unsigned long long filesize)
 {
     if (filesize < 18ull)
     {
-        // Too small to hold a header and a trailer. Not an error: the stream is
-        // still decoded, its size is simply not known in advance.
+        // Too small to hold a header and a trailer.
         return false;
     }
     unsigned char isize[4];

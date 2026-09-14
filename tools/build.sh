@@ -20,14 +20,7 @@ REPO=$(cd "$(dirname "$0")/.." && pwd)
 build_parse_args "$@" || { echo "usage: ${0##*/} [test] [clean]" >&2; exit 2; }
 build=${BUILD_DIR:-$REPO/build}
 
-for tool in cmake ninja g++ windeployqt6; do
-    command -v "$tool" >/dev/null 2>&1 || {
-        echo "error: $tool not found. In the MSYS2 UCRT64 shell, install the" >&2
-        echo "       toolchain with:" >&2
-        echo "         pacman -S --needed \$(bash tools/build-env.sh packages-msys2)" >&2
-        exit 1
-    }
-done
+need_msys2_tools cmake ninja g++ windeployqt6
 
 build_prepare "$build"
 build_run "$REPO/src" "$build" native_configure

@@ -83,8 +83,12 @@ private:
         void setReadWriteButtonState();
         void initializeHomeDir();
         void updateHashControls();
+        // Everything that follows from a different image file; see mainwindow.cpp.
+        void imageFileChanged();
         // Picks a default hash type when a different image is chosen.
         void defaultHashTypeForFile();
+        // Sets the bar up for a run and starts the clocks; see mainwindow.cpp.
+        int beginProgress(unsigned long long total, unsigned long long *lastsector);
         // Shows or hides the progress group; see mainwindow.cpp.
         void showProgress(bool show);
         // Shows the transfer rate, at most once a second; see mainwindow.cpp.
