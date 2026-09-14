@@ -157,7 +157,7 @@
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+534"/>
+        <location filename="../mainwindow.cpp" line="+533"/>
         <source>Exit?</source>
         <translation>退出?</translation>
     </message>
@@ -223,14 +223,11 @@ Are you sure you want to cancel?</source>
         <translation>确认覆盖</translation>
     </message>
     <message>
-        <location line="-451"/>
-        <location line="+1426"/>
-        <location line="+8"/>
         <source>Waiting for a task.</source>
-        <translation>等待任务完成。.</translation>
+        <translation type="vanished">等待任务完成。.</translation>
     </message>
     <message>
-        <location line="-1278"/>
+        <location line="-295"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>现在退出将取消校验映像文件.
@@ -388,16 +385,16 @@ Write to this device anyway?</source>
         <translation>写入失败。</translation>
     </message>
     <message>
-        <location line="-789"/>
-        <location line="+465"/>
+        <location line="-788"/>
+        <location line="+464"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>设备错误</translation>
     </message>
     <message>
-        <location line="-1078"/>
-        <location line="+489"/>
+        <location line="-1077"/>
+        <location line="+488"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>设备报告的容量为零. 如果这是读卡器, 存储卡可能已被取出.</translation>
@@ -743,13 +740,12 @@ The image and the device differ only in the GPT.</source>
         <translation>请选中要使用的映像文件.</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+21"/>
+        <location line="+53"/>
         <source>Scanning disks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1174"/>
+        <location line="-1156"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1125,7 +1121,7 @@ Checking of free space will be skipped.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+245"/>
         <source>Lock Error</source>
         <translation>锁错误</translation>
     </message>
@@ -1136,7 +1132,7 @@ Error %1: %2</source>
 错误 %1: %2</translation>
     </message>
     <message>
-        <location line="-375"/>
+        <location line="-400"/>
         <source>Unlock Error</source>
         <translation>解锁失败</translation>
     </message>
@@ -1221,7 +1217,7 @@ Checking of free space will be skipped.</source>
 已忽略剩余空间检查.</translation>
     </message>
     <message>
-        <location line="+174"/>
+        <location line="+199"/>
         <source>Unknown device</source>
         <translation>未知设备</translation>
     </message>

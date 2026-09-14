@@ -157,7 +157,7 @@
         <translation>離開</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+534"/>
+        <location filename="../mainwindow.cpp" line="+533"/>
         <source>Exit?</source>
         <translation>離開？</translation>
     </message>
@@ -223,14 +223,11 @@ Are you sure you want to cancel?</source>
         <translation>確認覆寫</translation>
     </message>
     <message>
-        <location line="-451"/>
-        <location line="+1426"/>
-        <location line="+8"/>
         <source>Waiting for a task.</source>
-        <translation>等待工作。</translation>
+        <translation type="vanished">等待工作。</translation>
     </message>
     <message>
-        <location line="-1278"/>
+        <location line="-295"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>現在結束將會取消驗證映像檔。
@@ -388,16 +385,16 @@ Write to this device anyway?</source>
         <translation>寫入失敗。</translation>
     </message>
     <message>
-        <location line="-789"/>
-        <location line="+465"/>
+        <location line="-788"/>
+        <location line="+464"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>裝置錯誤</translation>
     </message>
     <message>
-        <location line="-1078"/>
-        <location line="+489"/>
+        <location line="-1077"/>
+        <location line="+488"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>裝置回報的大小為零。若這是讀卡機，記憶卡可能已被取出。</translation>
@@ -743,13 +740,12 @@ The image and the device differ only in the GPT.</source>
         <translation>請指定所要使用的映像檔。</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+21"/>
+        <location line="+53"/>
         <source>Scanning disks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1174"/>
+        <location line="-1156"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1125,7 +1121,7 @@ Checking of free space will be skipped.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+245"/>
         <source>Lock Error</source>
         <translation>鎖定錯誤</translation>
     </message>
@@ -1136,7 +1132,7 @@ Error %1: %2</source>
 錯誤 %1：%2</translation>
     </message>
     <message>
-        <location line="-375"/>
+        <location line="-400"/>
         <source>Unlock Error</source>
         <translation>解除鎖定失敗</translation>
     </message>
@@ -1221,7 +1217,7 @@ Checking of free space will be skipped.</source>
 將會跳過剩餘空間檢查。</translation>
     </message>
     <message>
-        <location line="+174"/>
+        <location line="+199"/>
         <source>Unknown device</source>
         <translation>不明的裝置</translation>
     </message>

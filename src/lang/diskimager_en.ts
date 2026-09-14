@@ -157,7 +157,7 @@
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+534"/>
+        <location filename="../mainwindow.cpp" line="+533"/>
         <source>Exit?</source>
         <translation>Exit?</translation>
     </message>
@@ -223,14 +223,11 @@ Are you sure you want to cancel?</translation>
         <translation>Confirm overwrite</translation>
     </message>
     <message>
-        <location line="-451"/>
-        <location line="+1426"/>
-        <location line="+8"/>
         <source>Waiting for a task.</source>
-        <translation>Waiting for a task.</translation>
+        <translation type="vanished">Waiting for a task.</translation>
     </message>
     <message>
-        <location line="-1278"/>
+        <location line="-295"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Exiting now will cancel verifying image.
@@ -377,16 +374,16 @@ Write to this device anyway?</translation>
         <translation>Write failed.</translation>
     </message>
     <message>
-        <location line="-789"/>
-        <location line="+465"/>
+        <location line="-788"/>
+        <location line="+464"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>Device Error</translation>
     </message>
     <message>
-        <location line="-1078"/>
-        <location line="+489"/>
+        <location line="-1077"/>
+        <location line="+488"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>The device reports a size of zero. If it is a card reader, the card may have been removed.</translation>
@@ -724,13 +721,12 @@ This could only be detected at the end of the device, because a gzip image does 
         <translation>Please specify an image file to use.</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+21"/>
+        <location line="+53"/>
         <source>Scanning disks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1373"/>
+        <location line="-1355"/>
         <location line="+1"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Disk Images (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -1164,7 +1160,7 @@ Checking of free space will be skipped.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+245"/>
         <source>Lock Error</source>
         <translation>Lock Error</translation>
     </message>
@@ -1175,7 +1171,7 @@ Error %1: %2</source>
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="-375"/>
+        <location line="-400"/>
         <source>Unlock Error</source>
         <translation>Unlock Error</translation>
     </message>
@@ -1260,7 +1256,7 @@ Error %2: %3
 Checking of free space will be skipped.</translation>
     </message>
     <message>
-        <location line="+174"/>
+        <location line="+199"/>
         <source>Unknown device</source>
         <translation>Unknown device</translation>
     </message>

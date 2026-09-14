@@ -157,7 +157,7 @@
         <translation>Afsluiten</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+534"/>
+        <location filename="../mainwindow.cpp" line="+533"/>
         <source>Exit?</source>
         <translation>Afsluiten?</translation>
     </message>
@@ -220,14 +220,11 @@ Are you sure you want to cancel?</source>
         <translation>Overschrijven bevestigen</translation>
     </message>
     <message>
-        <location line="-451"/>
-        <location line="+1426"/>
-        <location line="+8"/>
         <source>Waiting for a task.</source>
-        <translation>Wacht op een taak.</translation>
+        <translation type="vanished">Wacht op een taak.</translation>
     </message>
     <message>
-        <location line="-1278"/>
+        <location line="-295"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Nu afsluiten breekt het controleren van het image af.
@@ -385,16 +382,16 @@ Toch naar dit apparaat schrijven?</translation>
         <translation>Schrijven mislukt.</translation>
     </message>
     <message>
-        <location line="-789"/>
-        <location line="+465"/>
+        <location line="-788"/>
+        <location line="+464"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>Apparaatfout</translation>
     </message>
     <message>
-        <location line="-1078"/>
-        <location line="+489"/>
+        <location line="-1077"/>
+        <location line="+488"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Het apparaat meldt een grootte van nul. Als het een kaartlezer is, is de kaart mogelijk verwijderd.</translation>
@@ -740,13 +737,12 @@ The image and the device differ only in the GPT.</source>
         <translation>Specificeer alstublieft een image bestand om te gebruiken.</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+21"/>
+        <location line="+53"/>
         <source>Scanning disks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1174"/>
+        <location line="-1156"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1122,7 +1118,7 @@ Checking of free space will be skipped.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+245"/>
         <source>Lock Error</source>
         <translation>Vergrendelingsfout</translation>
     </message>
@@ -1134,7 +1130,7 @@ Error %1: %2</source>
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="-375"/>
+        <location line="-400"/>
         <source>Unlock Error</source>
         <translation>Ontgrendelingsfout</translation>
     </message>
@@ -1221,7 +1217,7 @@ Fout %2: %3
 Controle van vrije ruimte zal worden overgeslagen.</translation>
     </message>
     <message>
-        <location line="+174"/>
+        <location line="+199"/>
         <source>Unknown device</source>
         <translation>Onbekend apparaat</translation>
     </message>

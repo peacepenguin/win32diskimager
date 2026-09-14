@@ -157,7 +157,7 @@
         <translation>종료</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+534"/>
+        <location filename="../mainwindow.cpp" line="+533"/>
         <source>Exit?</source>
         <translation>종료할까요?</translation>
     </message>
@@ -223,14 +223,11 @@ Are you sure you want to cancel?</source>
         <translation>중복쓰기 확인</translation>
     </message>
     <message>
-        <location line="-451"/>
-        <location line="+1426"/>
-        <location line="+8"/>
         <source>Waiting for a task.</source>
-        <translation>작업을 위하여 기다리는 중.</translation>
+        <translation type="vanished">작업을 위하여 기다리는 중.</translation>
     </message>
     <message>
-        <location line="-1278"/>
+        <location line="-295"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>지금 종료하는 것은 이미지 검증이 취소될 수 있습니다.
@@ -388,16 +385,16 @@ Write to this device anyway?</source>
         <translation>쓰기에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="-789"/>
-        <location line="+465"/>
+        <location line="-788"/>
+        <location line="+464"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>장치 오류</translation>
     </message>
     <message>
-        <location line="-1078"/>
-        <location line="+489"/>
+        <location line="-1077"/>
+        <location line="+488"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>장치가 크기를 0으로 보고합니다. 카드 리더라면 카드가 제거되었을 수 있습니다.</translation>
@@ -743,13 +740,12 @@ The image and the device differ only in the GPT.</source>
         <translation>사용하기 위한 이미지 파일을 지정해주세요.</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+21"/>
+        <location line="+53"/>
         <source>Scanning disks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1174"/>
+        <location line="-1156"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1125,7 +1121,7 @@ Checking of free space will be skipped.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+245"/>
         <source>Lock Error</source>
         <translation>잠금 오류</translation>
     </message>
@@ -1136,7 +1132,7 @@ Error %1: %2</source>
 오류 %1: %2</translation>
     </message>
     <message>
-        <location line="-375"/>
+        <location line="-400"/>
         <source>Unlock Error</source>
         <translation>잠금해제 오류</translation>
     </message>
@@ -1221,7 +1217,7 @@ Checking of free space will be skipped.</source>
 저장공간 크기 체크를 하지 않습니다.</translation>
     </message>
     <message>
-        <location line="+174"/>
+        <location line="+199"/>
         <source>Unknown device</source>
         <translation>알 수 없는 장치</translation>
     </message>

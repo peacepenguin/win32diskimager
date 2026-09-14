@@ -157,7 +157,7 @@
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+534"/>
+        <location filename="../mainwindow.cpp" line="+533"/>
         <source>Exit?</source>
         <translation>¿Salir?</translation>
     </message>
@@ -223,14 +223,11 @@ Are you sure you want to cancel?</source>
         <translation>Confirmar sobrescritura</translation>
     </message>
     <message>
-        <location line="-451"/>
-        <location line="+1426"/>
-        <location line="+8"/>
         <source>Waiting for a task.</source>
-        <translation>Esperando una tarea.</translation>
+        <translation type="vanished">Esperando una tarea.</translation>
     </message>
     <message>
-        <location line="-1278"/>
+        <location line="-295"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>El salir ahora resultará en cancelar la verificación de la imagen
@@ -388,16 +385,16 @@ Compruebe que %2 no es una unidad que quisiera conservar.
         <translation>Escritura fallida.</translation>
     </message>
     <message>
-        <location line="-789"/>
-        <location line="+465"/>
+        <location line="-788"/>
+        <location line="+464"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>Error de dispositivo</translation>
     </message>
     <message>
-        <location line="-1078"/>
-        <location line="+489"/>
+        <location line="-1077"/>
+        <location line="+488"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>El dispositivo indica un tamaño de cero. Si es un lector de tarjetas, puede que se haya retirado la tarjeta.</translation>
@@ -723,13 +720,12 @@ Esto solo se pudo detectar al llegar al final del dispositivo, porque una imagen
         <translation>Por favor especifique un archivo de imagen para usar.</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+21"/>
+        <location line="+53"/>
         <source>Scanning disks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1174"/>
+        <location line="-1156"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1141,7 +1137,7 @@ Checking of free space will be skipped.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+245"/>
         <source>Lock Error</source>
         <translation>Error de Bloqueo</translation>
     </message>
@@ -1152,7 +1148,7 @@ Error %1: %2</source>
 Error %1: %2</translation>
     </message>
     <message>
-        <location line="-375"/>
+        <location line="-400"/>
         <source>Unlock Error</source>
         <translation>Error de Desbloqueo</translation>
     </message>
@@ -1237,7 +1233,7 @@ Error %2:%3
 La comprobación del espacio libre será omitida.</translation>
     </message>
     <message>
-        <location line="+174"/>
+        <location line="+199"/>
         <source>Unknown device</source>
         <translation>Dispositivo desconocido</translation>
     </message>

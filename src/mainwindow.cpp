@@ -367,7 +367,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     }
     showProgress(false);
     clipboard = QApplication::clipboard();
-    statusbar->showMessage(tr("Waiting for a task."));
     hFile = INVALID_HANDLE_VALUE;
     hRawDisk = INVALID_HANDLE_VALUE;
     if (QCoreApplication::arguments().count() > 1)
@@ -1799,7 +1798,11 @@ void MainWindow::rescanDevices()
 
     getLogicalDrives();
     QApplication::restoreOverrideCursor();
-    statusbar->showMessage(tr("Waiting for a task."));
+    // Emptied rather than replaced with something. The status bar says what
+    // is happening or what just happened; with nothing running it has nothing
+    // to say, and shadeStatusBar() gives it an edge so that an empty one still
+    // reads as part of the window rather than as a gap in it.
+    statusbar->clearMessage();
 }
 
 // getLogicalDrives fills cboxDevice from the physical disks attached to the

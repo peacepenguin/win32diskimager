@@ -59,7 +59,7 @@
         <translation>Leggi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+1247"/>
+        <location filename="../mainwindow.cpp" line="+1246"/>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Sei sicuro di voler sovrascrivere il file specificato?</translation>
     </message>
@@ -223,11 +223,8 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-1361"/>
-        <location line="+1426"/>
-        <location line="+8"/>
         <source>Waiting for a task.</source>
-        <translation>Attesa scelta operazione</translation>
+        <translation type="vanished">Attesa scelta operazione</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="-76"/>
@@ -235,7 +232,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Stato progresso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="-651"/>
+        <location filename="../mainwindow.cpp" line="-578"/>
         <location line="+555"/>
         <source>The selected file does not exist.</source>
         <translation>Il file selezionato non esiste.</translation>
@@ -445,16 +442,16 @@ Scrivere comunque su questo dispositivo?</translation>
         <translation>Scrittura non riuscita.</translation>
     </message>
     <message>
-        <location line="-789"/>
-        <location line="+465"/>
+        <location line="-788"/>
+        <location line="+464"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>Errore del dispositivo</translation>
     </message>
     <message>
-        <location line="-1078"/>
-        <location line="+489"/>
+        <location line="-1077"/>
+        <location line="+488"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Il dispositivo segnala dimensione zero. Se si tratta di un lettore di schede, la scheda potrebbe essere stata rimossa.</translation>
@@ -832,13 +829,12 @@ Continuare comunque?</translation>
         <translation>Le dimensioni non coincidono!</translation>
     </message>
     <message>
-        <location line="+296"/>
-        <location line="+21"/>
+        <location line="+299"/>
         <source>Scanning disks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1156"/>
+        <location line="-1138"/>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
 
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
@@ -1166,7 +1162,7 @@ Checking of free space will be skipped.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+173"/>
+        <location line="+198"/>
         <source>Unknown device</source>
         <translation>Dispositivo sconosciuto</translation>
     </message>
@@ -1260,7 +1256,7 @@ Errore %2</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1004"/>
+        <location line="-1029"/>
         <source>Dismount Error</source>
         <translation>Errore smontaggio volume</translation>
     </message>
@@ -1321,7 +1317,7 @@ Error %1: %2</source>
 Errore %1: %2</translation>
     </message>
     <message>
-        <location line="+302"/>
+        <location line="+327"/>
         <source>Lock Error</source>
         <translation>Errore nel blocco del volume</translation>
     </message>

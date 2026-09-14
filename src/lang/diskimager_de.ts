@@ -157,7 +157,7 @@
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+534"/>
+        <location filename="../mainwindow.cpp" line="+533"/>
         <source>Exit?</source>
         <translation>Beenden?</translation>
     </message>
@@ -220,14 +220,11 @@ Are you sure you want to cancel?</source>
         <translation>Überschreiben bestätigen</translation>
     </message>
     <message>
-        <location line="-451"/>
-        <location line="+1426"/>
-        <location line="+8"/>
         <source>Waiting for a task.</source>
-        <translation>Warte auf etwas zu tun.</translation>
+        <translation type="vanished">Warte auf etwas zu tun.</translation>
     </message>
     <message>
-        <location line="-1278"/>
+        <location line="-295"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Überprüfung im Gange. Sind Sie sicher, dass Sie jetzt beenden wollen?</translation>
@@ -383,16 +380,16 @@ Trotzdem auf diesen Datenträger schreiben?</translation>
         <translation>Schreiben fehlgeschlagen.</translation>
     </message>
     <message>
-        <location line="-789"/>
-        <location line="+465"/>
+        <location line="-788"/>
+        <location line="+464"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>Datenträgerfehler</translation>
     </message>
     <message>
-        <location line="-1078"/>
-        <location line="+489"/>
+        <location line="-1077"/>
+        <location line="+488"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Der Datenträger meldet eine Größe von null. Falls es sich um einen Kartenleser handelt, wurde die Karte möglicherweise entfernt.</translation>
@@ -718,13 +715,12 @@ Dies konnte erst am Ende des Datenträgers festgestellt werden, weil ein gzip-Im
         <translation>Bitte geben Sie eine Image-Datei an, die Sie verwenden wollen.</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+21"/>
+        <location line="+53"/>
         <source>Scanning disks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1174"/>
+        <location line="-1156"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1134,7 +1130,7 @@ Checking of free space will be skipped.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+245"/>
         <source>Lock Error</source>
         <translation>Sperrfehler</translation>
     </message>
@@ -1144,7 +1140,7 @@ Error %1: %2</source>
         <translation type="vanished">Fehler beim Versuch, den Datenträger zu sperren. Fehler %1: %2</translation>
     </message>
     <message>
-        <location line="-375"/>
+        <location line="-400"/>
         <source>Unlock Error</source>
         <translation>Entsperrfehler</translation>
     </message>
@@ -1221,7 +1217,7 @@ Checking of free space will be skipped.</source>
         <translation type="vanished">Fehler beim Ermitteln des freien Speicherplatzes auf Laufwerk %1. Fehler %2: %3 Überprüfung des freien Speicherplatzes wird übersprungen.</translation>
     </message>
     <message>
-        <location line="+174"/>
+        <location line="+199"/>
         <source>Unknown device</source>
         <translation>Unbekannter Datenträger</translation>
     </message>
