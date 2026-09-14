@@ -1,3 +1,32 @@
+Release 1.5.2
+=============
+Every language it ships is now translated all the way through. Each of the
+  eleven files had 39 strings with nothing in them, and Tamil had 169 of its
+  193. These are machine translations rather than a speaker's work, so
+  corrections are welcome and readme-translations.txt says how to send one
+The window sizes itself to the language it is running in. It was laid out for
+  English and carried a minimum width written by hand, and five translations
+  needed more room than that: German, Spanish, French, Italian and Tamil all
+  drew the "Show all devices" label with the end cut off. It now opens at
+  whatever its own layout asks for, and refuses to be dragged narrower than it
+  reads -- both worked out per language rather than written down
+Ticking "Show all devices" no longer looks like the program has hung. It is the
+  one control that can send a spun-down disk to fetch its size, which takes
+  twelve seconds, and it did that with the tick not yet drawn and the status
+  bar empty. The box is now ticked before the wait starts, the pointer says
+  busy, and the status bar says what is being waited for
+The status bar is empty when nothing is happening, instead of saying "Waiting
+  for a task."
+Both deploy scripts work out which DLLs a build needs the same way, through one
+  function they share. Each also checks that the tool doing it is installed: a
+  missing one used to be silent, and assembled a folder around an executable
+  that could not start
+The translation files no longer record which line of which file each string
+  came from. Adding one string renumbered every string after it, so a one-line
+  change arrived as a hundred-line diff in each of twelve files and the change
+  itself had to be hunted for. Nothing ever read those numbers -- the compiled
+  .qm files are identical without them
+
 Release 1.5.1
 =============
 Sleeping hard disks are left alone. Filling the device list asked every disk on
