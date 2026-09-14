@@ -158,6 +158,17 @@ endif()
 
 target_compile_definitions(Win32DiskImager PRIVATE
     VER="${PROJECT_VERSION}"
+    # The version is written down here and nowhere else. windres runs the C
+    # preprocessor over DiskImager.rc, so definitions set on the target reach
+    # the resource script like any other source and it never repeats the
+    # number. Two more spellings of it, because the resource needs shapes that
+    # VER cannot give it:
+    #   VER_TUPLE  the comma-separated form VERSIONINFO's FILEVERSION takes.
+    #   VER_RAW    the dotted form, unquoted. windres drops the quotes from a
+    #              -D value -- VER arrives there as bare 1.5.0 and will not
+    #              parse as a string -- so the .rc rebuilds the literal with #.
+    VER_TUPLE=${PROJECT_VERSION_MAJOR},${PROJECT_VERSION_MINOR},${PROJECT_VERSION_PATCH},0
+    VER_RAW=${PROJECT_VERSION}
     WINVER=0x0601
     _WIN32_WINNT=0x0601
 )

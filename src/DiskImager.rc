@@ -63,9 +63,18 @@ END
 // Version
 //
 
+// VER_TUPLE and VER_RAW come from src/CMakeLists.txt, which is where the
+// version lives. Nothing here should spell it out: a number written twice is a
+// number that disagrees with itself eventually, and the release job only checks
+// the git tag against CMakeLists.
+//
+// The strings are built with # rather than taken straight from a -D, because
+// windres hands the define to the preprocessor without its quotes.
+#define RC_STR2(x) #x
+#define RC_STR(x)  RC_STR2(x)
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,5,0,0
- PRODUCTVERSION 1,5,0,0
+ FILEVERSION VER_TUPLE
+ PRODUCTVERSION VER_TUPLE
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -82,12 +91,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Image Writer for Windows to write USB and SD images"
             VALUE "FileDescription", "DiskImager (peacepenguin fork)"
-            VALUE "FileVersion", "1.5.0"
+            VALUE "FileVersion", RC_STR(VER_RAW)
             VALUE "InternalName", "win32-image-writer"
             VALUE "LegalCopyright", "Copyright (C) 2009-2017 Windows ImageWriter Team; modifications Copyright (C) 2026 peacepenguin. GPL-2."
             VALUE "OriginalFilename", "Win32DiskImager"
             VALUE "ProductName", "Win32 Image Writer (peacepenguin fork)"
-            VALUE "ProductVersion", "1.5.0"
+            VALUE "ProductVersion", RC_STR(VER_RAW)
         END
     END
     BLOCK "VarFileInfo"
