@@ -625,14 +625,6 @@ void MainWindow::generateHash(const QString &filename, int hashish)
 }
 
 
-// on an "editingFinished" signal (IE: return press), if the lineedit
-// contains a valid file, update the controls
-// SHA256 is what image publishers overwhelmingly quote, so selecting an image
-// arms the checksum most people are about to compare against. Only when the
-// image actually changes: the field emits editingFinished whenever it loses
-// focus, and resetting the type every time would undo a deliberate choice of
-// MD5 or SHA1. Looked up by name rather than index so the order of the list is
-// free to change.
 // Tell the user the table is broken and put it right if they say so. `lead`
 // opens the sentence, because a verify and a check on its own meet the damage
 // in different circumstances. Returns true if the table was repaired.
@@ -737,6 +729,12 @@ void MainWindow::on_bCheckGpt_clicked()
     locked.release();
 }
 
+// SHA256 is what image publishers overwhelmingly quote, so selecting an image
+// arms the checksum most people are about to compare against. Only when the
+// image actually changes: the field emits editingFinished whenever it loses
+// focus, and resetting the type every time would undo a deliberate choice of
+// MD5 or SHA1. Looked up by name rather than index so the order of the list is
+// free to change.
 void MainWindow::defaultHashTypeForFile()
 {
     const QString file = leFile->text();
