@@ -395,6 +395,40 @@ QList<PhysicalDevice> enumeratePhysicalDevices(bool includeFixed)
         }
         delete[] buf;
 
+        // The two filters that can be settled without a size are applied here,
+        // ahead of the geometry call, and a disk failing either is dropped
+        // without ever being asked how big it is.
+        //
+        // Asking is what wakes a sleeping disk. Measured on a spun-down 4 TB
+        // SATA drive: opening the handle 0.8 ms, the descriptor query above
+        // 0.0 ms, the geometry call below 11,911 ms. The disk was still in
+        // standby after the descriptor query -- which is how we know the
+        // geometry call spun it up, and not the open or the classification.
+        //
+        // Nothing cheaper answers either: a drive in standby spins up for any
+        // command that needs the media, and capacity is not one of the
+        // exceptions. So the fix is not to ask more cheaply but not to ask at
+        // all about a disk that is about to be discarded. With "Show all
+        // devices" off -- the default, and where every session starts -- the
+        // machine's internal disks are classified out of metadata their
+        // drivers already hold and their platters are never touched. Ticking
+        // it asks for them by name, and the wait is the price of a real size.
+        //
+        // This is ordering only. A device still has to pass every one of these
+        // tests, so the list itself is unchanged.
+
+        // Never offer the disk Windows is running from, whatever the filter.
+        if (systemDisk >= 0 && (int)n == systemDisk)
+        {
+            CloseHandle(hDevice);
+            continue;
+        }
+        if (!dev.removable && !includeFixed)
+        {
+            CloseHandle(hDevice);
+            continue;
+        }
+
         // A card reader with no card in it still has a PhysicalDrive node, but
         // reports no size. Size doubles as the "media present" test that
         // IOCTL_STORAGE_CHECK_VERIFY used to provide.
@@ -412,15 +446,6 @@ QList<PhysicalDevice> enumeratePhysicalDevices(bool includeFixed)
         CloseHandle(hDevice);
 
         if (dev.sizeBytes == 0)
-        {
-            continue;
-        }
-        // Never offer the disk Windows is running from, whatever the filter.
-        if (systemDisk >= 0 && (int)n == systemDisk)
-        {
-            continue;
-        }
-        if (!dev.removable && !includeFixed)
         {
             continue;
         }
