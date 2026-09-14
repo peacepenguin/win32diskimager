@@ -429,6 +429,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     myFileTypeList << tr("Disk Images (*.img *.IMG *.img.gz *.img.xz)")
                    << tr("Compressed Disk Images (*.img.gz *.img.xz *.gz *.xz)")
                    << "*.*";
+
+    // Last, once every string the window will show has been set: the size the
+    // layout needs depends on the words in it, and the words depend on the
+    // language.
+    //
+    // mainwindow.ui is drawn at 520x355 for English, and carries a minimum
+    // width of 460 so nobody can drag it narrower than it reads. That minimum
+    // is why this is needed: Qt gives a window its layout's minimum size only
+    // when the window has no minimum of its own, so the explicit 460 stands in
+    // for the real figure, and a translation needing more than 520 is not
+    // given it. The layout then takes the space out of the widgets, and a
+    // QCheckBox does not elide -- it just draws its label with the end missing,
+    // which is what Tamil looked like.
+    //
+    // expandedTo() so this can only grow the window: English keeps the size it
+    // was designed at, and a longer language gets what its layout asks for.
+    resize(sizeHint().expandedTo(size()));
 }
 
 MainWindow::~MainWindow()
