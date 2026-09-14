@@ -25,11 +25,11 @@
     </message>
     <message>
         <source>Check GPT</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 확인</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
-        <translation type="unfinished"></translation>
+        <translation>현재 선택된 장치의 GPT가 손상되었는지 확인하고, 손상된 경우 복구를 제안합니다.</translation>
     </message>
     <message>
         <source>Image File Hash</source>
@@ -77,7 +77,7 @@
     </message>
     <message>
         <source>Progress</source>
-        <translation>진행</translation>
+        <translation>진행률</translation>
     </message>
     <message>
         <source>%p%</source>
@@ -85,7 +85,7 @@
     </message>
     <message>
         <source>Cancel current process.</source>
-        <translation>현재 진행 취소.</translation>
+        <translation>현재 작업을 취소합니다.</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -93,7 +93,7 @@
     </message>
     <message>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
-        <translation>&apos;기기&apos;에서  &apos;이미지 파일&apos;로 자료 읽기</translation>
+        <translation>&apos;기기&apos;에서 &apos;이미지 파일&apos;로 자료 읽기</translation>
     </message>
     <message>
         <source>Read</source>
@@ -149,7 +149,7 @@ Are you sure you want to exit?</source>
     </message>
     <message>
         <source>Generating...</source>
-        <translation>생성 중 ...</translation>
+        <translation>생성 중…</translation>
     </message>
     <message>
         <source>Cancel?</source>
@@ -171,7 +171,7 @@ Are you sure you want to cancel?</source>
     </message>
     <message>
         <source>Confirm overwrite</source>
-        <translation>중복쓰기 확인</translation>
+        <translation>덮어쓰기 확인</translation>
     </message>
     <message>
         <source>Waiting for a task.</source>
@@ -180,7 +180,7 @@ Are you sure you want to cancel?</source>
     <message>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
-        <translation>지금 종료하는 것은 이미지 검증이 취소될 수 있습니다.
+        <translation>지금 종료하면 이미지 검증이 취소됩니다.
 종료할까요?</translation>
     </message>
     <message>
@@ -375,7 +375,7 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Clearing old partition tables...</source>
-        <translation>이전 파티션 테이블을 지우는 중...</translation>
+        <translation>이전 파티션 테이블을 지우는 중…</translation>
     </message>
     <message>
         <source>Could not clear the existing partition tables on the device.</source>
@@ -387,7 +387,7 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Fixing GPT...</source>
-        <translation>GPT 수정 중...</translation>
+        <translation>GPT 수정 중…</translation>
     </message>
     <message>
         <source>Image truncated</source>
@@ -535,23 +535,23 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Partition table damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>파티션 테이블 손상</translation>
     </message>
     <message>
         <source>Repair failed</source>
-        <translation type="unfinished"></translation>
+        <translation>복구 실패</translation>
     </message>
     <message>
         <source>The partition table could not be repaired: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>파티션 테이블을 복구하지 못했습니다: %1</translation>
     </message>
     <message>
         <source>The device could not be read at sector %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>섹터 %1에서 장치를 읽지 못했습니다.</translation>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>장치에는 이미지가 올바르게 기록되어 있지만, 파티션 테이블이 손상되었습니다:</translation>
     </message>
     <message>
         <source>Image larger than device</source>
@@ -559,25 +559,31 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
-        <translation type="unfinished"></translation>
+        <translation>장치에는 이미지가 올바르게 기록되어 있지만, 파티션 테이블은 아직 손상된 상태입니다. &quot;쓰기 후 GPT 수정&quot;을 선택한 상태로 이미지를 다시 기록하거나, 검증을 다시 실행하여 복구를 수락하십시오.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The device&apos;s partition table was damaged and has been repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>검증에 성공했습니다.
+
+장치의 파티션 테이블이 손상되어 있었으나 복구했습니다.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>검증에 성공했습니다.
+
+이미지와 장치는 GPT에서만 다르며, 장치의 GPT는 올바릅니다.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT.</source>
-        <translation type="unfinished"></translation>
+        <translation>검증에 성공했습니다.
+
+이미지와 장치는 GPT에서만 다릅니다.</translation>
     </message>
     <message>
         <source>[Disk %1]</source>
@@ -589,12 +595,13 @@ The image and the device differ only in the GPT.</source>
     </message>
     <message>
         <source>Scanning disks...</source>
-        <translation type="unfinished"></translation>
+        <translation>디스크를 검색하는 중…</translation>
     </message>
     <message>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>체크섬을 생성하기 위해 파일 전체를 읽을 수 없습니다:
+%1</translation>
     </message>
     <message>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
@@ -602,59 +609,63 @@ The image and the device differ only in the GPT.</source>
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
 
 Repair the partition table now?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1. 주 GPT 헤더가 파티션 항목이 존재하지 않는 섹터를 가리키고 있습니다.
+
+이는 &quot;쓰기 후 GPT 수정&quot; 없이 기록한 카드를 Windows가 다시 검사할 때 남는 상태입니다. 손실된 데이터는 없지만, 장치가 부팅되지 않으며 대부분의 도구가 이 테이블을 거부합니다.
+
+지금 파티션 테이블을 복구할까요?</translation>
     </message>
     <message>
         <source>Please select a device.</source>
-        <translation type="unfinished"></translation>
+        <translation>장치를 선택해주세요.</translation>
     </message>
     <message>
         <source>Could not lock the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>장치를 잠글 수 없습니다.</translation>
     </message>
     <message>
         <source>Could not open the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>장치를 열 수 없습니다.</translation>
     </message>
     <message>
         <source>This device&apos;s partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>이 장치의 파티션 테이블이 손상되었습니다:</translation>
     </message>
     <message>
         <source>Partition table repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>파티션 테이블을 복구했습니다.</translation>
     </message>
     <message>
         <source>Partition table is still damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>파티션 테이블이 아직 손상된 상태입니다.</translation>
     </message>
     <message>
         <source>Partition table is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>파티션 테이블이 올바릅니다.</translation>
     </message>
     <message>
         <source>Partition table</source>
-        <translation type="unfinished"></translation>
+        <translation>파티션 테이블</translation>
     </message>
     <message>
         <source>The GPT on this device is valid: the header and the partition entries it points at agree.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 장치의 GPT는 올바릅니다. 헤더와 헤더가 가리키는 파티션 항목이 일치합니다.</translation>
     </message>
     <message>
         <source>No GPT on this device.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 장치에는 GPT가 없습니다.</translation>
     </message>
     <message>
         <source>This device has no GPT, so it cannot have the damage this checks for.</source>
-        <translation type="unfinished"></translation>
+        <translation>이 장치에는 GPT가 없으므로, 여기서 확인하는 손상은 발생할 수 없습니다.</translation>
     </message>
     <message>
         <source>Could not read the partition table.</source>
-        <translation type="unfinished"></translation>
+        <translation>파티션 테이블을 읽을 수 없습니다.</translation>
     </message>
     <message>
         <source>The partition table could not be read, or is damaged in some way other than the one this repairs.</source>
-        <translation type="unfinished"></translation>
+        <translation>파티션 테이블을 읽을 수 없거나, 이 기능이 복구할 수 있는 것과는 다른 방식으로 손상되었습니다.</translation>
     </message>
     <message>
         <source>Writing...</source>
@@ -702,7 +713,7 @@ This image has no partition table, so the Windows GPT rewrite bug cannot affect 
     </message>
     <message>
         <source>The GPT could not be fixed (%1).</source>
-        <translation>GPT를 고치지 못했습니다(%1).</translation>
+        <translation>GPT를 고치지 못했습니다 (%1).</translation>
     </message>
     <message>
         <source>malformed GPT</source>
@@ -750,15 +761,15 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     </message>
     <message>
         <source>Confirm Overwrite</source>
-        <translation>중복 쓰기 확인</translation>
+        <translation>덮어쓰기 확인</translation>
     </message>
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
-        <translation>지정된 파일을 중복쓰기를 하시겠습니까?</translation>
+        <translation>지정된 파일을 덮어쓰시겠습니까?</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>
-        <translation>디스크가 지정된 이미지 보다 크지 않습니다.</translation>
+        <translation>디스크가 지정된 이미지보다 크지 않습니다.</translation>
     </message>
     <message>
         <source>Reading...</source>
@@ -834,7 +845,7 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Verification failed at sector: %1</source>
-        <translation>섹터에서 검증 실패 : %1</translation>
+        <translation>섹터 %1에서 검증에 실패했습니다.</translation>
     </message>
     <message>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
@@ -877,12 +888,12 @@ The device could NOT be taken offline automatically.</source>
     <name>QObject</name>
     <message>
         <source>File Error</source>
-        <translation>파일 오</translation>
+        <translation>파일 오류</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
-        <translation>파일의 핸들을 얻기 시도할 때 오류가 발생.
+        <translation>파일의 핸들을 얻기 시도할 때 오류가 발생했습니다.
 오류 %1: %2</translation>
     </message>
     <message>
@@ -892,14 +903,16 @@ Error %1: %2</source>
     <message>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
-        <translation>기기의 핸들을 얻기 시도할 때 오류가 발생.
+        <translation>기기의 핸들을 얻기 시도할 때 오류가 발생했습니다.
 오류 %1: %2</translation>
     </message>
     <message>
         <source>Failed to get the free space on the volume holding %1.
 Error %2: %3
 Checking of free space will be skipped.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1이(가) 있는 볼륨의 여유 공간을 가져오지 못했습니다.
+오류 %2: %3
+여유 공간 확인을 건너뜁니다.</translation>
     </message>
     <message>
         <source>Lock Error</source>
@@ -918,7 +931,7 @@ Error %1: %2</source>
     <message>
         <source>An error occurred when attempting to unlock the volume.
 Error %1: %2</source>
-        <translation>볼륨의 잠금해제를 시도할 때 오류가 발생.
+        <translation>볼륨의 잠금해제를 시도할 때 오류가 발생했습니다.
 오류 %1: %2</translation>
     </message>
     <message>
@@ -928,7 +941,7 @@ Error %1: %2</source>
     <message>
         <source>An error occurred when attempting to dismount the volume.
 Error %1: %2</source>
-        <translation>볼륨의 마운트해제를 시도할 때 오류가 발생.
+        <translation>볼륨의 마운트해제를 시도할 때 오류가 발생했습니다.
 오류 %1: %2</translation>
     </message>
     <message>
@@ -938,7 +951,7 @@ Error %1: %2</source>
     <message>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
-        <translation>핸들로부터 자료를 읽으려고 시도할 때 오류가 발생.
+        <translation>핸들로부터 자료를 읽으려고 시도할 때 오류가 발생했습니다.
 오류 %1: %2</translation>
     </message>
     <message>
@@ -948,23 +961,23 @@ Error %1: %2</source>
     <message>
         <source>An error occurred when attempting to write data to handle.
 Error %1: %2</source>
-        <translation>핸들로 자료를 쓰려고 할 때 오류가 발생.
+        <translation>핸들로 자료를 쓰려고 할 때 오류가 발생했습니다.
 오류 %1: %2</translation>
     </message>
     <message>
         <source>The device took only %1 of %2 bytes. The image on the device is incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>장치가 %2바이트 중 %1바이트만 받아들였습니다. 장치의 이미지가 완전하지 않습니다.</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
-        <translation>기기의 지오메트리를 얻으려고 할 때 오류가 발생.
+        <translation>기기의 지오메트리를 얻으려고 할 때 오류가 발생했습니다.
 오류 %1: %2</translation>
     </message>
     <message>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
-        <translation>파일크기를 얻는 동안 오류가 발생.
+        <translation>파일크기를 얻는 동안 오류가 발생했습니다.
 오류 %1: %2</translation>
     </message>
     <message>
@@ -1005,11 +1018,11 @@ Error %2</source>
     </message>
     <message>
         <source>the GPT entry array does not fit on the device</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 항목 배열이 장치에 들어가지 않습니다</translation>
     </message>
     <message>
         <source>the GPT partition entry array checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 파티션 항목 배열의 체크섬이 올바르지 않습니다</translation>
     </message>
     <message>
         <source>a partition extends past the end of the device</source>
@@ -1025,35 +1038,35 @@ Error %2</source>
     </message>
     <message>
         <source>the device geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>장치의 지오메트리를 사용할 수 없습니다</translation>
     </message>
     <message>
         <source>the primary GPT header is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>주 GPT 헤더를 읽을 수 없습니다</translation>
     </message>
     <message>
         <source>the GPT entry array geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 항목 배열의 지오메트리를 사용할 수 없습니다</translation>
     </message>
     <message>
         <source>the device is too small to hold an entry array</source>
-        <translation type="unfinished"></translation>
+        <translation>장치가 너무 작아 항목 배열을 담을 수 없습니다</translation>
     </message>
     <message>
         <source>the partition entries could not be read</source>
-        <translation type="unfinished"></translation>
+        <translation>파티션 항목을 읽을 수 없습니다</translation>
     </message>
     <message>
         <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
-        <translation type="unfinished"></translation>
+        <translation>파티션 항목이 LBA 2에 없으므로, 이 기능으로 복구할 수 있는 손상이 아닙니다</translation>
     </message>
     <message>
         <source>the repaired header could not be written</source>
-        <translation type="unfinished"></translation>
+        <translation>복구한 헤더를 기록할 수 없습니다</translation>
     </message>
     <message>
         <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
-        <translation type="unfinished"></translation>
+        <translation>PartitionEntryLBA를 LBA 2로 되돌리고 헤더 체크섬을 다시 계산했습니다</translation>
     </message>
     <message>
         <source>The device reports a sector size of zero.</source>

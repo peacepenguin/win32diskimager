@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Image File</source>
-        <translation>Image Bestand</translation>
+        <translation>Imagebestand</translation>
     </message>
     <message>
         <source>...</source>
@@ -25,11 +25,11 @@
     </message>
     <message>
         <source>Check GPT</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT controleren</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Controleer het geselecteerde apparaat op een beschadigde GPT en bied aan deze te herstellen.</translation>
     </message>
     <message>
         <source>Image File Hash</source>
@@ -45,7 +45,7 @@
     </message>
     <message>
         <source>Generate selected hash on file</source>
-        <translation>Genereer gekozen hash type</translation>
+        <translation>Gekozen hashtype voor het bestand genereren</translation>
     </message>
     <message>
         <source>Generate</source>
@@ -93,7 +93,7 @@
     </message>
     <message>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
-        <translation>Data van het doelapparaat lezen naar het image bestand</translation>
+        <translation>Gegevens van het apparaat lezen naar het imagebestand</translation>
     </message>
     <message>
         <source>Read</source>
@@ -101,7 +101,7 @@
     </message>
     <message>
         <source>Write data from &apos;Image File&apos; to &apos;Device&apos;</source>
-        <translation>Schrijf data naar het doelapparaat</translation>
+        <translation>Gegevens van het imagebestand naar het apparaat schrijven</translation>
     </message>
     <message>
         <source>Write</source>
@@ -109,7 +109,7 @@
     </message>
     <message>
         <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
-        <translation>Vergelijk het doelapparaat met de image</translation>
+        <translation>Gegevens op het apparaat vergelijken met het imagebestand</translation>
     </message>
     <message>
         <source>Verify the image file with the selected drive</source>
@@ -121,7 +121,7 @@
     </message>
     <message>
         <source>Exit Win32 Disk Imager</source>
-        <translation>Sluit win32 Disk Imager af</translation>
+        <translation>Sluit Win32 Disk Imager af</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -134,20 +134,22 @@
     <message>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
-        <translation>Nu afsluiten resulteert in een corrup image bestand. Weet u zeker dat u wilt afsluiten?</translation>
+        <translation>Nu afsluiten resulteert in een corrupt imagebestand.
+Weet u zeker dat u wilt afsluiten?</translation>
     </message>
     <message>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
-        <translation>Nu alsluiten resulteert in een corrupte disk. Weet u zeker dat u wilt afsluiten?</translation>
+        <translation>Nu afsluiten resulteert in een corrupte schijf.
+Weet u zeker dat u wilt afsluiten?</translation>
     </message>
     <message>
         <source>Select a disk image</source>
-        <translation>Kies een image bestand</translation>
+        <translation>Kies een imagebestand</translation>
     </message>
     <message>
         <source>Generating...</source>
-        <translation>Genereren...</translation>
+        <translation>Bezig met genereren…</translation>
     </message>
     <message>
         <source>Cancel?</source>
@@ -156,7 +158,8 @@ Are you sure you want to exit?</source>
     <message>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
-        <translation>Nu afbreken resulteert in een corrupt doel. Weet u zeker dat u wilt afbreken?</translation>
+        <translation>Nu afbreken resulteert in een corrupt doel.
+Weet u zeker dat u wilt afbreken?</translation>
     </message>
     <message>
         <source>Write Error</source>
@@ -164,7 +167,7 @@ Are you sure you want to cancel?</source>
     </message>
     <message>
         <source>Image file cannot be located on the target device.</source>
-        <translation>Image bestand kan niet gevonden worden op het doel apparaat.</translation>
+        <translation>Het imagebestand mag zich niet op het doelapparaat bevinden.</translation>
     </message>
     <message>
         <source>Confirm overwrite</source>
@@ -184,11 +187,11 @@ Weet u zeker dat u wilt afsluiten?</translation>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>Controleren afbreken.
-Weet u zeker dat u wilt fabreken?</translation>
+Weet u zeker dat u wilt afbreken?</translation>
     </message>
     <message>
         <source>Not enough available space!</source>
-        <translation>Noet genoeg beschikbare ruimte!</translation>
+        <translation>Niet genoeg beschikbare ruimte!</translation>
     </message>
     <message>
         <source>File Error</source>
@@ -372,7 +375,7 @@ Toch doorgaan?</translation>
     </message>
     <message>
         <source>Clearing old partition tables...</source>
-        <translation>Oude partitietabellen wissen...</translation>
+        <translation>Oude partitietabellen wissen…</translation>
     </message>
     <message>
         <source>Could not clear the existing partition tables on the device.</source>
@@ -384,7 +387,7 @@ Toch doorgaan?</translation>
     </message>
     <message>
         <source>Fixing GPT...</source>
-        <translation>GPT herstellen...</translation>
+        <translation>GPT herstellen…</translation>
     </message>
     <message>
         <source>Image truncated</source>
@@ -532,23 +535,23 @@ Toch doorgaan?</translation>
     </message>
     <message>
         <source>Partition table damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Partitietabel beschadigd</translation>
     </message>
     <message>
         <source>Repair failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Herstellen mislukt</translation>
     </message>
     <message>
         <source>The partition table could not be repaired: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>De partitietabel kon niet worden hersteld: %1</translation>
     </message>
     <message>
         <source>The device could not be read at sector %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het apparaat kon niet worden gelezen op sector %1.</translation>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>Het apparaat bevat de image correct, maar de partitietabel is beschadigd:</translation>
     </message>
     <message>
         <source>Image larger than device</source>
@@ -556,25 +559,31 @@ Toch doorgaan?</translation>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het apparaat bevat de image correct, maar de partitietabel is nog steeds beschadigd. Schrijf de image opnieuw met &quot;GPT herstellen na schrijven&quot; aangevinkt, of voer de controle opnieuw uit en accepteer het herstel.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The device&apos;s partition table was damaged and has been repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>Controle geslaagd.
+
+De partitietabel van het apparaat was beschadigd en is hersteld.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Controle geslaagd.
+
+De image en het apparaat verschillen alleen in de GPT, en de GPT op het apparaat is geldig.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT.</source>
-        <translation type="unfinished"></translation>
+        <translation>Controle geslaagd.
+
+De image en het apparaat verschillen alleen in de GPT.</translation>
     </message>
     <message>
         <source>[Disk %1]</source>
@@ -582,16 +591,17 @@ The image and the device differ only in the GPT.</source>
     </message>
     <message>
         <source>Please specify an image file to use.</source>
-        <translation>Specificeer alstublieft een image bestand om te gebruiken.</translation>
+        <translation>Geef een imagebestand op om te gebruiken.</translation>
     </message>
     <message>
         <source>Scanning disks...</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezig met zoeken naar schijven…</translation>
     </message>
     <message>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon het hele bestand niet lezen om een controlesom te genereren:
+%1</translation>
     </message>
     <message>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
@@ -599,59 +609,63 @@ The image and the device differ only in the GPT.</source>
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
 
 Repair the partition table now?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: de primaire GPT-header wijst naar sectoren waar de partitie-items niet staan.
+
+Dit is wat Windows achterlaat wanneer het een kaart opnieuw scant die zonder &quot;GPT herstellen na schrijven&quot; is geschreven. Er zijn geen gegevens verloren gegaan, maar het apparaat start niet op en de meeste hulpprogramma&apos;s weigeren de tabel.
+
+De partitietabel nu herstellen?</translation>
     </message>
     <message>
         <source>Please select a device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer een apparaat.</translation>
     </message>
     <message>
         <source>Could not lock the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon het apparaat niet vergrendelen.</translation>
     </message>
     <message>
         <source>Could not open the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon het apparaat niet openen.</translation>
     </message>
     <message>
         <source>This device&apos;s partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>De partitietabel van dit apparaat is beschadigd:</translation>
     </message>
     <message>
         <source>Partition table repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>Partitietabel hersteld.</translation>
     </message>
     <message>
         <source>Partition table is still damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>Partitietabel is nog steeds beschadigd.</translation>
     </message>
     <message>
         <source>Partition table is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Partitietabel is geldig.</translation>
     </message>
     <message>
         <source>Partition table</source>
-        <translation type="unfinished"></translation>
+        <translation>Partitietabel</translation>
     </message>
     <message>
         <source>The GPT on this device is valid: the header and the partition entries it points at agree.</source>
-        <translation type="unfinished"></translation>
+        <translation>De GPT op dit apparaat is geldig: de header en de partitie-items waarnaar deze wijst komen overeen.</translation>
     </message>
     <message>
         <source>No GPT on this device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen GPT op dit apparaat.</translation>
     </message>
     <message>
         <source>This device has no GPT, so it cannot have the damage this checks for.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit apparaat heeft geen GPT, dus de schade waarop hier wordt gecontroleerd kan zich niet voordoen.</translation>
     </message>
     <message>
         <source>Could not read the partition table.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon de partitietabel niet lezen.</translation>
     </message>
     <message>
         <source>The partition table could not be read, or is damaged in some way other than the one this repairs.</source>
-        <translation type="unfinished"></translation>
+        <translation>De partitietabel kon niet worden gelezen, of is op een andere manier beschadigd dan deze functie herstelt.</translation>
     </message>
     <message>
         <source>Writing...</source>
@@ -719,7 +733,7 @@ Deze image heeft geen partitietabel, dus de GPT-herschrijffout van Windows kan e
     </message>
     <message>
         <source>Whether this image is affected could not be determined. Assume it is: a rescan can leave a table that Linux rejects and the device will not boot.</source>
-        <translation>Of deze image getroffen is, kon niet worden vastgesteld. Ga ervan uit van wel: een herscan kan een tabel achterlaten die Linux weigert en het apparaat start niet op.</translation>
+        <translation>Of deze image getroffen is, kon niet worden vastgesteld. Ga ervan uit dat dit zo is: een herscan kan een tabel achterlaten die Linux weigert, waarna het apparaat niet opstart.</translation>
     </message>
     <message>
         <source>Write successful, but the partition table is at risk.
@@ -755,7 +769,7 @@ Verwijder het apparaat NU en plaats het hier niet opnieuw. Steek het meteen in d
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>
-        <translation>Disk is niet groot genoeg voor dit image bestand.</translation>
+        <translation>De schijf is niet groot genoeg voor het opgegeven imagebestand.</translation>
     </message>
     <message>
         <source>Reading...</source>
@@ -775,11 +789,11 @@ Verwijder het apparaat NU en plaats het hier niet opnieuw. Steek het meteen in d
     </message>
     <message>
         <source>Please specify a file to save data to.</source>
-        <translation>Specificeer alstublieft een bestand om de data te bewaren.</translation>
+        <translation>Geef een bestand op om de gegevens in op te slaan.</translation>
     </message>
     <message>
         <source>Verify Error</source>
-        <translation>Fout in Controle</translation>
+        <translation>Controlefout</translation>
     </message>
     <message>
         <source>Please select a device to verify against.</source>
@@ -831,7 +845,7 @@ Toch doorgaan?</translation>
     </message>
     <message>
         <source>Verification failed at sector: %1</source>
-        <translation>Controle mislukt in sector: %1</translation>
+        <translation>Controle mislukt op sector %1</translation>
     </message>
     <message>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
@@ -867,7 +881,7 @@ Het apparaat kon NIET automatisch offline worden gehaald.</translation>
     </message>
     <message>
         <source>Verify Successful.</source>
-        <translation>Controle Geslaagd.</translation>
+        <translation>Controle geslaagd.</translation>
     </message>
 </context>
 <context>
@@ -880,23 +894,25 @@ Het apparaat kon NIET automatisch offline worden gehaald.</translation>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het opvragen van de handle van het bestand.
-Error %1: %2</translation>
+Fout %1: %2</translation>
     </message>
     <message>
         <source>Device Error</source>
-        <translation>Apparaat fout</translation>
+        <translation>Apparaatfout</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het opvragen van de handle van het apparaat.
-Error %1: %2</translation>
+Fout %1: %2</translation>
     </message>
     <message>
         <source>Failed to get the free space on the volume holding %1.
 Error %2: %3
 Checking of free space will be skipped.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout bij het opvragen van de vrije ruimte op het volume dat %1 bevat.
+Fout %2: %3
+Controle van de vrije ruimte wordt overgeslagen.</translation>
     </message>
     <message>
         <source>Lock Error</source>
@@ -918,7 +934,7 @@ Error %1: %2</translation>
 Error %1: %2</source>
         <translatorcomment>wat is de nederlandse vertaling van volume?</translatorcomment>
         <translation>Een fout is opgetreden bij het ontgrendelen van het volume.
-Error %1: %2</translation>
+Fout %1: %2</translation>
     </message>
     <message>
         <source>Dismount Error</source>
@@ -929,7 +945,7 @@ Error %1: %2</translation>
 Error %1: %2</source>
         <translatorcomment>wat is de nederlandse vertaling van volume?</translatorcomment>
         <translation>Een fout is opgetreden bij het ontkoppelen van het volume.
-Error %1: %2</translation>
+Fout %1: %2</translation>
     </message>
     <message>
         <source>Read Error</source>
@@ -939,7 +955,7 @@ Error %1: %2</translation>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het lezen van data van de handle.
-Error %1: %2</translation>
+Fout %1: %2</translation>
     </message>
     <message>
         <source>Write Error</source>
@@ -949,27 +965,27 @@ Error %1: %2</translation>
         <source>An error occurred when attempting to write data to handle.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het schrijven van data naar de handle.
-Error %1: %2</translation>
+Fout %1: %2</translation>
     </message>
     <message>
         <source>The device took only %1 of %2 bytes. The image on the device is incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het apparaat heeft slechts %1 van %2 bytes geaccepteerd. De image op het apparaat is onvolledig.</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het opvragen van de geometrie van het apparaat.
-Error %1: %2</translation>
+Fout %1: %2</translation>
     </message>
     <message>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het opvragen van de bestandsgrootte.
-Error %1: %2</translation>
+Fout %1: %2</translation>
     </message>
     <message>
         <source>Free Space Error</source>
-        <translation>Beschikbare ruimte fout</translation>
+        <translation>Fout bij beschikbare ruimte</translation>
     </message>
     <message>
         <source>Failed to get the free space on drive %1.
@@ -1005,11 +1021,11 @@ Fout %2</translation>
     </message>
     <message>
         <source>the GPT entry array does not fit on the device</source>
-        <translation type="unfinished"></translation>
+        <translation>de GPT-itemtabel past niet op het apparaat</translation>
     </message>
     <message>
         <source>the GPT partition entry array checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>de controlesom van de GPT-partitietabel is ongeldig</translation>
     </message>
     <message>
         <source>a partition extends past the end of the device</source>
@@ -1025,35 +1041,35 @@ Fout %2</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>de geometrie van het apparaat is onbruikbaar</translation>
     </message>
     <message>
         <source>the primary GPT header is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>de primaire GPT-header is niet leesbaar</translation>
     </message>
     <message>
         <source>the GPT entry array geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>de geometrie van de GPT-itemtabel is onbruikbaar</translation>
     </message>
     <message>
         <source>the device is too small to hold an entry array</source>
-        <translation type="unfinished"></translation>
+        <translation>het apparaat is te klein voor een itemtabel</translation>
     </message>
     <message>
         <source>the partition entries could not be read</source>
-        <translation type="unfinished"></translation>
+        <translation>de partitie-items konden niet worden gelezen</translation>
     </message>
     <message>
         <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
-        <translation type="unfinished"></translation>
+        <translation>de partitie-items staan niet op LBA 2, dus dit is niet de schade die hiermee kan worden hersteld</translation>
     </message>
     <message>
         <source>the repaired header could not be written</source>
-        <translation type="unfinished"></translation>
+        <translation>de herstelde header kon niet worden weggeschreven</translation>
     </message>
     <message>
         <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
-        <translation type="unfinished"></translation>
+        <translation>PartitionEntryLBA wijst weer naar LBA 2 en de controlesom van de header is opnieuw berekend</translation>
     </message>
     <message>
         <source>The device reports a sector size of zero.</source>

@@ -25,11 +25,11 @@
     </message>
     <message>
         <source>Check GPT</source>
-        <translation type="unfinished"></translation>
+        <translation>检查 GPT</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
-        <translation type="unfinished"></translation>
+        <translation>检查当前所选设备的 GPT 是否损坏，若已损坏则提供修复。</translation>
     </message>
     <message>
         <source>Image File Hash</source>
@@ -45,7 +45,7 @@
     </message>
     <message>
         <source>Generate selected hash on file</source>
-        <translation>从文件生成校验值</translation>
+        <translation>为文件生成所选的哈希值</translation>
     </message>
     <message>
         <source>Generate</source>
@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Copy hash to clipboard</source>
-        <translation>复制校验值到剪贴板</translation>
+        <translation>复制哈希值到剪贴板</translation>
     </message>
     <message>
         <source>Copy</source>
@@ -134,7 +134,7 @@
     <message>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
-        <translation>现在退出映像文件将不完整.
+        <translation>现在退出将造成映像文件不完整.
 仍然退出?</translation>
     </message>
     <message>
@@ -149,7 +149,7 @@ Are you sure you want to exit?</source>
     </message>
     <message>
         <source>Generating...</source>
-        <translation>生成中...</translation>
+        <translation>生成中…</translation>
     </message>
     <message>
         <source>Cancel?</source>
@@ -163,11 +163,11 @@ Are you sure you want to cancel?</source>
     </message>
     <message>
         <source>Write Error</source>
-        <translation>写入出错</translation>
+        <translation>写入错误</translation>
     </message>
     <message>
         <source>Image file cannot be located on the target device.</source>
-        <translation>在目标设备上找不到映像文件.</translation>
+        <translation>映像文件不能位于目标设备上.</translation>
     </message>
     <message>
         <source>Confirm overwrite</source>
@@ -186,7 +186,7 @@ Are you sure you want to exit?</source>
     <message>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
-        <translation>确认取消.
+        <translation>取消校验.
 确定要取消?</translation>
     </message>
     <message>
@@ -375,7 +375,7 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Clearing old partition tables...</source>
-        <translation>正在清除旧的分区表...</translation>
+        <translation>正在清除旧的分区表…</translation>
     </message>
     <message>
         <source>Could not clear the existing partition tables on the device.</source>
@@ -383,11 +383,11 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>The device has been partially written and no longer holds a usable image. Write the image again before using it.</source>
-        <translation>设备仅被部分写入，不再包含可用的镜像。请在使用前重新写入镜像。</translation>
+        <translation>设备仅被部分写入，不再包含可用的映像。请在使用前重新写入映像。</translation>
     </message>
     <message>
         <source>Fixing GPT...</source>
-        <translation>正在修复 GPT...</translation>
+        <translation>正在修复 GPT…</translation>
     </message>
     <message>
         <source>Image truncated</source>
@@ -535,23 +535,23 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Partition table damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>分区表已损坏</translation>
     </message>
     <message>
         <source>Repair failed</source>
-        <translation type="unfinished"></translation>
+        <translation>修复失败</translation>
     </message>
     <message>
         <source>The partition table could not be repaired: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>无法修复分区表：%1</translation>
     </message>
     <message>
         <source>The device could not be read at sector %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法读取设备的扇区 %1。</translation>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>设备中的映像正确无误，但其分区表已损坏：</translation>
     </message>
     <message>
         <source>Image larger than device</source>
@@ -559,25 +559,31 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
-        <translation type="unfinished"></translation>
+        <translation>设备中的映像正确无误，但其分区表仍然损坏。请勾选“写入后修复 GPT”后重新写入映像，或再次执行校验并接受修复。</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The device&apos;s partition table was damaged and has been repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>校验成功。
+
+设备的分区表原本已损坏，现已修复。</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>校验成功。
+
+映像与设备仅在 GPT 上存在差异，且设备上的 GPT 有效。</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT.</source>
-        <translation type="unfinished"></translation>
+        <translation>校验成功。
+
+映像与设备仅在 GPT 上存在差异。</translation>
     </message>
     <message>
         <source>[Disk %1]</source>
@@ -585,16 +591,17 @@ The image and the device differ only in the GPT.</source>
     </message>
     <message>
         <source>Please specify an image file to use.</source>
-        <translation>请选中要使用的映像文件.</translation>
+        <translation>请指定要使用的映像文件.</translation>
     </message>
     <message>
         <source>Scanning disks...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在扫描磁盘…</translation>
     </message>
     <message>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>无法读取整个文件以生成校验和：
+%1</translation>
     </message>
     <message>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
@@ -602,59 +609,63 @@ The image and the device differ only in the GPT.</source>
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
 
 Repair the partition table now?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1，主 GPT 头部所指向的扇区中并没有分区表项。
+
+未启用“写入后修复 GPT”就写入存储卡时，Windows 重新扫描后便会留下这种状态。数据并未丢失，但设备将无法启动，而且大多数工具会拒绝该分区表。
+
+现在修复分区表吗？</translation>
     </message>
     <message>
         <source>Please select a device.</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择设备。</translation>
     </message>
     <message>
         <source>Could not lock the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法锁定设备。</translation>
     </message>
     <message>
         <source>Could not open the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法打开设备。</translation>
     </message>
     <message>
         <source>This device&apos;s partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>该设备的分区表已损坏：</translation>
     </message>
     <message>
         <source>Partition table repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>分区表已修复。</translation>
     </message>
     <message>
         <source>Partition table is still damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>分区表仍然损坏。</translation>
     </message>
     <message>
         <source>Partition table is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>分区表有效。</translation>
     </message>
     <message>
         <source>Partition table</source>
-        <translation type="unfinished"></translation>
+        <translation>分区表</translation>
     </message>
     <message>
         <source>The GPT on this device is valid: the header and the partition entries it points at agree.</source>
-        <translation type="unfinished"></translation>
+        <translation>该设备上的 GPT 有效：头部与其指向的分区表项一致。</translation>
     </message>
     <message>
         <source>No GPT on this device.</source>
-        <translation type="unfinished"></translation>
+        <translation>该设备上没有 GPT。</translation>
     </message>
     <message>
         <source>This device has no GPT, so it cannot have the damage this checks for.</source>
-        <translation type="unfinished"></translation>
+        <translation>该设备没有 GPT，因此不会出现本项检查所针对的损坏。</translation>
     </message>
     <message>
         <source>Could not read the partition table.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法读取分区表。</translation>
     </message>
     <message>
         <source>The partition table could not be read, or is damaged in some way other than the one this repairs.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法读取分区表，或者其损坏方式不属于本功能所能修复的类型。</translation>
     </message>
     <message>
         <source>Writing...</source>
@@ -754,11 +765,11 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     </message>
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
-        <translation>缺认覆盖已存在的文件?</translation>
+        <translation>确认覆盖已存在的文件?</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>
-        <translation>硬盘空间不够.</translation>
+        <translation>磁盘容量不足以容纳指定的映像.</translation>
     </message>
     <message>
         <source>Reading...</source>
@@ -899,11 +910,13 @@ Error %1: %2</source>
         <source>Failed to get the free space on the volume holding %1.
 Error %2: %3
 Checking of free space will be skipped.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法获取存放 %1 的卷的剩余空间.
+错误 %2: %3
+已忽略剩余空间检查.</translation>
     </message>
     <message>
         <source>Lock Error</source>
-        <translation>锁错误</translation>
+        <translation>锁定错误</translation>
     </message>
     <message>
         <source>An error occurred when attempting to lock the volume.
@@ -913,27 +926,27 @@ Error %1: %2</source>
     </message>
     <message>
         <source>Unlock Error</source>
-        <translation>解锁失败</translation>
+        <translation>解锁错误</translation>
     </message>
     <message>
         <source>An error occurred when attempting to unlock the volume.
 Error %1: %2</source>
-        <translation>解锁改卷时失败.
+        <translation>解锁该卷时失败.
 错误 %1: %2</translation>
     </message>
     <message>
         <source>Dismount Error</source>
-        <translation>卸载失败 </translation>
+        <translation>卸载错误</translation>
     </message>
     <message>
         <source>An error occurred when attempting to dismount the volume.
 Error %1: %2</source>
-        <translation>卸载卷时发生错误	.
+        <translation>卸载卷时发生错误.
 错误 %1: %2</translation>
     </message>
     <message>
         <source>Read Error</source>
-        <translation>读取失败</translation>
+        <translation>读取错误</translation>
     </message>
     <message>
         <source>An error occurred when attempting to read data from handle.
@@ -943,7 +956,7 @@ Error %1: %2</source>
     </message>
     <message>
         <source>Write Error</source>
-        <translation>写入失败</translation>
+        <translation>写入错误</translation>
     </message>
     <message>
         <source>An error occurred when attempting to write data to handle.
@@ -953,12 +966,12 @@ Error %1: %2</source>
     </message>
     <message>
         <source>The device took only %1 of %2 bytes. The image on the device is incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>设备仅接受了 %2 个字节中的 %1 个. 设备上的映像并不完整.</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
-        <translation>无法获取设备容量.
+        <translation>无法获取设备的磁盘几何信息.
 错误 %1: %2</translation>
     </message>
     <message>
@@ -1005,11 +1018,11 @@ Error %2</source>
     </message>
     <message>
         <source>the GPT entry array does not fit on the device</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 分区表项数组无法容纳于该设备</translation>
     </message>
     <message>
         <source>the GPT partition entry array checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 分区表项数组的校验和无效</translation>
     </message>
     <message>
         <source>a partition extends past the end of the device</source>
@@ -1025,35 +1038,35 @@ Error %2</source>
     </message>
     <message>
         <source>the device geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>设备的磁盘几何信息不可用</translation>
     </message>
     <message>
         <source>the primary GPT header is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>无法读取主 GPT 头部</translation>
     </message>
     <message>
         <source>the GPT entry array geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 分区表项数组的几何信息不可用</translation>
     </message>
     <message>
         <source>the device is too small to hold an entry array</source>
-        <translation type="unfinished"></translation>
+        <translation>设备太小, 无法容纳分区表项数组</translation>
     </message>
     <message>
         <source>the partition entries could not be read</source>
-        <translation type="unfinished"></translation>
+        <translation>无法读取分区表项</translation>
     </message>
     <message>
         <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
-        <translation type="unfinished"></translation>
+        <translation>分区表项不在 LBA 2, 因此这不是本功能所能修复的损坏</translation>
     </message>
     <message>
         <source>the repaired header could not be written</source>
-        <translation type="unfinished"></translation>
+        <translation>无法写入修复后的头部</translation>
     </message>
     <message>
         <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
-        <translation type="unfinished"></translation>
+        <translation>PartitionEntryLBA 已重新指向 LBA 2, 头部校验和也已重新计算</translation>
     </message>
     <message>
         <source>The device reports a sector size of zero.</source>

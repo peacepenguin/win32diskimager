@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <source>Win32 Disk Imager</source>
-        <translation>Win32 磁蝶映像檔工具</translation>
+        <translation>Win32 磁碟映像檔工具</translation>
     </message>
     <message>
         <source>Image File</source>
@@ -25,11 +25,11 @@
     </message>
     <message>
         <source>Check GPT</source>
-        <translation type="unfinished"></translation>
+        <translation>檢查 GPT</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
-        <translation type="unfinished"></translation>
+        <translation>檢查目前選取的裝置上 GPT 是否損壞，並在損壞時提供修復。</translation>
     </message>
     <message>
         <source>Image File Hash</source>
@@ -45,11 +45,11 @@
     </message>
     <message>
         <source>Generate selected hash on file</source>
-        <translation>生成檔案所選取的雜湊值類型</translation>
+        <translation>為檔案產生所選取的雜湊值</translation>
     </message>
     <message>
         <source>Generate</source>
-        <translation>生成</translation>
+        <translation>產生</translation>
     </message>
     <message>
         <source>Copy hash to clipboard</source>
@@ -85,7 +85,7 @@
     </message>
     <message>
         <source>Cancel current process.</source>
-        <translation>取消目前的進度。</translation>
+        <translation>取消目前的作業。</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -105,7 +105,7 @@
     </message>
     <message>
         <source>Write</source>
-        <translation>寫入資料到「裝置」中</translation>
+        <translation>寫入</translation>
     </message>
     <message>
         <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
@@ -121,7 +121,7 @@
     </message>
     <message>
         <source>Exit Win32 Disk Imager</source>
-        <translation>離開 Win32 磁蝶映像檔工具</translation>
+        <translation>離開 Win32 磁碟映像檔工具</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -149,7 +149,7 @@ Are you sure you want to exit?</source>
     </message>
     <message>
         <source>Generating...</source>
-        <translation>生成中...</translation>
+        <translation>產生中…</translation>
     </message>
     <message>
         <source>Cancel?</source>
@@ -158,8 +158,8 @@ Are you sure you want to exit?</source>
     <message>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
-        <translation>現在離開將會導致目標檔案損毀。
-您確定要離開嗎？</translation>
+        <translation>現在取消將會導致目標檔案損毀。
+您確定要取消嗎？</translation>
     </message>
     <message>
         <source>Write Error</source>
@@ -167,7 +167,7 @@ Are you sure you want to cancel?</source>
     </message>
     <message>
         <source>Image file cannot be located on the target device.</source>
-        <translation>在目標裝置上找不到映像檔。</translation>
+        <translation>映像檔不能位於目標裝置上。</translation>
     </message>
     <message>
         <source>Confirm overwrite</source>
@@ -180,14 +180,14 @@ Are you sure you want to cancel?</source>
     <message>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
-        <translation>現在結束將會取消驗證映像檔。
-您確定想要結束嗎？</translation>
+        <translation>現在離開將會取消驗證映像檔。
+您確定要離開嗎？</translation>
     </message>
     <message>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>取消驗證。
-您確定您想要取消嗎？</translation>
+您確定要取消嗎？</translation>
     </message>
     <message>
         <source>Not enough available space!</source>
@@ -375,7 +375,7 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Clearing old partition tables...</source>
-        <translation>正在清除舊的分割表...</translation>
+        <translation>正在清除舊的分割表…</translation>
     </message>
     <message>
         <source>Could not clear the existing partition tables on the device.</source>
@@ -387,7 +387,7 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Fixing GPT...</source>
-        <translation>正在修正 GPT...</translation>
+        <translation>正在修正 GPT…</translation>
     </message>
     <message>
         <source>Image truncated</source>
@@ -535,23 +535,23 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Partition table damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>分割表已損壞</translation>
     </message>
     <message>
         <source>Repair failed</source>
-        <translation type="unfinished"></translation>
+        <translation>修復失敗</translation>
     </message>
     <message>
         <source>The partition table could not be repaired: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>無法修復分割表：%1</translation>
     </message>
     <message>
         <source>The device could not be read at sector %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>無法讀取裝置的磁區 %1。</translation>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>裝置中的映像檔正確無誤，但其分割表已損壞：</translation>
     </message>
     <message>
         <source>Image larger than device</source>
@@ -559,25 +559,31 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
-        <translation type="unfinished"></translation>
+        <translation>裝置中的映像檔正確無誤，但其分割表仍然損壞。請勾選「寫入後修正 GPT」後重新寫入映像檔，或再次執行驗證並接受修復。</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The device&apos;s partition table was damaged and has been repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>驗證成功。
+
+裝置的分割表原本已損壞，現已修復。</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>驗證成功。
+
+映像檔與裝置僅在 GPT 上有差異，且裝置上的 GPT 有效。</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT.</source>
-        <translation type="unfinished"></translation>
+        <translation>驗證成功。
+
+映像檔與裝置僅在 GPT 上有差異。</translation>
     </message>
     <message>
         <source>[Disk %1]</source>
@@ -589,12 +595,13 @@ The image and the device differ only in the GPT.</source>
     </message>
     <message>
         <source>Scanning disks...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在掃描磁碟…</translation>
     </message>
     <message>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>無法讀取整個檔案以產生總和檢查碼：
+%1</translation>
     </message>
     <message>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
@@ -602,59 +609,63 @@ The image and the device differ only in the GPT.</source>
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
 
 Repair the partition table now?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1，主要 GPT 標頭指向的磁區並沒有分割區項目。
+
+未啟用「寫入後修正 GPT」就寫入記憶卡時，Windows 重新掃描後便會留下這種狀態。資料並未遺失，但裝置將無法開機，而且大多數工具會拒絕這個分割表。
+
+要立即修復分割表嗎？</translation>
     </message>
     <message>
         <source>Please select a device.</source>
-        <translation type="unfinished"></translation>
+        <translation>請選擇裝置。</translation>
     </message>
     <message>
         <source>Could not lock the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>無法鎖定裝置。</translation>
     </message>
     <message>
         <source>Could not open the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>無法開啟裝置。</translation>
     </message>
     <message>
         <source>This device&apos;s partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>此裝置的分割表已損壞：</translation>
     </message>
     <message>
         <source>Partition table repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>分割表已修復。</translation>
     </message>
     <message>
         <source>Partition table is still damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>分割表仍然損壞。</translation>
     </message>
     <message>
         <source>Partition table is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>分割表有效。</translation>
     </message>
     <message>
         <source>Partition table</source>
-        <translation type="unfinished"></translation>
+        <translation>分割表</translation>
     </message>
     <message>
         <source>The GPT on this device is valid: the header and the partition entries it points at agree.</source>
-        <translation type="unfinished"></translation>
+        <translation>此裝置上的 GPT 有效：標頭與其指向的分割區項目一致。</translation>
     </message>
     <message>
         <source>No GPT on this device.</source>
-        <translation type="unfinished"></translation>
+        <translation>此裝置上沒有 GPT。</translation>
     </message>
     <message>
         <source>This device has no GPT, so it cannot have the damage this checks for.</source>
-        <translation type="unfinished"></translation>
+        <translation>此裝置沒有 GPT，因此不會發生這項檢查所針對的損壞。</translation>
     </message>
     <message>
         <source>Could not read the partition table.</source>
-        <translation type="unfinished"></translation>
+        <translation>無法讀取分割表。</translation>
     </message>
     <message>
         <source>The partition table could not be read, or is damaged in some way other than the one this repairs.</source>
-        <translation type="unfinished"></translation>
+        <translation>無法讀取分割表，或其損壞方式不屬於這項功能所能修復的類型。</translation>
     </message>
     <message>
         <source>Writing...</source>
@@ -702,7 +713,7 @@ This image has no partition table, so the Windows GPT rewrite bug cannot affect 
     </message>
     <message>
         <source>The GPT could not be fixed (%1).</source>
-        <translation>無法修復 GPT (%1)。</translation>
+        <translation>無法修正 GPT (%1)。</translation>
     </message>
     <message>
         <source>malformed GPT</source>
@@ -899,7 +910,9 @@ Error %1: %2</source>
         <source>Failed to get the free space on the volume holding %1.
 Error %2: %3
 Checking of free space will be skipped.</source>
-        <translation type="unfinished"></translation>
+        <translation>無法取得存放 %1 的磁碟區剩餘空間。
+錯誤 %2：%3
+將會跳過剩餘空間檢查。</translation>
     </message>
     <message>
         <source>Lock Error</source>
@@ -913,7 +926,7 @@ Error %1: %2</source>
     </message>
     <message>
         <source>Unlock Error</source>
-        <translation>解除鎖定失敗</translation>
+        <translation>解除鎖定錯誤</translation>
     </message>
     <message>
         <source>An error occurred when attempting to unlock the volume.
@@ -923,7 +936,7 @@ Error %1: %2</source>
     </message>
     <message>
         <source>Dismount Error</source>
-        <translation>卸載失敗</translation>
+        <translation>卸載錯誤</translation>
     </message>
     <message>
         <source>An error occurred when attempting to dismount the volume.
@@ -953,12 +966,12 @@ Error %1: %2</source>
     </message>
     <message>
         <source>The device took only %1 of %2 bytes. The image on the device is incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>裝置只接受了 %2 個位元組中的 %1 個。裝置上的映像檔並不完整。</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
-        <translation>嘗試取得該裝置容量時失敗。
+        <translation>嘗試取得該裝置的磁碟結構資訊時失敗。
 錯誤 %1：%2</translation>
     </message>
     <message>
@@ -1005,11 +1018,11 @@ Error %2</source>
     </message>
     <message>
         <source>the GPT entry array does not fit on the device</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 項目陣列放不進裝置</translation>
     </message>
     <message>
         <source>the GPT partition entry array checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 分割區項目陣列的總和檢查碼無效</translation>
     </message>
     <message>
         <source>a partition extends past the end of the device</source>
@@ -1025,35 +1038,35 @@ Error %2</source>
     </message>
     <message>
         <source>the device geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>裝置的磁碟結構資訊無法使用</translation>
     </message>
     <message>
         <source>the primary GPT header is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>無法讀取主要 GPT 標頭</translation>
     </message>
     <message>
         <source>the GPT entry array geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT 項目陣列的結構資訊無法使用</translation>
     </message>
     <message>
         <source>the device is too small to hold an entry array</source>
-        <translation type="unfinished"></translation>
+        <translation>裝置太小，無法容納項目陣列</translation>
     </message>
     <message>
         <source>the partition entries could not be read</source>
-        <translation type="unfinished"></translation>
+        <translation>無法讀取分割區項目</translation>
     </message>
     <message>
         <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
-        <translation type="unfinished"></translation>
+        <translation>分割區項目不在 LBA 2，因此這不是本功能所能修復的損壞</translation>
     </message>
     <message>
         <source>the repaired header could not be written</source>
-        <translation type="unfinished"></translation>
+        <translation>無法寫入修復後的標頭</translation>
     </message>
     <message>
         <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
-        <translation type="unfinished"></translation>
+        <translation>PartitionEntryLBA 已重新指向 LBA 2，標頭的總和檢查碼也已重新計算</translation>
     </message>
     <message>
         <source>The device reports a sector size of zero.</source>

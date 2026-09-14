@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Image File</source>
-        <translation>Archivo Imagen</translation>
+        <translation>Archivo de imagen</translation>
     </message>
     <message>
         <source>...</source>
@@ -25,11 +25,11 @@
     </message>
     <message>
         <source>Check GPT</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobar la GPT</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprueba si la GPT del dispositivo seleccionado está dañada y ofrece repararla.</translation>
     </message>
     <message>
         <source>Image File Hash</source>
@@ -93,7 +93,7 @@
     </message>
     <message>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
-        <translation>Leer datos desde &apos;Dispositivo&apos; hacia &apos;Archivo Imagen&apos;</translation>
+        <translation>Leer datos del «Dispositivo» al «Archivo de imagen»</translation>
     </message>
     <message>
         <source>Read</source>
@@ -101,7 +101,7 @@
     </message>
     <message>
         <source>Write data from &apos;Image File&apos; to &apos;Device&apos;</source>
-        <translation>Escribir datos desde &apos;Archivo Imagen&apos; hacia &apos;Dispositivo&apos;</translation>
+        <translation>Escribir datos del «Archivo de imagen» al «Dispositivo»</translation>
     </message>
     <message>
         <source>Write</source>
@@ -109,7 +109,7 @@
     </message>
     <message>
         <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
-        <translation>Comparar datos del &apos;Dispositivo&apos; con el &apos;Archivo Imagen&apos;</translation>
+        <translation>Comparar los datos del «Dispositivo» con el «Archivo de imagen»</translation>
     </message>
     <message>
         <source>Verify the image file with the selected drive</source>
@@ -134,22 +134,22 @@
     <message>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
-        <translation>El salir ahora resultará en un Archivo Imagen corrupto
-¿Está seguro que quiere salir? </translation>
+        <translation>Salir ahora provocará un archivo de imagen dañado.
+¿Está seguro de que quiere salir?</translation>
     </message>
     <message>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
-        <translation>El salir ahora resultará en un Disco corrupto
-¿Está seguro que quiere salir?</translation>
+        <translation>Salir ahora provocará un disco dañado.
+¿Está seguro de que quiere salir?</translation>
     </message>
     <message>
         <source>Select a disk image</source>
-        <translation>Seleccione una Imagen de Disco</translation>
+        <translation>Seleccione una imagen de disco</translation>
     </message>
     <message>
         <source>Generating...</source>
-        <translation>Generando...</translation>
+        <translation>Generando…</translation>
     </message>
     <message>
         <source>Cancel?</source>
@@ -158,16 +158,16 @@ Are you sure you want to exit?</source>
     <message>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
-        <translation>Cancelar ahora resultará en un destino corrupto
-¿Está seguro que quiere cancelar?</translation>
+        <translation>Cancelar ahora provocará un destino dañado.
+¿Está seguro de que quiere cancelar?</translation>
     </message>
     <message>
         <source>Write Error</source>
-        <translation>Error al Escribir</translation>
+        <translation>Error de escritura</translation>
     </message>
     <message>
         <source>Image file cannot be located on the target device.</source>
-        <translation>El Archivo Imagen no se puede ubicar en el dispositivo destino.</translation>
+        <translation>El archivo de imagen no puede estar en el dispositivo de destino.</translation>
     </message>
     <message>
         <source>Confirm overwrite</source>
@@ -180,14 +180,14 @@ Are you sure you want to cancel?</source>
     <message>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
-        <translation>El salir ahora resultará en cancelar la verificación de la imagen
-¿Está seguro que quiere salir?</translation>
+        <translation>Salir ahora cancelará la verificación de la imagen.
+¿Está seguro de que quiere salir?</translation>
     </message>
     <message>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
-        <translation>Cancelar Verificación.
-¿Estas seguro que quieres cancelar?</translation>
+        <translation>Cancelar la verificación.
+¿Está seguro de que quiere cancelar?</translation>
     </message>
     <message>
         <source>Not enough available space!</source>
@@ -195,7 +195,7 @@ Are you sure you want to cancel?</source>
     </message>
     <message>
         <source>File Error</source>
-        <translation>Error de Archivo</translation>
+        <translation>Error de archivo</translation>
     </message>
     <message>
         <source>Write successful, but the partition table is at risk.
@@ -233,7 +233,7 @@ Retire físicamente el dispositivo AHORA, antes de hacer cualquier otra cosa, y 
     </message>
     <message>
         <source>Write Successful.</source>
-        <translation>Escritura Exitosa.</translation>
+        <translation>Escritura correcta.</translation>
     </message>
     <message>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
@@ -543,19 +543,19 @@ No se pudo comprobar si el espacio sobrante contiene datos, porque la imagen est
     </message>
     <message>
         <source>Partition table damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabla de particiones dañada</translation>
     </message>
     <message>
         <source>Repair failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Error en la reparación</translation>
     </message>
     <message>
         <source>The partition table could not be repaired: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo reparar la tabla de particiones: %1</translation>
     </message>
     <message>
         <source>Image larger than device</source>
-        <translation>La imagen es mayor que el dispositivo</translation>
+        <translation>Imagen mayor que el dispositivo</translation>
     </message>
     <message>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
@@ -571,16 +571,17 @@ Esto solo se pudo detectar al llegar al final del dispositivo, porque una imagen
     </message>
     <message>
         <source>Please specify an image file to use.</source>
-        <translation>Por favor especifique un archivo de imagen para usar.</translation>
+        <translation>Especifique el archivo de imagen que quiere usar.</translation>
     </message>
     <message>
         <source>Scanning disks...</source>
-        <translation type="unfinished"></translation>
+        <translation>Analizando los discos…</translation>
     </message>
     <message>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo leer el archivo completo para generar la suma de comprobación:
+%1</translation>
     </message>
     <message>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
@@ -588,59 +589,63 @@ Esto solo se pudo detectar al llegar al final del dispositivo, porque una imagen
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
 
 Repair the partition table now?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 la cabecera GPT primaria apunta a sectores en los que no están las entradas de partición.
+
+Esto es lo que deja Windows cuando reanaliza una tarjeta escrita sin «Corregir la GPT después de escribir». No se ha perdido ningún dato, pero el dispositivo no arrancará y la mayoría de las herramientas rechazarán la tabla.
+
+¿Reparar la tabla de particiones ahora?</translation>
     </message>
     <message>
         <source>Please select a device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione un dispositivo.</translation>
     </message>
     <message>
         <source>Could not lock the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo bloquear el dispositivo.</translation>
     </message>
     <message>
         <source>Could not open the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo abrir el dispositivo.</translation>
     </message>
     <message>
         <source>This device&apos;s partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>La tabla de particiones de este dispositivo está dañada:</translation>
     </message>
     <message>
         <source>Partition table repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabla de particiones reparada.</translation>
     </message>
     <message>
         <source>Partition table is still damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>La tabla de particiones sigue dañada.</translation>
     </message>
     <message>
         <source>Partition table is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>La tabla de particiones es válida.</translation>
     </message>
     <message>
         <source>Partition table</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabla de particiones</translation>
     </message>
     <message>
         <source>The GPT on this device is valid: the header and the partition entries it points at agree.</source>
-        <translation type="unfinished"></translation>
+        <translation>La GPT de este dispositivo es válida: la cabecera y las entradas de partición a las que apunta coinciden.</translation>
     </message>
     <message>
         <source>No GPT on this device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este dispositivo no tiene GPT.</translation>
     </message>
     <message>
         <source>This device has no GPT, so it cannot have the damage this checks for.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este dispositivo no tiene GPT, así que no puede presentar el daño que se comprueba aquí.</translation>
     </message>
     <message>
         <source>Could not read the partition table.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo leer la tabla de particiones.</translation>
     </message>
     <message>
         <source>The partition table could not be read, or is damaged in some way other than the one this repairs.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo leer la tabla de particiones, o está dañada de una forma distinta a la que esto repara.</translation>
     </message>
     <message>
         <source>Writing...</source>
@@ -684,7 +689,7 @@ Esta imagen no tiene tabla de particiones, por lo que el error de reescritura de
     </message>
     <message>
         <source>The device could NOT be taken offline.</source>
-        <translation>NO se pudo desconectar el dispositivo.</translation>
+        <translation>El dispositivo NO se pudo poner sin conexión.</translation>
     </message>
     <message>
         <source>The GPT could not be fixed (%1).</source>
@@ -696,7 +701,7 @@ Esta imagen no tiene tabla de particiones, por lo que el error de reescritura de
     </message>
     <message>
         <source>&quot;Fix GPT after write&quot; is off.</source>
-        <translation>&quot;Corregir la GPT después de escribir&quot; está desactivado.</translation>
+        <translation>«Corregir la GPT después de escribir» está desactivado.</translation>
     </message>
     <message>
         <source>This image IS affected: it reserves space ahead of its first partition, so a rescan points the primary table at the wrong sectors. Windows still accepts the result; Linux does not, and the device will not boot.</source>
@@ -752,23 +757,23 @@ Extraiga el dispositivo AHORA y no vuelva a insertarlo aquí. Colóquelo directa
     </message>
     <message>
         <source>Read Canceled.</source>
-        <translation>Lectura Cancelada.</translation>
+        <translation>Lectura cancelada.</translation>
     </message>
     <message>
         <source>Read Successful.</source>
-        <translation>Lectura Exitosa.</translation>
+        <translation>Lectura correcta.</translation>
     </message>
     <message>
         <source>File Info</source>
-        <translation>Información del Archivo</translation>
+        <translation>Información del archivo</translation>
     </message>
     <message>
         <source>Please specify a file to save data to.</source>
-        <translation>Por favor especifique un archivo para guardar los datos.</translation>
+        <translation>Especifique el archivo en el que guardar los datos.</translation>
     </message>
     <message>
         <source>Verify Error</source>
-        <translation>Verificar Error </translation>
+        <translation>Error de verificación</translation>
     </message>
     <message>
         <source>Please select a device to verify against.</source>
@@ -812,33 +817,39 @@ El espacio sobrante no parece contener datos
     </message>
     <message>
         <source>The device could not be read at sector %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo leer el dispositivo en el sector %1.</translation>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>El dispositivo contiene la imagen correctamente, pero su tabla de particiones está dañada:</translation>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
-        <translation type="unfinished"></translation>
+        <translation>El dispositivo contiene la imagen correctamente, pero su tabla de particiones sigue dañada. Vuelva a escribir la imagen con «Corregir la GPT después de escribir» marcado, o ejecute de nuevo la verificación y acepte la reparación.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The device&apos;s partition table was damaged and has been repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificación correcta.
+
+La tabla de particiones del dispositivo estaba dañada y se ha reparado.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificación correcta.
+
+La imagen y el dispositivo solo se diferencian en la GPT, y la GPT del dispositivo es válida.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificación correcta.
+
+La imagen y el dispositivo solo se diferencian en la GPT.</translation>
     </message>
     <message>
         <source>Size Mismatch!</source>
@@ -846,7 +857,7 @@ The image and the device differ only in the GPT.</source>
     </message>
     <message>
         <source>Verify Failure</source>
-        <translation>Falló la Verificación</translation>
+        <translation>Error de verificación</translation>
     </message>
     <message>
         <source>Verification failed at sector: %1</source>
@@ -886,14 +897,14 @@ El dispositivo NO se pudo poner sin conexión automáticamente.</translation>
     </message>
     <message>
         <source>Verify Successful.</source>
-        <translation>Verificación Exitosa.</translation>
+        <translation>Verificación correcta.</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>File Error</source>
-        <translation>Error de Archivo</translation>
+        <translation>Error de archivo</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get a handle on the file.
@@ -903,7 +914,7 @@ Error %1: %2</translation>
     </message>
     <message>
         <source>Device Error</source>
-        <translation>Error de Dispositivo</translation>
+        <translation>Error de dispositivo</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get a handle on the device.
@@ -915,11 +926,13 @@ Error %1: %2</translation>
         <source>Failed to get the free space on the volume holding %1.
 Error %2: %3
 Checking of free space will be skipped.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al obtener el espacio libre en el volumen que contiene %1.
+Error %2: %3
+Se omitirá la comprobación del espacio libre.</translation>
     </message>
     <message>
         <source>Lock Error</source>
-        <translation>Error de Bloqueo</translation>
+        <translation>Error de bloqueo</translation>
     </message>
     <message>
         <source>An error occurred when attempting to lock the volume.
@@ -929,7 +942,7 @@ Error %1: %2</translation>
     </message>
     <message>
         <source>Unlock Error</source>
-        <translation>Error de Desbloqueo</translation>
+        <translation>Error de desbloqueo</translation>
     </message>
     <message>
         <source>An error occurred when attempting to unlock the volume.
@@ -939,7 +952,7 @@ Error %1: %2</translation>
     </message>
     <message>
         <source>Dismount Error</source>
-        <translation>Error de Desmontaje</translation>
+        <translation>Error de desmontaje</translation>
     </message>
     <message>
         <source>An error occurred when attempting to dismount the volume.
@@ -949,7 +962,7 @@ Error %1: %2</translation>
     </message>
     <message>
         <source>Read Error</source>
-        <translation>Error de Lectura</translation>
+        <translation>Error de lectura</translation>
     </message>
     <message>
         <source>An error occurred when attempting to read data from handle.
@@ -959,7 +972,7 @@ Error %1: %2</translation>
     </message>
     <message>
         <source>Write Error</source>
-        <translation>Error de Escritura</translation>
+        <translation>Error de escritura</translation>
     </message>
     <message>
         <source>An error occurred when attempting to write data to handle.
@@ -969,7 +982,7 @@ Error %1: %2</translation>
     </message>
     <message>
         <source>The device took only %1 of %2 bytes. The image on the device is incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>El dispositivo solo admitió %1 de %2 bytes. La imagen del dispositivo está incompleta.</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get the device&apos;s geometry.
@@ -985,7 +998,7 @@ Error %1: %2</translation>
     </message>
     <message>
         <source>Free Space Error</source>
-        <translation>Error de Espacio Libre</translation>
+        <translation>Error de espacio libre</translation>
     </message>
     <message>
         <source>Failed to get the free space on drive %1.
@@ -1021,11 +1034,11 @@ Error %2</translation>
     </message>
     <message>
         <source>the GPT entry array does not fit on the device</source>
-        <translation type="unfinished"></translation>
+        <translation>la matriz de entradas GPT no cabe en el dispositivo</translation>
     </message>
     <message>
         <source>the GPT partition entry array checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>la suma de comprobación de la matriz de entradas de partición GPT no es válida</translation>
     </message>
     <message>
         <source>a partition extends past the end of the device</source>
@@ -1041,35 +1054,35 @@ Error %2</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>la geometría del dispositivo no es utilizable</translation>
     </message>
     <message>
         <source>the primary GPT header is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>no se puede leer la cabecera GPT primaria</translation>
     </message>
     <message>
         <source>the GPT entry array geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>la geometría de la matriz de entradas GPT no es utilizable</translation>
     </message>
     <message>
         <source>the device is too small to hold an entry array</source>
-        <translation type="unfinished"></translation>
+        <translation>el dispositivo es demasiado pequeño para contener una matriz de entradas</translation>
     </message>
     <message>
         <source>the partition entries could not be read</source>
-        <translation type="unfinished"></translation>
+        <translation>no se pudieron leer las entradas de partición</translation>
     </message>
     <message>
         <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
-        <translation type="unfinished"></translation>
+        <translation>las entradas de partición no están en el LBA 2, así que este no es el daño que esto puede reparar</translation>
     </message>
     <message>
         <source>the repaired header could not be written</source>
-        <translation type="unfinished"></translation>
+        <translation>no se pudo escribir la cabecera reparada</translation>
     </message>
     <message>
         <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
-        <translation type="unfinished"></translation>
+        <translation>PartitionEntryLBA se ha vuelto a apuntar al LBA 2 y se ha recalculado la suma de comprobación de la cabecera</translation>
     </message>
     <message>
         <source>The device reports a sector size of zero.</source>

@@ -25,11 +25,11 @@
     </message>
     <message>
         <source>Check GPT</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérifier la GPT</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérifie si la GPT du périphérique sélectionné est endommagée et propose de la réparer.</translation>
     </message>
     <message>
         <source>Image File Hash</source>
@@ -93,7 +93,7 @@
     </message>
     <message>
         <source>Read data from &apos;Device&apos; to &apos;Image File&apos;</source>
-        <translation>Lire les données depuis &apos;Périphérique&apos; vers le fichier image</translation>
+        <translation>Lire les données du « périphérique » vers le « fichier image »</translation>
     </message>
     <message>
         <source>Read</source>
@@ -101,15 +101,15 @@
     </message>
     <message>
         <source>Write data from &apos;Image File&apos; to &apos;Device&apos;</source>
-        <translation>Ecrire les données du &apos;fichier image&apos; sur le &apos;Périphérique&apos;</translation>
+        <translation>Écrire les données du « fichier image » vers le « périphérique »</translation>
     </message>
     <message>
         <source>Write</source>
-        <translation>Ecrire</translation>
+        <translation>Écrire</translation>
     </message>
     <message>
         <source>Compare data in &apos;Device&apos; against &apos;Image File&apos;</source>
-        <translation>Comparer les données du &apos;Périphérique&apos; avec le &apos;fichier image&apos;</translation>
+        <translation>Comparer les données du « périphérique » avec le « fichier image »</translation>
     </message>
     <message>
         <source>Verify the image file with the selected drive</source>
@@ -129,17 +129,19 @@
     </message>
     <message>
         <source>Exit?</source>
-        <translation>Fermer?</translation>
+        <translation>Fermer ?</translation>
     </message>
     <message>
         <source>Exiting now will result in a corrupt image file.
 Are you sure you want to exit?</source>
-        <translation>Quitter maintenant vous donnera un fichier image corrompu. Etes-vous sûr de vouloir quitter?</translation>
+        <translation>Quitter maintenant produira un fichier image corrompu.
+Voulez-vous vraiment quitter ?</translation>
     </message>
     <message>
         <source>Exiting now will result in a corrupt disk.
 Are you sure you want to exit?</source>
-        <translation>Quitter maintenant résultera en un disque corrompu. Etes-vous sûr de vouloir quitter?</translation>
+        <translation>Quitter maintenant produira un disque corrompu.
+Voulez-vous vraiment quitter ?</translation>
     </message>
     <message>
         <source>Select a disk image</source>
@@ -147,16 +149,17 @@ Are you sure you want to exit?</source>
     </message>
     <message>
         <source>Generating...</source>
-        <translation>Génération...</translation>
+        <translation>Génération…</translation>
     </message>
     <message>
         <source>Cancel?</source>
-        <translation>Annuler?</translation>
+        <translation>Annuler ?</translation>
     </message>
     <message>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
-        <translation>Annuler maintenant corrompera la destination. Etes-vous sûr de vouloir annuler?</translation>
+        <translation>Annuler maintenant corrompra la destination.
+Voulez-vous vraiment annuler ?</translation>
     </message>
     <message>
         <source>Write Error</source>
@@ -164,7 +167,7 @@ Are you sure you want to cancel?</source>
     </message>
     <message>
         <source>Image file cannot be located on the target device.</source>
-        <translation>Le fichier image n&apos;a pas été trouvé sur le périphérique cible.</translation>
+        <translation>Le fichier image ne peut pas se trouver sur le périphérique cible.</translation>
     </message>
     <message>
         <source>Confirm overwrite</source>
@@ -230,7 +233,7 @@ Retirez physiquement le périphérique MAINTENANT, avant toute autre chose, et n
     </message>
     <message>
         <source>Write Successful.</source>
-        <translation>Ecriture réussie.</translation>
+        <translation>Écriture réussie.</translation>
     </message>
     <message>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
@@ -540,15 +543,15 @@ Continuer quand même ?</translation>
     </message>
     <message>
         <source>Partition table damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Table de partitions endommagée</translation>
     </message>
     <message>
         <source>Repair failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de la réparation</translation>
     </message>
     <message>
         <source>The partition table could not be repaired: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>La table de partitions n&apos;a pas pu être réparée : %1</translation>
     </message>
     <message>
         <source>Image larger than device</source>
@@ -568,16 +571,17 @@ Cela n&apos;a pu être détecté qu&apos;à la fin du périphérique, car une im
     </message>
     <message>
         <source>Please specify an image file to use.</source>
-        <translation>Merci de spécifier le fichier image à utiliser.</translation>
+        <translation>Veuillez spécifier le fichier image à utiliser.</translation>
     </message>
     <message>
         <source>Scanning disks...</source>
-        <translation type="unfinished"></translation>
+        <translation>Analyse des disques…</translation>
     </message>
     <message>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de lire le fichier en entier pour calculer une somme de contrôle :
+%1</translation>
     </message>
     <message>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
@@ -585,59 +589,63 @@ Cela n&apos;a pu être détecté qu&apos;à la fin du périphérique, car une im
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
 
 Repair the partition table now?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 l&apos;en-tête GPT primaire pointe vers des secteurs où ne se trouvent pas les entrées de partition.
+
+C&apos;est ce que laisse Windows lorsqu&apos;il réanalyse une carte écrite sans « Corriger la GPT après l&apos;écriture ». Aucune donnée n&apos;a été perdue, mais le périphérique ne démarrera pas et la plupart des outils refuseront la table.
+
+Réparer la table de partitions maintenant ?</translation>
     </message>
     <message>
         <source>Please select a device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez sélectionner un périphérique.</translation>
     </message>
     <message>
         <source>Could not lock the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de verrouiller le périphérique.</translation>
     </message>
     <message>
         <source>Could not open the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d&apos;ouvrir le périphérique.</translation>
     </message>
     <message>
         <source>This device&apos;s partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>La table de partitions de ce périphérique est endommagée :</translation>
     </message>
     <message>
         <source>Partition table repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>Table de partitions réparée.</translation>
     </message>
     <message>
         <source>Partition table is still damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>La table de partitions est toujours endommagée.</translation>
     </message>
     <message>
         <source>Partition table is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>La table de partitions est valide.</translation>
     </message>
     <message>
         <source>Partition table</source>
-        <translation type="unfinished"></translation>
+        <translation>Table de partitions</translation>
     </message>
     <message>
         <source>The GPT on this device is valid: the header and the partition entries it points at agree.</source>
-        <translation type="unfinished"></translation>
+        <translation>La GPT de ce périphérique est valide : l&apos;en-tête et les entrées de partition vers lesquelles il pointe concordent.</translation>
     </message>
     <message>
         <source>No GPT on this device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune GPT sur ce périphérique.</translation>
     </message>
     <message>
         <source>This device has no GPT, so it cannot have the damage this checks for.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce périphérique n&apos;a pas de GPT ; il ne peut donc pas présenter le dommage recherché ici.</translation>
     </message>
     <message>
         <source>Could not read the partition table.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de lire la table de partitions.</translation>
     </message>
     <message>
         <source>The partition table could not be read, or is damaged in some way other than the one this repairs.</source>
-        <translation type="unfinished"></translation>
+        <translation>La table de partitions n&apos;a pas pu être lue, ou elle est endommagée d&apos;une manière autre que celle que cette fonction répare.</translation>
     </message>
     <message>
         <source>Writing...</source>
@@ -737,7 +745,7 @@ Retirez le périphérique MAINTENANT et ne le réinsérez pas ici. Placez-le dir
     </message>
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
-        <translation>Etes-vous sur de vouloir écraser le fichier spécifié?</translation>
+        <translation>Voulez-vous vraiment écraser le fichier spécifié ?</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>
@@ -753,7 +761,7 @@ Retirez le périphérique MAINTENANT et ne le réinsérez pas ici. Placez-le dir
     </message>
     <message>
         <source>Read Successful.</source>
-        <translation>Lecture effectuée avec succès.</translation>
+        <translation>Lecture réussie.</translation>
     </message>
     <message>
         <source>File Info</source>
@@ -761,7 +769,7 @@ Retirez le périphérique MAINTENANT et ne le réinsérez pas ici. Placez-le dir
     </message>
     <message>
         <source>Please specify a file to save data to.</source>
-        <translation>Merci de spécifier un fichier dans lequel sauvegarder les données</translation>
+        <translation>Veuillez spécifier un fichier dans lequel enregistrer les données.</translation>
     </message>
     <message>
         <source>Verify Error</source>
@@ -809,15 +817,15 @@ Continuer quand même ?</translation>
     </message>
     <message>
         <source>The device could not be read at sector %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le périphérique n&apos;a pas pu être lu au secteur %1.</translation>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>Le périphérique contient correctement l&apos;image, mais sa table de partitions est endommagée :</translation>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le périphérique contient correctement l&apos;image, mais sa table de partitions est toujours endommagée. Réécrivez l&apos;image avec l&apos;option « Corriger la GPT après l&apos;écriture » cochée, ou relancez la vérification et acceptez la réparation.</translation>
     </message>
     <message>
         <source>Size Mismatch!</source>
@@ -855,19 +863,25 @@ L&apos;image et le périphérique ne diffèrent que par la GPT, que l&apos;optio
         <source>Verify Successful.
 
 The device&apos;s partition table was damaged and has been repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérification réussie.
+
+La table de partitions du périphérique était endommagée et a été réparée.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérification réussie.
+
+L&apos;image et le périphérique ne diffèrent que par la GPT, et la GPT du périphérique est valide.</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérification réussie.
+
+L&apos;image et le périphérique ne diffèrent que par la GPT.</translation>
     </message>
     <message>
         <source>
@@ -890,29 +904,31 @@ Le périphérique n&apos;a PAS pu être mis hors ligne automatiquement.</transla
     <name>QObject</name>
     <message>
         <source>File Error</source>
-        <translation>Erreur fichier</translation>
+        <translation>Erreur de fichier</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>Une erreur est apparue lors de la tentative d&apos;accès au fichier.
-Erreur %1: %2</translation>
+Erreur %1 : %2</translation>
     </message>
     <message>
         <source>Device Error</source>
-        <translation>Erreur du périphérique</translation>
+        <translation>Erreur de périphérique</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
         <translation>Une erreur est apparue lors de la tentative d&apos;accès au périphérique.
-Erreur %1: %2</translation>
+Erreur %1 : %2</translation>
     </message>
     <message>
         <source>Failed to get the free space on the volume holding %1.
 Error %2: %3
 Checking of free space will be skipped.</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de l&apos;obtention de l&apos;espace libre sur le volume contenant %1.
+Erreur %2 : %3
+La vérification de l&apos;espace libre ne sera pas effectuée.</translation>
     </message>
     <message>
         <source>Lock Error</source>
@@ -932,7 +948,7 @@ Erreur %1: %2</translation>
         <source>An error occurred when attempting to unlock the volume.
 Error %1: %2</source>
         <translation>Une erreur est apparue lors de la tentative de déverrouillage du volume.
-Erreur %1: %2</translation>
+Erreur %1 : %2</translation>
     </message>
     <message>
         <source>Dismount Error</source>
@@ -941,8 +957,8 @@ Erreur %1: %2</translation>
     <message>
         <source>An error occurred when attempting to dismount the volume.
 Error %1: %2</source>
-        <translation>Une erreur est apparue lors de la tentative de démonter le volume.
-Erreur %1: %2</translation>
+        <translation>Une erreur est apparue lors de la tentative de démontage du volume.
+Erreur %1 : %2</translation>
     </message>
     <message>
         <source>Read Error</source>
@@ -952,7 +968,7 @@ Erreur %1: %2</translation>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>Une erreur est apparue lors de la tentative de lecture des données.
-Erreur %1: %2</translation>
+Erreur %1 : %2</translation>
     </message>
     <message>
         <source>Write Error</source>
@@ -962,23 +978,23 @@ Erreur %1: %2</translation>
         <source>An error occurred when attempting to write data to handle.
 Error %1: %2</source>
         <translation>Une erreur est apparue lors de la tentative d&apos;écriture des données.
-Erreur %1: %2</translation>
+Erreur %1 : %2</translation>
     </message>
     <message>
         <source>The device took only %1 of %2 bytes. The image on the device is incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le périphérique n&apos;a accepté que %1 octets sur %2. L&apos;image sur le périphérique est incomplète.</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
         <translation>Une erreur est apparue lors de la tentative d&apos;obtention de la géométrie du périphérique.
-Erreur %1: %2</translation>
+Erreur %1 : %2</translation>
     </message>
     <message>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
         <translation>Une erreur s&apos;est produite lors de l&apos;obtention de la taille du fichier.
-Erreur %1: %2</translation>
+Erreur %1 : %2</translation>
     </message>
     <message>
         <source>Free Space Error</source>
@@ -1018,11 +1034,11 @@ Erreur %2</translation>
     </message>
     <message>
         <source>the GPT entry array does not fit on the device</source>
-        <translation type="unfinished"></translation>
+        <translation>le tableau des entrées GPT ne tient pas sur le périphérique</translation>
     </message>
     <message>
         <source>the GPT partition entry array checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>la somme de contrôle du tableau des entrées de partition GPT est invalide</translation>
     </message>
     <message>
         <source>a partition extends past the end of the device</source>
@@ -1038,35 +1054,35 @@ Erreur %2</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>la géométrie du périphérique est inutilisable</translation>
     </message>
     <message>
         <source>the primary GPT header is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>l&apos;en-tête GPT primaire n&apos;est pas lisible</translation>
     </message>
     <message>
         <source>the GPT entry array geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>la géométrie du tableau des entrées GPT est inutilisable</translation>
     </message>
     <message>
         <source>the device is too small to hold an entry array</source>
-        <translation type="unfinished"></translation>
+        <translation>le périphérique est trop petit pour contenir un tableau d&apos;entrées</translation>
     </message>
     <message>
         <source>the partition entries could not be read</source>
-        <translation type="unfinished"></translation>
+        <translation>les entrées de partition n&apos;ont pas pu être lues</translation>
     </message>
     <message>
         <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
-        <translation type="unfinished"></translation>
+        <translation>les entrées de partition ne sont pas au LBA 2 ; il ne s&apos;agit donc pas du dommage que cette fonction peut réparer</translation>
     </message>
     <message>
         <source>the repaired header could not be written</source>
-        <translation type="unfinished"></translation>
+        <translation>l&apos;en-tête réparé n&apos;a pas pu être écrit</translation>
     </message>
     <message>
         <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
-        <translation type="unfinished"></translation>
+        <translation>PartitionEntryLBA pointe de nouveau vers le LBA 2 et la somme de contrôle de l&apos;en-tête a été recalculée</translation>
     </message>
     <message>
         <source>The device reports a sector size of zero.</source>

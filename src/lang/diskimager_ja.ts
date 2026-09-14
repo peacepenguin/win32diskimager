@@ -13,7 +13,7 @@
     </message>
     <message>
         <source>...</source>
-        <translation>...</translation>
+        <translation>…</translation>
     </message>
     <message>
         <source>Verify</source>
@@ -25,11 +25,11 @@
     </message>
     <message>
         <source>Check GPT</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT を確認</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
-        <translation type="unfinished"></translation>
+        <translation>選択中のデバイスの GPT が壊れていないかを確認し、壊れていれば修復を提案します。</translation>
     </message>
     <message>
         <source>Image File Hash</source>
@@ -45,7 +45,7 @@
     </message>
     <message>
         <source>Generate selected hash on file</source>
-        <translation>ファイルから作成</translation>
+        <translation>選択したハッシュをファイルから生成</translation>
     </message>
     <message>
         <source>Generate</source>
@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Copy hash to clipboard</source>
-        <translation>ハッシュをクリップボードからコピー</translation>
+        <translation>ハッシュをクリップボードにコピー</translation>
     </message>
     <message>
         <source>Copy</source>
@@ -77,7 +77,7 @@
     </message>
     <message>
         <source>Progress</source>
-        <translation>進捗の状況</translation>
+        <translation>進捗状況</translation>
     </message>
     <message>
         <source>%p%</source>
@@ -85,7 +85,7 @@
     </message>
     <message>
         <source>Cancel current process.</source>
-        <translation>作業をキャンセルしました。</translation>
+        <translation>現在の処理をキャンセルします。</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -149,17 +149,17 @@ Are you sure you want to exit?</source>
     </message>
     <message>
         <source>Generating...</source>
-        <translation>生成中...</translation>
+        <translation>生成中…</translation>
     </message>
     <message>
         <source>Cancel?</source>
-        <translation>キャンセル？</translation>
+        <translation>キャンセルしますか？</translation>
     </message>
     <message>
         <source>Canceling now will result in a corrupt destination.
 Are you sure you want to cancel?</source>
         <translation>いまキャンセルすると、宛先が破損します。
-本当にキャンセルしてもよろしいです？</translation>
+本当にキャンセルしてもよろしいですか？</translation>
     </message>
     <message>
         <source>Write Error</source>
@@ -229,7 +229,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
     </message>
     <message>
         <source>Complete</source>
-        <translation>完成</translation>
+        <translation>完了</translation>
     </message>
     <message>
         <source>Write Successful.</source>
@@ -375,7 +375,7 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Clearing old partition tables...</source>
-        <translation>古いパーティションテーブルを消去しています...</translation>
+        <translation>古いパーティションテーブルを消去しています…</translation>
     </message>
     <message>
         <source>Could not clear the existing partition tables on the device.</source>
@@ -387,7 +387,7 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Fixing GPT...</source>
-        <translation>GPT を修正しています...</translation>
+        <translation>GPT を修正しています…</translation>
     </message>
     <message>
         <source>Image truncated</source>
@@ -535,23 +535,23 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Partition table damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションテーブルの破損</translation>
     </message>
     <message>
         <source>Repair failed</source>
-        <translation type="unfinished"></translation>
+        <translation>修復に失敗しました</translation>
     </message>
     <message>
         <source>The partition table could not be repaired: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションテーブルを修復できませんでした: %1</translation>
     </message>
     <message>
         <source>The device could not be read at sector %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>セクタ %1 でデバイスを読み取れませんでした。</translation>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスにはイメージが正しく書き込まれていますが、パーティションテーブルが壊れています:</translation>
     </message>
     <message>
         <source>Image larger than device</source>
@@ -559,25 +559,31 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>The device holds the image correctly, but its partition table is still broken. Write the image again with &quot;Fix GPT after write&quot; ticked, or run the verify again and accept the repair.</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスにはイメージが正しく書き込まれていますが、パーティションテーブルはまだ壊れています。「書き込み後に GPT を修正する」をオンにしてイメージを書き込み直すか、もう一度検証を実行して修復を実行してください。</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The device&apos;s partition table was damaged and has been repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>検証に成功しました。
+
+デバイスのパーティションテーブルは破損していましたが、修復しました。</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT, and the GPT on the device is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>検証に成功しました。
+
+イメージとデバイスの違いは GPT のみで、デバイス上の GPT は正常です。</translation>
     </message>
     <message>
         <source>Verify Successful.
 
 The image and the device differ only in the GPT.</source>
-        <translation type="unfinished"></translation>
+        <translation>検証に成功しました。
+
+イメージとデバイスの違いは GPT のみです。</translation>
     </message>
     <message>
         <source>[Disk %1]</source>
@@ -589,12 +595,13 @@ The image and the device differ only in the GPT.</source>
     </message>
     <message>
         <source>Scanning disks...</source>
-        <translation type="unfinished"></translation>
+        <translation>ディスクを検索しています…</translation>
     </message>
     <message>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>チェックサムを生成するためにファイル全体を読み取れませんでした:
+%1</translation>
     </message>
     <message>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
@@ -602,59 +609,63 @@ The image and the device differ only in the GPT.</source>
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
 
 Repair the partition table now?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1。プライマリ GPT ヘッダーが、パーティションエントリの存在しないセクタを指しています。
+
+これは、「書き込み後に GPT を修正する」を使わずに書き込んだカードを Windows が再スキャンしたときに残る状態です。データは失われていませんが、デバイスは起動せず、多くのツールがこのテーブルを受け付けません。
+
+今すぐパーティションテーブルを修復しますか？</translation>
     </message>
     <message>
         <source>Please select a device.</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスを選択してください。</translation>
     </message>
     <message>
         <source>Could not lock the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスをロックできませんでした。</translation>
     </message>
     <message>
         <source>Could not open the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスを開けませんでした。</translation>
     </message>
     <message>
         <source>This device&apos;s partition table is broken:</source>
-        <translation type="unfinished"></translation>
+        <translation>このデバイスのパーティションテーブルは壊れています:</translation>
     </message>
     <message>
         <source>Partition table repaired.</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションテーブルを修復しました。</translation>
     </message>
     <message>
         <source>Partition table is still damaged.</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションテーブルはまだ破損しています。</translation>
     </message>
     <message>
         <source>Partition table is valid.</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションテーブルは正常です。</translation>
     </message>
     <message>
         <source>Partition table</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションテーブル</translation>
     </message>
     <message>
         <source>The GPT on this device is valid: the header and the partition entries it points at agree.</source>
-        <translation type="unfinished"></translation>
+        <translation>このデバイスの GPT は正常です。ヘッダーと、それが指すパーティションエントリは一致しています。</translation>
     </message>
     <message>
         <source>No GPT on this device.</source>
-        <translation type="unfinished"></translation>
+        <translation>このデバイスに GPT はありません。</translation>
     </message>
     <message>
         <source>This device has no GPT, so it cannot have the damage this checks for.</source>
-        <translation type="unfinished"></translation>
+        <translation>このデバイスには GPT がないため、ここで確認する破損は発生しません。</translation>
     </message>
     <message>
         <source>Could not read the partition table.</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションテーブルを読み取れませんでした。</translation>
     </message>
     <message>
         <source>The partition table could not be read, or is damaged in some way other than the one this repairs.</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションテーブルを読み取れなかったか、この機能が修復できる破損とは別の形で壊れています。</translation>
     </message>
     <message>
         <source>Writing...</source>
@@ -758,7 +769,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>
-        <translation>指定されたイメージに対し ディスク容量が十分ではありません。</translation>
+        <translation>指定されたイメージに対しディスク容量が十分ではありません。</translation>
     </message>
     <message>
         <source>Reading...</source>
@@ -834,7 +845,7 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Verification failed at sector: %1</source>
-        <translation>セクター：%1で照合に失敗しました</translation>
+        <translation>セクタ %1 で検証に失敗しました。</translation>
     </message>
     <message>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.
@@ -883,7 +894,7 @@ The device could NOT be taken offline automatically.</source>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>ファイルのハンドルを取得しようとしたときにエラーが発生しました。
-エラー%1：%2</translation>
+エラー %1: %2</translation>
     </message>
     <message>
         <source>Device Error</source>
@@ -892,14 +903,16 @@ Error %1: %2</source>
     <message>
         <source>An error occurred when attempting to get a handle on the device.
 Error %1: %2</source>
-        <translation>デバイス上でハンドルを取得しようとしたときにエラーが発生しました。
-エラー%1：%2</translation>
+        <translation>デバイスのハンドルを取得しようとしたときにエラーが発生しました。
+エラー %1: %2</translation>
     </message>
     <message>
         <source>Failed to get the free space on the volume holding %1.
 Error %2: %3
 Checking of free space will be skipped.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 を含むボリュームの空き領域を取得できませんでした。
+エラー %2: %3
+空き領域の確認はスキップされます。</translation>
     </message>
     <message>
         <source>Lock Error</source>
@@ -919,7 +932,7 @@ Error %1: %2</source>
         <source>An error occurred when attempting to unlock the volume.
 Error %1: %2</source>
         <translation>ボリュームのロックを解除しようとしたときにエラーが発生しました。
-エラー%1：%2</translation>
+エラー %1: %2</translation>
     </message>
     <message>
         <source>Dismount Error</source>
@@ -929,43 +942,43 @@ Error %1: %2</source>
         <source>An error occurred when attempting to dismount the volume.
 Error %1: %2</source>
         <translation>ボリュームをマウント解除しようとしたときにエラーが発生しました。
-エラー%1：%2</translation>
+エラー %1: %2</translation>
     </message>
     <message>
         <source>Read Error</source>
-        <translation>読込みエラー</translation>
+        <translation>読み込みエラー</translation>
     </message>
     <message>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
-        <translation>ハンドルからデータを読み取ろうとしているときにエラーが発生しました。
-エラー%1：%2</translation>
+        <translation>ハンドルからデータを読み取ろうとしたときにエラーが発生しました。
+エラー %1: %2</translation>
     </message>
     <message>
         <source>Write Error</source>
-        <translation>書込みエラー</translation>
+        <translation>書き込みエラー</translation>
     </message>
     <message>
         <source>An error occurred when attempting to write data to handle.
 Error %1: %2</source>
-        <translation>データの書き込み中にエラーが発生しました。
-エラー%1：%2</translation>
+        <translation>ハンドルにデータを書き込もうとしたときにエラーが発生しました。
+エラー %1: %2</translation>
     </message>
     <message>
         <source>The device took only %1 of %2 bytes. The image on the device is incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスは %2 バイトのうち %1 バイトしか受け付けませんでした。デバイス上のイメージは不完全です。</translation>
     </message>
     <message>
         <source>An error occurred when attempting to get the device&apos;s geometry.
 Error %1: %2</source>
         <translation>デバイスのジオメトリを取得中にエラーが発生しました。
-エラー%1：%2</translation>
+エラー %1: %2</translation>
     </message>
     <message>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
         <translation>ファイルサイズを取得中にエラーが発生しました。
-エラー%1：%2</translation>
+エラー %1: %2</translation>
     </message>
     <message>
         <source>Free Space Error</source>
@@ -1005,11 +1018,11 @@ Error %2</source>
     </message>
     <message>
         <source>the GPT entry array does not fit on the device</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT エントリ配列がデバイスに収まりません</translation>
     </message>
     <message>
         <source>the GPT partition entry array checksum is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT パーティションエントリ配列のチェックサムが不正です</translation>
     </message>
     <message>
         <source>a partition extends past the end of the device</source>
@@ -1025,35 +1038,35 @@ Error %2</source>
     </message>
     <message>
         <source>the device geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスのジオメトリが使用できません</translation>
     </message>
     <message>
         <source>the primary GPT header is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>プライマリ GPT ヘッダーを読み取れません</translation>
     </message>
     <message>
         <source>the GPT entry array geometry is not usable</source>
-        <translation type="unfinished"></translation>
+        <translation>GPT エントリ配列のジオメトリが使用できません</translation>
     </message>
     <message>
         <source>the device is too small to hold an entry array</source>
-        <translation type="unfinished"></translation>
+        <translation>デバイスが小さすぎてエントリ配列を保持できません</translation>
     </message>
     <message>
         <source>the partition entries could not be read</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションエントリを読み取れませんでした</translation>
     </message>
     <message>
         <source>the partition entries are not at LBA 2, so this is not the damage this can repair</source>
-        <translation type="unfinished"></translation>
+        <translation>パーティションエントリが LBA 2 にないため、この機能で修復できる破損ではありません</translation>
     </message>
     <message>
         <source>the repaired header could not be written</source>
-        <translation type="unfinished"></translation>
+        <translation>修復したヘッダーを書き込めませんでした</translation>
     </message>
     <message>
         <source>PartitionEntryLBA pointed back at LBA 2 and the header checksum rebuilt</source>
-        <translation type="unfinished"></translation>
+        <translation>PartitionEntryLBA を LBA 2 に戻し、ヘッダーのチェックサムを再計算しました</translation>
     </message>
     <message>
         <source>The device reports a sector size of zero.</source>
