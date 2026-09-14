@@ -157,7 +157,7 @@
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+523"/>
+        <location filename="../mainwindow.cpp" line="+534"/>
         <source>Exit?</source>
         <translation>Beenden?</translation>
     </message>
@@ -220,12 +220,14 @@ Are you sure you want to cancel?</source>
         <translation>Überschreiben bestätigen</translation>
     </message>
     <message>
-        <location line="-440"/>
+        <location line="-451"/>
+        <location line="+1426"/>
+        <location line="+8"/>
         <source>Waiting for a task.</source>
         <translation>Warte auf etwas zu tun.</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="-1278"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Überprüfung im Gange. Sind Sie sicher, dass Sie jetzt beenden wollen?</translation>
@@ -381,16 +383,16 @@ Trotzdem auf diesen Datenträger schreiben?</translation>
         <translation>Schreiben fehlgeschlagen.</translation>
     </message>
     <message>
-        <location line="-778"/>
-        <location line="+454"/>
+        <location line="-789"/>
+        <location line="+465"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>Datenträgerfehler</translation>
     </message>
     <message>
-        <location line="-1067"/>
-        <location line="+478"/>
+        <location line="-1078"/>
+        <location line="+489"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Der Datenträger meldet eine Größe von null. Falls es sich um einen Kartenleser handelt, wurde die Karte möglicherweise entfernt.</translation>
@@ -705,18 +707,24 @@ This could only be detected at the end of the device, because a gzip image does 
 Dies konnte erst am Ende des Datenträgers festgestellt werden, weil ein gzip-Image seine unkomprimierte Größe nicht speichert.</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+179"/>
         <source>[Disk %1]</source>
         <translation>[Datenträger %1]</translation>
     </message>
     <message>
-        <location line="-613"/>
+        <location line="-663"/>
         <location line="+554"/>
         <source>Please specify an image file to use.</source>
         <translation>Bitte geben Sie eine Image-Datei an, die Sie verwenden wollen.</translation>
     </message>
     <message>
-        <location line="-1103"/>
+        <location line="+50"/>
+        <location line="+21"/>
+        <source>Scanning disks...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1174"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>

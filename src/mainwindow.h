@@ -78,6 +78,8 @@ private:
         static MainWindow* instance;
         // find attached devices
         void getLogicalDrives();
+        // Rescans behind a status message; see mainwindow.cpp.
+        void rescanDevices();
         int selectedDeviceID();
         bool fileIsOnSelectedDevice(const QString &file);
         void setReadWriteButtonState();
@@ -121,7 +123,6 @@ private:
         QClipboard *clipboard;
         void generateHash(const QString &filename, int hashish);
         QString deviceSignature;
-        QTimer *device_poll_timer = NULL;
         QString myHomeDir;
         QString myFileType;
         // The image the hash type was last defaulted for, so that choosing a

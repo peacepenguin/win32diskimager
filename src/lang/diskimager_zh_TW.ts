@@ -157,7 +157,7 @@
         <translation>離開</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+523"/>
+        <location filename="../mainwindow.cpp" line="+534"/>
         <source>Exit?</source>
         <translation>離開？</translation>
     </message>
@@ -223,12 +223,14 @@ Are you sure you want to cancel?</source>
         <translation>確認覆寫</translation>
     </message>
     <message>
-        <location line="-440"/>
+        <location line="-451"/>
+        <location line="+1426"/>
+        <location line="+8"/>
         <source>Waiting for a task.</source>
         <translation>等待工作。</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="-1278"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>現在結束將會取消驗證映像檔。
@@ -386,16 +388,16 @@ Write to this device anyway?</source>
         <translation>寫入失敗。</translation>
     </message>
     <message>
-        <location line="-778"/>
-        <location line="+454"/>
+        <location line="-789"/>
+        <location line="+465"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>裝置錯誤</translation>
     </message>
     <message>
-        <location line="-1067"/>
-        <location line="+478"/>
+        <location line="-1078"/>
+        <location line="+489"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>裝置回報的大小為零。若這是讀卡機，記憶卡可能已被取出。</translation>
@@ -730,18 +732,24 @@ The image and the device differ only in the GPT.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+145"/>
         <source>[Disk %1]</source>
         <translation>[磁碟 %1]</translation>
     </message>
     <message>
-        <location line="-613"/>
+        <location line="-663"/>
         <location line="+554"/>
         <source>Please specify an image file to use.</source>
         <translation>請指定所要使用的映像檔。</translation>
     </message>
     <message>
-        <location line="-1103"/>
+        <location line="+50"/>
+        <location line="+21"/>
+        <source>Scanning disks...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1174"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>

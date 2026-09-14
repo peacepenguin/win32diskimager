@@ -157,7 +157,7 @@
         <translation>종료</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+523"/>
+        <location filename="../mainwindow.cpp" line="+534"/>
         <source>Exit?</source>
         <translation>종료할까요?</translation>
     </message>
@@ -223,12 +223,14 @@ Are you sure you want to cancel?</source>
         <translation>중복쓰기 확인</translation>
     </message>
     <message>
-        <location line="-440"/>
+        <location line="-451"/>
+        <location line="+1426"/>
+        <location line="+8"/>
         <source>Waiting for a task.</source>
         <translation>작업을 위하여 기다리는 중.</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="-1278"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>지금 종료하는 것은 이미지 검증이 취소될 수 있습니다.
@@ -386,16 +388,16 @@ Write to this device anyway?</source>
         <translation>쓰기에 실패했습니다.</translation>
     </message>
     <message>
-        <location line="-778"/>
-        <location line="+454"/>
+        <location line="-789"/>
+        <location line="+465"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>장치 오류</translation>
     </message>
     <message>
-        <location line="-1067"/>
-        <location line="+478"/>
+        <location line="-1078"/>
+        <location line="+489"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>장치가 크기를 0으로 보고합니다. 카드 리더라면 카드가 제거되었을 수 있습니다.</translation>
@@ -730,18 +732,24 @@ The image and the device differ only in the GPT.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+145"/>
         <source>[Disk %1]</source>
         <translation>[디스크 %1]</translation>
     </message>
     <message>
-        <location line="-613"/>
+        <location line="-663"/>
         <location line="+554"/>
         <source>Please specify an image file to use.</source>
         <translation>사용하기 위한 이미지 파일을 지정해주세요.</translation>
     </message>
     <message>
-        <location line="-1103"/>
+        <location line="+50"/>
+        <location line="+21"/>
+        <source>Scanning disks...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1174"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>

@@ -157,7 +157,7 @@
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+523"/>
+        <location filename="../mainwindow.cpp" line="+534"/>
         <source>Exit?</source>
         <translation>¿Salir?</translation>
     </message>
@@ -223,12 +223,14 @@ Are you sure you want to cancel?</source>
         <translation>Confirmar sobrescritura</translation>
     </message>
     <message>
-        <location line="-440"/>
+        <location line="-451"/>
+        <location line="+1426"/>
+        <location line="+8"/>
         <source>Waiting for a task.</source>
         <translation>Esperando una tarea.</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="-1278"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>El salir ahora resultará en cancelar la verificación de la imagen
@@ -386,16 +388,16 @@ Compruebe que %2 no es una unidad que quisiera conservar.
         <translation>Escritura fallida.</translation>
     </message>
     <message>
-        <location line="-778"/>
-        <location line="+454"/>
+        <location line="-789"/>
+        <location line="+465"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>Error de dispositivo</translation>
     </message>
     <message>
-        <location line="-1067"/>
-        <location line="+478"/>
+        <location line="-1078"/>
+        <location line="+489"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>El dispositivo indica un tamaño de cero. Si es un lector de tarjetas, puede que se haya retirado la tarjeta.</translation>
@@ -710,18 +712,24 @@ This could only be detected at the end of the device, because a gzip image does 
 Esto solo se pudo detectar al llegar al final del dispositivo, porque una imagen gzip no registra su tamaño sin comprimir.</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+179"/>
         <source>[Disk %1]</source>
         <translation>[Disco %1]</translation>
     </message>
     <message>
-        <location line="-613"/>
+        <location line="-663"/>
         <location line="+554"/>
         <source>Please specify an image file to use.</source>
         <translation>Por favor especifique un archivo de imagen para usar.</translation>
     </message>
     <message>
-        <location line="-1103"/>
+        <location line="+50"/>
+        <location line="+21"/>
+        <source>Scanning disks...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1174"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>

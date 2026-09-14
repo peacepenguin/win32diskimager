@@ -157,7 +157,7 @@
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+523"/>
+        <location filename="../mainwindow.cpp" line="+534"/>
         <source>Exit?</source>
         <translation>Fermer?</translation>
     </message>
@@ -220,12 +220,14 @@ Are you sure you want to cancel?</source>
         <translation>Confirmer l&apos;écrasement</translation>
     </message>
     <message>
-        <location line="-440"/>
+        <location line="-451"/>
+        <location line="+1426"/>
+        <location line="+8"/>
         <source>Waiting for a task.</source>
         <translation>En attente d&apos;une tâche.</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="-1278"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Quitter maintenant annulera la vérification de l&apos;image.
@@ -383,16 +385,16 @@ Vérifiez que %2 n&apos;est pas un lecteur que vous vouliez conserver.
         <translation>Échec de l&apos;écriture.</translation>
     </message>
     <message>
-        <location line="-778"/>
-        <location line="+454"/>
+        <location line="-789"/>
+        <location line="+465"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>Erreur de périphérique</translation>
     </message>
     <message>
-        <location line="-1067"/>
-        <location line="+478"/>
+        <location line="-1078"/>
+        <location line="+489"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Le périphérique indique une taille nulle. S&apos;il s&apos;agit d&apos;un lecteur de cartes, la carte a peut-être été retirée.</translation>
@@ -707,18 +709,24 @@ This could only be detected at the end of the device, because a gzip image does 
 Cela n&apos;a pu être détecté qu&apos;à la fin du périphérique, car une image gzip n&apos;enregistre pas sa taille décompressée.</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+179"/>
         <source>[Disk %1]</source>
         <translation>[Disque %1]</translation>
     </message>
     <message>
-        <location line="-613"/>
+        <location line="-663"/>
         <location line="+554"/>
         <source>Please specify an image file to use.</source>
         <translation>Merci de spécifier le fichier image à utiliser.</translation>
     </message>
     <message>
-        <location line="-1103"/>
+        <location line="+50"/>
+        <location line="+21"/>
+        <source>Scanning disks...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1174"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>

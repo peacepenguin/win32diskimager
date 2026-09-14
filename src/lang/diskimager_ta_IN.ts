@@ -150,11 +150,13 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="+370"/>
+        <location line="+1426"/>
+        <location line="+8"/>
         <source>Waiting for a task.</source>
         <translation>ஒரு பணி காத்திருக்கிறது.</translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="-1270"/>
         <source>Exit?</source>
         <translation>வெளியேறு?</translation>
     </message>
@@ -424,22 +426,28 @@ Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-778"/>
-        <location line="+454"/>
+        <location line="-789"/>
+        <location line="+465"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1067"/>
-        <location line="+478"/>
+        <location line="-1078"/>
+        <location line="+489"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-645"/>
+        <location line="+490"/>
+        <location line="+21"/>
+        <source>Scanning disks...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1156"/>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
 
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
@@ -894,7 +902,7 @@ The device could NOT be taken offline automatically.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+140"/>
         <source>[Disk %1]</source>
         <translation type="unfinished"></translation>
     </message>

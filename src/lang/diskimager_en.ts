@@ -157,7 +157,7 @@
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+523"/>
+        <location filename="../mainwindow.cpp" line="+534"/>
         <source>Exit?</source>
         <translation>Exit?</translation>
     </message>
@@ -223,12 +223,14 @@ Are you sure you want to cancel?</translation>
         <translation>Confirm overwrite</translation>
     </message>
     <message>
-        <location line="-440"/>
+        <location line="-451"/>
+        <location line="+1426"/>
+        <location line="+8"/>
         <source>Waiting for a task.</source>
         <translation>Waiting for a task.</translation>
     </message>
     <message>
-        <location line="+145"/>
+        <location line="-1278"/>
         <source>Exiting now will cancel verifying image.
 Are you sure you want to exit?</source>
         <translation>Exiting now will cancel verifying image.
@@ -375,16 +377,16 @@ Write to this device anyway?</translation>
         <translation>Write failed.</translation>
     </message>
     <message>
-        <location line="-778"/>
-        <location line="+454"/>
+        <location line="-789"/>
+        <location line="+465"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>Device Error</translation>
     </message>
     <message>
-        <location line="-1067"/>
-        <location line="+478"/>
+        <location line="-1078"/>
+        <location line="+489"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>The device reports a size of zero. If it is a card reader, the card may have been removed.</translation>
@@ -711,18 +713,24 @@ This could only be detected at the end of the device, because a gzip image does 
 This could only be detected at the end of the device, because a gzip image does not record its uncompressed size.</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+179"/>
         <source>[Disk %1]</source>
         <translation>[Disk %1]</translation>
     </message>
     <message>
-        <location line="-613"/>
+        <location line="-663"/>
         <location line="+554"/>
         <source>Please specify an image file to use.</source>
         <translation>Please specify an image file to use.</translation>
     </message>
     <message>
-        <location line="-1302"/>
+        <location line="+50"/>
+        <location line="+21"/>
+        <source>Scanning disks...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1373"/>
         <location line="+1"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>Disk Images (*.img *.IMG *.img.gz *.img.xz)</translation>

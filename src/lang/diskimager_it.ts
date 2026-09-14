@@ -59,7 +59,7 @@
         <translation>Leggi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+1236"/>
+        <location filename="../mainwindow.cpp" line="+1247"/>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Sei sicuro di voler sovrascrivere il file specificato?</translation>
     </message>
@@ -223,7 +223,9 @@ Sei sicuro di voler annullare?</translation>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location line="-1350"/>
+        <location line="-1361"/>
+        <location line="+1426"/>
+        <location line="+8"/>
         <source>Waiting for a task.</source>
         <translation>Attesa scelta operazione</translation>
     </message>
@@ -233,7 +235,7 @@ Sei sicuro di voler annullare?</translation>
         <translation>Stato progresso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+772"/>
+        <location filename="../mainwindow.cpp" line="-651"/>
         <location line="+555"/>
         <source>The selected file does not exist.</source>
         <translation>Il file selezionato non esiste.</translation>
@@ -443,16 +445,16 @@ Scrivere comunque su questo dispositivo?</translation>
         <translation>Scrittura non riuscita.</translation>
     </message>
     <message>
-        <location line="-778"/>
-        <location line="+454"/>
+        <location line="-789"/>
+        <location line="+465"/>
         <location line="+24"/>
         <location line="+590"/>
         <source>Device Error</source>
         <translation>Errore del dispositivo</translation>
     </message>
     <message>
-        <location line="-1067"/>
-        <location line="+478"/>
+        <location line="-1078"/>
+        <location line="+489"/>
         <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>Il dispositivo segnala dimensione zero. Se si tratta di un lettore di schede, la scheda potrebbe essere stata rimossa.</translation>
@@ -756,12 +758,12 @@ This could only be detected at the end of the device, because a gzip image does 
 È stato possibile rilevarlo solo alla fine del dispositivo, perché un&apos;immagine gzip non registra la propria dimensione non compressa.</translation>
     </message>
     <message>
-        <location line="+129"/>
+        <location line="+179"/>
         <source>[Disk %1]</source>
         <translation>[Disco %1]</translation>
     </message>
     <message>
-        <location line="-387"/>
+        <location line="-437"/>
         <location line="+6"/>
         <location line="+13"/>
         <location line="+103"/>
@@ -830,7 +832,13 @@ Continuare comunque?</translation>
         <translation>Le dimensioni non coincidono!</translation>
     </message>
     <message>
-        <location line="-839"/>
+        <location line="+296"/>
+        <location line="+21"/>
+        <source>Scanning disks...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1156"/>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
 
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.

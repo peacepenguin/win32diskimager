@@ -191,7 +191,7 @@
           <number>2</number>
          </property>
          <item>
-          <widget class="QComboBox" name="cboxDevice">
+          <widget class="DeviceComboBox" name="cboxDevice">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>1</horstretch>
@@ -490,6 +490,11 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>DeviceComboBox</class>
+   <extends>QComboBox</extends>
+   <header>devicecombobox.h</header>
+  </customwidget>
   <customwidget>
    <class>DroppableLineEdit</class>
    <extends>QLineEdit</extends>

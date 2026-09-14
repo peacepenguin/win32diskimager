@@ -401,18 +401,29 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     fixGptCheckBox->setChecked(true);
     showAllDevicesCheckBox->setChecked(false);
     // After the "show all devices" state is set, which the filter reads.
-    getLogicalDrives();
+    //
+    // Deferred rather than called here. The scan asks every disk for its
+    // geometry, and a disk that has spun down does not answer until it is
+    // turning again -- eleven seconds, measured, on a machine with sleeping
+    // platters. From the constructor that wait falls before main() reaches
+    // show(), so the program sits there owning no window at all and looks to
+    // the user like it failed to start.
+    //
+    // A zero-millisecond timer fires once the window system's queue has been
+    // emptied, which is to say once the window has been shown and painted. The
+    // scan still blocks the interface while it runs -- same work, same thread
+    // -- but it does it behind a window that is up and says what it is doing.
+    QTimer::singleShot(0, this, [this]() { rescanDevices(); });
     // Inserting a card into a reader that presents no volume produces no
-    // WM_DEVICECHANGE broadcast, so the list is also polled. getLogicalDrives
-    // only touches the combo box when the set of devices actually changed.
-    device_poll_timer = new QTimer(this);
-    connect(device_poll_timer, &QTimer::timeout, this, [this]() {
-        if (status == STATUS_IDLE)
-        {
-            getLogicalDrives();
-        }
-    });
-    device_poll_timer->start(2000);
+    // WM_DEVICECHANGE broadcast, so arrival cannot be left to that alone. The
+    // list used to be polled every two seconds, which asked every disk on the
+    // machine for its geometry around the clock -- enough to keep spinning
+    // disks from ever sleeping, and to do it for a list that is empty by
+    // default. Rescanning as the list is opened covers the same case at the
+    // one moment the contents have to be right, and leaves the machine alone
+    // the rest of the time.
+    connect(cboxDevice, &DeviceComboBox::aboutToShowPopup,
+            this, &MainWindow::rescanDevices);
 
     initializeHomeDir();
     myFileType = tr("Disk Images (*.img *.IMG *.img.gz *.img.xz)");
@@ -1743,6 +1754,56 @@ static QString formatDeviceSize(unsigned long long bytes)
         return QString("%1 B").arg(bytes);
     }
     return QString("%1 %2").arg(value, 0, 'f', (value < 10.0) ? 1 : 0).arg(units[unit]);
+}
+
+// How long "Scanning disks..." stays up at the least. A scan of disks that are
+// already awake takes a few milliseconds, and a message that appears and
+// disappears inside a frame is not a message, it is a flicker. Holding it for a
+// second means that the first time a scan does take eleven seconds, the reason
+// is already on screen rather than arriving with the delay.
+static const int SCAN_MESSAGE_MS = 1000;
+
+// Rescan behind a status message. Both rescans anyone waits on come through
+// here: the one after the window appears, and the one the device list runs as
+// it is opened.
+void MainWindow::rescanDevices()
+{
+    // Never while something is running. getLogicalDrives() rebuilds the list
+    // and finishes by putting the buttons back the way an idle window has
+    // them, which in the middle of a write would re-enable the very buttons
+    // the write disabled -- and the device list stays clickable throughout a
+    // run, so this is reachable. The two-second poll this replaced took the
+    // same precaution, and the device-arrival broadcast still does.
+    if (status != STATUS_IDLE)
+    {
+        return;
+    }
+    statusbar->showMessage(tr("Scanning disks..."));
+
+    // Painted before the scan rather than left in the queue behind it.
+    // getLogicalDrives() blocks this thread, so a message merely posted would
+    // not reach the screen until the wait it explains was already over.
+    QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+
+    QElapsedTimer scan;
+    scan.start();
+    getLogicalDrives();
+
+    const qint64 held = SCAN_MESSAGE_MS - scan.elapsed();
+    if (held <= 0)
+    {
+        // The scan outlasted the minimum on its own.
+        statusbar->showMessage(tr("Waiting for a task."));
+        return;
+    }
+    QTimer::singleShot((int)held, this, [this]() {
+        // Only ever clears its own message. A second is long enough for
+        // something else -- a write, a verify -- to have put its own there.
+        if (statusbar->currentMessage() == tr("Scanning disks..."))
+        {
+            statusbar->showMessage(tr("Waiting for a task."));
+        }
+    });
 }
 
 // getLogicalDrives fills cboxDevice from the physical disks attached to the
