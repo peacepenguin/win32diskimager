@@ -186,7 +186,7 @@ Are you sure you want to exit?</source>
         <translation>生成中...</translation>
     </message>
     <message>
-        <location line="+183"/>
+        <location line="+181"/>
         <location line="+9"/>
         <source>Cancel?</source>
         <translation>取消？</translation>
@@ -202,28 +202,28 @@ Are you sure you want to cancel?</source>
         <location line="+30"/>
         <location line="+6"/>
         <location line="+38"/>
-        <location line="+91"/>
+        <location line="+90"/>
         <location line="+24"/>
         <location line="+22"/>
-        <location line="+224"/>
+        <location line="+243"/>
         <location line="+81"/>
         <source>Write Error</source>
         <translation>寫入錯誤</translation>
     </message>
     <message>
-        <location line="-486"/>
-        <location line="+405"/>
+        <location line="-504"/>
+        <location line="+423"/>
         <location line="+168"/>
         <source>Image file cannot be located on the target device.</source>
         <translation>在目標裝置上找不到映像檔。</translation>
     </message>
     <message>
-        <location line="-564"/>
+        <location line="-582"/>
         <source>Confirm overwrite</source>
         <translation>確認覆寫</translation>
     </message>
     <message>
-        <location line="-442"/>
+        <location line="-440"/>
         <source>Waiting for a task.</source>
         <translation>等待工作。</translation>
     </message>
@@ -235,27 +235,27 @@ Are you sure you want to exit?</source>
 您確定想要結束嗎？</translation>
     </message>
     <message>
-        <location line="+267"/>
+        <location line="+265"/>
         <source>Cancel Verify.
 Are you sure you want to cancel?</source>
         <translation>取消驗證。
 您確定您想要取消嗎？</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+101"/>
         <location line="+31"/>
         <source>Not enough available space!</source>
         <translation>沒有足夠的可用空間！</translation>
     </message>
     <message>
-        <location line="-310"/>
+        <location line="-307"/>
         <location line="+11"/>
-        <location line="+248"/>
+        <location line="+245"/>
         <location line="+281"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+14"/>
-        <location line="+242"/>
+        <location line="+260"/>
         <location line="+271"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -282,41 +282,41 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 請立刻將裝置實體移除，在此之前不要進行任何其他操作，也不要將它重新插入這台電腦。請將它插入目標硬體。</translation>
     </message>
     <message>
-        <location line="-560"/>
-        <location line="+537"/>
+        <location line="-578"/>
+        <location line="+555"/>
         <source>The selected file does not exist.</source>
         <translation>選取的檔案不存在。</translation>
     </message>
     <message>
-        <location line="-817"/>
+        <location line="-835"/>
         <location line="+290"/>
-        <location line="+257"/>
+        <location line="+275"/>
         <location line="+280"/>
         <source>The specified file contains no data.</source>
         <translation>指定的檔案不包含資料。</translation>
     </message>
     <message>
-        <location line="-533"/>
-        <location line="+181"/>
-        <location line="+356"/>
+        <location line="-551"/>
+        <location line="+200"/>
+        <location line="+355"/>
         <source>Done.</source>
         <translation>完成。</translation>
     </message>
     <message>
-        <location line="-352"/>
+        <location line="-351"/>
         <location line="+2"/>
-        <location line="+329"/>
+        <location line="+328"/>
         <location line="+25"/>
         <source>Complete</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location line="-537"/>
+        <location line="-555"/>
         <source>Write Successful.</source>
         <translation>寫入成功。</translation>
     </message>
     <message>
-        <location line="-745"/>
+        <location line="-742"/>
         <location line="+1"/>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
         <translation>磁碟映像檔 (*.img *.IMG *.img.gz *.img.xz)</translation>
@@ -340,7 +340,7 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
 %1</translation>
     </message>
     <message>
-        <location line="+203"/>
+        <location line="+201"/>
         <source>Please select a target device.</source>
         <translation>請選擇目標裝置。</translation>
     </message>
@@ -377,7 +377,7 @@ Write to this device anyway?</source>
     </message>
     <message>
         <location line="+21"/>
-        <location line="+22"/>
+        <location line="+21"/>
         <location line="+21"/>
         <location line="+55"/>
         <location line="+24"/>
@@ -386,22 +386,22 @@ Write to this device anyway?</source>
         <translation>寫入失敗。</translation>
     </message>
     <message>
-        <location line="-781"/>
-        <location line="+462"/>
+        <location line="-778"/>
+        <location line="+454"/>
         <location line="+24"/>
-        <location line="+566"/>
+        <location line="+590"/>
         <source>Device Error</source>
         <translation>裝置錯誤</translation>
     </message>
     <message>
-        <location line="-1051"/>
-        <location line="+486"/>
-        <location line="+566"/>
+        <location line="-1067"/>
+        <location line="+478"/>
+        <location line="+590"/>
         <source>The device reports a size of zero. If it is a card reader, the card may have been removed.</source>
         <translation>裝置回報的大小為零。若這是讀卡機，記憶卡可能已被取出。</translation>
     </message>
     <message>
-        <location line="-386"/>
+        <location line="-405"/>
         <source>The image is larger than the device:
   Image: at least %1 sectors
   Available: %2 sectors
@@ -591,12 +591,12 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+537"/>
+        <location line="+555"/>
         <source>You do not have permission to read the selected file.</source>
         <translation>您沒有讀取所選檔案的權限。</translation>
     </message>
     <message>
-        <location line="-487"/>
+        <location line="-486"/>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
@@ -617,7 +617,7 @@ Compressed images (.img.gz, .img.xz) can be written and verified.</source>
     </message>
     <message>
         <location line="+72"/>
-        <location line="+21"/>
+        <location line="+20"/>
         <location line="+21"/>
         <location line="+66"/>
         <location line="+24"/>
@@ -673,13 +673,13 @@ Continue Anyway?</source>
         <translation>正在驗證…</translation>
     </message>
     <message>
-        <location line="-850"/>
-        <location line="+1004"/>
+        <location line="-873"/>
+        <location line="+1027"/>
         <source>Partition table damaged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-986"/>
+        <location line="-1009"/>
         <source>Repair failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -689,7 +689,7 @@ Continue Anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+860"/>
+        <location line="+883"/>
         <source>The device could not be read at sector %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -735,19 +735,19 @@ The image and the device differ only in the GPT.</source>
         <translation>[磁碟 %1]</translation>
     </message>
     <message>
-        <location line="-595"/>
-        <location line="+536"/>
+        <location line="-613"/>
+        <location line="+554"/>
         <source>Please specify an image file to use.</source>
         <translation>請指定所要使用的映像檔。</translation>
     </message>
     <message>
-        <location line="-1088"/>
+        <location line="-1103"/>
         <source>Could not read the whole file to generate a checksum:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+18"/>
         <source>%1 the primary GPT header points at sectors the partition entries are not in.
 
 This is what Windows leaves behind when it rescans a card written without &quot;Fix GPT after write&quot;. No data has been lost, but the device will not boot and most tools will refuse the table.
@@ -823,7 +823,7 @@ Repair the partition table now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+222"/>
+        <location line="+227"/>
         <source>Writing...</source>
         <translation>正在寫入…</translation>
     </message>
@@ -921,7 +921,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 請立即移除裝置，不要再插入本機。直接插入目標硬體。</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+82"/>
         <location line="+15"/>
         <source>Read Error</source>
         <translation>讀取錯誤</translation>
@@ -975,18 +975,18 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
         <location line="+23"/>
         <location line="+6"/>
         <location line="+13"/>
-        <location line="+104"/>
+        <location line="+103"/>
         <location line="+21"/>
         <source>Verify Error</source>
         <translation>驗證錯誤</translation>
     </message>
     <message>
-        <location line="-138"/>
+        <location line="-137"/>
         <source>Please select a device to verify against.</source>
         <translation>請選擇要用於驗證的裝置。</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+69"/>
         <source>Size of image larger than device:
   Image: %1 sectors
   Device: %2 sectors
@@ -1085,12 +1085,12 @@ The device could NOT be taken offline automatically.</source>
     <name>QObject</name>
     <message>
         <location filename="../disk.cpp" line="+64"/>
-        <location line="+162"/>
+        <location line="+171"/>
         <source>File Error</source>
         <translation>檔案錯誤</translation>
     </message>
     <message>
-        <location line="-161"/>
+        <location line="-170"/>
         <source>An error occurred when attempting to get a handle on the file.
 Error %1: %2</source>
         <translation>嘗試取得檔案控制代碼失敗。
@@ -1110,7 +1110,14 @@ Error %1: %2</source>
 錯誤 %1：%2</translation>
     </message>
     <message>
-        <location line="+379"/>
+        <location line="+168"/>
+        <source>Failed to get the free space on the volume holding %1.
+Error %2: %3
+Checking of free space will be skipped.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+220"/>
         <source>Lock Error</source>
         <translation>鎖定錯誤</translation>
     </message>
@@ -1121,7 +1128,7 @@ Error %1: %2</source>
 錯誤 %1：%2</translation>
     </message>
     <message>
-        <location line="-366"/>
+        <location line="-375"/>
         <source>Unlock Error</source>
         <translation>解除鎖定失敗</translation>
     </message>
@@ -1186,7 +1193,7 @@ Error %1: %2</source>
 錯誤 %1：%2</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+33"/>
         <source>An error occurred while getting the file size.
 Error %1: %2</source>
         <translation>嘗試取得該檔案大小時失敗。
@@ -1198,16 +1205,15 @@ Error %1: %2</source>
         <translation>剩餘空間錯誤</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Failed to get the free space on drive %1.
 Error %2: %3
 Checking of free space will be skipped.</source>
-        <translation>無法取得磁碟 %1 的剩餘空間。
+        <translation type="vanished">無法取得磁碟 %1 的剩餘空間。
 錯誤 %2：%3
 將會跳過剩餘空間檢查。</translation>
     </message>
     <message>
-        <location line="+173"/>
+        <location line="+174"/>
         <source>Unknown device</source>
         <translation>不明的裝置</translation>
     </message>

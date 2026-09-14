@@ -253,7 +253,7 @@ bool spaceAvailable(const QString &location, unsigned long long spaceneeded)
     if (!bResult)
     {
         reportWin32Error(QObject::tr("Free Space Error"),
-                         QObject::tr("Failed to get the free space on drive %1.\n"
+                         QObject::tr("Failed to get the free space on the volume holding %1.\n"
                                      "Error %2: %3\n"
                                      "Checking of free space will be skipped.").arg(location));
         return true;
