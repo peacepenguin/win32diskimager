@@ -1174,6 +1174,25 @@ void MainWindow::on_bWrite_clicked()
     elapsed_timer->stop();
 }
 
+// The directory GetDiskFreeSpaceEx should be asked about: the one the image is
+// being written into. The first three characters of the path used to stand in
+// for it, which assumed a drive letter -- a UNC destination asked about "\\s"
+// instead, and the check was skipped with an error nobody could act on.
+//
+// The directory is known to exist by the time this is called: the image file
+// has already been created in it.
+static QString volumeDirectoryFor(const QString &file)
+{
+    QString dir = QDir::toNativeSeparators(QFileInfo(file).absolutePath());
+    // A UNC name is refused without a trailing backslash; a drive-letter path
+    // accepts one either way, so both get one.
+    if (!dir.endsWith(QChar('\\')))
+    {
+        dir += QChar('\\');
+    }
+    return dir;
+}
+
 void MainWindow::on_bRead_clicked()
 {
     QString myFile;
@@ -1282,7 +1301,7 @@ void MainWindow::on_bRead_clicked()
         {
             spaceneeded = (unsigned long long)(numsectors - filesize) * (unsigned long long)(sectorsize);
         }
-        if (!spaceAvailable(myFile.left(3).replace(QChar('/'), QChar('\\')).toLatin1().data(), spaceneeded))
+        if (!spaceAvailable(volumeDirectoryFor(myFile), spaceneeded))
         {
             QMessageBox::critical(this, tr("Write Error"), tr("Disk is not large enough for the specified image."));
             CloseHandle(hRawDisk);

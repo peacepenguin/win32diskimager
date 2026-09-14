@@ -216,6 +216,11 @@ bool writeSectorDataToHandle(HANDLE handle, char *data, unsigned long long start
 unsigned long long getNumberOfSectors(HANDLE handle, unsigned long long *sectorsize,
                                       bool *reported = NULL);
 unsigned long long getFileSizeInSectors(HANDLE handle, unsigned long long sectorsize);
-bool spaceAvailable(char *location, unsigned long long spaceneeded);
+// Free space on the volume that holds `location`, which is a directory. Taken
+// as a QString and asked over the wide API: an image sitting under a user
+// directory whose name is not ASCII cannot be named in the ANSI code page, and
+// the check would quietly be skipped for everyone whose name is spelled that
+// way.
+bool spaceAvailable(const QString &location, unsigned long long spaceneeded);
 
 #endif // DISK_H

@@ -236,11 +236,11 @@ unsigned long long getFileSizeInSectors(HANDLE handle, unsigned long long sector
     return(retVal);
 }
 
-bool spaceAvailable(char *location, unsigned long long spaceneeded)
+bool spaceAvailable(const QString &location, unsigned long long spaceneeded)
 {
     ULARGE_INTEGER freespace;
     BOOL bResult;
-    bResult = GetDiskFreeSpaceEx(location, NULL, NULL, &freespace);
+    bResult = GetDiskFreeSpaceExW((LPCWSTR)location.utf16(), NULL, NULL, &freespace);
     if (!bResult)
     {
         reportWin32Error(QObject::tr("Free Space Error"),
