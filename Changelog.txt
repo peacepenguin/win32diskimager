@@ -1,3 +1,31 @@
+Release 1.5.1
+=============
+Sleeping hard disks are left alone. Filling the device list asked every disk on
+  the machine how big it was, and a disk that has spun down takes twelve seconds
+  to answer. Disks that will not be listed are now identified from what their
+  drivers already hold and never woken, so with "Show all devices" unchecked no
+  disk is touched at all
+The window appears at once. That scan used to run before the window was created,
+  so starting the program looked like nothing had happened until the platters
+  were turning. It now runs behind a window that is already up, saying "Scanning
+  disks..." for exactly as long as it takes
+The device list is no longer rescanned every two seconds. It refreshes when the
+  list is opened, when a device arrives or leaves, and when "Show all devices"
+  is changed -- every moment its contents have to be right, and none in between
+Qt's own strings -- dialog buttons, the file dialog -- are translated again in a
+  natively built copy. The program asked for the per-module catalogue only, and
+  windeployqt writes a merged one under another name, so those strings had
+  quietly been English whoever built it
+Reading a device to an image on a network share, or under a user name that is
+  not ASCII, no longer abandons the free-space check and reports an error naming
+  a drive nobody mentioned
+The version number is written once, in src/CMakeLists.txt. The resource script
+  kept its own copy of it, and the release job compares the tag against
+  CMakeLists alone, so a shipped binary could disagree with its own release
+tools/deploy.sh packages a build several times faster. It ran ntldd once per
+  binary, which takes them all at once, and basename once per language per
+  catalogue, which the shell does for nothing
+
 Release 1.5.0
 =============
 Detects a partition table that Windows has already broken, and offers to put it
