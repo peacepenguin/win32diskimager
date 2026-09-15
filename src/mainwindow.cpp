@@ -1852,9 +1852,20 @@ void MainWindow::getLogicalDrives()
     for (int i = 0; i < devices.size(); ++i)
     {
         const PhysicalDevice &dev = devices.at(i);
-        QString label = dev.letters.isEmpty()
-                ? tr("[Disk %1]").arg(dev.deviceNumber)
-                : QString("[%1]").arg(dev.letters);
+        // The disk number always, because it is what names the device in Disk
+        // Management and in \.\PhysicalDriveN, and it is the same number
+        // whether or not Windows happened to mount anything off the device.
+        // The drive letters follow it when there are any.
+        //
+        // Two bracketed parts rather than one string reading "[Disk 1: E:]":
+        // this way it is assembled out of the two pieces of text that already
+        // exist, and no new translatable string arrives untranslated in eleven
+        // languages for the sake of a separator.
+        QString label = tr("[Disk %1]").arg(dev.deviceNumber);
+        if (!dev.letters.isEmpty())
+        {
+            label += QString(" [%1]").arg(dev.letters);
+        }
         cboxDevice->addItem(QString("%1 %2 - %3").arg(label)
                                 .arg(formatDeviceSize(dev.sizeBytes))
                                 .arg(dev.description),
