@@ -1309,7 +1309,7 @@ void MainWindow::on_bRead_clicked()
             endRun(tr("Read failed."));
             return;
         }
-        hFile = getHandleOnFile(LPCWSTR(myFile.data()), GENERIC_WRITE);
+        hFile = getHandleOnFile((LPCWSTR)myFile.utf16(), GENERIC_WRITE);
         if (hFile == INVALID_HANDLE_VALUE)
         {
             CloseHandle(hRawDisk);
