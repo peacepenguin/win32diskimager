@@ -30,6 +30,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <new>
 #include <windows.h>
 #include <winioctl.h>
 #include "disk.h"
@@ -122,14 +123,20 @@ bool unmountVolume(HANDLE handle)
 char *readSectorDataFromHandle(HANDLE handle, unsigned long long startsector, unsigned long long numsectors, unsigned long long sectorsize)
 {
     // Add overflow check
-    if (numsectors > ULLONG_MAX / sectorsize) {
+    if (sectorsize == 0 || numsectors > ULLONG_MAX / sectorsize) {
         reportWin32Error(QObject::tr("Read Error"),
                          QObject::tr("Sector count too large."));
         return NULL;
     }
-    
+
     unsigned long bytesread;
-    char *data = new char[sectorsize * numsectors];
+    char *data = new(std::nothrow) char[sectorsize * numsectors];
+    if (!data)
+    {
+        reportWin32Error(QObject::tr("Read Error"),
+                         QObject::tr("Unable to allocate memory for read buffer."));
+        return NULL;
+    }
     LARGE_INTEGER li;
     li.QuadPart = startsector * sectorsize;
     // Checked the way rawSeekRead does it. A seek that silently failed would
