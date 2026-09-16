@@ -121,6 +121,13 @@ bool unmountVolume(HANDLE handle)
 
 char *readSectorDataFromHandle(HANDLE handle, unsigned long long startsector, unsigned long long numsectors, unsigned long long sectorsize)
 {
+    // Add overflow check
+    if (numsectors > ULLONG_MAX / sectorsize) {
+        reportWin32Error(QObject::tr("Read Error"),
+                         QObject::tr("Sector count too large."));
+        return NULL;
+    }
+    
     unsigned long bytesread;
     char *data = new char[sectorsize * numsectors];
     LARGE_INTEGER li;
