@@ -65,6 +65,7 @@ toolchain paths, cmake flags and podman plumbing — including
 Once:
 
 ```
+# non-admin powershell:
 winget install --id MSYS2.MSYS2 -e
 ```
 
