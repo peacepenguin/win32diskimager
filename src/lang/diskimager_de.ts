@@ -258,10 +258,10 @@ Entfernen Sie den Datenträger JETZT physisch, bevor Sie irgendetwas anderes tun
         <translation>Bitte wählen Sie einen Zieldatenträger aus.</translation>
     </message>
     <message>
-        <source>Writing to a physical device can corrupt the device.
+        <source>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation>Das Schreiben auf einen physischen Datenträger kann diesen beschädigen.
+        <translation>Alle Dateien und Daten auf diesem Gerät werden gelöscht.
 (Zieldatenträger: %1)
 Möchten Sie wirklich fortfahren?</translation>
     </message>

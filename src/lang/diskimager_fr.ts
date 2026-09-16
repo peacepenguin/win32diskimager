@@ -258,10 +258,10 @@ Retirez physiquement le périphérique MAINTENANT, avant toute autre chose, et n
         <translation>Veuillez sélectionner un périphérique cible.</translation>
     </message>
     <message>
-        <source>Writing to a physical device can corrupt the device.
+        <source>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation>Écrire sur un périphérique physique peut le corrompre.
+        <translation>Tous les fichiers et données de cet appareil seront supprimés.
 (Périphérique cible : %1)
 Voulez-vous vraiment continuer ?</translation>
     </message>

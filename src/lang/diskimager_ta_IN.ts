@@ -321,10 +321,10 @@ This could only be detected at the end of the device, because the compressed ima
         <translation>இலக்குச் சாதனத்தைத் தேர்ந்தெடுக்கவும்.</translation>
     </message>
     <message>
-        <source>Writing to a physical device can corrupt the device.
+        <source>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation>இயற்பியல் சாதனத்தில் எழுதுவது அச்சாதனத்தைச் சிதைக்கக்கூடும்.
+        <translation>இந்தச் சாதனத்தில் உள்ள அனைத்து கோப்புகளும் தரவுகளும் நீக்கப்படும்.
 (இலக்குச் சாதனம்: %1)
 நிச்சயமாகத் தொடர வேண்டுமா?</translation>
     </message>

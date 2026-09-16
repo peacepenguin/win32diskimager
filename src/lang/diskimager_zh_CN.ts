@@ -258,10 +258,10 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>请选择目标设备.</translation>
     </message>
     <message>
-        <source>Writing to a physical device can corrupt the device.
+        <source>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation>写入物理设备可能会损坏该设备.
+        <translation>此设备上的所有文件和数据都将被删除。
 (目标设备: %1)
 确定要继续吗?</translation>
     </message>

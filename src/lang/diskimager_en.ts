@@ -250,10 +250,10 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>Please select a target device.</translation>
     </message>
     <message>
-        <source>Writing to a physical device can corrupt the device.
+        <source>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation>Writing to a physical device can corrupt the device.
+        <translation>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</translation>
     </message>

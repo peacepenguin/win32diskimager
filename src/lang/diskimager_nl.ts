@@ -258,10 +258,10 @@ Verwijder het apparaat NU fysiek, voordat u iets anders doet, en plaats het niet
         <translation>Selecteer een doelapparaat.</translation>
     </message>
     <message>
-        <source>Writing to a physical device can corrupt the device.
+        <source>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation>Schrijven naar een fysiek apparaat kan het apparaat beschadigen.
+        <translation>Alle bestanden en gegevens op dit apparaat worden verwijderd.
 (Doelapparaat: %1)
 Weet u zeker dat u wilt doorgaan?</translation>
     </message>

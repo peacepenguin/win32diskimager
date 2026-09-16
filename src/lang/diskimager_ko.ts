@@ -258,10 +258,10 @@ Physically remove the device NOW, before doing anything else, and do not re-inse
         <translation>대상 장치를 선택해주세요.</translation>
     </message>
     <message>
-        <source>Writing to a physical device can corrupt the device.
+        <source>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation>물리 장치에 쓰면 해당 장치가 손상될 수 있습니다.
+        <translation>이 장치의 모든 파일과 데이터가 삭제됩니다.
 (대상 장치: %1)
 계속하시겠습니까?</translation>
     </message>

@@ -834,7 +834,7 @@ void MainWindow::on_bWrite_clicked()
                 QMessageBox::critical(this, tr("Write Error"), tr("Please select a target device."));
                 return;
             }
-            if (QMessageBox::warning(this, tr("Confirm overwrite"), tr("Writing to a physical device can corrupt the device.\n"
+            if (QMessageBox::warning(this, tr("Confirm overwrite"), tr("All files and data on this device will be deleted.\n"
                                                                        "(Target Device: %1)\n"
                                                                        "Are you sure you want to continue?").arg(cboxDevice->currentText()),
                                      QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No)

@@ -304,10 +304,10 @@ Sei sicuro di voler annullare la verifica?</translation>
         <translation>Seleziona un dispositivo di destinazione.</translation>
     </message>
     <message>
-        <source>Writing to a physical device can corrupt the device.
+        <source>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation>Scrivere su un dispositivo fisico può danneggiarlo.
+        <translation>Tutti i file e i dati su questo dispositivo verranno eliminati.
 (Dispositivo di destinazione: %1)
 Vuoi davvero continuare?</translation>
     </message>

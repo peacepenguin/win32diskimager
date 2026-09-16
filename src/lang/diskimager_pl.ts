@@ -259,10 +259,10 @@ Odłącz urządzenie fizycznie TERAZ, zanim zrobisz cokolwiek innego, i nie pod�
         <translation>Proszę wybrać urządzenie docelowe.</translation>
     </message>
     <message>
-        <source>Writing to a physical device can corrupt the device.
+        <source>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation>Zapis na urządzeniu fizycznym może je uszkodzić.
+        <translation>Wszystkie pliki i dane na tym urządzeniu zostaną usunięte.
 (Urządzenie docelowe: %1)
 Czy na pewno chcesz kontynuować?</translation>
     </message>

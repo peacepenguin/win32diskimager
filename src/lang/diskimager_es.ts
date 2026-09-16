@@ -258,10 +258,10 @@ Retire físicamente el dispositivo AHORA, antes de hacer cualquier otra cosa, y 
         <translation>Seleccione un dispositivo de destino.</translation>
     </message>
     <message>
-        <source>Writing to a physical device can corrupt the device.
+        <source>All files and data on this device will be deleted.
 (Target Device: %1)
 Are you sure you want to continue?</source>
-        <translation>Escribir en un dispositivo físico puede dañarlo.
+        <translation>Todos los archivos y datos de este dispositivo se eliminarán.
 (Dispositivo de destino: %1)
 ¿Seguro que quiere continuar?</translation>
     </message>
