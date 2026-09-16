@@ -24,6 +24,14 @@
         <translation>சாதனம்</translation>
     </message>
     <message>
+        <source>Shrink image on Read</source>
+        <translation>படித்தல் நேரத்தில் படிமத்தைச் சுருக்கு</translation>
+    </message>
+    <message>
+        <source>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</source>
+        <translation>சாதனத்தின் MBR அல்லது GPT-ஐப் படித்து, உண்மையான பகிர்வுகளுக்கு மட்டும் ஏற்பப் படிமத்தைச் சுருக்குகிறது. காப்பு GPT-ஐப் பயன்பட்ட இட முடிவுக்கு நகர்த்துகிறது.</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT சரிபார்</translation>
     </message>
@@ -823,6 +831,14 @@ Error %1: %2</source>
         <translation>படிப்பதில் பிழை</translation>
     </message>
     <message>
+        <source>Sector count too large.</source>
+        <translation>செக்டர் எண்ணிக்கை மிக அதிகம்.</translation>
+    </message>
+    <message>
+        <source>Unable to allocate memory for read buffer.</source>
+        <translation>படிக்கும் இடையகத்திற்கான நினைவகத்தை ஒதுக்க முடியவில்லை.</translation>
+    </message>
+    <message>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>கைப்பிடியிலிருந்து தரவைப் படிக்க முயன்றபோது பிழை ஏற்பட்டது.
@@ -901,6 +917,26 @@ Error %2</source>
     <message>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>காப்பு GPT, LBA %1-க்கு நகர்த்தப்பட்டது; பயன்படுத்தக்கூடிய கடைசி LBA இப்போது %2</translation>
+    </message>
+    <message>
+        <source>the MBR holds no partitions to shrink to</source>
+        <translation>MBR-இல் சுருக்கத் தேவையான பகிர்வுகள் இல்லை</translation>
+    </message>
+    <message>
+        <source>the device is already this tight; nothing to shrink</source>
+        <translation>சாதனம் ஏற்கெனவே இந்த அளவுக்கு இறுக்கமாக உள்ளது; சுருக்க எதுவும் இல்லை</translation>
+    </message>
+    <message>
+        <source>FirstUsableLBA is not usable for repacking</source>
+        <translation>FirstUsableLBA மறுசீரமைப்புக்குப் பயன்படுத்த முடியாது</translation>
+    </message>
+    <message>
+        <source>the GPT holds no partitions to shrink to</source>
+        <translation>GPT-இல் சுருக்கத் தேவையான பகிர்வுகள் இல்லை</translation>
+    </message>
+    <message>
+        <source>a partition entry describes an impossible range</source>
+        <translation>ஒரு பகிர்வு உள்ளீடு சாத்தியமற்ற வரம்பைக் குறிக்கிறது</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>

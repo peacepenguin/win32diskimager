@@ -24,6 +24,14 @@
         <translation>デバイス</translation>
     </message>
     <message>
+        <source>Shrink image on Read</source>
+        <translation>読み取り時にイメージを縮小</translation>
+    </message>
+    <message>
+        <source>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</source>
+        <translation>デバイスの MBR または GPT を読み取り、実際のパーティションに合わせてイメージを縮小します。バックアップ GPT は使用済み領域の末尾へ移動します。</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT を確認</translation>
     </message>
@@ -949,6 +957,14 @@ Error %1: %2</source>
         <translation>読み込みエラー</translation>
     </message>
     <message>
+        <source>Sector count too large.</source>
+        <translation>セクター数が多すぎます。</translation>
+    </message>
+    <message>
+        <source>Unable to allocate memory for read buffer.</source>
+        <translation>読み取りバッファー用のメモリを確保できませんでした。</translation>
+    </message>
+    <message>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>ハンドルからデータを読み取ろうとしたときにエラーが発生しました。
@@ -1035,6 +1051,26 @@ Error %2</source>
     <message>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>バックアップ GPT を LBA %1 に移動しました。最終使用可能 LBA は %2 になりました</translation>
+    </message>
+    <message>
+        <source>the MBR holds no partitions to shrink to</source>
+        <translation>MBR に縮小先となるパーティションがありません</translation>
+    </message>
+    <message>
+        <source>the device is already this tight; nothing to shrink</source>
+        <translation>デバイスはすでにこれ以上詰められない状態です。縮小できません</translation>
+    </message>
+    <message>
+        <source>FirstUsableLBA is not usable for repacking</source>
+        <translation>FirstUsableLBA は再配置に使用できません</translation>
+    </message>
+    <message>
+        <source>the GPT holds no partitions to shrink to</source>
+        <translation>GPT に縮小先となるパーティションがありません</translation>
+    </message>
+    <message>
+        <source>a partition entry describes an impossible range</source>
+        <translation>パーティションエントリがあり得ない範囲を示しています</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>

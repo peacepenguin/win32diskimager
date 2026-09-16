@@ -24,6 +24,14 @@
         <translation>Device</translation>
     </message>
     <message>
+        <source>Shrink image on Read</source>
+        <translation>Shrink image on Read</translation>
+    </message>
+    <message>
+        <source>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</source>
+        <translation>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>Check GPT</translation>
     </message>
@@ -579,7 +587,7 @@ This could only be detected at the end of the device, because a gzip image does 
     </message>
     <message>
         <source>Scanning disks...</source>
-        <translation type="unfinished"></translation>
+        <translation>Scanning disks...</translation>
     </message>
     <message>
         <source>Disk Images (*.img *.IMG *.img.gz *.img.xz)</source>
@@ -938,7 +946,9 @@ Error %1: %2</translation>
         <source>Failed to get the free space on the volume holding %1.
 Error %2: %3
 Checking of free space will be skipped.</source>
-        <translation type="unfinished"></translation>
+        <translation>Failed to get the free space on the volume holding %1.
+Error %2: %3
+Checking of free space will be skipped.</translation>
     </message>
     <message>
         <source>Lock Error</source>
@@ -973,6 +983,14 @@ Error %1: %2</translation>
     <message>
         <source>Read Error</source>
         <translation>Read Error</translation>
+    </message>
+    <message>
+        <source>Sector count too large.</source>
+        <translation>Sector count too large.</translation>
+    </message>
+    <message>
+        <source>Unable to allocate memory for read buffer.</source>
+        <translation>Unable to allocate memory for read buffer.</translation>
     </message>
     <message>
         <source>An error occurred when attempting to read data from handle.
@@ -1061,6 +1079,26 @@ Error %2</translation>
     <message>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>backup GPT moved to LBA %1; last usable LBA is now %2</translation>
+    </message>
+    <message>
+        <source>the MBR holds no partitions to shrink to</source>
+        <translation>the MBR holds no partitions to shrink to</translation>
+    </message>
+    <message>
+        <source>the device is already this tight; nothing to shrink</source>
+        <translation>the device is already this tight; nothing to shrink</translation>
+    </message>
+    <message>
+        <source>FirstUsableLBA is not usable for repacking</source>
+        <translation>FirstUsableLBA is not usable for repacking</translation>
+    </message>
+    <message>
+        <source>the GPT holds no partitions to shrink to</source>
+        <translation>the GPT holds no partitions to shrink to</translation>
+    </message>
+    <message>
+        <source>a partition entry describes an impossible range</source>
+        <translation>a partition entry describes an impossible range</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>

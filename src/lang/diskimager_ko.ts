@@ -24,6 +24,14 @@
         <translation>복사할 기기</translation>
     </message>
     <message>
+        <source>Shrink image on Read</source>
+        <translation>읽기 시 이미지 축소</translation>
+    </message>
+    <message>
+        <source>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</source>
+        <translation>장치의 MBR 또는 GPT를 읽어 실제 파티션에 맞게 이미지를 축소합니다. 백업 GPT는 사용된 공간의 끝으로 옮깁니다.</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT 확인</translation>
     </message>
@@ -949,6 +957,14 @@ Error %1: %2</source>
         <translation>읽기 오류</translation>
     </message>
     <message>
+        <source>Sector count too large.</source>
+        <translation>섹터 수가 너무 많습니다.</translation>
+    </message>
+    <message>
+        <source>Unable to allocate memory for read buffer.</source>
+        <translation>읽기 버퍼용 메모리를 할당할 수 없습니다.</translation>
+    </message>
+    <message>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>핸들로부터 자료를 읽으려고 시도할 때 오류가 발생했습니다.
@@ -1035,6 +1051,26 @@ Error %2</source>
     <message>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>백업 GPT를 LBA %1(으)로 옮겼습니다. 마지막 사용 가능 LBA는 이제 %2입니다</translation>
+    </message>
+    <message>
+        <source>the MBR holds no partitions to shrink to</source>
+        <translation>MBR에 축소할 파티션이 없습니다</translation>
+    </message>
+    <message>
+        <source>the device is already this tight; nothing to shrink</source>
+        <translation>장치가 이미 이만큼 빡빡합니다. 축소할 것이 없습니다</translation>
+    </message>
+    <message>
+        <source>FirstUsableLBA is not usable for repacking</source>
+        <translation>FirstUsableLBA를 재배치에 사용할 수 없습니다</translation>
+    </message>
+    <message>
+        <source>the GPT holds no partitions to shrink to</source>
+        <translation>GPT에 축소할 파티션이 없습니다</translation>
+    </message>
+    <message>
+        <source>a partition entry describes an impossible range</source>
+        <translation>파티션 항목이 불가능한 범위를 나타냅니다</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>

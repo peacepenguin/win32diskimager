@@ -24,6 +24,14 @@
         <translation>裝置</translation>
     </message>
     <message>
+        <source>Shrink image on Read</source>
+        <translation>讀取時縮小映像檔</translation>
+    </message>
+    <message>
+        <source>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</source>
+        <translation>讀取裝置的 MBR 或 GPT，將映像檔縮小到僅包含實際的分割區。將備份 GPT 移到已用空間的結尾。</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>檢查 GPT</translation>
     </message>
@@ -949,6 +957,14 @@ Error %1: %2</source>
         <translation>讀取錯誤</translation>
     </message>
     <message>
+        <source>Sector count too large.</source>
+        <translation>磁區數量過大。</translation>
+    </message>
+    <message>
+        <source>Unable to allocate memory for read buffer.</source>
+        <translation>無法為讀取緩衝區配置記憶體。</translation>
+    </message>
+    <message>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>嘗試從該控制代碼讀取資料時失敗。
@@ -1035,6 +1051,26 @@ Error %2</source>
     <message>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>備份 GPT 已移至 LBA %1；最後可用的 LBA 現在是 %2</translation>
+    </message>
+    <message>
+        <source>the MBR holds no partitions to shrink to</source>
+        <translation>MBR 中沒有可供縮小的分割區</translation>
+    </message>
+    <message>
+        <source>the device is already this tight; nothing to shrink</source>
+        <translation>裝置已經這麼緊湊了，沒有可縮小的空間</translation>
+    </message>
+    <message>
+        <source>FirstUsableLBA is not usable for repacking</source>
+        <translation>FirstUsableLBA 不適用於重新排列</translation>
+    </message>
+    <message>
+        <source>the GPT holds no partitions to shrink to</source>
+        <translation>GPT 中沒有可供縮小的分割區</translation>
+    </message>
+    <message>
+        <source>a partition entry describes an impossible range</source>
+        <translation>某個分割區項目描述了一個不可能的範圍</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>

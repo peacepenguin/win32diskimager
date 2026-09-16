@@ -24,6 +24,14 @@
         <translation>Datenträger</translation>
     </message>
     <message>
+        <source>Shrink image on Read</source>
+        <translation>Image beim Lesen verkleinern</translation>
+    </message>
+    <message>
+        <source>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</source>
+        <translation>Liest den MBR oder die GPT des Datenträgers und verkleinert das Image so, dass es nur die tatsächlichen Partitionen umfasst. Verschiebt die Sicherungs-GPT an das Ende des belegten Speicherbereichs.</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT prüfen</translation>
     </message>
@@ -964,6 +972,14 @@ Fehler %1: %2</translation>
         <translation>Lesefehler</translation>
     </message>
     <message>
+        <source>Sector count too large.</source>
+        <translation>Die Sektoranzahl ist zu groß.</translation>
+    </message>
+    <message>
+        <source>Unable to allocate memory for read buffer.</source>
+        <translation>Für den Lesepuffer konnte kein Speicher reserviert werden.</translation>
+    </message>
+    <message>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>Fehler beim Versuch, Daten zu lesen.
@@ -1048,6 +1064,26 @@ Fehler %2</translation>
     <message>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>Sicherungs-GPT nach LBA %1 verschoben; letzte nutzbare LBA ist jetzt %2</translation>
+    </message>
+    <message>
+        <source>the MBR holds no partitions to shrink to</source>
+        <translation>der MBR enthält keine Partitionen, auf die verkleinert werden könnte</translation>
+    </message>
+    <message>
+        <source>the device is already this tight; nothing to shrink</source>
+        <translation>der Datenträger ist bereits so knapp bemessen; nichts zu verkleinern</translation>
+    </message>
+    <message>
+        <source>FirstUsableLBA is not usable for repacking</source>
+        <translation>FirstUsableLBA eignet sich nicht zum Neupacken</translation>
+    </message>
+    <message>
+        <source>the GPT holds no partitions to shrink to</source>
+        <translation>die GPT enthält keine Partitionen, auf die verkleinert werden könnte</translation>
+    </message>
+    <message>
+        <source>a partition entry describes an impossible range</source>
+        <translation>ein Partitionseintrag beschreibt einen unmöglichen Bereich</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>

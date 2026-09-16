@@ -24,6 +24,14 @@
         <translation>Doelapparaat</translation>
     </message>
     <message>
+        <source>Shrink image on Read</source>
+        <translation>Image verkleinen bij lezen</translation>
+    </message>
+    <message>
+        <source>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</source>
+        <translation>Leest de MBR of GPT van het apparaat om de image te verkleinen tot alleen de werkelijke partities. Verplaatst de reserve-GPT naar het einde van de gebruikte ruimte.</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT controleren</translation>
     </message>
@@ -952,6 +960,14 @@ Fout %1: %2</translation>
         <translation>Leesfout</translation>
     </message>
     <message>
+        <source>Sector count too large.</source>
+        <translation>Het aantal sectoren is te groot.</translation>
+    </message>
+    <message>
+        <source>Unable to allocate memory for read buffer.</source>
+        <translation>Kan geen geheugen reserveren voor de leesbuffer.</translation>
+    </message>
+    <message>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translation>Een fout is opgetreden bij het lezen van data van de handle.
@@ -1038,6 +1054,26 @@ Fout %2</translation>
     <message>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>reserve-GPT verplaatst naar LBA %1; laatste bruikbare LBA is nu %2</translation>
+    </message>
+    <message>
+        <source>the MBR holds no partitions to shrink to</source>
+        <translation>de MBR bevat geen partities om naar te verkleinen</translation>
+    </message>
+    <message>
+        <source>the device is already this tight; nothing to shrink</source>
+        <translation>het apparaat is al zo krap; niets te verkleinen</translation>
+    </message>
+    <message>
+        <source>FirstUsableLBA is not usable for repacking</source>
+        <translation>FirstUsableLBA is niet bruikbaar om opnieuw in te delen</translation>
+    </message>
+    <message>
+        <source>the GPT holds no partitions to shrink to</source>
+        <translation>de GPT bevat geen partities om naar te verkleinen</translation>
+    </message>
+    <message>
+        <source>a partition entry describes an impossible range</source>
+        <translation>een partitie-item beschrijft een onmogelijk bereik</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>

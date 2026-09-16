@@ -24,6 +24,14 @@
         <translation>Urządzenie</translation>
     </message>
     <message>
+        <source>Shrink image on Read</source>
+        <translation>Zmniejsz obraz podczas odczytu</translation>
+    </message>
+    <message>
+        <source>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</source>
+        <translation>Odczytuje MBR lub GPT urządzenia, aby zmniejszyć obraz do rzeczywistych partycji. Przenosi zapasowy GPT na koniec wykorzystanej przestrzeni.</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>Sprawdź GPT</translation>
     </message>
@@ -950,6 +958,14 @@ Błąd %1: %2</translation>
         <translation>Błąd odczytu</translation>
     </message>
     <message>
+        <source>Sector count too large.</source>
+        <translation>Liczba sektorów jest zbyt duża.</translation>
+    </message>
+    <message>
+        <source>Unable to allocate memory for read buffer.</source>
+        <translation>Nie można przydzielić pamięci dla bufora odczytu.</translation>
+    </message>
+    <message>
         <source>An error occurred when attempting to read data from handle.
 Error %1: %2</source>
         <translatorcomment>o co kaman? Do obsługiwanego miejsca? Albo do kontroli? Miejmy nadzieję ze to nie wyskoczy podczas użytkowania :)</translatorcomment>
@@ -1038,6 +1054,26 @@ Błąd %2</translation>
     <message>
         <source>backup GPT moved to LBA %1; last usable LBA is now %2</source>
         <translation>zapasowy GPT przeniesiony na LBA %1; ostatni użyteczny LBA to teraz %2</translation>
+    </message>
+    <message>
+        <source>the MBR holds no partitions to shrink to</source>
+        <translation>MBR nie zawiera partycji, do których można by zmniejszyć</translation>
+    </message>
+    <message>
+        <source>the device is already this tight; nothing to shrink</source>
+        <translation>urządzenie jest już tak ciasno zapakowane; nie ma czego zmniejszać</translation>
+    </message>
+    <message>
+        <source>FirstUsableLBA is not usable for repacking</source>
+        <translation>FirstUsableLBA nie nadaje się do przepakowania</translation>
+    </message>
+    <message>
+        <source>the GPT holds no partitions to shrink to</source>
+        <translation>GPT nie zawiera partycji, do których można by zmniejszyć</translation>
+    </message>
+    <message>
+        <source>a partition entry describes an impossible range</source>
+        <translation>wpis partycji opisuje niemożliwy zakres</translation>
     </message>
     <message>
         <source>the device geometry is not usable</source>
