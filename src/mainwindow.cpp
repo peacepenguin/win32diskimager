@@ -398,6 +398,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // prevent; and starting with only removable devices listed means a fixed
     // disk is never preselected from a previous session.
     fixGptCheckBox->setChecked(true);
+    shrinkOnReadCheckBox->setChecked(false);
     showAllDevicesCheckBox->setChecked(false);
     // After the "show all devices" state is set, which the filter reads.
     //
@@ -1309,6 +1310,39 @@ void MainWindow::on_bRead_clicked()
             endRun(tr("Read failed."));
             return;
         }
+        // Shrink the read to just the partition table and the partitions
+        // themselves, when asked to and the device's table allows it. On a
+        // GPT device every unpartitioned gap is closed -- ahead of the first
+        // partition, between partitions, and after the last one -- by
+        // repacking each partition 4K-aligned; on an MBR device only the
+        // trailing gap goes, since there is nowhere else safe to pack into
+        // without a FirstUsableLBA to work from. A device with no usable
+        // table, or already this tight, is read in full instead -- silently,
+        // since neither is an error.
+        bool shrinkToGpt = false;
+        GptShrinkPlan shrinkPlan;
+        if (shrinkOnReadCheckBox->isChecked())
+        {
+            QString detail;
+            unsigned long long alignsectors = (sectorsize >= 4096ull) ? 1ull : (4096ull / sectorsize);
+            if (alignsectors == 0ull)
+            {
+                alignsectors = 1ull;
+            }
+            if (planGptShrink(hRawDisk, sectorsize, numsectors, alignsectors, &shrinkPlan, &detail))
+            {
+                shrinkToGpt = true;
+                numsectors = shrinkPlan.totalsectors;
+            }
+            else
+            {
+                unsigned long long shrunksectors;
+                if (computeShrunkSectorCount(hRawDisk, sectorsize, numsectors, &shrunksectors, &detail) == SHRINK_OK)
+                {
+                    numsectors = shrunksectors;
+                }
+            }
+        }
         hFile = getHandleOnFile((LPCWSTR)myFile.utf16(), GENERIC_WRITE);
         if (hFile == INVALID_HANDLE_VALUE)
         {
@@ -1341,10 +1375,18 @@ void MainWindow::on_bRead_clicked()
         }
         statusbar->showMessage(tr("Reading..."));
         const int progshift = beginProgress(numsectors, &lasti);
-        for (i = 0ul; i < numsectors && status == STATUS_READING; i += TRANSFER_SECTORS)
+        // Without a shrink plan this is the one range the device has always
+        // been read as: everything, sector for sector, source to same offset
+        // in the image. With one, it is one range per repacked partition,
+        // each read from its old location and written at its new one; the
+        // header region -- unpartitioned, so never part of any range -- goes
+        // first, in a single write, since planGptShrink() already built it.
+        QList<ShrinkCopyRange> ranges;
+        unsigned long long donebefore = 0ull;
+        if (shrinkToGpt)
         {
-            sectorData = readSectorDataFromHandle(hRawDisk, i, (numsectors - i >= TRANSFER_SECTORS) ? TRANSFER_SECTORS:(numsectors - i), sectorsize);
-            if (sectorData == NULL)
+            if (!writeSectorDataToHandle(hFile, shrinkPlan.headerregion.data(), 0ull,
+                                         shrinkPlan.headersectors, sectorsize))
             {
                 CloseHandle(hRawDisk);
                 locked.release();
@@ -1354,25 +1396,62 @@ void MainWindow::on_bRead_clicked()
                 endRun(tr("Read failed."));
                 return;
             }
-            if (!writeSectorDataToHandle(hFile, sectorData, i, (numsectors - i >= TRANSFER_SECTORS) ? TRANSFER_SECTORS:(numsectors - i), sectorsize))
+            donebefore = shrinkPlan.headersectors;
+            progressbar->setValue((int)(donebefore >> progshift));
+            ranges = shrinkPlan.ranges;
+        }
+        else
+        {
+            ranges.append(ShrinkCopyRange{0ull, 0ull, numsectors});
+        }
+        for (const ShrinkCopyRange &range : ranges)
+        {
+            if (status != STATUS_READING)
             {
+                break;
+            }
+            for (i = 0ull; i < range.length && status == STATUS_READING; i += TRANSFER_SECTORS)
+            {
+                unsigned long long chunk = (range.length - i >= TRANSFER_SECTORS) ? TRANSFER_SECTORS : (range.length - i);
+                sectorData = readSectorDataFromHandle(hRawDisk, range.srcfirst + i, chunk, sectorsize);
+                if (sectorData == NULL)
+                {
+                    CloseHandle(hRawDisk);
+                    locked.release();
+                    CloseHandle(hFile);
+                    hRawDisk = INVALID_HANDLE_VALUE;
+                    hFile = INVALID_HANDLE_VALUE;
+                    endRun(tr("Read failed."));
+                    return;
+                }
+                if (!writeSectorDataToHandle(hFile, sectorData, range.dstfirst + i, chunk, sectorsize))
+                {
+                    delete[] sectorData;
+                    CloseHandle(hRawDisk);
+                    locked.release();
+                    CloseHandle(hFile);
+                    sectorData = NULL;
+                    hRawDisk = INVALID_HANDLE_VALUE;
+                    hFile = INVALID_HANDLE_VALUE;
+                    endRun(tr("Read failed."));
+                    return;
+                }
                 delete[] sectorData;
-                CloseHandle(hRawDisk);
-                locked.release();
-                CloseHandle(hFile);
                 sectorData = NULL;
-                hRawDisk = INVALID_HANDLE_VALUE;
-                hFile = INVALID_HANDLE_VALUE;
-                endRun(tr("Read failed."));
-                return;
+                unsigned long long done = donebefore + i + chunk;
+                showThroughput(done, numsectors, &lasti);
+                progressbar->setValue((int)((done > numsectors ? numsectors : done) >> progshift));
+                QCoreApplication::processEvents();
             }
-            delete[] sectorData;
-            sectorData = NULL;
-            showThroughput(i, numsectors, &lasti);
-            // i is where this chunk started; the bar tracks what is done.
-            unsigned long long done = i + TRANSFER_SECTORS;
-            progressbar->setValue((int)((done > numsectors ? numsectors : done) >> progshift));
-            QCoreApplication::processEvents();
+            donebefore += range.length;
+        }
+        if (shrinkToGpt && status == STATUS_READING)
+        {
+            // The data end is already in place; this lays a fresh backup entry
+            // array and header right after it and points the primary header at
+            // them, exactly as it would for a real device this size.
+            QString detail;
+            relocateBackupGPT(hFile, sectorsize, numsectors, &detail);
         }
         CloseHandle(hRawDisk);
         locked.release();

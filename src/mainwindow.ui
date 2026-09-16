@@ -225,6 +225,21 @@
         </property>
        </widget>
       </item><item>
+       <widget class="QCheckBox" name="shrinkOnReadCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Shrink image on Read</string>
+        </property>
+        <property name="toolTip">
+         <string>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</string>
+        </property>
+       </widget>
+      </item><item>
        <widget class="QCheckBox" name="showAllDevicesCheckBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">

@@ -27,6 +27,7 @@
 #endif
 
 #include <QtWidgets>
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -952,6 +953,210 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
                   .arg(backuphdr).arg(lastusable);
     }
     return GPT_FIX_OK;
+}
+
+ShrinkResult computeShrunkSectorCount(HANDLE hRawDisk, unsigned long long sectorsize,
+                                      unsigned long long devicesectors,
+                                      unsigned long long *usedsectors,
+                                      QString *detail)
+{
+    if (sectorsize < 512 || devicesectors < 3)
+    {
+        return SHRINK_NO_TABLE;
+    }
+
+    // The legacy MBR's four primary partition entries; extended/logical
+    // partitions are not walked. GPT devices are planGptShrink()'s job.
+    QByteArray sector0(sectorsize, 0);
+    unsigned char *mbr = (unsigned char *)sector0.data();
+    if (!rawSeekRead(hRawDisk, 0ull, mbr, (DWORD)sectorsize) || mbr[510] != 0x55 || mbr[511] != 0xAA)
+    {
+        return SHRINK_NO_TABLE;
+    }
+    bool any = false;
+    unsigned long long lastused = 0;
+    for (int i = 0; i < 4; ++i)
+    {
+        const unsigned char *e = mbr + 446 + i * 16;
+        if (e[4] == 0)
+        {
+            continue;
+        }
+        unsigned long long start = rd32(e, 8);
+        unsigned long long count = rd32(e, 12);
+        if (count == 0)
+        {
+            continue;
+        }
+        unsigned long long end = start + count - 1;
+        if (end >= devicesectors)
+        {
+            if (detail) *detail = QObject::tr("a partition extends past the end of the device");
+            return SHRINK_UNUSABLE;
+        }
+        if (!any || end > lastused)
+        {
+            lastused = end;
+        }
+        any = true;
+    }
+    if (!any)
+    {
+        if (detail) *detail = QObject::tr("the MBR holds no partitions to shrink to");
+        return SHRINK_UNUSABLE;
+    }
+    unsigned long long shrunk = lastused + 1;
+    if (shrunk >= devicesectors)
+    {
+        if (detail) *detail = QObject::tr("the device is already this tight; nothing to shrink");
+        return SHRINK_UNUSABLE;
+    }
+    *usedsectors = shrunk;
+    return SHRINK_OK;
+}
+
+bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
+                   unsigned long long devicesectors, unsigned long long alignsectors,
+                   GptShrinkPlan *plan, QString *detail)
+{
+    if (sectorsize < 512 || devicesectors < 96 || alignsectors == 0)
+    {
+        return false;
+    }
+
+    QByteArray primary(sectorsize, 0);
+    unsigned char *hdr = (unsigned char *)primary.data();
+    if (!rawSeekRead(hRawDisk, sectorsize, hdr, (DWORD)sectorsize)
+        || memcmp(hdr + GPT_OFF_SIGNATURE, "EFI PART", 8) != 0)
+    {
+        return false;
+    }
+
+    DWORD headersize = rd32(hdr, GPT_OFF_HEADERSIZE);
+    if (headersize < 92 || headersize > sectorsize)
+    {
+        if (detail) *detail = QObject::tr("the primary GPT header size is out of range");
+        return false;
+    }
+    {
+        QByteArray probe = primary.left(headersize);
+        wr32((unsigned char *)probe.data(), GPT_OFF_HEADERCRC, 0);
+        if (gptCrc32((const unsigned char *)probe.constData(), headersize) != rd32(hdr, GPT_OFF_HEADERCRC))
+        {
+            if (detail) *detail = QObject::tr("the primary GPT header checksum is invalid");
+            return false;
+        }
+    }
+
+    unsigned long long entrysectors;
+    if (!gptEntryGeometry(hdr, sectorsize, &entrysectors))
+    {
+        if (detail) *detail = QObject::tr("the GPT entry array geometry is not usable");
+        return false;
+    }
+    unsigned long long entrylba    = rd64(hdr, GPT_OFF_ENTRYLBA);
+    unsigned long long numentries  = rd32(hdr, GPT_OFF_NUMENTRIES);
+    unsigned long long entrysize   = rd32(hdr, GPT_OFF_ENTRYSIZE);
+    unsigned long long firstusable = rd64(hdr, GPT_OFF_FIRSTUSABLE);
+    if (entrylba < 2 || entrylba >= devicesectors || entrysectors > devicesectors - entrylba)
+    {
+        if (detail) *detail = QObject::tr("the GPT partition entry array is not where the header says");
+        return false;
+    }
+    if (firstusable < entrylba + entrysectors || firstusable >= devicesectors
+        || firstusable > devicesectors / 2)
+    {
+        // The second bound is a sanity check, not a spec requirement: the
+        // reserved area ahead of FirstUsableLBA is read whole, in one piece,
+        // below, and a table claiming most of the device as "reserved" is not
+        // one this repack should guess about.
+        if (detail) *detail = QObject::tr("FirstUsableLBA is not usable for repacking");
+        return false;
+    }
+
+    unsigned long long entrybytes = numentries * entrysize;
+    QByteArray entries(entrysectors * sectorsize, 0);
+    if (!rawSeekRead(hRawDisk, entrylba * sectorsize, entries.data(), (DWORD)(entrysectors * sectorsize)))
+    {
+        return false;
+    }
+    if (gptCrc32((const unsigned char *)entries.constData(), (size_t)entrybytes)
+        != rd32(hdr, GPT_OFF_ENTRIESCRC))
+    {
+        if (detail) *detail = QObject::tr("the GPT partition entry array checksum is invalid");
+        return false;
+    }
+
+    // Every in-use partition, by its slot in the entry array, in the order it
+    // currently starts -- packing follows that order, so nothing changes
+    // relative to anything else, only the gaps between them disappear.
+    QList<int> order;
+    for (unsigned long long i = 0; i < numentries; ++i)
+    {
+        const unsigned char *e = (const unsigned char *)entries.constData() + i * entrysize;
+        if (gptEntryInUse(e))
+        {
+            order.append((int)i);
+        }
+    }
+    if (order.isEmpty())
+    {
+        if (detail) *detail = QObject::tr("the GPT holds no partitions to shrink to");
+        return false;
+    }
+    std::sort(order.begin(), order.end(), [&](int a, int b)
+    {
+        const unsigned char *ea = (const unsigned char *)entries.constData() + (size_t)a * entrysize;
+        const unsigned char *eb = (const unsigned char *)entries.constData() + (size_t)b * entrysize;
+        return rd64(ea, GPT_ENT_FIRSTLBA) < rd64(eb, GPT_ENT_FIRSTLBA);
+    });
+
+    QList<ShrinkCopyRange> ranges;
+    unsigned long long cursor = firstusable;
+    for (int idx : order)
+    {
+        unsigned char *e = (unsigned char *)entries.data() + (size_t)idx * entrysize;
+        unsigned long long origfirst = rd64(e, GPT_ENT_FIRSTLBA);
+        unsigned long long origlast  = rd64(e, GPT_ENT_LASTLBA);
+        if (origlast < origfirst || origlast >= devicesectors || origfirst < firstusable)
+        {
+            if (detail) *detail = QObject::tr("a partition entry describes an impossible range");
+            return false;
+        }
+        unsigned long long length  = origlast - origfirst + 1;
+        unsigned long long newfirst = ((cursor + alignsectors - 1) / alignsectors) * alignsectors;
+        unsigned long long newlast  = newfirst + length - 1;
+        ranges.append(ShrinkCopyRange{origfirst, newfirst, length});
+        wr64(e, GPT_ENT_FIRSTLBA, newfirst);
+        wr64(e, GPT_ENT_LASTLBA, newlast);
+        cursor = newlast + 1;
+    }
+
+    if (cursor + entrysectors + 1 >= devicesectors)
+    {
+        if (detail) *detail = QObject::tr("the device is already this tight; nothing to shrink");
+        return false;
+    }
+
+    // The entries moved, so the checksum describing them has to be redone;
+    // that changes the header bytes, so its own checksum follows.
+    wr32(hdr, GPT_OFF_ENTRIESCRC, gptCrc32((const unsigned char *)entries.constData(), (size_t)entrybytes));
+    wr32(hdr, GPT_OFF_HEADERCRC, 0);
+    wr32(hdr, GPT_OFF_HEADERCRC, gptCrc32(hdr, headersize));
+
+    QByteArray region((size_t)(firstusable * sectorsize), 0);
+    if (!rawSeekRead(hRawDisk, 0, region.data(), (DWORD)region.size()))
+    {
+        return false;
+    }
+    memcpy(region.data() + sectorsize, hdr, headersize);
+    memcpy(region.data() + entrylba * sectorsize, entries.constData(), (size_t)entries.size());
+
+    plan->headerregion  = region;
+    plan->headersectors = firstusable;
+    plan->ranges        = ranges;
+    plan->totalsectors  = cursor + entrysectors + 1;
+    return true;
 }
 
 bool deviceHasMbrTable(HANDLE hRawDisk, unsigned long long sectorsize)

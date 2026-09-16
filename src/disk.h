@@ -205,6 +205,72 @@ bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
                      unsigned long long devicesectors,
                      unsigned long long *frontend, unsigned long long *tailstart);
 
+// Result of computeShrunkSectorCount().
+enum ShrinkResult
+{
+    SHRINK_OK,       // *usedsectors holds the shrunk count
+    SHRINK_NO_TABLE, // the device holds no MBR at all
+    SHRINK_UNUSABLE  // a table is present but malformed, empty, or already this tight
+};
+
+// Read the device's legacy MBR and report how many sectors, counted from
+// sector 0, actually hold the partition table and the partitions themselves --
+// so "Shrink image on Read" can stop there instead of reading the whole
+// device. Only the four primary entries are walked, in whatever order they
+// sit in the table, and only the trailing unpartitioned space after the last
+// one is dropped; gaps between or ahead of partitions are left alone, since
+// there is no FirstUsableLBA-equivalent concept to pack against and no
+// backup table to relocate afterward. GPT devices are handled by
+// planGptShrink() instead, which repacks properly. *usedsectors is left
+// unset unless SHRINK_OK is returned.
+ShrinkResult computeShrunkSectorCount(HANDLE hRawDisk, unsigned long long sectorsize,
+                                      unsigned long long devicesectors,
+                                      unsigned long long *usedsectors,
+                                      QString *detail);
+
+// One partition, as planGptShrink() repacks it: sectors
+// [srcfirst, srcfirst + length) on the device become
+// [dstfirst, dstfirst + length) in the image.
+struct ShrinkCopyRange
+{
+    unsigned long long srcfirst;
+    unsigned long long dstfirst;
+    unsigned long long length;
+};
+
+struct GptShrinkPlan
+{
+    // Sectors [0, headersectors) of the image, verbatim except for the
+    // primary header and entry array, which are patched here to describe the
+    // repacked partitions below. Covers the protective MBR, the primary GPT,
+    // and whatever reserved space (e.g. an ARM board's U-Boot) an image keeps
+    // ahead of FirstUsableLBA -- none of which is touched or repacked.
+    QByteArray headerregion;
+    unsigned long long headersectors;
+    // Every in-use partition, packed back-to-back from FirstUsableLBA with no
+    // gaps, each aligned to the caller's alignsectors, in the order it
+    // originally started on the device.
+    QList<ShrinkCopyRange> ranges;
+    // The size, in sectors, the image should be read to: one past the last
+    // partition, plus room for a fresh backup entry array and header, which
+    // the caller writes by calling relocateBackupGPT() once the data above
+    // has actually been copied that short.
+    unsigned long long totalsectors;
+};
+
+// Plan a "Shrink image on Read" that removes every unpartitioned gap on a GPT
+// device -- between FirstUsableLBA and the first partition, between
+// partitions, and after the last one -- rather than only the trailing one.
+// Partitions are repacked in their original order and each is aligned to
+// alignsectors (pass 4096 / sectorsize, so an image made from a 512-byte-
+// sector device still starts every partition on a 4K boundary, matching what
+// 4Kn media needs). Returns false, with *plan untouched, if the device holds
+// no usable GPT, a partition's range makes no sense, or there is nothing to
+// gain by repacking.
+bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
+                   unsigned long long devicesectors, unsigned long long alignsectors,
+                   GptShrinkPlan *plan, QString *detail);
+
 bool flushDevice(HANDLE handle);
 bool setDiskOffline(HANDLE handle, bool offline);
 bool ejectDevice(HANDLE handle);
