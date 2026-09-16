@@ -66,12 +66,16 @@ Once:
 
 ```
 # non-admin powershell:
-winget install --id MSYS2.MSYS2 -e
+winget install --id MSYS2.MSYS2 -e --source winget
 ```
 
-Then in the **MSYS2 UCRT64** shell:
+Then in the **MSYS2 UCRT64** shell, from the repo root:
 
 ```
+# update all msys2 base packages first:
+pacman -Suy
+
+# then install dependancy packages:
 pacman -S --needed $(bash tools/build-env.sh packages-msys2)
 ```
 
