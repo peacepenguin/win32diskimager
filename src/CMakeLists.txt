@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(WinDiskImager VERSION 1.6.0 LANGUAGES CXX)
+project(WinDiskImager VERSION 1.7.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
