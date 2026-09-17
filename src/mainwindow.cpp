@@ -202,18 +202,6 @@ bool MainWindow::acquireDeviceAndImage(int deviceID, LockedVolumes &locked,
         endRun(failedMessage);
         return false;
     }
-    // Undo whatever a previous write or verify against this same device left
-    // behind: both take it offline and eject it on success, on the assumption
-    // the card is about to be physically removed. When it is not -- reused
-    // for another run instead, as in repeated testing -- and the reader does
-    // not support a real eject, Windows leaves the disk marked offline rather
-    // than reverting it, and an offline disk accepts reads but fails every
-    // write with access denied. Rescanning does not clear this; only an
-    // explicit online (this call, or diskpart/Disk Management) does, which is
-    // why the failure otherwise looks like it needs a full app restart to
-    // "fix" -- it does not, and this makes every write and verify self-heal
-    // from it instead of depending on the device happening to be online.
-    setDiskOffline(hRawDisk, false);
     bool geometryreported = false;
     *devicesectors = getNumberOfSectors(hRawDisk, &sectorsize, &geometryreported);
     if (!*devicesectors && !geometryreported)
