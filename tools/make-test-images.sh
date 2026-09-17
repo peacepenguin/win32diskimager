@@ -711,7 +711,7 @@ in, or real data left out, that comparing sizes alone would miss.
                                it and the 20 MB gap before the backup GPT
                                (both tagged ...-MUST-BE-DROPPED) must not.
 
-                               DO NOT poke at that reserved span in Disk
+                               DO NOT attempt volume creation at that reserved span in Disk
                                Management once this is on a device. GPT itself
                                has no concept for "reserved, not a partition,
                                do not touch" beyond FirstUsableLBA -- Windows
@@ -729,9 +729,9 @@ in, or real data left out, that comparing sizes alone would miss.
                                behind Disk Management) holding its own handle
                                on the drive after the rejected attempt, which
                                is a Windows/VDS matter, not something this
-                               app can detect or release. If you need to
-                               inspect this image's layout, use gptdump.py or
-                               a hex editor instead of Disk Management.
+                               app can detect or release. This is further
+                               evidence of buggy behavior in windows related
+                               to handling firstusableLBA.
   test-shrink-gpt-tight.img    GPT, one partition already spanning from
                                FirstUsableLBA to the backup GPT: nothing to
                                shrink anywhere. Checking the box against this
