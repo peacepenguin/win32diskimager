@@ -205,30 +205,7 @@ bool gptOwnedSectors(HANDLE hRawDisk, unsigned long long sectorsize,
                      unsigned long long devicesectors,
                      unsigned long long *frontend, unsigned long long *tailstart);
 
-// Result of computeShrunkSectorCount().
-enum ShrinkResult
-{
-    SHRINK_OK,       // *usedsectors holds the shrunk count
-    SHRINK_NO_TABLE, // the device holds no MBR at all
-    SHRINK_UNUSABLE  // a table is present but malformed, empty, or already this tight
-};
-
-// Read the device's legacy MBR and report how many sectors, counted from
-// sector 0, actually hold the partition table and the partitions themselves --
-// so "Shrink image on Read" can stop there instead of reading the whole
-// device. Only the four primary entries are walked, in whatever order they
-// sit in the table, and only the trailing unpartitioned space after the last
-// one is dropped; gaps between or ahead of partitions are left alone, since
-// there is no FirstUsableLBA-equivalent concept to pack against and no
-// backup table to relocate afterward. GPT devices are handled by
-// planGptShrink() instead, which repacks properly. *usedsectors is left
-// unset unless SHRINK_OK is returned.
-ShrinkResult computeShrunkSectorCount(HANDLE hRawDisk, unsigned long long sectorsize,
-                                      unsigned long long devicesectors,
-                                      unsigned long long *usedsectors,
-                                      QString *detail);
-
-// One partition, as planGptShrink() repacks it: sectors
+// One partition, as planGptShrink()/planMbrShrink() repack it: sectors
 // [srcfirst, srcfirst + length) on the device become
 // [dstfirst, dstfirst + length) in the image.
 struct ShrinkCopyRange
@@ -238,23 +215,28 @@ struct ShrinkCopyRange
     unsigned long long length;
 };
 
-struct GptShrinkPlan
+// A "Shrink image on Read" plan, from either planGptShrink() or
+// planMbrShrink() -- the two only differ in what goes into headerregion and
+// whether there is a backupregion at all, so callers drive both the same way.
+struct PartitionShrinkPlan
 {
     // Sectors [0, headersectors) of the image, verbatim except for the
-    // primary header and entry array, which are patched here to describe the
-    // repacked partitions below. Covers the protective MBR, the primary GPT,
-    // and whatever reserved space (e.g. an ARM board's U-Boot) an image keeps
-    // ahead of FirstUsableLBA -- none of which is touched or repacked.
+    // partition table itself, which is patched here to describe the repacked
+    // partitions below. For GPT this covers the protective MBR, the primary
+    // header and entry array, and whatever reserved space (e.g. an ARM
+    // board's U-Boot) an image keeps ahead of FirstUsableLBA; for MBR it is
+    // just the boot sector. Either way, nothing here is repacked, only the
+    // table entries describing what comes after it.
     QByteArray headerregion;
     unsigned long long headersectors;
-    // Every in-use partition, packed back-to-back from FirstUsableLBA with no
-    // gaps, each aligned to the caller's alignsectors, in the order it
-    // originally started on the device. Between headerregion and the first
-    // range, and between two ranges, alignment may leave a gap that has to be
-    // written as explicit zero sectors -- there is no partition data to read
-    // for it, and unlike a plain contiguous read there is no guarantee the
-    // caller's output is a sparse file that zero-fills a skipped-over region
-    // on its own.
+    // Every in-use partition, packed back-to-back right after headerregion
+    // with no gaps, each aligned to the caller's alignsectors, in the order
+    // it originally started on the device. Between headerregion and the
+    // first range, and between two ranges, alignment may leave a gap that
+    // has to be written as explicit zero sectors -- there is no partition
+    // data to read for it, and unlike a plain contiguous read there is no
+    // guarantee the caller's output is a sparse file that zero-fills a
+    // skipped-over region on its own.
     QList<ShrinkCopyRange> ranges;
     // Sectors [totalsectors - backupsectors, totalsectors) of the image: a
     // fresh backup entry array and header, already computed against the
@@ -262,7 +244,8 @@ struct GptShrinkPlan
     // copied that short, this is what makes the primary header (already
     // patched into headerregion) correct -- no read-modify-write against the
     // device or the image is needed afterward, which is what lets this work
-    // for a compressed output stream and not just a raw file.
+    // for a compressed output stream and not just a raw file. Empty, with
+    // backupsectors 0, for an MBR plan: there is no backup table to build.
     QByteArray backupregion;
     unsigned long long backupsectors;
     // The size, in sectors, the image should be read to.
@@ -280,7 +263,19 @@ struct GptShrinkPlan
 // gain by repacking.
 bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
                    unsigned long long devicesectors, unsigned long long alignsectors,
-                   GptShrinkPlan *plan, QString *detail);
+                   PartitionShrinkPlan *plan, QString *detail);
+
+// The same idea for a legacy MBR: every unpartitioned gap goes -- after the
+// boot sector and before the first partition, between partitions, and after
+// the last one -- packed and aligned exactly as planGptShrink() does. Only
+// the four primary entries are walked; extended/logical partitions are not.
+// There being no backup table to build, plan->backupregion is left empty and
+// plan->backupsectors 0. Returns false, with *plan untouched, if the device
+// holds no MBR, an entry describes an impossible range, or there is nothing
+// to gain by repacking.
+bool planMbrShrink(HANDLE hRawDisk, unsigned long long sectorsize,
+                   unsigned long long devicesectors, unsigned long long alignsectors,
+                   PartitionShrinkPlan *plan, QString *detail);
 
 bool flushDevice(HANDLE handle);
 bool setDiskOffline(HANDLE handle, bool offline);

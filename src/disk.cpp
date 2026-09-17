@@ -955,26 +955,37 @@ GptFixResult relocateBackupGPT(HANDLE hRawDisk, unsigned long long sectorsize,
     return GPT_FIX_OK;
 }
 
-ShrinkResult computeShrunkSectorCount(HANDLE hRawDisk, unsigned long long sectorsize,
-                                      unsigned long long devicesectors,
-                                      unsigned long long *usedsectors,
-                                      QString *detail)
+// One primary MBR entry worth keeping track of while packing: its slot in
+// the table (so the right entry gets its start field patched) and where it
+// currently is.
+struct MbrSlot
 {
-    if (sectorsize < 512 || devicesectors < 3)
+    int idx;
+    unsigned long long first, count;
+};
+
+bool planMbrShrink(HANDLE hRawDisk, unsigned long long sectorsize,
+                   unsigned long long devicesectors, unsigned long long alignsectors,
+                   PartitionShrinkPlan *plan, QString *detail)
+{
+    if (sectorsize < 512 || devicesectors < 3 || alignsectors == 0)
     {
-        return SHRINK_NO_TABLE;
+        return false;
     }
 
-    // The legacy MBR's four primary partition entries; extended/logical
-    // partitions are not walked. GPT devices are planGptShrink()'s job.
     QByteArray sector0(sectorsize, 0);
     unsigned char *mbr = (unsigned char *)sector0.data();
-    if (!rawSeekRead(hRawDisk, 0ull, mbr, (DWORD)sectorsize) || mbr[510] != 0x55 || mbr[511] != 0xAA)
+    if (!rawSeekRead(hRawDisk, 0ull, mbr, (DWORD)sectorsize)
+        || mbr[510] != 0x55 || mbr[511] != 0xAA)
     {
-        return SHRINK_NO_TABLE;
+        return false;
     }
-    bool any = false;
-    unsigned long long lastused = 0;
+
+    // Every in-use primary entry, by its slot in the table, in the order it
+    // currently starts -- the same packing order planGptShrink() uses, and
+    // for the same reason: nothing crosses over anything else. Only the four
+    // primary entries are looked at; extended/logical partitions are not.
+    QList<MbrSlot> order;
     for (int i = 0; i < 4; ++i)
     {
         const unsigned char *e = mbr + 446 + i * 16;
@@ -988,36 +999,64 @@ ShrinkResult computeShrunkSectorCount(HANDLE hRawDisk, unsigned long long sector
         {
             continue;
         }
-        unsigned long long end = start + count - 1;
-        if (end >= devicesectors)
+        if (start < 1ull || start >= devicesectors || count > devicesectors - start)
         {
-            if (detail) *detail = QObject::tr("a partition extends past the end of the device");
-            return SHRINK_UNUSABLE;
+            if (detail) *detail = QObject::tr("a partition entry describes an impossible range");
+            return false;
         }
-        if (!any || end > lastused)
-        {
-            lastused = end;
-        }
-        any = true;
+        MbrSlot s;
+        s.idx = i;
+        s.first = start;
+        s.count = count;
+        order.append(s);
     }
-    if (!any)
+    if (order.isEmpty())
     {
         if (detail) *detail = QObject::tr("the MBR holds no partitions to shrink to");
-        return SHRINK_UNUSABLE;
+        return false;
     }
-    unsigned long long shrunk = lastused + 1;
-    if (shrunk >= devicesectors)
+    std::sort(order.begin(), order.end(), [](const MbrSlot &a, const MbrSlot &b)
+    {
+        return a.first < b.first;
+    });
+
+    QList<ShrinkCopyRange> ranges;
+    unsigned long long cursor = 1ull;   // sector 0 is the boot sector itself
+    for (const MbrSlot &s : order)
+    {
+        unsigned long long newfirst = ((cursor + alignsectors - 1) / alignsectors) * alignsectors;
+        unsigned long long newlast  = newfirst + s.count - 1;
+        if (newfirst > 0xFFFFFFFFull)
+        {
+            // The classic MBR start field is 32 bits; a device needing more
+            // than that to describe a repacked start is not one this table
+            // format can express, shrunk or not.
+            if (detail) *detail = QObject::tr("the repacked layout no longer fits a 32-bit MBR entry");
+            return false;
+        }
+        ranges.append(ShrinkCopyRange{s.first, newfirst, s.count});
+        wr32(mbr + 446 + s.idx * 16, 8, (DWORD)newfirst);
+        cursor = newlast + 1;
+    }
+
+    if (cursor >= devicesectors)
     {
         if (detail) *detail = QObject::tr("the device is already this tight; nothing to shrink");
-        return SHRINK_UNUSABLE;
+        return false;
     }
-    *usedsectors = shrunk;
-    return SHRINK_OK;
+
+    plan->headerregion  = sector0;
+    plan->headersectors = 1ull;
+    plan->ranges        = ranges;
+    plan->backupregion.clear();
+    plan->backupsectors = 0ull;
+    plan->totalsectors  = cursor;
+    return true;
 }
 
 bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
                    unsigned long long devicesectors, unsigned long long alignsectors,
-                   GptShrinkPlan *plan, QString *detail)
+                   PartitionShrinkPlan *plan, QString *detail)
 {
     if (sectorsize < 512 || devicesectors < 96 || alignsectors == 0)
     {

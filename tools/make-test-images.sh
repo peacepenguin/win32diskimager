@@ -336,9 +336,13 @@ check_firstusablelba() {
 # make_shrink_mbr_image PATH
 #
 # 200 MB MBR disk: 50 MB unpartitioned, a 100 MB FAT partition, then another
-# 50 MB unpartitioned. An MBR has no FirstUsableLBA-like anchor to repack
-# against, so "Shrink image on Read" only trims the trailing gap -- the front
-# one is expected to survive untouched.
+# 50 MB unpartitioned. An MBR has no FirstUsableLBA field the way GPT does,
+# but the boot sector alone marks exactly the same amount of the device as
+# reserved -- one sector -- so "Shrink image on Read" repacks an MBR device
+# the same way it does a GPT one: both gaps here must be gone, and the
+# partition moved right after the boot sector. The partition start (102400)
+# is not a multiple of 8 sectors either, so this also exercises the 4Kn-
+# alignment repacking, the same as test-shrink-gpt.img does for GPT.
 make_shrink_mbr_image() {
     local path=$1
     local sector=512
@@ -357,10 +361,69 @@ EOF
 
     # Sector 0 carries the MBR itself; the fillable front gap starts at 1.
     fill_pattern "$path" "$sector" $(( (part_start - 1) * sector )) \
-        "FRONT-GAP-MUST-SURVIVE-MBR-SHRINK "
+        "FRONT-GAP-MUST-BE-DROPPED-BY-SHRINK "
     local back_off=$(( (part_start + part_sectors) * sector ))
     fill_pattern "$path" "$back_off" $(( gap_sectors * sector )) \
         "BACK-GAP-MUST-BE-DROPPED-BY-SHRINK "
+}
+
+# make_shrink_mbr_tight_image PATH
+#
+# One MBR partition already running from the sector right after the boot
+# sector to the very last sector of the device: there is no gap anywhere for
+# "Shrink image on Read" to remove. Checking the box against this image
+# should read it back in full, byte for byte, exactly as if it had been left
+# unchecked -- the negative case for test-shrink-mbr.img and
+# test-shrink-mbr-multi.img.
+make_shrink_mbr_tight_image() {
+    local path=$1
+    local sector=512
+    local part_start=1
+    local part_sectors=$(( 100 * 1048576 / sector - part_start ))
+    local total_sectors=$(( part_start + part_sectors ))
+
+    rm -f "$path"
+    truncate -s $(( total_sectors * sector )) "$path"
+    sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
+label: dos
+start=$part_start, size=$part_sectors, type=e, bootable
+EOF
+    write_fat_part "$path" "$part_start" "$part_sectors" SHRTIGHT
+}
+
+# make_shrink_mbr_multi_image PATH
+#
+# Three MBR primary partitions rather than one, with a gap ahead of each of
+# the first two and none after the last -- "between partitions", which
+# test-shrink-mbr.img's single partition cannot exercise, and the MBR
+# counterpart to test-shrink-gpt-multi.img. No start is a multiple of 8
+# sectors. Geometry only, no filesystems: each partition gets its own stamp
+# instead, the same as the GPT multi-partition image.
+make_shrink_mbr_multi_image() {
+    local path=$1
+    local sector=512
+    local gap1=100003 gap2=50007
+    local p1=204801 p2=102403 p3=153607
+    local p1_start=$(( 1 + gap1 ))
+    local p2_start=$(( p1_start + p1 + gap2 ))
+    local p3_start=$(( p2_start + p2 ))
+    local total_sectors=$(( p3_start + p3 ))
+
+    rm -f "$path"
+    truncate -s $(( total_sectors * sector )) "$path"
+    sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
+label: dos
+start=$p1_start, size=$p1, type=e, bootable
+start=$p2_start, size=$p2, type=e
+start=$p3_start, size=$p3, type=e
+EOF
+    fill_pattern "$path" "$sector" $(( gap1 * sector )) \
+        "GAP1-BEFORE-PART1-MUST-BE-DROPPED "
+    fill_pattern "$path" $(( p1_start * sector )) $(( p1 * sector )) "PART1-DATA "
+    fill_pattern "$path" $(( (p1_start + p1) * sector )) $(( gap2 * sector )) \
+        "GAP2-BETWEEN-PART1-AND-PART2-MUST-BE-DROPPED "
+    fill_pattern "$path" $(( p2_start * sector )) $(( p2 * sector )) "PART2-DATA "
+    fill_pattern "$path" $(( p3_start * sector )) $(( p3 * sector )) "PART3-DATA "
 }
 
 # make_shrink_gpt_image PATH
@@ -447,7 +510,7 @@ EOF
 # to the sector before the backup GPT: there is no gap anywhere left to
 # remove. Checking "Shrink image on Read" against this image should read it
 # in full, byte for byte, exactly as if the box had been left unchecked --
-# the negative case for the four images above.
+# the negative case for the two GPT images above.
 make_shrink_gpt_tight_image() {
     local path=$1
     local sector=512
@@ -511,6 +574,8 @@ EOF
 
 echo "building the shrink-on-read set"
 make_shrink_mbr_image          "$OUTDIR/test-shrink-mbr.img"
+make_shrink_mbr_tight_image    "$OUTDIR/test-shrink-mbr-tight.img"
+make_shrink_mbr_multi_image    "$OUTDIR/test-shrink-mbr-multi.img"
 make_shrink_gpt_image          "$OUTDIR/test-shrink-gpt.img"
 make_shrink_gpt_reserved_image "$OUTDIR/test-shrink-gpt-reserved.img"
 make_shrink_gpt_tight_image    "$OUTDIR/test-shrink-gpt-tight.img"
@@ -602,10 +667,30 @@ region that must survive is stamped with its own ASCII tag rather than left
 zero, so diffing the shrunk output against the original catches a gap left
 in, or real data left out, that comparing sizes alone would miss.
   test-shrink-mbr.img          MBR: 50 MB gap, 100 MB FAT partition, 50 MB gap.
-                               An MBR has no FirstUsableLBA to repack against,
-                               so only the trailing gap should be gone -- the
-                               front one (tag FRONT-GAP-MUST-SURVIVE-...) is
-                               expected to remain. Shrunk size: ~150 MB.
+                               An MBR has no FirstUsableLBA field, but the boot
+                               sector reserves exactly the same one sector GPT
+                               reserves at minimum, so both gaps here (tagged
+                               ...-MUST-BE-DROPPED) should be gone and the
+                               partition moved to right after the boot sector.
+                               Its start is also not on a 4Kn boundary, so this
+                               exercises the alignment repacking too. Shrunk
+                               size: ~100 MB plus the boot sector.
+  test-shrink-mbr-tight.img    MBR, one partition already spanning from the
+                               sector right after the boot sector to the end
+                               of the device: nothing to shrink anywhere.
+                               Checking the box against this image should
+                               read it back in full and byte for byte
+                               identical, the same as leaving it unchecked --
+                               the negative case for the two MBR images here.
+  test-shrink-mbr-multi.img    MBR, three primary partitions with a gap ahead
+                               of each of the first two (tags GAP1-.../GAP2-
+                               ...) and none after the last -- "between
+                               partitions", which test-shrink-mbr.img's single
+                               partition cannot exercise. No start is on a 4Kn
+                               boundary. Geometry only, no filesystems (each
+                               partition is instead filled with its own
+                               PART<n>-DATA tag), the same as its GPT
+                               counterpart below.
   test-shrink-gpt.img          GPT, default FirstUsableLBA: 50 MB gap, 100 MB
                                FAT partition, 50 MB gap, backup GPT. Both gaps
                                (tagged ...-MUST-BE-DROPPED) should be gone and
@@ -627,7 +712,7 @@ in, or real data left out, that comparing sizes alone would miss.
                                shrink anywhere. Checking the box against this
                                image should read it back in full and byte for
                                byte identical, the same as leaving it
-                               unchecked -- the negative case for the three
+                               unchecked -- the negative case for the two GPT
                                images above.
   test-shrink-gpt-multi.img    GPT, three partitions with a gap ahead of each
                                of the first two (tags GAP1-.../GAP2-...) and

@@ -1340,16 +1340,15 @@ void MainWindow::on_bRead_clicked()
             return;
         }
         // Shrink the read to just the partition table and the partitions
-        // themselves, when asked to and the device's table allows it. On a
-        // GPT device every unpartitioned gap is closed -- ahead of the first
-        // partition, between partitions, and after the last one -- by
-        // repacking each partition 4K-aligned; on an MBR device only the
-        // trailing gap goes, since there is nowhere else safe to pack into
-        // without a FirstUsableLBA to work from. A device with no usable
-        // table, or already this tight, is read in full instead -- silently,
-        // since neither is an error.
-        bool shrinkToGpt = false;
-        GptShrinkPlan shrinkPlan;
+        // themselves, when asked to and the device's table allows it. Every
+        // unpartitioned gap is closed -- ahead of the first partition,
+        // between partitions, and after the last one -- by repacking each
+        // partition 4K-aligned, the same way for GPT and MBR alike; a GPT
+        // plan additionally rebuilds the backup table, which MBR has none of.
+        // A device with no usable table, or already this tight, is read in
+        // full instead -- silently, since neither is an error.
+        bool shrinkPlanned = false;
+        PartitionShrinkPlan shrinkPlan;
         if (shrinkOnReadCheckBox->isChecked())
         {
             QString detail;
@@ -1358,18 +1357,11 @@ void MainWindow::on_bRead_clicked()
             {
                 alignsectors = 1ull;
             }
-            if (planGptShrink(hRawDisk, sectorsize, numsectors, alignsectors, &shrinkPlan, &detail))
+            if (planGptShrink(hRawDisk, sectorsize, numsectors, alignsectors, &shrinkPlan, &detail)
+                || planMbrShrink(hRawDisk, sectorsize, numsectors, alignsectors, &shrinkPlan, &detail))
             {
-                shrinkToGpt = true;
+                shrinkPlanned = true;
                 numsectors = shrinkPlan.totalsectors;
-            }
-            else
-            {
-                unsigned long long shrunksectors;
-                if (computeShrunkSectorCount(hRawDisk, sectorsize, numsectors, &shrunksectors, &detail) == SHRINK_OK)
-                {
-                    numsectors = shrunksectors;
-                }
             }
         }
         bool compressing = compressGz || compressXz;
@@ -1461,7 +1453,7 @@ void MainWindow::on_bRead_clicked()
             return writeOut(zeros.constData(), sectors);
         };
 
-        if (shrinkToGpt)
+        if (shrinkPlanned)
         {
             if (!writeOut(shrinkPlan.headerregion.constData(), shrinkPlan.headersectors))
             {
@@ -1470,7 +1462,7 @@ void MainWindow::on_bRead_clicked()
             }
             progressbar->setValue((int)(dstpos >> progshift));
         }
-        QList<ShrinkCopyRange> ranges = shrinkToGpt ? shrinkPlan.ranges
+        QList<ShrinkCopyRange> ranges = shrinkPlanned ? shrinkPlan.ranges
             : QList<ShrinkCopyRange>{ ShrinkCopyRange{0ull, 0ull, numsectors} };
         for (const ShrinkCopyRange &range : ranges)
         {
@@ -1506,14 +1498,14 @@ void MainWindow::on_bRead_clicked()
                 QCoreApplication::processEvents();
             }
         }
-        if (shrinkToGpt && status == STATUS_READING)
+        if (shrinkPlanned && status == STATUS_READING && shrinkPlan.backupsectors > 0ull)
         {
             // Every range, and every gap between them, is behind us now, so
             // this is where relocateBackupGPT() would read the data back from
             // and patch it in on a raw file. Written here instead, already
             // computed by planGptShrink(), it works the same way whether the
-            // backend behind writeOut() can be seeked back into afterward
-            // or not.
+            // backend behind writeOut() can be seeked back into afterward or
+            // not. An MBR plan has no backup table, so this is skipped there.
             if (!writeOut(shrinkPlan.backupregion.constData(), shrinkPlan.backupsectors))
             {
                 failRead();
