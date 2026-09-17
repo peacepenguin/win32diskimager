@@ -1248,27 +1248,35 @@ void MainWindow::on_bRead_clicked()
             // without ever asking.
             fileinfo.setFile(myFile);
         }
-        // "Read to .img.gz" / "Read to .img.xz": whatever name the user typed,
-        // the file actually written carries the matching extension, so nothing
-        // else that looks at the name is misled about what is inside it. A
-        // name that already ends with it is left alone, so retyping the same
-        // name twice cannot pile up a second one.
+        // Whatever name the user typed, the file actually written ends in
+        // .img, .img.gz or .img.xz, matching "Read to .img.gz" / "Read to
+        // .img.xz" -- so nothing else that looks at the name is misled about
+        // what is inside it. An exact match on that ending is left alone. A
+        // name already ending in plain .img only needs the compression suffix
+        // added, so that is all that goes on; anything else -- no extension,
+        // a different one, even a whole .img.gz already on a name the user
+        // now picks .img.xz for -- gets the full correct ending appended
+        // instead. Either way this only ever adds to the name typed in, never
+        // strips or rewrites part of it: it is the user's to decide, not this
+        // program's to second-guess.
         bool compressGz = readGzCheckBox->isChecked();
         bool compressXz = readXzCheckBox->isChecked();
-        bool renamedForCompression = false;
-        if (compressGz && !myFile.endsWith(".gz", Qt::CaseInsensitive))
+        QString wantExtension = compressGz ? ".img.gz" : compressXz ? ".img.xz" : ".img";
+        bool renamedFile = false;
+        if (!myFile.endsWith(wantExtension, Qt::CaseInsensitive))
         {
-            myFile += ".gz";
+            if ((compressGz || compressXz) && myFile.endsWith(".img", Qt::CaseInsensitive))
+            {
+                myFile += compressGz ? ".gz" : ".xz";
+            }
+            else
+            {
+                myFile += wantExtension;
+            }
             fileinfo.setFile(myFile);
-            renamedForCompression = true;
+            renamedFile = true;
         }
-        else if (compressXz && !myFile.endsWith(".xz", Qt::CaseInsensitive))
-        {
-            myFile += ".xz";
-            fileinfo.setFile(myFile);
-            renamedForCompression = true;
-        }
-        if (renamedForCompression)
+        if (renamedFile)
         {
             // So the overwrite prompt, and anything after this run that reads
             // the field back -- Verify, the hash controls -- see the name the
