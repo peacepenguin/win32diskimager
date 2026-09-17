@@ -19,7 +19,7 @@
  *  Modified 2026 by peacepenguin (fork not affiliated      *
  *  with the upstream ImageWriter project):                           *
  *  GPT repair, device list, dialogs, hashing                         *
- *  https://github.com/peacepenguin/win32diskimager                   *
+ *  https://github.com/peacepenguin/windiskimager                   *
  **********************************************************************/
 
 #ifndef WINVER

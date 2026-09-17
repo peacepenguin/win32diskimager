@@ -2,7 +2,7 @@
 //
 // Modified 2026 by peacepenguin (fork not affiliated with the
 // upstream ImageWriter project): version and product strings.
-// https://github.com/peacepenguin/win32diskimager
+// https://github.com/peacepenguin/windiskimager
 //
 #include "resource.h"
 

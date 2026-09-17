@@ -14,7 +14,7 @@
  *  ---                                                               *
  *  Copyright (C) 2026 peacepenguin (fork not affiliated    *
  *  with the upstream ImageWriter project)                            *
- *  https://github.com/peacepenguin/win32diskimager                   *
+ *  https://github.com/peacepenguin/windiskimager                   *
  **********************************************************************/
 
 // Renders an SVG into a Windows .ico holding every size the shell asks for.

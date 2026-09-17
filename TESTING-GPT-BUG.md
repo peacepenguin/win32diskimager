@@ -29,7 +29,7 @@ and `sgdisk` cannot. No filesystems — only the table matters.
 sudo dnf install python3 parted util-linux
 
 cd ~
-git clone https://github.com/peacepenguin/win32diskimager
+git clone https://github.com/peacepenguin/windiskimager
 
 dd if=/dev/zero of=example.img bs=1000000 count=48
 

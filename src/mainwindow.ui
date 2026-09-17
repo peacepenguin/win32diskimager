@@ -1,7 +1,7 @@
 <?xml version="1.0" ?><!--
   Modified 2026 by peacepenguin (fork not affiliated with the
   upstream ImageWriter project): layout, device list, GPT options.
-  https://github.com/peacepenguin/win32diskimager
+  https://github.com/peacepenguin/windiskimager
 --><ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">

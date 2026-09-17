@@ -14,7 +14,7 @@
  *  ---                                                               *
  *  Copyright (C) 2026 peacepenguin (fork not affiliated    *
  *  with the upstream ImageWriter project)                            *
- *  https://github.com/peacepenguin/win32diskimager                   *
+ *  https://github.com/peacepenguin/windiskimager                   *
  **********************************************************************/
 
 // Reads images back through the real ImageSource and checks the bytes that come

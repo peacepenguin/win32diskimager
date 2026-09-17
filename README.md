@@ -123,7 +123,7 @@ not affiliated with it or its maintainers. It carries its own name,
 WinDiskImager, so a build of this fork is never mistaken for one of upstream's;
 upstream did not write the changes described here and cannot support them -
 report anything you hit at
-[github.com/peacepenguin/win32diskimager](https://github.com/peacepenguin/win32diskimager/issues),
+[github.com/peacepenguin/windiskimager](https://github.com/peacepenguin/windiskimager/issues),
 not to SourceForge.
 
 What changed in each release is in [Changelog.txt](Changelog.txt); the sections

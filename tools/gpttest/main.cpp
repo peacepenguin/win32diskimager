@@ -14,7 +14,7 @@
  *  ---                                                               *
  *  Copyright (C) 2026 peacepenguin (fork not affiliated    *
  *  with the upstream ImageWriter project)                            *
- *  https://github.com/peacepenguin/win32diskimager                   *
+ *  https://github.com/peacepenguin/windiskimager                   *
  **********************************************************************/
 
 // Exercises relocateBackupGPT() against a file standing in for a device, so the
