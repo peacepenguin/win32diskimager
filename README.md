@@ -16,13 +16,12 @@ damaged data.
 
 ## What it does
 
-**Write** an image to a device. A `.img.gz` or `.img.xz` is decompressed as it
-goes, so there is never an expanded copy on disk and nothing to unpack first.
+**Write** a raw image file `.img` to a device. `.img.gz` or `.img.xz` is decompressed as it is read, so there is never an expanded copy on disk.
 
-**Read** a device back into an image file, always as an uncompressed `.img`.
+**Read** a device back into an image file, as an uncompressed `.img` or with compression to `.img.gz` or `.img.xz`.
 
 **Verify** a device against an image byte for byte, reading compressed images
-the same way writing does.
+the same way writing does. Verify will inform if the GPT is different, but the partition data is identical in case it's been expanded by this tool or by windows.
 
 **Checksum** the image file, as MD5, SHA1 or SHA256. Choosing an image selects
 SHA256, which is what publishers usually quote.
@@ -119,7 +118,7 @@ points elsewhere.
 
 ## About this fork
 
-This is a personal fork of Win32DiskImager (upstream: the ImageWriter project),
+This is a fork of Win32DiskImager (upstream: the ImageWriter project),
 not affiliated with it or its maintainers. It carries its own name, Win Disk
 Imager, so a build of this fork is never mistaken for one of upstream's;
 upstream did not write the changes described here and cannot support them -

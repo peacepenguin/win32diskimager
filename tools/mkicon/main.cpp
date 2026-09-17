@@ -12,7 +12,7 @@
  *  You should have received a copy of the GNU General Public License *
  *  along with this program; if not, see http://gnu.org/licenses/     *
  *  ---                                                               *
- *  Copyright (C) 2026 peacepenguin (personal fork, not affiliated    *
+ *  Copyright (C) 2026 peacepenguin (fork not affiliated    *
  *  with the upstream ImageWriter project)                            *
  *  https://github.com/peacepenguin/win32diskimager                   *
  **********************************************************************/

@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-// Modified 2026 by peacepenguin (personal fork, not affiliated with the
+// Modified 2026 by peacepenguin (fork not affiliated with the
 // upstream ImageWriter project): version and product strings.
 // https://github.com/peacepenguin/win32diskimager
 //
@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "Comments", "Writes and reads raw disk images for USB and SD devices on Windows"
-            VALUE "FileDescription", "Win Disk Imager (peacepenguin fork)"
+            VALUE "FileDescription", "Win Disk Imager"
             VALUE "FileVersion", RC_STR(VER_RAW)
             VALUE "InternalName", "WinDiskImager"
             VALUE "LegalCopyright", "Copyright (C) 2009-2017 Windows ImageWriter Team; modifications Copyright (C) 2026 peacepenguin. GPL-2."
             VALUE "OriginalFilename", "WinDiskImager"
-            VALUE "ProductName", "Win Disk Imager (peacepenguin fork)"
+            VALUE "ProductName", "Win Disk Imager"
             VALUE "ProductVersion", RC_STR(VER_RAW)
         END
     END
