@@ -205,8 +205,78 @@
         </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="deviceOptions">
+       <layout class="QHBoxLayout" name="deviceOptionsColumns">
         <item>
+         <layout class="QVBoxLayout" name="deviceOptionsColRead">
+          <item>
+       <widget class="QCheckBox" name="shrinkOnReadCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Shrink image on Read</string>
+        </property>
+        <property name="toolTip">
+         <string>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</string>
+        </property>
+       </widget>
+          </item>
+          <item>
+       <widget class="QCheckBox" name="readGzCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Read to .img.gz</string>
+        </property>
+        <property name="toolTip">
+         <string>Compress the Image Read from the Device with gz</string>
+        </property>
+       </widget>
+          </item>
+          <item>
+       <widget class="QCheckBox" name="readXzCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Read to .img.xz</string>
+        </property>
+        <property name="toolTip">
+         <string>Compress the Image Read from the Device with xz</string>
+        </property>
+       </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="deviceOptionsColMisc">
+          <item>
+       <widget class="QCheckBox" name="showAllDevicesCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Show all devices</string>
+        </property>
+        <property name="toolTip">
+         <string>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</string>
+        </property>
+       </widget>
+          </item>
+          <item>
        <widget class="QCheckBox" name="fixGptCheckBox">
         <property name="checked">
          <bool>true</bool>
@@ -224,81 +294,8 @@
          <string>After writing, move the backup GPT to the end of the device and update the header to match, so Windows has nothing to "repair". Leave unchecked to be warned to remove the device instead.</string>
         </property>
        </widget>
-      </item><item>
-       <widget class="QCheckBox" name="shrinkOnReadCheckBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Shrink image on Read</string>
-        </property>
-        <property name="toolTip">
-         <string>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</string>
-        </property>
-       </widget>
-      </item><item>
-       <widget class="QCheckBox" name="readGzCheckBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Read to .img.gz</string>
-        </property>
-        <property name="toolTip">
-         <string>Compress the Image Read from the Device with gz</string>
-        </property>
-       </widget>
-      </item><item>
-       <widget class="QCheckBox" name="readXzCheckBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Read to .img.xz</string>
-        </property>
-        <property name="toolTip">
-         <string>Compress the Image Read from the Device with xz</string>
-        </property>
-       </widget>
-      </item><item>
-       <widget class="QCheckBox" name="showAllDevicesCheckBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Show all devices</string>
-        </property>
-        <property name="toolTip">
-         <string>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</string>
-        </property>
-       </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
+          </item>
+          <item>
          <widget class="QPushButton" name="bCheckGpt">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -313,6 +310,8 @@
            <string>Check the currently selected device for GPT corruption and offer to repair it.</string>
           </property>
          </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>

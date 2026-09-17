@@ -449,18 +449,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // layout needs depends on the words in it, and the words depend on the
     // language.
     //
-    // mainwindow.ui is drawn at 520x355 for English, and carries a minimum
-    // width of 460 so nobody can drag it narrower than it reads. That minimum
-    // is why this is needed: Qt gives a window its layout's minimum size only
-    // when the window has no minimum of its own, so the explicit 460 stands in
-    // for the real figure, and a translation needing more than 520 is not
-    // given it. The layout then takes the space out of the widgets, and a
-    // QCheckBox does not elide -- it just draws its label with the end missing,
-    // which is what Tamil looked like.
-    //
-    // expandedTo() so this can only grow the window: English keeps the size it
-    // was designed at, and a longer language gets what its layout asks for.
-    resize(sizeHint().expandedTo(size()));
+    // mainwindow.ui is drawn at 520x355, sized for whatever the widest layout
+    // happened to be at the time it was last arranged by hand -- not a floor
+    // anything actually needs. sizeHint() is the layout's real answer for the
+    // language and controls in front of it right now, so the window opens at
+    // that size outright rather than only ever growing from the .ui's fixed
+    // geometry: a language needing more than 520 gets it (a QCheckBox does not
+    // elide -- it just draws its label with the end missing, which is what
+    // Tamil looked like at a size too small for it), and English, after a
+    // layout change that needs less than 520x355, is no longer stuck at a
+    // size the current controls do not fill.
+    resize(sizeHint());
 }
 
 MainWindow::~MainWindow()
