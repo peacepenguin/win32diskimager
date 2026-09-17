@@ -710,6 +710,28 @@ in, or real data left out, that comparing sizes alone would miss.
                                come through byte for byte; the 20 MB gap after
                                it and the 20 MB gap before the backup GPT
                                (both tagged ...-MUST-BE-DROPPED) must not.
+
+                               DO NOT poke at that reserved span in Disk
+                               Management once this is on a device. GPT itself
+                               has no concept for "reserved, not a partition,
+                               do not touch" beyond FirstUsableLBA -- Windows
+                               shows the span as ordinary unallocated space,
+                               with nothing marking it any different from a
+                               real gap. Disk Management correctly refuses to
+                               create a volume there, but that attempt (even
+                               though it fails) has been observed to leave the
+                               disk stuck: every subsequent write gets Access
+                               Denied, and neither restarting
+                               win32diskimager nor toggling the disk
+                               online/offline clears it -- only physically
+                               removing and reinserting the device does. That
+                               points at Virtual Disk Service (the thing
+                               behind Disk Management) holding its own handle
+                               on the drive after the rejected attempt, which
+                               is a Windows/VDS matter, not something this
+                               app can detect or release. If you need to
+                               inspect this image's layout, use gptdump.py or
+                               a hex editor instead of Disk Management.
   test-shrink-gpt-tight.img    GPT, one partition already spanning from
                                FirstUsableLBA to the backup GPT: nothing to
                                shrink anywhere. Checking the box against this
