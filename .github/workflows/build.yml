@@ -54,7 +54,7 @@ jobs:
 
       - uses: actions/upload-artifact@v7
         with:
-          name: Win32DiskImager-win64
+          name: WinDiskImager-win64
           path: dist/
           if-no-files-found: error
 
@@ -63,14 +63,14 @@ jobs:
       - name: Check the tag matches the project version
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          version=$(sed -n 's/^project(Win32DiskImager VERSION \([0-9.]*\).*/\1/p' src/CMakeLists.txt)
+          version=$(sed -n 's/^project(WinDiskImager VERSION \([0-9.]*\).*/\1/p' src/CMakeLists.txt)
           echo "project version: $version, tag: ${GITHUB_REF_NAME}"
           test "v$version" = "${GITHUB_REF_NAME}"
 
       - name: Build the release zip
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          name="Win32DiskImager-${GITHUB_REF_NAME}-win64"
+          name="WinDiskImager-${GITHUB_REF_NAME}-win64"
           mv dist "$name"
           zip -qr "$name.zip" "$name"
           sha256sum "$name.zip" > "$name.zip.sha256"
@@ -81,10 +81,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          name="Win32DiskImager-${GITHUB_REF_NAME}-win64"
+          name="WinDiskImager-${GITHUB_REF_NAME}-win64"
           cat > notes.md <<'EOF'
           Standalone win64 build.
-          Unzip and run `Win32DiskImager.exe` as Administrator.
+          Unzip and run `WinDiskImager.exe` as Administrator.
 
           Verify the download against the published `.sha256` before running it.
 
