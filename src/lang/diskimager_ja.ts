@@ -1217,6 +1217,10 @@ Error %2</source>
         <translation>イメージファイルを書き込めませんでした (エラー %1)。</translation>
     </message>
     <message>
+        <source>The image file is not open for writing.</source>
+        <translation>イメージファイルは書き込み用に開かれていません。</translation>
+    </message>
+    <message>
         <source>The image file could not be flushed (error %1).</source>
         <translation>イメージファイルをフラッシュできませんでした (エラー %1)。</translation>
     </message>

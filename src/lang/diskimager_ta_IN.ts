@@ -1083,6 +1083,10 @@ Error %2</source>
         <translation>படிமக் கோப்பை எழுத முடியவில்லை (பிழை %1).</translation>
     </message>
     <message>
+        <source>The image file is not open for writing.</source>
+        <translation>படிமக் கோப்பு எழுதுவதற்காகத் திறக்கப்படவில்லை.</translation>
+    </message>
+    <message>
         <source>The image file could not be flushed (error %1).</source>
         <translation>படிமக் கோப்பின் இடையகத்தைக் காலி செய்ய முடியவில்லை (பிழை %1).</translation>
     </message>

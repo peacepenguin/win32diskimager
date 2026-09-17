@@ -1217,6 +1217,10 @@ Error %2</source>
         <translation>无法写入映像文件 (错误 %1).</translation>
     </message>
     <message>
+        <source>The image file is not open for writing.</source>
+        <translation>映像文件未开启以供写入。</translation>
+    </message>
+    <message>
         <source>The image file could not be flushed (error %1).</source>
         <translation>无法刷新映像文件缓冲区 (错误 %1).</translation>
     </message>

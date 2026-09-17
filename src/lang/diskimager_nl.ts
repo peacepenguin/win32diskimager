@@ -1220,6 +1220,10 @@ Fout %2</translation>
         <translation>Het imagebestand kon niet worden geschreven (fout %1).</translation>
     </message>
     <message>
+        <source>The image file is not open for writing.</source>
+        <translation>Het imagebestand is niet geopend om te schrijven.</translation>
+    </message>
+    <message>
         <source>The image file could not be flushed (error %1).</source>
         <translation>Het imagebestand kon niet worden doorgespoeld (fout %1).</translation>
     </message>

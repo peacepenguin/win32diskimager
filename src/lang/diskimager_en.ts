@@ -1245,6 +1245,10 @@ Error %2</translation>
         <translation>The image file could not be written (error %1).</translation>
     </message>
     <message>
+        <source>The image file is not open for writing.</source>
+        <translation>The image file is not open for writing.</translation>
+    </message>
+    <message>
         <source>The image file could not be flushed (error %1).</source>
         <translation>The image file could not be flushed (error %1).</translation>
     </message>

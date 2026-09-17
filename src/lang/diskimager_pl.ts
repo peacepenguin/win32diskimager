@@ -1220,6 +1220,10 @@ Błąd %2</translation>
         <translation>Nie można zapisać pliku obrazu (błąd %1).</translation>
     </message>
     <message>
+        <source>The image file is not open for writing.</source>
+        <translation>Plik obrazu nie jest otwarty do zapisu.</translation>
+    </message>
+    <message>
         <source>The image file could not be flushed (error %1).</source>
         <translation>Nie można opróżnić bufora pliku obrazu (błąd %1).</translation>
     </message>

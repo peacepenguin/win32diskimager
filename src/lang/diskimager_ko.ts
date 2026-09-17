@@ -1217,6 +1217,10 @@ Error %2</source>
         <translation>이미지 파일을 쓸 수 없습니다 (오류 %1).</translation>
     </message>
     <message>
+        <source>The image file is not open for writing.</source>
+        <translation>이미지 파일이 쓰기용으로 열려 있지 않습니다.</translation>
+    </message>
+    <message>
         <source>The image file could not be flushed (error %1).</source>
         <translation>이미지 파일을 플러시할 수 없습니다 (오류 %1).</translation>
     </message>

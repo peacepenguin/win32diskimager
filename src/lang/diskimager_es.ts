@@ -1233,6 +1233,10 @@ Error %2</translation>
         <translation>No se pudo escribir el archivo de imagen (error %1).</translation>
     </message>
     <message>
+        <source>The image file is not open for writing.</source>
+        <translation>El archivo de imagen no está abierto para escritura.</translation>
+    </message>
+    <message>
         <source>The image file could not be flushed (error %1).</source>
         <translation>No se pudo vaciar el búfer del archivo de imagen (error %1).</translation>
     </message>

@@ -737,6 +737,13 @@ bool ImageSink::drain(bool finishing)
 bool ImageSink::write(const char *data, unsigned long long len)
 {
     myError.clear();
+    if (myEncoder == NULL)
+    {
+        // No open() since the last finish()/abort(), or a second call after
+        // one of them: nothing to write to, and no encoder left to feed.
+        myError = QObject::tr("The image file is not open for writing.");
+        return false;
+    }
     const unsigned char *in = (const unsigned char *)data;
     while (len > 0ull)
     {
@@ -769,6 +776,14 @@ bool ImageSink::write(const char *data, unsigned long long len)
 bool ImageSink::finish()
 {
     myError.clear();
+    if (myEncoder == NULL)
+    {
+        // Already finished, or never opened: nothing left to flush. Calling
+        // this twice must not be a second dereference of what abort() (which
+        // finish() itself calls on success) already freed and nulled out.
+        myError = QObject::tr("The image file is not open for writing.");
+        return false;
+    }
     if (myFormat == FORMAT_GZIP)
     {
         ((z_stream *)myEncoder)->next_in = NULL;
