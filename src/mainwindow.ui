@@ -207,58 +207,6 @@
       <item>
        <layout class="QHBoxLayout" name="deviceOptionsColumns">
         <item>
-         <layout class="QVBoxLayout" name="deviceOptionsColRead">
-          <item>
-       <widget class="QCheckBox" name="shrinkOnReadCheckBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Shrink image on Read</string>
-        </property>
-        <property name="toolTip">
-         <string>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</string>
-        </property>
-       </widget>
-          </item>
-          <item>
-       <widget class="QCheckBox" name="readGzCheckBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Read to .img.gz</string>
-        </property>
-        <property name="toolTip">
-         <string>Compress the Image Read from the Device with gz</string>
-        </property>
-       </widget>
-          </item>
-          <item>
-       <widget class="QCheckBox" name="readXzCheckBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Read to .img.xz</string>
-        </property>
-        <property name="toolTip">
-         <string>Compress the Image Read from the Device with xz</string>
-        </property>
-       </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
          <layout class="QVBoxLayout" name="deviceOptionsColMisc">
           <item>
        <widget class="QCheckBox" name="showAllDevicesCheckBox">
@@ -310,6 +258,58 @@
            <string>Check the currently selected device for GPT corruption and offer to repair it.</string>
           </property>
          </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="deviceOptionsColRead">
+          <item>
+       <widget class="QCheckBox" name="shrinkOnReadCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Shrink image on Read</string>
+        </property>
+        <property name="toolTip">
+         <string>Reads the MBR or GPT of the Device to shrink the image to match actual partitions only. Moves backup GPT to end of used space.</string>
+        </property>
+       </widget>
+          </item>
+          <item>
+       <widget class="QCheckBox" name="readGzCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Read to .img.gz</string>
+        </property>
+        <property name="toolTip">
+         <string>Compress the Image Read from the Device with gz</string>
+        </property>
+       </widget>
+          </item>
+          <item>
+       <widget class="QCheckBox" name="readXzCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Read to .img.xz</string>
+        </property>
+        <property name="toolTip">
+         <string>Compress the Image Read from the Device with xz</string>
+        </property>
+       </widget>
           </item>
          </layout>
         </item>
