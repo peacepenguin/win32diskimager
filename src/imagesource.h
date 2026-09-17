@@ -114,4 +114,46 @@ private:
     unsigned long long myAvailIn;
 };
 
+// The counterpart to ImageSource for "Read to .img.gz" / "Read to .img.xz":
+// compresses bytes and writes them out as they arrive, rather than decoding
+// bytes already on disk. There is no seeking either way: write() must be
+// called with the image's bytes in order, from the start, with nothing
+// skipped -- a gap has to be written as explicit zeros, since a compressed
+// stream has no notion of "leave this part unwritten" the way a sparse raw
+// file does.
+class ImageSink
+{
+public:
+    enum Format { FORMAT_GZIP, FORMAT_XZ };
+
+    ImageSink();
+    ~ImageSink();
+
+    bool open(const QString &path, Format format);
+
+    // Compresses len bytes from data and writes the result out. Nothing is
+    // guaranteed to be on disk, or even decodable, until finish() succeeds.
+    bool write(const char *data, unsigned long long len);
+
+    // Flushes the compressor and closes the file. Required for the image to
+    // be valid; call abort() instead to give up.
+    bool finish();
+
+    // Closes the file without flushing the compressor, leaving whatever has
+    // already reached disk -- a stream that stops mid-block, same as
+    // canceling a raw read leaves a short raw file.
+    void abort();
+
+    const QString &errorString() const { return myError; }
+
+private:
+    bool drain(bool finishing);
+
+    HANDLE myHandle;
+    Format myFormat;
+    QString myError;
+    void *myEncoder;                   // z_stream or lzma_stream, owned
+    std::vector<unsigned char> myOutput;
+};
+
 #endif // IMAGESOURCE_H

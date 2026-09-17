@@ -249,12 +249,23 @@ struct GptShrinkPlan
     unsigned long long headersectors;
     // Every in-use partition, packed back-to-back from FirstUsableLBA with no
     // gaps, each aligned to the caller's alignsectors, in the order it
-    // originally started on the device.
+    // originally started on the device. Between headerregion and the first
+    // range, and between two ranges, alignment may leave a gap that has to be
+    // written as explicit zero sectors -- there is no partition data to read
+    // for it, and unlike a plain contiguous read there is no guarantee the
+    // caller's output is a sparse file that zero-fills a skipped-over region
+    // on its own.
     QList<ShrinkCopyRange> ranges;
-    // The size, in sectors, the image should be read to: one past the last
-    // partition, plus room for a fresh backup entry array and header, which
-    // the caller writes by calling relocateBackupGPT() once the data above
-    // has actually been copied that short.
+    // Sectors [totalsectors - backupsectors, totalsectors) of the image: a
+    // fresh backup entry array and header, already computed against the
+    // repacked layout above. Written once every range has actually been
+    // copied that short, this is what makes the primary header (already
+    // patched into headerregion) correct -- no read-modify-write against the
+    // device or the image is needed afterward, which is what lets this work
+    // for a compressed output stream and not just a raw file.
+    QByteArray backupregion;
+    unsigned long long backupsectors;
+    // The size, in sectors, the image should be read to.
     unsigned long long totalsectors;
 };
 

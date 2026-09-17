@@ -1138,8 +1138,23 @@ bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
         return false;
     }
 
+    // Everything from here on describes the repacked layout, not the device:
+    // a fresh backup entry array and header right after the data, and the
+    // primary header updated to point at them -- exactly what
+    // relocateBackupGPT() does for a real device, just computed up front so
+    // it can be written once, in order, instead of read back and patched
+    // afterward. That is what lets a compressed output stream use this too:
+    // there is no going back to fix up bytes already handed to the encoder.
+    unsigned long long lastlba      = cursor + entrysectors;
+    unsigned long long backuphdr    = lastlba;
+    unsigned long long backupentries = cursor;
+    unsigned long long lastusable   = cursor - 1;
+
+    wr64(hdr, GPT_OFF_ALTLBA, backuphdr);
+    wr64(hdr, GPT_OFF_LASTUSABLE, lastusable);
     // The entries moved, so the checksum describing them has to be redone;
-    // that changes the header bytes, so its own checksum follows.
+    // that and the fields above change the header bytes, so its own checksum
+    // follows.
     wr32(hdr, GPT_OFF_ENTRIESCRC, gptCrc32((const unsigned char *)entries.constData(), (size_t)entrybytes));
     wr32(hdr, GPT_OFF_HEADERCRC, 0);
     wr32(hdr, GPT_OFF_HEADERCRC, gptCrc32(hdr, headersize));
@@ -1152,10 +1167,40 @@ bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
     memcpy(region.data() + sectorsize, hdr, headersize);
     memcpy(region.data() + entrylba * sectorsize, entries.constData(), (size_t)entries.size());
 
+    // The protective MBR must span the repacked image too, or Windows sees a
+    // mismatch and "fixes" it -- the same adjustment relocateBackupGPT() makes
+    // on a real device. Only a genuine 0xEE protective entry is touched.
+    unsigned char *mbr = (unsigned char *)region.data();
+    if (mbr[450] == 0xEE)
+    {
+        unsigned long long span = (lastlba > 0xFFFFFFFFull) ? 0xFFFFFFFFull : lastlba;
+        if (rd32(mbr, 454) == 1)
+        {
+            wr32(mbr, 458, (DWORD)span);
+        }
+    }
+
+    // The backup header is the primary with MyLBA/AlternateLBA swapped and its
+    // own copy of the entry array, exactly as relocateBackupGPT() builds it.
+    QByteArray backup(sectorsize, 0);
+    unsigned char *bhdr = (unsigned char *)backup.data();
+    memcpy(bhdr, hdr, headersize);
+    wr64(bhdr, GPT_OFF_MYLBA, backuphdr);
+    wr64(bhdr, GPT_OFF_ALTLBA, 1);
+    wr64(bhdr, GPT_OFF_ENTRYLBA, backupentries);
+    wr32(bhdr, GPT_OFF_HEADERCRC, 0);
+    wr32(bhdr, GPT_OFF_HEADERCRC, gptCrc32(bhdr, headersize));
+
+    QByteArray backupregion;
+    backupregion.append(entries);
+    backupregion.append(backup);
+
     plan->headerregion  = region;
     plan->headersectors = firstusable;
     plan->ranges        = ranges;
-    plan->totalsectors  = cursor + entrysectors + 1;
+    plan->backupregion  = backupregion;
+    plan->backupsectors = entrysectors + 1;
+    plan->totalsectors  = lastlba + 1;
     return true;
 }
 

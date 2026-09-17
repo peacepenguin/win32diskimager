@@ -399,6 +399,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // disk is never preselected from a previous session.
     fixGptCheckBox->setChecked(true);
     shrinkOnReadCheckBox->setChecked(false);
+    readGzCheckBox->setChecked(false);
+    readXzCheckBox->setChecked(false);
     showAllDevicesCheckBox->setChecked(false);
     // After the "show all devices" state is set, which the filter reads.
     //
@@ -1235,15 +1237,42 @@ void MainWindow::on_bRead_clicked()
             // without ever asking.
             fileinfo.setFile(myFile);
         }
-        // Reading writes a raw image; compressing on the way out is not
-        // supported, and a raw image under a .gz or .xz name would mislead
-        // every other tool that opens it.
-        if (ImageSource::nameLooksCompressed(myFile))
+        // "Read to .img.gz" / "Read to .img.xz": whatever name the user typed,
+        // the file actually written carries the matching extension, so nothing
+        // else that looks at the name is misled about what is inside it. A
+        // name that already ends with it is left alone, so retyping the same
+        // name twice cannot pile up a second one.
+        bool compressGz = readGzCheckBox->isChecked();
+        bool compressXz = readXzCheckBox->isChecked();
+        bool renamedForCompression = false;
+        if (compressGz && !myFile.endsWith(".gz", Qt::CaseInsensitive))
+        {
+            myFile += ".gz";
+            fileinfo.setFile(myFile);
+            renamedForCompression = true;
+        }
+        else if (compressXz && !myFile.endsWith(".xz", Qt::CaseInsensitive))
+        {
+            myFile += ".xz";
+            fileinfo.setFile(myFile);
+            renamedForCompression = true;
+        }
+        if (renamedForCompression)
+        {
+            // So the overwrite prompt, and anything after this run that reads
+            // the field back -- Verify, the hash controls -- see the name the
+            // file was actually given rather than the one typed in.
+            leFile->setText(myFile);
+        }
+        // Without compression, reading writes a raw image, and a raw image
+        // under a .gz or .xz name would mislead every other tool that opens
+        // it.
+        if (!compressGz && !compressXz && ImageSource::nameLooksCompressed(myFile))
         {
             QMessageBox::critical(this, tr("Read Error"),
                 tr("Images can only be read back uncompressed. Choose a file name "
-                   "without a .gz or .xz extension.\n\n"
-                   "Compressed images (.img.gz, .img.xz) can be written and verified."));
+                   "without a .gz or .xz extension, or check \"Read to .img.gz\" "
+                   "or \"Read to .img.xz\"."));
             return;
         }
         // check whether source and target device is the same...
@@ -1343,72 +1372,116 @@ void MainWindow::on_bRead_clicked()
                 }
             }
         }
-        hFile = getHandleOnFile((LPCWSTR)myFile.utf16(), GENERIC_WRITE);
-        if (hFile == INVALID_HANDLE_VALUE)
+        bool compressing = compressGz || compressXz;
+        ImageSink sink;
+        // Shared by every failure path below, whichever backend is open: the
+        // repeated four lines every earlier version of this loop had to spell
+        // out at each of them, once for a HANDLE and once for an ImageSink.
+        auto failRead = [&]()
         {
             CloseHandle(hRawDisk);
             hRawDisk = INVALID_HANDLE_VALUE;
             locked.release();
+            if (compressing)
+            {
+                sink.abort();
+            }
+            else if (hFile != INVALID_HANDLE_VALUE)
+            {
+                CloseHandle(hFile);
+                hFile = INVALID_HANDLE_VALUE;
+            }
             endRun(tr("Read failed."));
-            return;
-        }
-        filesize = getFileSizeInSectors(hFile, sectorsize);
-        if (filesize >= numsectors)
+        };
+
+        if (compressing)
         {
-            spaceneeded = 0ull;
+            if (!sink.open(myFile, compressGz ? ImageSink::FORMAT_GZIP : ImageSink::FORMAT_XZ))
+            {
+                QString error = sink.errorString();
+                CloseHandle(hRawDisk);
+                hRawDisk = INVALID_HANDLE_VALUE;
+                locked.release();
+                QMessageBox::critical(this, tr("Read Error"), error);
+                endRun(tr("Read failed."));
+                return;
+            }
+            // How well the data compresses is not known ahead of time, so the
+            // check asks for the same room a raw image this size would need.
+            // Overshooting is safe; stopping partway through a compressed
+            // stream because the estimate undershot is not.
+            spaceneeded = numsectors * sectorsize;
         }
         else
         {
-            spaceneeded = (unsigned long long)(numsectors - filesize) * (unsigned long long)(sectorsize);
+            hFile = getHandleOnFile((LPCWSTR)myFile.utf16(), GENERIC_WRITE);
+            if (hFile == INVALID_HANDLE_VALUE)
+            {
+                CloseHandle(hRawDisk);
+                hRawDisk = INVALID_HANDLE_VALUE;
+                locked.release();
+                endRun(tr("Read failed."));
+                return;
+            }
+            filesize = getFileSizeInSectors(hFile, sectorsize);
+            spaceneeded = (filesize >= numsectors) ? 0ull
+                : (unsigned long long)(numsectors - filesize) * (unsigned long long)(sectorsize);
         }
         if (!spaceAvailable(volumeDirectoryFor(myFile), spaceneeded))
         {
             QMessageBox::critical(this, tr("Write Error"), tr("Disk is not large enough for the specified image."));
-            CloseHandle(hRawDisk);
-            locked.release();
-            CloseHandle(hFile);
             sectorData = NULL;
-            hRawDisk = INVALID_HANDLE_VALUE;
-            hFile = INVALID_HANDLE_VALUE;
-            endRun(tr("Read failed."));
+            failRead();
             return;
         }
         statusbar->showMessage(tr("Reading..."));
         const int progshift = beginProgress(numsectors, &lasti);
-        // Without a shrink plan this is the one range the device has always
-        // been read as: everything, sector for sector, source to same offset
-        // in the image. With one, it is one range per repacked partition,
-        // each read from its old location and written at its new one; the
-        // header region -- unpartitioned, so never part of any range -- goes
-        // first, in a single write, since planGptShrink() already built it.
-        QList<ShrinkCopyRange> ranges;
-        unsigned long long donebefore = 0ull;
+        // dstpos is how far into the image the next write starts. A raw write
+        // just seeks there; a compressed one has no seek at all, so every
+        // write, including the zero-filled ones writeZeros() makes for a gap
+        // left by 4K alignment, has to happen in this exact order with
+        // nothing skipped -- which planGptShrink() guarantees, and a plain
+        // contiguous read never even has to ask for.
+        unsigned long long dstpos = 0ull;
+        auto writeOut = [&](const char *data, unsigned long long sectors) -> bool
+        {
+            bool ok = compressing
+                ? sink.write(data, sectors * sectorsize)
+                : writeSectorDataToHandle(hFile, (char *)data, dstpos, sectors, sectorsize);
+            dstpos += sectors;
+            return ok;
+        };
+        auto writeZeros = [&](unsigned long long sectors) -> bool
+        {
+            if (sectors == 0ull)
+            {
+                return true;
+            }
+            QByteArray zeros((size_t)(sectors * sectorsize), 0);
+            return writeOut(zeros.constData(), sectors);
+        };
+
         if (shrinkToGpt)
         {
-            if (!writeSectorDataToHandle(hFile, shrinkPlan.headerregion.data(), 0ull,
-                                         shrinkPlan.headersectors, sectorsize))
+            if (!writeOut(shrinkPlan.headerregion.constData(), shrinkPlan.headersectors))
             {
-                CloseHandle(hRawDisk);
-                locked.release();
-                CloseHandle(hFile);
-                hRawDisk = INVALID_HANDLE_VALUE;
-                hFile = INVALID_HANDLE_VALUE;
-                endRun(tr("Read failed."));
+                failRead();
                 return;
             }
-            donebefore = shrinkPlan.headersectors;
-            progressbar->setValue((int)(donebefore >> progshift));
-            ranges = shrinkPlan.ranges;
+            progressbar->setValue((int)(dstpos >> progshift));
         }
-        else
-        {
-            ranges.append(ShrinkCopyRange{0ull, 0ull, numsectors});
-        }
+        QList<ShrinkCopyRange> ranges = shrinkToGpt ? shrinkPlan.ranges
+            : QList<ShrinkCopyRange>{ ShrinkCopyRange{0ull, 0ull, numsectors} };
         for (const ShrinkCopyRange &range : ranges)
         {
             if (status != STATUS_READING)
             {
                 break;
+            }
+            if (range.dstfirst > dstpos && !writeZeros(range.dstfirst - dstpos))
+            {
+                failRead();
+                return;
             }
             for (i = 0ull; i < range.length && status == STATUS_READING; i += TRANSFER_SECTORS)
             {
@@ -1416,48 +1489,62 @@ void MainWindow::on_bRead_clicked()
                 sectorData = readSectorDataFromHandle(hRawDisk, range.srcfirst + i, chunk, sectorsize);
                 if (sectorData == NULL)
                 {
-                    CloseHandle(hRawDisk);
-                    locked.release();
-                    CloseHandle(hFile);
-                    hRawDisk = INVALID_HANDLE_VALUE;
-                    hFile = INVALID_HANDLE_VALUE;
-                    endRun(tr("Read failed."));
+                    failRead();
                     return;
                 }
-                if (!writeSectorDataToHandle(hFile, sectorData, range.dstfirst + i, chunk, sectorsize))
+                if (!writeOut(sectorData, chunk))
                 {
                     delete[] sectorData;
-                    CloseHandle(hRawDisk);
-                    locked.release();
-                    CloseHandle(hFile);
                     sectorData = NULL;
-                    hRawDisk = INVALID_HANDLE_VALUE;
-                    hFile = INVALID_HANDLE_VALUE;
-                    endRun(tr("Read failed."));
+                    failRead();
                     return;
                 }
                 delete[] sectorData;
                 sectorData = NULL;
-                unsigned long long done = donebefore + i + chunk;
-                showThroughput(done, numsectors, &lasti);
-                progressbar->setValue((int)((done > numsectors ? numsectors : done) >> progshift));
+                showThroughput(dstpos, numsectors, &lasti);
+                progressbar->setValue((int)((dstpos > numsectors ? numsectors : dstpos) >> progshift));
                 QCoreApplication::processEvents();
             }
-            donebefore += range.length;
         }
         if (shrinkToGpt && status == STATUS_READING)
         {
-            // The data end is already in place; this lays a fresh backup entry
-            // array and header right after it and points the primary header at
-            // them, exactly as it would for a real device this size.
-            QString detail;
-            relocateBackupGPT(hFile, sectorsize, numsectors, &detail);
+            // Every range, and every gap between them, is behind us now, so
+            // this is where relocateBackupGPT() would read the data back from
+            // and patch it in on a raw file. Written here instead, already
+            // computed by planGptShrink(), it works the same way whether the
+            // backend behind writeOut() can be seeked back into afterward
+            // or not.
+            if (!writeOut(shrinkPlan.backupregion.constData(), shrinkPlan.backupsectors))
+            {
+                failRead();
+                return;
+            }
+        }
+        if (compressing)
+        {
+            if (status == STATUS_READING && !sink.finish())
+            {
+                QString error = sink.errorString();
+                CloseHandle(hRawDisk);
+                hRawDisk = INVALID_HANDLE_VALUE;
+                locked.release();
+                QMessageBox::critical(this, tr("Read Error"), error);
+                endRun(tr("Read failed."));
+                return;
+            }
+            // A no-op once finish() has already closed everything; the path
+            // that matters here is canceled or failed, where finish() was
+            // never called and this is what actually closes the file.
+            sink.abort();
+        }
+        else
+        {
+            CloseHandle(hFile);
+            hFile = INVALID_HANDLE_VALUE;
         }
         CloseHandle(hRawDisk);
-        locked.release();
-        CloseHandle(hFile);
         hRawDisk = INVALID_HANDLE_VALUE;
-        hFile = INVALID_HANDLE_VALUE;
+        locked.release();
         showProgress(false);
         statusbar->showMessage(tr("Done."));
         bCancel->setEnabled(false);
@@ -2009,6 +2096,22 @@ void MainWindow::on_showAllDevicesCheckBox_toggled(bool)
     // measured doing exactly that four seconds into a stalled scan. Letting
     // the loop run first costs a quarter second against a wait of twelve.
     QTimer::singleShot(SCAN_SETTLE_MS, this, [this]() { rescanDevices(); });
+}
+
+void MainWindow::on_readGzCheckBox_toggled(bool checked)
+{
+    if (checked)
+    {
+        readXzCheckBox->setChecked(false);
+    }
+}
+
+void MainWindow::on_readXzCheckBox_toggled(bool checked)
+{
+    if (checked)
+    {
+        readGzCheckBox->setChecked(false);
+    }
 }
 
 // register to receive notifications when USB devices are inserted or removed

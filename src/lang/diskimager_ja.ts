@@ -32,6 +32,22 @@
         <translation>デバイスの MBR または GPT を読み取り、実際のパーティションに合わせてイメージを縮小します。バックアップ GPT は使用済み領域の末尾へ移動します。</translation>
     </message>
     <message>
+        <source>Read to .img.gz</source>
+        <translation>.img.gz として読み取る</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with gz</source>
+        <translation>デバイスから読み取ったイメージを gz で圧縮します</translation>
+    </message>
+    <message>
+        <source>Read to .img.xz</source>
+        <translation>.img.xz として読み取る</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with xz</source>
+        <translation>デバイスから読み取ったイメージを xz で圧縮します</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT を確認</translation>
     </message>
@@ -485,7 +501,7 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
-        <translation>イメージは非圧縮でのみ読み出せます。.gz や .xz の拡張子を付けないファイル名を選んでください。
+        <translation type="vanished">イメージは非圧縮でのみ読み出せます。.gz や .xz の拡張子を付けないファイル名を選んでください。
 
 圧縮イメージ (.img.gz、.img.xz) は書き込みと検証には使用できます。</translation>
     </message>
@@ -762,6 +778,10 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <source>Read Error</source>
         <translation>読み込みエラー</translation>
+    </message>
+    <message>
+        <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension, or check &quot;Read to .img.gz&quot; or &quot;Read to .img.xz&quot;.</source>
+        <translation>イメージは非圧縮でのみ読み戻せます。.gz または .xz 拡張子を使わないファイル名を選択するか、「.img.gz として読み取る」または「.img.xz として読み取る」をオンにしてください。</translation>
     </message>
     <message>
         <source>Please select a source device.</source>
@@ -1151,6 +1171,34 @@ Error %2</source>
     <message>
         <source>A compressed image can only be read forwards.</source>
         <translation>圧縮イメージは前方向にしか読み取れません。</translation>
+    </message>
+    <message>
+        <source>The image file could not be created (error %1).</source>
+        <translation>イメージファイルを作成できませんでした (エラー %1)。</translation>
+    </message>
+    <message>
+        <source>The gzip compressor could not be started (zlib error %1).</source>
+        <translation>gzip 圧縮処理を開始できませんでした (zlib エラー %1)。</translation>
+    </message>
+    <message>
+        <source>The xz compressor could not be started (lzma error %1).</source>
+        <translation>xz 圧縮処理を開始できませんでした (lzma エラー %1)。</translation>
+    </message>
+    <message>
+        <source>The gzip compressor failed (zlib error %1).</source>
+        <translation>gzip 圧縮に失敗しました (zlib エラー %1)。</translation>
+    </message>
+    <message>
+        <source>The xz compressor failed (lzma error %1).</source>
+        <translation>xz 圧縮に失敗しました (lzma エラー %1)。</translation>
+    </message>
+    <message>
+        <source>The image file could not be written (error %1).</source>
+        <translation>イメージファイルを書き込めませんでした (エラー %1)。</translation>
+    </message>
+    <message>
+        <source>The image file could not be flushed (error %1).</source>
+        <translation>イメージファイルをフラッシュできませんでした (エラー %1)。</translation>
     </message>
 </context>
 </TS>

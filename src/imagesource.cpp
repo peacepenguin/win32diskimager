@@ -571,6 +571,229 @@ bool ImageSource::skipTo(unsigned long long startsector)
     return true;
 }
 
+// Compressed output handed to WriteFile at a time. Same reasoning as
+// INPUT_CHUNK above, just on the writing side.
+static const size_t OUTPUT_CHUNK = 1024ul * 1024ul;
+
+ImageSink::ImageSink()
+    : myHandle(INVALID_HANDLE_VALUE), myFormat(FORMAT_GZIP), myEncoder(NULL)
+{
+}
+
+ImageSink::~ImageSink()
+{
+    abort();
+}
+
+void ImageSink::abort()
+{
+    if (myEncoder != NULL)
+    {
+        if (myFormat == FORMAT_GZIP)
+        {
+            deflateEnd((z_stream *)myEncoder);
+            delete (z_stream *)myEncoder;
+        }
+        else
+        {
+            lzma_end((lzma_stream *)myEncoder);
+            delete (lzma_stream *)myEncoder;
+        }
+        myEncoder = NULL;
+    }
+    if (myHandle != INVALID_HANDLE_VALUE)
+    {
+        CloseHandle(myHandle);
+        myHandle = INVALID_HANDLE_VALUE;
+    }
+    myOutput.clear();
+}
+
+bool ImageSink::open(const QString &path, Format format)
+{
+    abort();
+    myError.clear();
+    myFormat = format;
+
+    myHandle = CreateFileW((LPCWSTR)path.utf16(), GENERIC_WRITE, 0, NULL,
+                           CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (myHandle == INVALID_HANDLE_VALUE)
+    {
+        myError = QObject::tr("The image file could not be created (error %1).")
+                      .arg(GetLastError());
+        return false;
+    }
+
+    if (myFormat == FORMAT_GZIP)
+    {
+        z_stream *zs = new z_stream;
+        memset(zs, 0, sizeof(*zs));
+        // 15 + 16: gzip wrapper, matching what ImageSource expects to read back.
+        int ret = deflateInit2(zs, Z_DEFAULT_COMPRESSION, Z_DEFLATED, 15 + 16, 8,
+                               Z_DEFAULT_STRATEGY);
+        if (ret != Z_OK)
+        {
+            delete zs;
+            myError = QObject::tr("The gzip compressor could not be started "
+                                  "(zlib error %1).").arg(ret);
+            CloseHandle(myHandle);
+            myHandle = INVALID_HANDLE_VALUE;
+            return false;
+        }
+        myEncoder = zs;
+    }
+    else
+    {
+        lzma_stream *ls = new lzma_stream;
+        memset(ls, 0, sizeof(*ls));
+        lzma_ret ret = lzma_easy_encoder(ls, LZMA_PRESET_DEFAULT, LZMA_CHECK_CRC64);
+        if (ret != LZMA_OK)
+        {
+            delete ls;
+            myError = QObject::tr("The xz compressor could not be started "
+                                  "(lzma error %1).").arg((int)ret);
+            CloseHandle(myHandle);
+            myHandle = INVALID_HANDLE_VALUE;
+            return false;
+        }
+        myEncoder = ls;
+    }
+    myOutput.resize(OUTPUT_CHUNK);
+    return true;
+}
+
+// Runs the encoder over whatever input is set on it, writing out every full
+// buffer of compressed output produced along the way. Shared by write(),
+// which stops once the input is consumed, and finish(), which keeps calling
+// it with no input until the encoder says the stream has ended.
+bool ImageSink::drain(bool finishing)
+{
+    for (;;)
+    {
+        size_t produced = 0;
+        bool streamended = false;
+        if (myFormat == FORMAT_GZIP)
+        {
+            z_stream *zs = (z_stream *)myEncoder;
+            zs->next_out = &myOutput[0];
+            zs->avail_out = (uInt)myOutput.size();
+            int ret = deflate(zs, finishing ? Z_FINISH : Z_NO_FLUSH);
+            if (ret != Z_OK && ret != Z_STREAM_END && ret != Z_BUF_ERROR)
+            {
+                myError = QObject::tr("The gzip compressor failed (zlib error %1).").arg(ret);
+                return false;
+            }
+            produced = myOutput.size() - zs->avail_out;
+            streamended = (ret == Z_STREAM_END);
+        }
+        else
+        {
+            lzma_stream *ls = (lzma_stream *)myEncoder;
+            ls->next_out = &myOutput[0];
+            ls->avail_out = myOutput.size();
+            lzma_ret ret = lzma_code(ls, finishing ? LZMA_FINISH : LZMA_RUN);
+            if (ret != LZMA_OK && ret != LZMA_STREAM_END)
+            {
+                myError = QObject::tr("The xz compressor failed (lzma error %1).")
+                              .arg((int)ret);
+                return false;
+            }
+            produced = myOutput.size() - ls->avail_out;
+            streamended = (ret == LZMA_STREAM_END);
+        }
+
+        if (produced > 0)
+        {
+            DWORD written = 0;
+            if (!WriteFile(myHandle, &myOutput[0], (DWORD)produced, &written, NULL)
+                || written != produced)
+            {
+                myError = QObject::tr("The image file could not be written (error %1).")
+                              .arg(GetLastError());
+                return false;
+            }
+        }
+
+        if (streamended)
+        {
+            return true;
+        }
+        if (!finishing && produced == 0)
+        {
+            // Not finishing, and the encoder used all its input without
+            // needing to produce anything yet -- normal, and the caller has
+            // nothing left to feed it either way.
+            bool inputleft = (myFormat == FORMAT_GZIP)
+                ? ((z_stream *)myEncoder)->avail_in != 0
+                : ((lzma_stream *)myEncoder)->avail_in != 0;
+            if (!inputleft)
+            {
+                return true;
+            }
+        }
+    }
+}
+
+bool ImageSink::write(const char *data, unsigned long long len)
+{
+    myError.clear();
+    const unsigned char *in = (const unsigned char *)data;
+    while (len > 0ull)
+    {
+        // avail_in is 32-bit in zlib; lzma's is size_t, but the chunk is kept
+        // the same for both rather than giving lzma a different-sized bite
+        // for no reason.
+        size_t chunk = (len > 0xffffffffull) ? 0xffffffffu : (size_t)len;
+        if (myFormat == FORMAT_GZIP)
+        {
+            z_stream *zs = (z_stream *)myEncoder;
+            zs->next_in = (Bytef *)in;
+            zs->avail_in = (uInt)chunk;
+        }
+        else
+        {
+            lzma_stream *ls = (lzma_stream *)myEncoder;
+            ls->next_in = in;
+            ls->avail_in = chunk;
+        }
+        if (!drain(false))
+        {
+            return false;
+        }
+        in += chunk;
+        len -= chunk;
+    }
+    return true;
+}
+
+bool ImageSink::finish()
+{
+    myError.clear();
+    if (myFormat == FORMAT_GZIP)
+    {
+        ((z_stream *)myEncoder)->next_in = NULL;
+        ((z_stream *)myEncoder)->avail_in = 0;
+    }
+    else
+    {
+        ((lzma_stream *)myEncoder)->next_in = NULL;
+        ((lzma_stream *)myEncoder)->avail_in = 0;
+    }
+    if (!drain(true))
+    {
+        return false;
+    }
+    bool flushed = FlushFileBuffers(myHandle) != 0;
+    abort();
+    if (!flushed)
+    {
+        myError = QObject::tr("The image file could not be flushed (error %1).")
+                      .arg(GetLastError());
+        return false;
+    }
+    return true;
+}
+
 char *ImageSource::read(unsigned long long startsector, unsigned long long count,
                         unsigned long long *sectorsread)
 {

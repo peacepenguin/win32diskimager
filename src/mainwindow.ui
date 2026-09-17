@@ -240,6 +240,36 @@
         </property>
        </widget>
       </item><item>
+       <widget class="QCheckBox" name="readGzCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Read to .img.gz</string>
+        </property>
+        <property name="toolTip">
+         <string>Compress the Image Read from the Device with gz</string>
+        </property>
+       </widget>
+      </item><item>
+       <widget class="QCheckBox" name="readXzCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Read to .img.xz</string>
+        </property>
+        <property name="toolTip">
+         <string>Compress the Image Read from the Device with xz</string>
+        </property>
+       </widget>
+      </item><item>
        <widget class="QCheckBox" name="showAllDevicesCheckBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">

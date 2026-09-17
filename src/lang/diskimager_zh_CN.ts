@@ -32,6 +32,22 @@
         <translation>读取设备的 MBR 或 GPT，将映像缩小到仅包含实际分区。将备份 GPT 移到已用空间的末尾。</translation>
     </message>
     <message>
+        <source>Read to .img.gz</source>
+        <translation>读取为 .img.gz</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with gz</source>
+        <translation>使用 gz 压缩从设备读取的映像</translation>
+    </message>
+    <message>
+        <source>Read to .img.xz</source>
+        <translation>读取为 .img.xz</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with xz</source>
+        <translation>使用 xz 压缩从设备读取的映像</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>检查 GPT</translation>
     </message>
@@ -485,7 +501,7 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
-        <translation>映像只能以未压缩的形式读出. 请选择不带 .gz 或 .xz 扩展名的文件名.
+        <translation type="vanished">映像只能以未压缩的形式读出. 请选择不带 .gz 或 .xz 扩展名的文件名.
 
 压缩映像 (.img.gz, .img.xz) 可以用于写入和校验.</translation>
     </message>
@@ -762,6 +778,10 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <source>Read Error</source>
         <translation>读取错误</translation>
+    </message>
+    <message>
+        <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension, or check &quot;Read to .img.gz&quot; or &quot;Read to .img.xz&quot;.</source>
+        <translation>映像只能以未压缩方式读回。请选择不带 .gz 或 .xz 扩展名的文件名，或勾选&quot;读取为 .img.gz&quot;或&quot;读取为 .img.xz&quot;。</translation>
     </message>
     <message>
         <source>Please select a source device.</source>
@@ -1151,6 +1171,34 @@ Error %2</source>
     <message>
         <source>A compressed image can only be read forwards.</source>
         <translation>压缩映像只能向前读取.</translation>
+    </message>
+    <message>
+        <source>The image file could not be created (error %1).</source>
+        <translation>无法创建映像文件 (错误 %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor could not be started (zlib error %1).</source>
+        <translation>无法启动 gzip 压缩程序 (zlib 错误 %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor could not be started (lzma error %1).</source>
+        <translation>无法启动 xz 压缩程序 (lzma 错误 %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor failed (zlib error %1).</source>
+        <translation>gzip 压缩失败 (zlib 错误 %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor failed (lzma error %1).</source>
+        <translation>xz 压缩失败 (lzma 错误 %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be written (error %1).</source>
+        <translation>无法写入映像文件 (错误 %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be flushed (error %1).</source>
+        <translation>无法刷新映像文件缓冲区 (错误 %1).</translation>
     </message>
 </context>
 </TS>

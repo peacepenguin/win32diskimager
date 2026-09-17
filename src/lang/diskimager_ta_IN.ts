@@ -32,6 +32,22 @@
         <translation>சாதனத்தின் MBR அல்லது GPT-ஐப் படித்து, உண்மையான பகிர்வுகளுக்கு மட்டும் ஏற்பப் படிமத்தைச் சுருக்குகிறது. காப்பு GPT-ஐப் பயன்பட்ட இட முடிவுக்கு நகர்த்துகிறது.</translation>
     </message>
     <message>
+        <source>Read to .img.gz</source>
+        <translation>.img.gz ஆகப் படி</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with gz</source>
+        <translation>சாதனத்திலிருந்து படிக்கப்பட்ட படிமத்தை gz கொண்டு அமுக்குகிறது</translation>
+    </message>
+    <message>
+        <source>Read to .img.xz</source>
+        <translation>.img.xz ஆகப் படி</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with xz</source>
+        <translation>சாதனத்திலிருந்து படிக்கப்பட்ட படிமத்தை xz கொண்டு அமுக்குகிறது</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT சரிபார்</translation>
     </message>
@@ -496,7 +512,7 @@ Continue Anyway?</source>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
-        <translation>படிமங்களைச் சுருக்கப்படாத வடிவில் மட்டுமே திரும்பப் படிக்க முடியும். .gz அல்லது .xz நீட்டிப்பு இல்லாத கோப்புப் பெயரைத் தேர்ந்தெடுக்கவும்.
+        <translation type="vanished">படிமங்களைச் சுருக்கப்படாத வடிவில் மட்டுமே திரும்பப் படிக்க முடியும். .gz அல்லது .xz நீட்டிப்பு இல்லாத கோப்புப் பெயரைத் தேர்ந்தெடுக்கவும்.
 சுருக்கப்பட்ட படிமங்களை (.img.gz, .img.xz) எழுதவும் சரிபார்க்கவும் முடியும்.</translation>
     </message>
     <message>
@@ -684,6 +700,10 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 %1 %2
 %3
 சாதனத்தை இப்போதே அகற்றவும்; அதை மீண்டும் இங்கே செருகவேண்டாம். நேரடியாக இலக்கு வன்பொருளில் செருகவும்.</translation>
+    </message>
+    <message>
+        <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension, or check &quot;Read to .img.gz&quot; or &quot;Read to .img.xz&quot;.</source>
+        <translation>படிமங்களை அமுக்கப்படாமல் மட்டுமே மீண்டும் படிக்க முடியும். .gz அல்லது .xz நீட்டிப்பு இல்லாத கோப்புப் பெயரைத் தேர்ந்தெடுக்கவும், அல்லது &quot;.img.gz ஆகப் படி&quot; அல்லது &quot;.img.xz ஆகப் படி&quot; எனத் தேர்வுசெய்க.</translation>
     </message>
     <message>
         <source>Verify cancelled.</source>
@@ -1017,6 +1037,34 @@ Error %2</source>
     <message>
         <source>A compressed image can only be read forwards.</source>
         <translation>சுருக்கப்பட்ட படிமத்தை முன்னோக்கி மட்டுமே படிக்க முடியும்.</translation>
+    </message>
+    <message>
+        <source>The image file could not be created (error %1).</source>
+        <translation>படிமக் கோப்பை உருவாக்க முடியவில்லை (பிழை %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor could not be started (zlib error %1).</source>
+        <translation>gzip அமுக்கியைத் தொடங்க முடியவில்லை (zlib பிழை %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor could not be started (lzma error %1).</source>
+        <translation>xz அமுக்கியைத் தொடங்க முடியவில்லை (lzma பிழை %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor failed (zlib error %1).</source>
+        <translation>gzip அமுக்கம் தோல்வியடைந்தது (zlib பிழை %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor failed (lzma error %1).</source>
+        <translation>xz அமுக்கம் தோல்வியடைந்தது (lzma பிழை %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be written (error %1).</source>
+        <translation>படிமக் கோப்பை எழுத முடியவில்லை (பிழை %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be flushed (error %1).</source>
+        <translation>படிமக் கோப்பின் இடையகத்தைக் காலி செய்ய முடியவில்லை (பிழை %1).</translation>
     </message>
 </context>
 </TS>

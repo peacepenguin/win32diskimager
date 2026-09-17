@@ -32,6 +32,22 @@
         <translation>Liest den MBR oder die GPT des Datenträgers und verkleinert das Image so, dass es nur die tatsächlichen Partitionen umfasst. Verschiebt die Sicherungs-GPT an das Ende des belegten Speicherbereichs.</translation>
     </message>
     <message>
+        <source>Read to .img.gz</source>
+        <translation>Als .img.gz lesen</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with gz</source>
+        <translation>Komprimiert das vom Gerät gelesene Image mit gz</translation>
+    </message>
+    <message>
+        <source>Read to .img.xz</source>
+        <translation>Als .img.xz lesen</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with xz</source>
+        <translation>Komprimiert das vom Gerät gelesene Image mit xz</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT prüfen</translation>
     </message>
@@ -493,7 +509,7 @@ Windows schreibt die Tabelle bei einem erneuten Einlesen trotzdem um, weil die S
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
-        <translation>Images können nur unkomprimiert zurückgelesen werden. Wählen Sie einen Dateinamen ohne die Endung .gz oder .xz.
+        <translation type="vanished">Images können nur unkomprimiert zurückgelesen werden. Wählen Sie einen Dateinamen ohne die Endung .gz oder .xz.
 
 Komprimierte Images (.img.gz, .img.xz) können geschrieben und geprüft werden.</translation>
     </message>
@@ -742,6 +758,10 @@ Entfernen Sie den Datenträger JETZT und stecken Sie ihn hier nicht wieder ein. 
     <message>
         <source>Read Error</source>
         <translation>Lesefehler</translation>
+    </message>
+    <message>
+        <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension, or check &quot;Read to .img.gz&quot; or &quot;Read to .img.xz&quot;.</source>
+        <translation>Images können nur unkomprimiert zurückgelesen werden. Wählen Sie einen Dateinamen ohne die Endung .gz oder .xz, oder aktivieren Sie „Als .img.gz lesen“ oder „Als .img.xz lesen“.</translation>
     </message>
     <message>
         <source>Please select a source device.</source>
@@ -1164,6 +1184,34 @@ Fehler %2</translation>
     <message>
         <source>A compressed image can only be read forwards.</source>
         <translation>Ein komprimiertes Image kann nur vorwärts gelesen werden.</translation>
+    </message>
+    <message>
+        <source>The image file could not be created (error %1).</source>
+        <translation>Die Image-Datei konnte nicht erstellt werden (Fehler %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor could not be started (zlib error %1).</source>
+        <translation>Die gzip-Komprimierung konnte nicht gestartet werden (zlib-Fehler %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor could not be started (lzma error %1).</source>
+        <translation>Die xz-Komprimierung konnte nicht gestartet werden (lzma-Fehler %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor failed (zlib error %1).</source>
+        <translation>Die gzip-Komprimierung ist fehlgeschlagen (zlib-Fehler %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor failed (lzma error %1).</source>
+        <translation>Die xz-Komprimierung ist fehlgeschlagen (lzma-Fehler %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be written (error %1).</source>
+        <translation>Die Image-Datei konnte nicht geschrieben werden (Fehler %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be flushed (error %1).</source>
+        <translation>Die Puffer der Image-Datei konnten nicht geleert werden (Fehler %1).</translation>
     </message>
 </context>
 </TS>

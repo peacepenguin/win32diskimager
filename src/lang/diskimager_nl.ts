@@ -32,6 +32,22 @@
         <translation>Leest de MBR of GPT van het apparaat om de image te verkleinen tot alleen de werkelijke partities. Verplaatst de reserve-GPT naar het einde van de gebruikte ruimte.</translation>
     </message>
     <message>
+        <source>Read to .img.gz</source>
+        <translation>Lezen naar .img.gz</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with gz</source>
+        <translation>Comprimeert de van het apparaat gelezen image met gz</translation>
+    </message>
+    <message>
+        <source>Read to .img.xz</source>
+        <translation>Lezen naar .img.xz</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with xz</source>
+        <translation>Comprimeert de van het apparaat gelezen image met xz</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT controleren</translation>
     </message>
@@ -485,7 +501,7 @@ Windows herschrijft de tabel bij een herscan nog steeds, omdat de reserve-GPT ni
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
-        <translation>Images kunnen alleen ongecomprimeerd worden teruggelezen. Kies een bestandsnaam zonder .gz- of .xz-extensie.
+        <translation type="vanished">Images kunnen alleen ongecomprimeerd worden teruggelezen. Kies een bestandsnaam zonder .gz- of .xz-extensie.
 
 Gecomprimeerde images (.img.gz, .img.xz) kunnen wel worden geschreven en geverifieerd.</translation>
     </message>
@@ -762,6 +778,10 @@ Verwijder het apparaat NU en plaats het hier niet opnieuw. Steek het meteen in d
     <message>
         <source>Read Error</source>
         <translation>Leesfout</translation>
+    </message>
+    <message>
+        <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension, or check &quot;Read to .img.gz&quot; or &quot;Read to .img.xz&quot;.</source>
+        <translation>Images kunnen alleen ongecomprimeerd worden teruggelezen. Kies een bestandsnaam zonder .gz- of .xz-extensie, of vink &quot;Lezen naar .img.gz&quot; of &quot;Lezen naar .img.xz&quot; aan.</translation>
     </message>
     <message>
         <source>Please select a source device.</source>
@@ -1154,6 +1174,34 @@ Fout %2</translation>
     <message>
         <source>A compressed image can only be read forwards.</source>
         <translation>Een gecomprimeerde image kan alleen voorwaarts worden gelezen.</translation>
+    </message>
+    <message>
+        <source>The image file could not be created (error %1).</source>
+        <translation>Het imagebestand kon niet worden aangemaakt (fout %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor could not be started (zlib error %1).</source>
+        <translation>De gzip-compressor kon niet worden gestart (zlib-fout %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor could not be started (lzma error %1).</source>
+        <translation>De xz-compressor kon niet worden gestart (lzma-fout %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor failed (zlib error %1).</source>
+        <translation>De gzip-compressor is mislukt (zlib-fout %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor failed (lzma error %1).</source>
+        <translation>De xz-compressor is mislukt (lzma-fout %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be written (error %1).</source>
+        <translation>Het imagebestand kon niet worden geschreven (fout %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be flushed (error %1).</source>
+        <translation>Het imagebestand kon niet worden doorgespoeld (fout %1).</translation>
     </message>
 </context>
 </TS>

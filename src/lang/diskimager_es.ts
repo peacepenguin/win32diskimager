@@ -32,6 +32,22 @@
         <translation>Lee el MBR o la GPT del dispositivo para reducir la imagen y que coincida solo con las particiones reales. Mueve la GPT de respaldo al final del espacio utilizado.</translation>
     </message>
     <message>
+        <source>Read to .img.gz</source>
+        <translation>Leer a .img.gz</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with gz</source>
+        <translation>Comprime la imagen leída del dispositivo con gz</translation>
+    </message>
+    <message>
+        <source>Read to .img.xz</source>
+        <translation>Leer a .img.xz</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with xz</source>
+        <translation>Comprime la imagen leída del dispositivo con xz</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>Comprobar la GPT</translation>
     </message>
@@ -493,7 +509,7 @@ Windows reescribirá igualmente la tabla en un nuevo análisis, porque la GPT de
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
-        <translation>Las imágenes solo se pueden volver a leer sin comprimir. Elija un nombre de archivo sin la extensión .gz ni .xz.
+        <translation type="vanished">Las imágenes solo se pueden volver a leer sin comprimir. Elija un nombre de archivo sin la extensión .gz ni .xz.
 
 Las imágenes comprimidas (.img.gz, .img.xz) se pueden escribir y verificar.</translation>
     </message>
@@ -742,6 +758,10 @@ Extraiga el dispositivo AHORA y no vuelva a insertarlo aquí. Colóquelo directa
     <message>
         <source>Read Error</source>
         <translation>Error de lectura</translation>
+    </message>
+    <message>
+        <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension, or check &quot;Read to .img.gz&quot; or &quot;Read to .img.xz&quot;.</source>
+        <translation>Las imágenes solo se pueden leer sin comprimir. Elija un nombre de archivo sin la extensión .gz o .xz, o marque «Leer a .img.gz» o «Leer a .img.xz».</translation>
     </message>
     <message>
         <source>Please select a source device.</source>
@@ -1167,6 +1187,34 @@ Error %2</translation>
     <message>
         <source>A compressed image can only be read forwards.</source>
         <translation>Una imagen comprimida solo se puede leer hacia delante.</translation>
+    </message>
+    <message>
+        <source>The image file could not be created (error %1).</source>
+        <translation>No se pudo crear el archivo de imagen (error %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor could not be started (zlib error %1).</source>
+        <translation>No se pudo iniciar el compresor gzip (error de zlib %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor could not be started (lzma error %1).</source>
+        <translation>No se pudo iniciar el compresor xz (error de lzma %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor failed (zlib error %1).</source>
+        <translation>El compresor gzip falló (error de zlib %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor failed (lzma error %1).</source>
+        <translation>El compresor xz falló (error de lzma %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be written (error %1).</source>
+        <translation>No se pudo escribir el archivo de imagen (error %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be flushed (error %1).</source>
+        <translation>No se pudo vaciar el búfer del archivo de imagen (error %1).</translation>
     </message>
 </context>
 </TS>

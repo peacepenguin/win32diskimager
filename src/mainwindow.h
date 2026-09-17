@@ -69,6 +69,10 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         void on_leFile_editingFinished();
         void on_bHashCopy_clicked();
         void on_showAllDevicesCheckBox_toggled(bool checked);
+        // Compressing to .gz and to .xz are mutually exclusive; each unchecks
+        // the other. See mainwindow.cpp.
+        void on_readGzCheckBox_toggled(bool checked);
+        void on_readXzCheckBox_toggled(bool checked);
 private slots:
         void on_cboxHashType_IdxChg();
         void on_bHashGen_clicked();

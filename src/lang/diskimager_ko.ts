@@ -32,6 +32,22 @@
         <translation>장치의 MBR 또는 GPT를 읽어 실제 파티션에 맞게 이미지를 축소합니다. 백업 GPT는 사용된 공간의 끝으로 옮깁니다.</translation>
     </message>
     <message>
+        <source>Read to .img.gz</source>
+        <translation>.img.gz로 읽기</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with gz</source>
+        <translation>장치에서 읽은 이미지를 gz로 압축합니다</translation>
+    </message>
+    <message>
+        <source>Read to .img.xz</source>
+        <translation>.img.xz로 읽기</translation>
+    </message>
+    <message>
+        <source>Compress the Image Read from the Device with xz</source>
+        <translation>장치에서 읽은 이미지를 xz로 압축합니다</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT 확인</translation>
     </message>
@@ -485,7 +501,7 @@ Windows will still rewrite the table on a rescan, because the backup GPT is not 
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension.
 
 Compressed images (.img.gz, .img.xz) can be written and verified.</source>
-        <translation>이미지는 압축하지 않은 형태로만 읽어올 수 있습니다. .gz 또는 .xz 확장자가 없는 파일 이름을 선택해주세요.
+        <translation type="vanished">이미지는 압축하지 않은 형태로만 읽어올 수 있습니다. .gz 또는 .xz 확장자가 없는 파일 이름을 선택해주세요.
 
 압축 이미지(.img.gz, .img.xz)는 쓰기와 검증에는 사용할 수 있습니다.</translation>
     </message>
@@ -762,6 +778,10 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <source>Read Error</source>
         <translation>읽기 오류</translation>
+    </message>
+    <message>
+        <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension, or check &quot;Read to .img.gz&quot; or &quot;Read to .img.xz&quot;.</source>
+        <translation>이미지는 압축되지 않은 상태로만 다시 읽을 수 있습니다. .gz 또는 .xz 확장자가 없는 파일 이름을 선택하거나, &quot;.img.gz로 읽기&quot; 또는 &quot;.img.xz로 읽기&quot;를 선택하십시오.</translation>
     </message>
     <message>
         <source>Please select a source device.</source>
@@ -1151,6 +1171,34 @@ Error %2</source>
     <message>
         <source>A compressed image can only be read forwards.</source>
         <translation>압축 이미지는 앞 방향으로만 읽을 수 있습니다.</translation>
+    </message>
+    <message>
+        <source>The image file could not be created (error %1).</source>
+        <translation>이미지 파일을 만들 수 없습니다 (오류 %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor could not be started (zlib error %1).</source>
+        <translation>gzip 압축기를 시작할 수 없습니다 (zlib 오류 %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor could not be started (lzma error %1).</source>
+        <translation>xz 압축기를 시작할 수 없습니다 (lzma 오류 %1).</translation>
+    </message>
+    <message>
+        <source>The gzip compressor failed (zlib error %1).</source>
+        <translation>gzip 압축이 실패했습니다 (zlib 오류 %1).</translation>
+    </message>
+    <message>
+        <source>The xz compressor failed (lzma error %1).</source>
+        <translation>xz 압축이 실패했습니다 (lzma 오류 %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be written (error %1).</source>
+        <translation>이미지 파일을 쓸 수 없습니다 (오류 %1).</translation>
+    </message>
+    <message>
+        <source>The image file could not be flushed (error %1).</source>
+        <translation>이미지 파일을 플러시할 수 없습니다 (오류 %1).</translation>
     </message>
 </context>
 </TS>
