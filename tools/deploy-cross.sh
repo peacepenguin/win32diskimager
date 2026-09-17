@@ -21,23 +21,23 @@ sysroot=${3:-$CROSS_SYSROOT}
 objdump=${OBJDUMP:-x86_64-w64-mingw32-objdump}
 bin="$sysroot/bin"
 
-[ -f "$build/Win32DiskImager.exe" ] || {
-    echo "error: no $build/Win32DiskImager.exe -- build it first" >&2
+[ -f "$build/WinDiskImager.exe" ] || {
+    echo "error: no $build/WinDiskImager.exe -- build it first" >&2
     exit 1
 }
 
 # A build made with -DTEST_NO_ADMIN=ON asks for no elevation and cannot open a
 # device for writing. It is for looking at the GUI, never for shipping, and the
 # difference is invisible once the exe is in a folder of its own.
-if grep -aq 'level="asInvoker"' "$build/Win32DiskImager.exe"; then
-    echo "error: $build/Win32DiskImager.exe was built with TEST_NO_ADMIN=ON and" >&2
+if grep -aq 'level="asInvoker"' "$build/WinDiskImager.exe"; then
+    echo "error: $build/WinDiskImager.exe was built with TEST_NO_ADMIN=ON and" >&2
     echo "       cannot write to a device. Reconfigure without it before packaging." >&2
     exit 1
 fi
 
 rm -rf "$dist"
 mkdir -p "$dist"
-cp "$build/Win32DiskImager.exe" "$dist/"
+cp "$build/WinDiskImager.exe" "$dist/"
 cp "$root"/Changelog.txt "$root"/README.md "$root"/License.txt "$root"/THIRD-PARTY-NOTICES.txt "$root"/GPL-2 "$root"/LGPL-2.1 "$dist/"
 
 # Qt plugins. Only the ones a widgets app on Windows actually loads.

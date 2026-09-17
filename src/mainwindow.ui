@@ -23,11 +23,11 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>Win32 Disk Imager</string>
+   <string>Win Disk Imager</string>
   </property>
   <property name="windowIcon">
    <iconset resource="gui_icons.qrc">
-    <normaloff>:/images/images/Win32DiskImager.svg</normaloff>:/images/images/Win32DiskImager.svg</iconset>
+    <normaloff>:/images/images/WinDiskImager.svg</normaloff>:/images/images/WinDiskImager.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -514,7 +514,7 @@
          </sizepolicy>
         </property>
         <property name="statusTip">
-         <string>Exit Win32 Disk Imager</string>
+         <string>Exit Win Disk Imager</string>
         </property>
         <property name="text">
          <string>Exit</string>

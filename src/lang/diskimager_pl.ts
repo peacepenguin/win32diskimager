@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <source>Win32 Disk Imager</source>
-        <translation>Win32 Disk Imager</translation>
+        <translation type="vanished">Win32 Disk Imager</translation>
     </message>
     <message>
         <source>Image File</source>
@@ -48,8 +48,16 @@
         <translation>Kompresuje obraz odczytany z urządzenia za pomocą xz</translation>
     </message>
     <message>
+        <source>Exit Win Disk Imager</source>
+        <translation>Wyjdź z Win Disk Imager</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>Sprawdź GPT</translation>
+    </message>
+    <message>
+        <source>Win Disk Imager</source>
+        <translation>Win Disk Imager</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
@@ -146,7 +154,7 @@
     </message>
     <message>
         <source>Exit Win32 Disk Imager</source>
-        <translation>Wyjdź z Win32 Disk Imager</translation>
+        <translation type="vanished">Wyjdź z Win32 Disk Imager</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -1078,6 +1086,10 @@ Błąd %2</translation>
     <message>
         <source>the MBR holds no partitions to shrink to</source>
         <translation>MBR nie zawiera partycji, do których można by zmniejszyć</translation>
+    </message>
+    <message>
+        <source>the repacked layout no longer fits a 32-bit MBR entry</source>
+        <translation>przepakowany układ nie mieści się już w 32-bitowym wpisie MBR</translation>
     </message>
     <message>
         <source>the device is already this tight; nothing to shrink</source>

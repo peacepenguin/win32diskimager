@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <source>Win32 Disk Imager</source>
-        <translation>Win32 디스크 이미저</translation>
+        <translation type="vanished">Win32 디스크 이미저</translation>
     </message>
     <message>
         <source>Image File</source>
@@ -48,8 +48,16 @@
         <translation>장치에서 읽은 이미지를 xz로 압축합니다</translation>
     </message>
     <message>
+        <source>Exit Win Disk Imager</source>
+        <translation>Win 디스크 이미저 종료</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT 확인</translation>
+    </message>
+    <message>
+        <source>Win Disk Imager</source>
+        <translation>Win 디스크 이미저</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
@@ -145,7 +153,7 @@
     </message>
     <message>
         <source>Exit Win32 Disk Imager</source>
-        <translation>Win32 디스크 이미저 종료</translation>
+        <translation type="vanished">Win32 디스크 이미저 종료</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -1075,6 +1083,10 @@ Error %2</source>
     <message>
         <source>the MBR holds no partitions to shrink to</source>
         <translation>MBR에 축소할 파티션이 없습니다</translation>
+    </message>
+    <message>
+        <source>the repacked layout no longer fits a 32-bit MBR entry</source>
+        <translation>재배치된 레이아웃이 32비트 MBR 항목에 더 이상 맞지 않습니다</translation>
     </message>
     <message>
         <source>the device is already this tight; nothing to shrink</source>

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Package build/Win32DiskImager.exe into a self-contained dist/ folder.
+# Package build/WinDiskImager.exe into a self-contained dist/ folder.
 # Run from the repo root in the MSYS2 UCRT64 shell.
 set -euo pipefail
 
@@ -19,16 +19,16 @@ need_msys2_tools windeployqt6 objdump
 # for rather than written down.
 MSYS2_BIN=$(dirname "$(command -v objdump)")
 
-[ -f build/Win32DiskImager.exe ] || {
-    echo "error: no build/Win32DiskImager.exe -- build it first" >&2
+[ -f build/WinDiskImager.exe ] || {
+    echo "error: no build/WinDiskImager.exe -- build it first" >&2
     exit 1
 }
 
 # A build made with -DTEST_NO_ADMIN=ON asks for no elevation and cannot open a
 # device for writing. It is for looking at the GUI, never for shipping, and the
 # difference is invisible once the exe is in a folder of its own.
-if grep -aq 'level="asInvoker"' build/Win32DiskImager.exe; then
-    echo "error: build/Win32DiskImager.exe was built with TEST_NO_ADMIN=ON and" >&2
+if grep -aq 'level="asInvoker"' build/WinDiskImager.exe; then
+    echo "error: build/WinDiskImager.exe was built with TEST_NO_ADMIN=ON and" >&2
     echo "       cannot write to a device. Reconfigure without it before packaging." >&2
     exit 1
 fi
@@ -38,7 +38,7 @@ fi
 # contents still delete fine.
 mkdir -p dist
 rm -rf dist/* dist/.[!.]* 2>/dev/null || true
-cp build/Win32DiskImager.exe dist/
+cp build/WinDiskImager.exe dist/
 cp Changelog.txt README.md License.txt THIRD-PARTY-NOTICES.txt GPL-2 LGPL-2.1 dist/
 
 # Languages the app itself ships translations for; Qt's own translations are
@@ -52,7 +52,7 @@ LANGUAGES=$(sed -n 's/^set(LANGUAGES \(.*\))$/\1/p' src/CMakeLists.txt)
 (cd dist && windeployqt6 --release \
     --no-opengl-sw \
     --no-system-d3d-compiler \
-    Win32DiskImager.exe)
+    WinDiskImager.exe)
 
 # Qt6Network is not left out, because it cannot be. generic/qtuiotouchplugin.dll
 # links it, and windeployqt says as much while deploying: "Adding Qt6Network for

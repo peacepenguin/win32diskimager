@@ -34,9 +34,9 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // A build for testing the GUI, which asks for no elevation so the app can be
 // started and poked at without a UAC prompt each time. Generated into the build
 // directory by CMake's TEST_NO_ADMIN option; it cannot write to a device.
-1                       RT_MANIFEST             "DiskImager-asinvoker.manifest"
+1                       RT_MANIFEST             "WinDiskImager-asinvoker.manifest"
 #else
-1                       RT_MANIFEST             "DiskImager.manifest"
+1                       RT_MANIFEST             "WinDiskImager.manifest"
 #endif
 
 #ifdef APSTUDIO_INVOKED
@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "Image Writer for Windows to write USB and SD images"
-            VALUE "FileDescription", "DiskImager (peacepenguin fork)"
+            VALUE "Comments", "Writes and reads raw disk images for USB and SD devices on Windows"
+            VALUE "FileDescription", "Win Disk Imager (peacepenguin fork)"
             VALUE "FileVersion", RC_STR(VER_RAW)
-            VALUE "InternalName", "win32-image-writer"
+            VALUE "InternalName", "WinDiskImager"
             VALUE "LegalCopyright", "Copyright (C) 2009-2017 Windows ImageWriter Team; modifications Copyright (C) 2026 peacepenguin. GPL-2."
-            VALUE "OriginalFilename", "Win32DiskImager"
-            VALUE "ProductName", "Win32 Image Writer (peacepenguin fork)"
+            VALUE "OriginalFilename", "WinDiskImager"
+            VALUE "ProductName", "Win Disk Imager (peacepenguin fork)"
             VALUE "ProductVersion", RC_STR(VER_RAW)
         END
     END
@@ -113,7 +113,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "images/Win32DiskImager.ico"
+IDI_ICON1               ICON                    "images/WinDiskImager.ico"
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 

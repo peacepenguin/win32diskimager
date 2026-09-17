@@ -45,12 +45,12 @@ build_run "$REPO/src" "$build" cross_configure
 # A host compiler picked up by mistake produces an ELF binary that looks like a
 # successful build until someone tries to run it. Check here, so every route
 # into this script is covered rather than only CI.
-if ! file "$build/Win32DiskImager.exe" | grep -q 'PE32+'; then
-    echo "error: $build/Win32DiskImager.exe is not a win64 PE binary:" >&2
-    file "$build/Win32DiskImager.exe" >&2
+if ! file "$build/WinDiskImager.exe" | grep -q 'PE32+'; then
+    echo "error: $build/WinDiskImager.exe is not a win64 PE binary:" >&2
+    file "$build/WinDiskImager.exe" >&2
     exit 1
 fi
-file "$build/Win32DiskImager.exe"
+file "$build/WinDiskImager.exe"
 
 if [ "$build" = "$REPO/build" ]; then
     build_report "$build" "tools/deploy-cross.sh"

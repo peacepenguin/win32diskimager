@@ -42,7 +42,7 @@ param(
     # Somewhere with no tooltip of its own to start from, so the first widget in
     # the list is arrived at rather than already under the pointer.
     [string]$Park = "progressGroup",
-    [string]$Process = "Win32DiskImager"
+    [string]$Process = "WinDiskImager"
 )
 
 $ErrorActionPreference = "Stop"

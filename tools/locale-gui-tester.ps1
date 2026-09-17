@@ -1,4 +1,4 @@
-$exe = ".\dist\Win32DiskImager.exe"
+$exe = ".\dist\WinDiskImager.exe"
 
 $cultures = @(
     "de-DE",
@@ -30,12 +30,12 @@ try {
         # Set Windows culture
         Set-Culture -CultureInfo $culture
 
-        Write-Host "Launching Win32DiskImager..." -ForegroundColor Green
+        Write-Host "Launching WinDiskImager..." -ForegroundColor Green
 
         # Launch application and wait until it exits
         Start-Process -FilePath $exe -Wait
 
-        Write-Host "Win32DiskImager closed." -ForegroundColor DarkGray
+        Write-Host "WinDiskImager closed." -ForegroundColor DarkGray
         Write-Host ""
     }
 }

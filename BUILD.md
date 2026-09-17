@@ -86,9 +86,9 @@ tools/build.sh                 # into build/
 tools/deploy.sh                # into dist/
 ```
 
-`build/Win32DiskImager.exe` only runs inside the MSYS2 shell, because its Qt
+`build/WinDiskImager.exe` only runs inside the MSYS2 shell, because its Qt
 DLLs are not next to it. `dist/` is the standalone copy: move it anywhere and run
-`dist/Win32DiskImager.exe` **as Administrator**, which raw device access needs.
+`dist/WinDiskImager.exe` **as Administrator**, which raw device access needs.
 
 `tools/build.sh clean` drops the build directory first. Without it, ninja stays
 incremental.
@@ -111,7 +111,7 @@ deploy scripts refuse to package one, since the two are indistinguishable once
 the exe sits in a folder of its own. To tell them apart by hand:
 
 ```
-grep -ac 'level="asInvoker"' build/Win32DiskImager.exe    # 1 = test build
+grep -ac 'level="asInvoker"' build/WinDiskImager.exe    # 1 = test build
 ```
 
 ### Measuring what it drew
@@ -253,7 +253,7 @@ compressed is checked in and neither `gzip` nor `xz` needs to be on the path.
 
 The icons are SVGs in `src/images/`, embedded through `gui_icons.qrc`: the three
 action icons on the buttons, the folder on the browse button, and
-`Win32DiskImager.svg`, which is both the window icon and the source of the
+`WinDiskImager.svg`, which is both the window icon and the source of the
 executable's icon. Edit an SVG, rebuild, and the change is in the program. There
 is nothing to regenerate by hand.
 

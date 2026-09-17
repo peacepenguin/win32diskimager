@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <source>Win32 Disk Imager</source>
-        <translation>Win32 Disk Imager</translation>
+        <translation type="vanished">Win32 Disk Imager</translation>
     </message>
     <message>
         <source>Image File</source>
@@ -48,8 +48,16 @@
         <translation>சாதனத்திலிருந்து படிக்கப்பட்ட படிமத்தை xz கொண்டு அமுக்குகிறது</translation>
     </message>
     <message>
+        <source>Exit Win Disk Imager</source>
+        <translation>Win Disk Imager-இலிருந்து வெளியேறு</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>GPT சரிபார்</translation>
+    </message>
+    <message>
+        <source>Win Disk Imager</source>
+        <translation>Win Disk Imager</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
@@ -137,7 +145,7 @@
     </message>
     <message>
         <source>Exit Win32 Disk Imager</source>
-        <translation>Win32 Disk Imager-இலிருந்து வெளியேறு</translation>
+        <translation type="vanished">Win32 Disk Imager-இலிருந்து வெளியேறு</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -941,6 +949,10 @@ Error %2</source>
     <message>
         <source>the MBR holds no partitions to shrink to</source>
         <translation>MBR-இல் சுருக்கத் தேவையான பகிர்வுகள் இல்லை</translation>
+    </message>
+    <message>
+        <source>the repacked layout no longer fits a 32-bit MBR entry</source>
+        <translation>மறுசீரமைக்கப்பட்ட அமைப்பு இனி 32-பிட் MBR உள்ளீட்டில் பொருந்தாது</translation>
     </message>
     <message>
         <source>the device is already this tight; nothing to shrink</source>

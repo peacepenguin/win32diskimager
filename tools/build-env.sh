@@ -369,7 +369,7 @@ build_report()
     local build=${1:?usage: build_report BUILDDIR PACKAGE_HINT}
     local hint=${2:?}
     echo
-    echo "built $build/Win32DiskImager.exe"
+    echo "built $build/WinDiskImager.exe"
     if [ "${BUILD_MODE:-}" = test ]; then
         echo "this build asks for no elevation and CANNOT write to a device"
     else

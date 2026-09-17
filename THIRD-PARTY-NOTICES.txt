@@ -1,7 +1,7 @@
 Third-party material included in this program
 =============================================
 
-The wrench in the application icon (src/images/Win32DiskImager.svg) is the
+The wrench in the application icon (src/images/WinDiskImager.svg) is the
 "wrench" glyph from Feathericon, https://github.com/feathericon/feathericon,
 used under the MIT licence reproduced below.
 

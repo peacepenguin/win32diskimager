@@ -1,11 +1,11 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by DiskImager.rc
+// Used by WinDiskImager.rc
 //
 
 // The application icon. Without this the .rc names the resource with a string
 // rather than an integer id, which is not what the "lowest ID value" comment
-// beside it in DiskImager.rc assumes.
+// beside it in WinDiskImager.rc assumes.
 #define IDI_ICON1 101
 
 // Next default values for new objects

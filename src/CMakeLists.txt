@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(Win32DiskImager VERSION 1.6.0 LANGUAGES CXX)
+project(WinDiskImager VERSION 1.6.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
@@ -45,7 +45,7 @@ add_custom_target(translations DEPENDS ${QM_FILES})
 # mkicon has to run on the machine doing the build, which when cross-compiling is
 # not the machine being built for. So it is configured on its own, without the
 # cross toolchain, and picks up the host's native Qt.
-set(ICON_SVG ${CMAKE_CURRENT_SOURCE_DIR}/images/Win32DiskImager.svg)
+set(ICON_SVG ${CMAKE_CURRENT_SOURCE_DIR}/images/WinDiskImager.svg)
 # Into the build tree, not the source tree. The rendering is identical
 # everywhere -- the six DIB sizes come out byte for byte the same on MSYS2 and
 # in the Fedora container -- but the 128 and 256 entries are PNG, and different
@@ -54,7 +54,7 @@ set(ICON_SVG ${CMAKE_CURRENT_SOURCE_DIR}/images/Win32DiskImager.svg)
 #
 # So the .ico is no longer a file in the repository: the SVG is the icon, and
 # this is a build artefact like any other.
-set(ICON_ICO ${CMAKE_CURRENT_BINARY_DIR}/images/Win32DiskImager.ico)
+set(ICON_ICO ${CMAKE_CURRENT_BINARY_DIR}/images/WinDiskImager.ico)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/images)
 set(MKICON_BUILD ${CMAKE_BINARY_DIR}/mkicon-host)
 if(CMAKE_HOST_WIN32)
@@ -115,11 +115,11 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E env QT_QPA_PLATFORM=offscreen
             ${MKICON_EXE} ${ICON_SVG} ${ICON_ICO}
     DEPENDS ${ICON_SVG}
-    COMMENT "Rendering the application icon from images/Win32DiskImager.svg"
+    COMMENT "Rendering the application icon from images/WinDiskImager.svg"
     VERBATIM)
 add_custom_target(appicon DEPENDS ${ICON_ICO})
 
-qt_add_executable(Win32DiskImager WIN32
+qt_add_executable(WinDiskImager WIN32
     disk.cpp
     imagesource.cpp
     main.cpp
@@ -130,14 +130,14 @@ qt_add_executable(Win32DiskImager WIN32
     mainwindow.ui
     gui_icons.qrc
     translations.qrc
-    DiskImager.rc
+    WinDiskImager.rc
 )
-add_dependencies(Win32DiskImager translations appicon)
-# DiskImager.rc names the icon by a relative path, and windres looks for it
+add_dependencies(WinDiskImager translations appicon)
+# WinDiskImager.rc names the icon by a relative path, and windres looks for it
 # along its include path. The generated one lives here.
-target_include_directories(Win32DiskImager PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+target_include_directories(WinDiskImager PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 # windres reads the .ico while compiling the resource script.
-set_property(SOURCE DiskImager.rc APPEND PROPERTY OBJECT_DEPENDS ${ICON_ICO})
+set_property(SOURCE WinDiskImager.rc APPEND PROPERTY OBJECT_DEPENDS ${ICON_ICO})
 
 # -DTEST_NO_ADMIN=ON builds an executable that asks for no elevation, so the GUI
 # can be started and looked at without a UAC prompt every time. Such a build
@@ -148,19 +148,19 @@ if(TEST_NO_ADMIN)
     message(WARNING
         "TEST_NO_ADMIN is on: this build requests no elevation and cannot write "
         "to a device. Do not ship it.")
-    file(READ "${CMAKE_CURRENT_SOURCE_DIR}/DiskImager.manifest" _manifest)
+    file(READ "${CMAKE_CURRENT_SOURCE_DIR}/WinDiskImager.manifest" _manifest)
     string(REPLACE "requireAdministrator" "asInvoker" _manifest "${_manifest}")
-    file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/DiskImager-asinvoker.manifest" "${_manifest}")
+    file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/WinDiskImager-asinvoker.manifest" "${_manifest}")
     # windres looks for the referenced manifest along its include path, which
     # already has the build directory on it.
-    set_property(SOURCE DiskImager.rc APPEND PROPERTY COMPILE_DEFINITIONS TEST_NO_ADMIN)
-    target_compile_definitions(Win32DiskImager PRIVATE TEST_NO_ADMIN)
+    set_property(SOURCE WinDiskImager.rc APPEND PROPERTY COMPILE_DEFINITIONS TEST_NO_ADMIN)
+    target_compile_definitions(WinDiskImager PRIVATE TEST_NO_ADMIN)
 endif()
 
-target_compile_definitions(Win32DiskImager PRIVATE
+target_compile_definitions(WinDiskImager PRIVATE
     VER="${PROJECT_VERSION}"
     # The version is written down here and nowhere else. windres runs the C
-    # preprocessor over DiskImager.rc, so definitions set on the target reach
+    # preprocessor over WinDiskImager.rc, so definitions set on the target reach
     # the resource script like any other source and it never repeats the
     # number. Two more spellings of it, because the resource needs shapes that
     # VER cannot give it:
@@ -174,11 +174,11 @@ target_compile_definitions(Win32DiskImager PRIVATE
     _WIN32_WINNT=0x0601
 )
 
-target_link_libraries(Win32DiskImager PRIVATE Qt6::Widgets Qt6::Svg ZLIB::ZLIB LibLZMA::LibLZMA)
+target_link_libraries(WinDiskImager PRIVATE Qt6::Widgets Qt6::Svg ZLIB::ZLIB LibLZMA::LibLZMA)
 
 # This code uses the ANSI Win32 API; Qt6 turns UNICODE on by default.
-qt6_disable_unicode_defines(Win32DiskImager)
+qt6_disable_unicode_defines(WinDiskImager)
 
-set_target_properties(Win32DiskImager PROPERTIES
+set_target_properties(WinDiskImager PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )

@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <source>Win32 Disk Imager</source>
-        <translation>Win32 磁盘映像工具</translation>
+        <translation type="vanished">Win32 磁盘映像工具</translation>
     </message>
     <message>
         <source>Image File</source>
@@ -48,8 +48,16 @@
         <translation>使用 xz 压缩从设备读取的映像</translation>
     </message>
     <message>
+        <source>Exit Win Disk Imager</source>
+        <translation>退出 Win Disk Imager</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>检查 GPT</translation>
+    </message>
+    <message>
+        <source>Win Disk Imager</source>
+        <translation>Win 磁盘映像工具</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
@@ -145,7 +153,7 @@
     </message>
     <message>
         <source>Exit Win32 Disk Imager</source>
-        <translation>退出 Win32 Disk Imager</translation>
+        <translation type="vanished">退出 Win32 Disk Imager</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -1075,6 +1083,10 @@ Error %2</source>
     <message>
         <source>the MBR holds no partitions to shrink to</source>
         <translation>MBR 中没有可供缩小的分区</translation>
+    </message>
+    <message>
+        <source>the repacked layout no longer fits a 32-bit MBR entry</source>
+        <translation>重新打包后的布局已超出 32 位 MBR 表项的范围</translation>
     </message>
     <message>
         <source>the device is already this tight; nothing to shrink</source>
