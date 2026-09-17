@@ -282,6 +282,240 @@ echo "building the GPT pair"
 make_gpt_image 2048 "$OUTDIR/test-gpt-affected.img"
 make_gpt_image 34   "$OUTDIR/test-gpt-safe.img"
 
+# -------------------------------------------------- "Shrink image on Read" ---
+#
+# Every image below puts a recognizable ASCII tag in each region that matters,
+# rather than leaving it zero: a region "Shrink image on Read" must drop and
+# one it must instead preserve would otherwise both read back the same way if
+# the shrink got it wrong. Comparing the shrunk output against these tags
+# (not just its size) is what actually catches a gap left in, or -- worse --
+# real data left out.
+#
+# None of these are also built as .gz/.xz: they are the *device* content for a
+# Write, then a Read back with the box checked, not an image opened straight
+# by ImageSource the way the raw/gz/xz sets above are.
+
+# fill_pattern PATH OFFSET_BYTES LEN_BYTES TAG
+fill_pattern() {
+    local path=$1 off=$2 len=$3 tag=$4
+    python3 - "$path" "$off" "$len" "$tag" <<'EOF'
+import sys
+path, off, length, tag = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4].encode()
+buf = (tag * (length // len(tag) + 1))[:length]
+with open(path, "r+b") as f:
+    f.seek(off)
+    f.write(buf)
+EOF
+}
+
+# write_fat_part DISKPATH OFFSET_SECTORS SIZE_SECTORS LABEL -- formats a FAT
+# volume of SIZE_SECTORS holding README.TXT and PATTERN.BIN, and drops it into
+# DISKPATH at OFFSET_SECTORS, the same way make_base() does for the plain sets.
+write_fat_part() {
+    local disk=$1 off=$2 sectors=$3 label=$4
+    local blob="$WORK/${label}.part"
+    rm -f "$blob"
+    truncate -s $(( sectors * 512 )) "$blob"
+    mkfs.vfat -n "$label" "$blob" >/dev/null
+    MTOOLS_SKIP_CHECK=1 mcopy -i "$blob" "$WORK/README.TXT" "$WORK/PATTERN.BIN" ::
+    dd if="$blob" of="$disk" bs=512 seek="$off" conv=notrunc status=none
+}
+
+# check_firstusablelba PATH WANT -- same check make_gpt_image() does, read
+# back out of the header rather than trusted from what was asked for.
+check_firstusablelba() {
+    local path=$1 want=$2 got
+    got=$(python3 "$REPO/tools/gptdump.py" "$path" \
+          | sed -n 's/^ *FirstUsableLBA *//p' | head -1)
+    if [ "$got" != "$want" ]; then
+        echo "error: ${path##*/} wanted FirstUsableLBA $want, got '${got:-none}'" >&2
+        exit 1
+    fi
+}
+
+# make_shrink_mbr_image PATH
+#
+# 200 MB MBR disk: 50 MB unpartitioned, a 100 MB FAT partition, then another
+# 50 MB unpartitioned. An MBR has no FirstUsableLBA-like anchor to repack
+# against, so "Shrink image on Read" only trims the trailing gap -- the front
+# one is expected to survive untouched.
+make_shrink_mbr_image() {
+    local path=$1
+    local sector=512
+    local gap_sectors=$(( 50 * 1048576 / sector ))    # 102400
+    local part_sectors=$(( 100 * 1048576 / sector ))  # 204800
+    local part_start=$gap_sectors
+    local total_sectors=$(( part_start + part_sectors + gap_sectors ))
+
+    rm -f "$path"
+    truncate -s $(( total_sectors * sector )) "$path"
+    sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
+label: dos
+start=$part_start, size=$part_sectors, type=e, bootable
+EOF
+    write_fat_part "$path" "$part_start" "$part_sectors" SHRINKMBR
+
+    # Sector 0 carries the MBR itself; the fillable front gap starts at 1.
+    fill_pattern "$path" "$sector" $(( (part_start - 1) * sector )) \
+        "FRONT-GAP-MUST-SURVIVE-MBR-SHRINK "
+    local back_off=$(( (part_start + part_sectors) * sector ))
+    fill_pattern "$path" "$back_off" $(( gap_sectors * sector )) \
+        "BACK-GAP-MUST-BE-DROPPED-BY-SHRINK "
+}
+
+# make_shrink_gpt_image PATH
+#
+# 200-ish MB GPT disk, default FirstUsableLBA (34): a 50 MB gap, a 100 MB FAT
+# partition, then another 50 MB gap before the backup GPT. Both gaps must be
+# gone, and the backup GPT relocated right after the partition, once "Shrink
+# image on Read" has run. The partition start (102434) is not a multiple of
+# 8 sectors, so this also exercises the 4Kn-alignment repacking, not just
+# gap removal.
+make_shrink_gpt_image() {
+    local path=$1
+    local sector=512
+    local front_reserved=34        # protective MBR + primary header + entries
+    local backup_reserved=33       # backup entries (32) + backup header (1)
+    local gap_sectors=$(( 50 * 1048576 / sector ))    # 102400
+    local part_sectors=$(( 100 * 1048576 / sector ))  # 204800
+    local part_start=$(( front_reserved + gap_sectors ))
+    local total_sectors=$(( part_start + part_sectors + gap_sectors + backup_reserved ))
+
+    rm -f "$path"
+    truncate -s $(( total_sectors * sector )) "$path"
+    sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
+label: gpt
+start=$part_start, size=$part_sectors, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="SHRINKGPT"
+EOF
+    write_fat_part "$path" "$part_start" "$part_sectors" SHRINKGPT
+
+    fill_pattern "$path" $(( front_reserved * sector )) $(( gap_sectors * sector )) \
+        "GAP-BEFORE-PARTITION-MUST-BE-DROPPED "
+    local back_off=$(( (part_start + part_sectors) * sector ))
+    fill_pattern "$path" "$back_off" $(( gap_sectors * sector )) \
+        "GAP-AFTER-PARTITION-MUST-BE-DROPPED "
+
+    check_firstusablelba "$path" "$front_reserved"
+}
+
+# make_shrink_gpt_reserved_image PATH
+#
+# Same idea, but FirstUsableLBA is raised to 65536 (32 MiB), the way rk3588
+# and similar boards reserve room for idbloader/U-Boot ahead of the first
+# partition (see the GPT pair above). That reserved span is stamped and must
+# survive a shrink completely unchanged -- it is not a gap, and nothing here
+# should treat it like one. A further 20 MB gap between the reserved span and
+# the partition, and another 20 MB before the backup GPT, must both still be
+# dropped: an elevated FirstUsableLBA does not make the ordinary gaps around
+# it any less removable.
+make_shrink_gpt_reserved_image() {
+    local path=$1
+    local sector=512
+    local firstusable=65536        # 32 MiB reserved, e.g. for U-Boot
+    local backup_reserved=33
+    local gap_sectors=$(( 20 * 1048576 / sector ))    # 40960
+    local part_sectors=$(( 100 * 1048576 / sector ))  # 204800
+    local part_start=$(( firstusable + gap_sectors ))
+    local total_sectors=$(( part_start + part_sectors + gap_sectors + backup_reserved ))
+
+    rm -f "$path"
+    truncate -s $(( total_sectors * sector )) "$path"
+    sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
+label: gpt
+first-lba: $firstusable
+start=$part_start, size=$part_sectors, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="SHRINKRSV"
+EOF
+    write_fat_part "$path" "$part_start" "$part_sectors" SHRINKRSV
+
+    # [34, firstusable): the reserved span itself -- must be copied verbatim.
+    fill_pattern "$path" $(( 34 * sector )) $(( (firstusable - 34) * sector )) \
+        "RESERVED-BOOTLOADER-DATA-MUST-SURVIVE "
+    # [firstusable, part_start): an ordinary gap despite the elevated
+    # FirstUsableLBA -- must still be dropped.
+    fill_pattern "$path" $(( firstusable * sector )) $(( gap_sectors * sector )) \
+        "GAP-AFTER-RESERVED-MUST-BE-DROPPED "
+    local back_off=$(( (part_start + part_sectors) * sector ))
+    fill_pattern "$path" "$back_off" $(( gap_sectors * sector )) \
+        "TAIL-GAP-MUST-BE-DROPPED "
+
+    check_firstusablelba "$path" "$firstusable"
+}
+
+# make_shrink_gpt_tight_image PATH
+#
+# Default FirstUsableLBA, one partition that already runs from FirstUsableLBA
+# to the sector before the backup GPT: there is no gap anywhere left to
+# remove. Checking "Shrink image on Read" against this image should read it
+# in full, byte for byte, exactly as if the box had been left unchecked --
+# the negative case for the four images above.
+make_shrink_gpt_tight_image() {
+    local path=$1
+    local sector=512
+    local front_reserved=34
+    local backup_reserved=33
+    local part_sectors=$(( 100 * 1048576 / sector ))
+    local part_start=$front_reserved
+    local total_sectors=$(( part_start + part_sectors + backup_reserved ))
+
+    rm -f "$path"
+    truncate -s $(( total_sectors * sector )) "$path"
+    sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
+label: gpt
+start=$part_start, size=$part_sectors, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="SHRINKTIGHT"
+EOF
+    write_fat_part "$path" "$part_start" "$part_sectors" SHRTIGHT
+
+    check_firstusablelba "$path" "$front_reserved"
+}
+
+# make_shrink_gpt_multi_image PATH
+#
+# Three partitions rather than one, with a gap ahead of each of the first two
+# and none after the last (the trailing case is already covered above) --
+# "between partitions" is what a single-partition image cannot exercise.
+# Every start is deliberately not a multiple of 8 sectors (4 KiB), so a
+# repack that failed to realign a partition would still move the right bytes
+# to the right place while landing it on the wrong boundary. No filesystems:
+# with three partitions and three gaps this is about the repacking math, so
+# each region gets its own stamp instead.
+make_shrink_gpt_multi_image() {
+    local path=$1
+    local sector=512
+    local front_reserved=34
+    local backup_reserved=33
+    local gap1=100003 gap2=50007
+    local p1=204801 p2=102403 p3=153607
+    local p1_start=$(( front_reserved + gap1 ))
+    local p2_start=$(( p1_start + p1 + gap2 ))
+    local p3_start=$(( p2_start + p2 ))
+    local total_sectors=$(( p3_start + p3 + backup_reserved ))
+
+    rm -f "$path"
+    truncate -s $(( total_sectors * sector )) "$path"
+    sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
+label: gpt
+start=$p1_start, size=$p1, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="PART1"
+start=$p2_start, size=$p2, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="PART2"
+start=$p3_start, size=$p3, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="PART3"
+EOF
+    fill_pattern "$path" $(( front_reserved * sector )) $(( gap1 * sector )) \
+        "GAP1-BEFORE-PART1-MUST-BE-DROPPED "
+    fill_pattern "$path" $(( p1_start * sector )) $(( p1 * sector )) "PART1-DATA "
+    fill_pattern "$path" $(( (p1_start + p1) * sector )) $(( gap2 * sector )) \
+        "GAP2-BETWEEN-PART1-AND-PART2-MUST-BE-DROPPED "
+    fill_pattern "$path" $(( p2_start * sector )) $(( p2 * sector )) "PART2-DATA "
+    fill_pattern "$path" $(( p3_start * sector )) $(( p3 * sector )) "PART3-DATA "
+
+    check_firstusablelba "$path" "$front_reserved"
+}
+
+echo "building the shrink-on-read set"
+make_shrink_mbr_image          "$OUTDIR/test-shrink-mbr.img"
+make_shrink_gpt_image          "$OUTDIR/test-shrink-gpt.img"
+make_shrink_gpt_reserved_image "$OUTDIR/test-shrink-gpt-reserved.img"
+make_shrink_gpt_tight_image    "$OUTDIR/test-shrink-gpt-tight.img"
+make_shrink_gpt_multi_image    "$OUTDIR/test-shrink-gpt-multi.img"
+
 # ------------------------------------------------------------ >4 GiB pair ---
 
 if [ "$WITH_HUGE" = 1 ]; then
@@ -362,6 +596,50 @@ the GPT pair, for the Windows GPT rewrite bug -- no filesystem, only a table
                                With the option OFF the warning should say this
                                image is NOT affected. Nothing else differs.
 
+for "Shrink image on Read" -- write one of these to a device (or attach it
+directly), then Read it back with the box checked. Every gap and every
+region that must survive is stamped with its own ASCII tag rather than left
+zero, so diffing the shrunk output against the original catches a gap left
+in, or real data left out, that comparing sizes alone would miss.
+  test-shrink-mbr.img          MBR: 50 MB gap, 100 MB FAT partition, 50 MB gap.
+                               An MBR has no FirstUsableLBA to repack against,
+                               so only the trailing gap should be gone -- the
+                               front one (tag FRONT-GAP-MUST-SURVIVE-...) is
+                               expected to remain. Shrunk size: ~150 MB.
+  test-shrink-gpt.img          GPT, default FirstUsableLBA: 50 MB gap, 100 MB
+                               FAT partition, 50 MB gap, backup GPT. Both gaps
+                               (tagged ...-MUST-BE-DROPPED) should be gone and
+                               the backup GPT relocated right after the
+                               partition. The partition also does not start on
+                               a 4Kn boundary, so this exercises the alignment
+                               repacking as well as gap removal. Shrunk size:
+                               ~100 MB plus one entry-array-and-header's worth
+                               of sectors.
+  test-shrink-gpt-reserved.img GPT, FirstUsableLBA raised to 65536 (32 MiB), as
+                               rk3588 and similar boards reserve for U-Boot.
+                               The reserved span itself (tagged
+                               RESERVED-BOOTLOADER-DATA-MUST-SURVIVE) must
+                               come through byte for byte; the 20 MB gap after
+                               it and the 20 MB gap before the backup GPT
+                               (both tagged ...-MUST-BE-DROPPED) must not.
+  test-shrink-gpt-tight.img    GPT, one partition already spanning from
+                               FirstUsableLBA to the backup GPT: nothing to
+                               shrink anywhere. Checking the box against this
+                               image should read it back in full and byte for
+                               byte identical, the same as leaving it
+                               unchecked -- the negative case for the three
+                               images above.
+  test-shrink-gpt-multi.img    GPT, three partitions with a gap ahead of each
+                               of the first two (tags GAP1-.../GAP2-...) and
+                               none after the last -- "between partitions",
+                               which a single-partition image cannot exercise.
+                               No start is on a 4Kn boundary. Geometry only,
+                               no filesystems (each partition is instead
+                               filled with its own PART<n>-DATA tag), so
+                               checking this one is a matter of confirming
+                               each tag ends up contiguous and in order, not
+                               mounting anything.
+
 should fail with a clear error, and not report a half-written device as good
   test-truncated.img.gz        gzip stream cut off partway
   test-truncated.img.xz        xz stream cut off partway
@@ -390,6 +668,13 @@ card is old data, not the end of what was written:
 The marker there is ENDOFIMAGE-... for every image except test-unaligned.*,
 whose final sector is the short one and reads TAIL-511-BYTES-NOT-A-FULL-SECTOR
 followed by zero padding.
+
+"Read to .img.gz" / "Read to .img.xz" apply to any Read, shrunk or not -- there
+is no separate fixture for them. After a shrink run above (or a plain one),
+repeat it with one of the compression boxes checked and confirm the result is
+the correctly-named file (a "bob.img" target becomes bob.img.gz/.img.xz) and
+opens back up as the same content, e.g. via test-shrink-gpt.img and:
+  gzip -t bob.img.gz && xz -t bob.img.xz
 EOF
 
 echo
