@@ -448,6 +448,7 @@ make_shrink_gpt_image() {
     truncate -s $(( total_sectors * sector )) "$path"
     sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
 label: gpt
+first-lba: $front_reserved
 start=$part_start, size=$part_sectors, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="SHRINKGPT"
 EOF
     write_fat_part "$path" "$part_start" "$part_sectors" SHRINKGPT
@@ -524,6 +525,7 @@ make_shrink_gpt_tight_image() {
     truncate -s $(( total_sectors * sector )) "$path"
     sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
 label: gpt
+first-lba: $front_reserved
 start=$part_start, size=$part_sectors, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="SHRINKTIGHT"
 EOF
     write_fat_part "$path" "$part_start" "$part_sectors" SHRTIGHT
@@ -557,6 +559,7 @@ make_shrink_gpt_multi_image() {
     truncate -s $(( total_sectors * sector )) "$path"
     sfdisk --quiet --wipe always "$path" >/dev/null <<EOF
 label: gpt
+first-lba: $front_reserved
 start=$p1_start, size=$p1, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="PART1"
 start=$p2_start, size=$p2, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="PART2"
 start=$p3_start, size=$p3, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, name="PART3"
