@@ -13,7 +13,7 @@
     </message>
     <message>
         <source>Win Disk Imager</source>
-        <translation>Win Disk Imager</translation>
+        <translation type="vanished">Win Disk Imager</translation>
     </message>
     <message>
         <source>Verify</source>
@@ -44,8 +44,16 @@
         <translation>Comprime l&apos;immagine letta dal dispositivo con xz</translation>
     </message>
     <message>
+        <source>Exit WinDiskImager</source>
+        <translation>Esci da WinDiskImager</translation>
+    </message>
+    <message>
         <source>Check GPT</source>
         <translation>Controlla GPT</translation>
+    </message>
+    <message>
+        <source>WinDiskImager</source>
+        <translation>WinDiskImager</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
@@ -69,7 +77,7 @@
     </message>
     <message>
         <source>Exit Win Disk Imager</source>
-        <translation>Esci da Win Disk Imager</translation>
+        <translation type="vanished">Esci da Win Disk Imager</translation>
     </message>
     <message>
         <source>Exit</source>

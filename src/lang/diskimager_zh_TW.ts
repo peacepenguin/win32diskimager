@@ -48,8 +48,12 @@
         <translation>使用 xz 壓縮從裝置讀取的映像檔</translation>
     </message>
     <message>
+        <source>Exit WinDiskImager</source>
+        <translation>離開 WinDiskImager</translation>
+    </message>
+    <message>
         <source>Exit Win Disk Imager</source>
-        <translation>離開 Win 磁碟映像檔工具</translation>
+        <translation type="vanished">離開 Win 磁碟映像檔工具</translation>
     </message>
     <message>
         <source>Check GPT</source>
@@ -57,7 +61,7 @@
     </message>
     <message>
         <source>Win Disk Imager</source>
-        <translation>Win 磁碟映像檔工具</translation>
+        <translation type="vanished">Win 磁碟映像檔工具</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
@@ -102,6 +106,10 @@
     <message>
         <source>Show all devices</source>
         <translation>顯示所有裝置</translation>
+    </message>
+    <message>
+        <source>WinDiskImager</source>
+        <translation>WinDiskImager</translation>
     </message>
     <message>
         <source>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</source>

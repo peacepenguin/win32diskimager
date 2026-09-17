@@ -1,4 +1,4 @@
-# Win Disk Imager
+# WinDiskImager
 
 Reads and writes raw disk images to any Windows block storage device: USB flash
 drive, SD card, SATA, NVMe, mounted VHDX, drive enclosure. Run it as
@@ -119,8 +119,8 @@ points elsewhere.
 ## About this fork
 
 This is a fork of Win32DiskImager (upstream: the ImageWriter project),
-not affiliated with it or its maintainers. It carries its own name, Win Disk
-Imager, so a build of this fork is never mistaken for one of upstream's;
+not affiliated with it or its maintainers. It carries its own name,
+WinDiskImager, so a build of this fork is never mistaken for one of upstream's;
 upstream did not write the changes described here and cannot support them -
 report anything you hit at
 [github.com/peacepenguin/win32diskimager](https://github.com/peacepenguin/win32diskimager/issues),

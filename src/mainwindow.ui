@@ -23,7 +23,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>Win Disk Imager</string>
+   <string>WinDiskImager</string>
   </property>
   <property name="windowIcon">
    <iconset resource="gui_icons.qrc">
@@ -514,7 +514,7 @@
          </sizepolicy>
         </property>
         <property name="statusTip">
-         <string>Exit Win Disk Imager</string>
+         <string>Exit WinDiskImager</string>
         </property>
         <property name="text">
          <string>Exit</string>

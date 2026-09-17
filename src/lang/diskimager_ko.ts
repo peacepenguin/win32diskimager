@@ -48,8 +48,12 @@
         <translation>장치에서 읽은 이미지를 xz로 압축합니다</translation>
     </message>
     <message>
+        <source>Exit WinDiskImager</source>
+        <translation>WinDiskImager 종료</translation>
+    </message>
+    <message>
         <source>Exit Win Disk Imager</source>
-        <translation>Win 디스크 이미저 종료</translation>
+        <translation type="vanished">Win 디스크 이미저 종료</translation>
     </message>
     <message>
         <source>Check GPT</source>
@@ -57,7 +61,7 @@
     </message>
     <message>
         <source>Win Disk Imager</source>
-        <translation>Win 디스크 이미저</translation>
+        <translation type="vanished">Win 디스크 이미저</translation>
     </message>
     <message>
         <source>Check the currently selected device for GPT corruption and offer to repair it.</source>
@@ -102,6 +106,10 @@
     <message>
         <source>Show all devices</source>
         <translation>모든 장치 표시</translation>
+    </message>
+    <message>
+        <source>WinDiskImager</source>
+        <translation>WinDiskImager</translation>
     </message>
     <message>
         <source>Also list fixed disks. Internal PCIe card readers often present the card as a non-removable device, which is otherwise hidden. The disk Windows is running from is never listed.</source>
