@@ -13,7 +13,7 @@ Every build lands in `build/`, whichever route it took.
 - **`tools/build.sh`** → `build/`
   - cmake and ninja against the native Qt
 - **`tools/deploy.sh`** → `dist/`
-  - `windeployqt6`, then `ntldd` for what it misses
+  - `windeployqt6`, then `objdump` for what it misses
 - **`tools/gpttest.sh`** → pass or fail
   - builds the harness in `tools/gpttest/`, which links the real
     `src/disk.cpp`, and runs it
@@ -360,8 +360,8 @@ shipped.
 The two deploy scripts are deliberately parallel — same files copied in, same Qt
 plugin groups, same trimming of Qt's translations, same iterate-until-stable DLL
 closure, same refusal to package a test build. They differ only where the
-platform forces it: `windeployqt6` and `ntldd` on Windows against a hand-rolled
-copy and `objdump -p` on Linux, and `deploy.sh` empties `dist/` in place rather
+platform forces it: `windeployqt6` and `objdump` on Windows against a hand-rolled
+copy, and `objdump -p` on Linux, and `deploy.sh` empties `dist/` in place rather
 than deleting it, because Explorer locks the directory node on Windows.
 
 `windeployqt` cannot run on Linux at all, being a Windows binary, which is why
