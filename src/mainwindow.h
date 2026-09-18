@@ -38,6 +38,7 @@
 
 class ImageSource;
 class LockedVolumes;
+struct PartitionInfo;
 
 class MainWindow : public QMainWindow, public Ui::MainWindow
 {
@@ -73,6 +74,9 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
         // the other. See mainwindow.cpp.
         void on_readGzCheckBox_toggled(bool checked);
         void on_readXzCheckBox_toggled(bool checked);
+        // Checking this always implies "Shrink image on Read" too; see
+        // mainwindow.cpp.
+        void on_choosePartitionsCheckBox_toggled(bool checked);
 private slots:
         void on_cboxHashType_IdxChg();
         void on_bHashGen_clicked();
@@ -114,6 +118,11 @@ private:
         // Scans the part of an image that will not fit; see mainwindow.cpp.
         bool imageTailHasData(ImageSource &image, unsigned long long from,
                               unsigned long long to, bool *datafound);
+        // Lists partitions and lets the user check which to include; see
+        // mainwindow.cpp. Returns false if the user canceled.
+        bool choosePartitionsDialog(const QList<PartitionInfo> &partitions,
+                                    unsigned long long sectorsize,
+                                    QList<int> *excluded);
 
         HANDLE hFile;
         HANDLE hRawDisk;

@@ -48,6 +48,14 @@
         <translation>Komprimiert das vom Gerät gelesene Image mit xz</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>Zu lesende Partitionen auswählen</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>Listet vor dem Lesen die Partitionen des Datenträgers auf und lässt auswählen, welche einbezogen werden. Alles Ausgelassene wird aus dem Image entfernt, genau wie nicht partitionierter Speicherplatz -- dies verkleinert das Image immer, unabhängig davon, ob „Image beim Lesen verkleinern“ auch aktiviert ist.</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>WinDiskImager beenden</translation>
     </message>
@@ -772,6 +780,26 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 Entfernen Sie den Datenträger JETZT und stecken Sie ihn hier nicht wieder ein. Setzen Sie ihn direkt in die Zielhardware ein.</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>Partitionen auswählen</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>Wählen Sie, welche Partitionen im Image enthalten sein sollen. Alles nicht Angehakte wird entfernt, genau wie nicht partitionierter Speicherplatz.</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>Partition %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>Partition %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>Mindestens eine Partition muss angehakt bleiben.</translation>
+    </message>
+    <message>
         <source>Read Error</source>
         <translation>Lesefehler</translation>
     </message>
@@ -790,6 +818,14 @@ Entfernen Sie den Datenträger JETZT und stecken Sie ihn hier nicht wieder ein. 
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Sind Sie sicher, dass die angegebene Datei überschrieben werden soll?</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>Auf dem Datenträger wurde keine Partitionstabelle gefunden, daher gibt es nichts zur Auswahl. Der gesamte Datenträger wird gelesen.</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>Lesen abgebrochen.</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>

@@ -964,32 +964,40 @@ struct MbrSlot
     unsigned long long first, count;
 };
 
-bool planMbrShrink(HANDLE hRawDisk, unsigned long long sectorsize,
-                   unsigned long long devicesectors, unsigned long long alignsectors,
-                   PartitionShrinkPlan *plan, QString *detail)
+// Reads and validates sector 0 as an MBR (boot signature present). Returns
+// false, leaving *sector0 untouched, if the device is too small or the
+// signature is missing.
+static bool readValidMbr(HANDLE hRawDisk, unsigned long long sectorsize,
+                         unsigned long long devicesectors, QByteArray *sector0)
 {
-    if (sectorsize < 512 || devicesectors < 3 || alignsectors == 0)
+    if (sectorsize < 512 || devicesectors < 3)
     {
         return false;
     }
-
-    QByteArray sector0(sectorsize, 0);
-    unsigned char *mbr = (unsigned char *)sector0.data();
+    QByteArray sector(sectorsize, 0);
+    unsigned char *mbr = (unsigned char *)sector.data();
     if (!rawSeekRead(hRawDisk, 0ull, mbr, (DWORD)sectorsize)
         || mbr[510] != 0x55 || mbr[511] != 0xAA)
     {
         return false;
     }
+    *sector0 = sector;
+    return true;
+}
 
-    // Every in-use primary entry, by its slot in the table, in the order it
-    // currently starts -- the same packing order planGptShrink() uses, and
-    // for the same reason: nothing crosses over anything else. Only the four
-    // primary entries are looked at; extended/logical partitions are not.
-    QList<MbrSlot> order;
+// Every in-use primary entry in mbr's table, by slot, in the order it
+// currently starts on the device. Entries of type 0 (empty) and 0xEE
+// (protective GPT -- this MBR is not really the partition table for a disk
+// that has one) are both skipped; only the four primary entries are looked
+// at, extended/logical partitions are not. Returns false, via *detail, if an
+// entry describes a range that cannot be right.
+static bool walkMbrEntries(const unsigned char *mbr, unsigned long long devicesectors,
+                           QList<MbrSlot> *order, QString *detail)
+{
     for (int i = 0; i < 4; ++i)
     {
         const unsigned char *e = mbr + 446 + i * 16;
-        if (e[4] == 0)
+        if (e[4] == 0 || e[4] == 0xEE)
         {
             continue;
         }
@@ -1008,7 +1016,75 @@ bool planMbrShrink(HANDLE hRawDisk, unsigned long long sectorsize,
         s.idx = i;
         s.first = start;
         s.count = count;
-        order.append(s);
+        order->append(s);
+    }
+    return true;
+}
+
+bool listMbrPartitions(HANDLE hRawDisk, unsigned long long sectorsize,
+                       unsigned long long devicesectors,
+                       QList<PartitionInfo> *partitions, QString *detail)
+{
+    QByteArray sector0;
+    if (!readValidMbr(hRawDisk, sectorsize, devicesectors, &sector0))
+    {
+        return false;
+    }
+    const unsigned char *mbr = (const unsigned char *)sector0.constData();
+
+    QList<MbrSlot> order;
+    if (!walkMbrEntries(mbr, devicesectors, &order, detail))
+    {
+        return false;
+    }
+
+    partitions->clear();
+    for (const MbrSlot &s : order)
+    {
+        PartitionInfo info;
+        info.slot = s.idx;
+        info.sectors = s.count;
+        partitions->append(info);
+    }
+    return true;
+}
+
+bool planMbrShrink(HANDLE hRawDisk, unsigned long long sectorsize,
+                   unsigned long long devicesectors, unsigned long long alignsectors,
+                   PartitionShrinkPlan *plan, QString *detail,
+                   const QList<int> *excludeSlots)
+{
+    if (alignsectors == 0)
+    {
+        return false;
+    }
+
+    QByteArray sector0;
+    if (!readValidMbr(hRawDisk, sectorsize, devicesectors, &sector0))
+    {
+        return false;
+    }
+    unsigned char *mbr = (unsigned char *)sector0.data();
+
+    // Every in-use primary entry, by its slot in the table, in the order it
+    // currently starts -- the same packing order planGptShrink() uses, and
+    // for the same reason: nothing crosses over anything else. Only the four
+    // primary entries are looked at; extended/logical partitions are not.
+    QList<MbrSlot> order;
+    if (!walkMbrEntries(mbr, devicesectors, &order, detail))
+    {
+        return false;
+    }
+    if (excludeSlots)
+    {
+        for (int i = order.size() - 1; i >= 0; --i)
+        {
+            if (excludeSlots->contains(order[i].idx))
+            {
+                memset(mbr + 446 + order[i].idx * 16, 0, 16);
+                order.removeAt(i);
+            }
+        }
     }
     if (order.isEmpty())
     {
@@ -1054,11 +1130,17 @@ bool planMbrShrink(HANDLE hRawDisk, unsigned long long sectorsize,
     return true;
 }
 
-bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
-                   unsigned long long devicesectors, unsigned long long alignsectors,
-                   PartitionShrinkPlan *plan, QString *detail)
+// Reads and validates the primary GPT header and its entry array. On
+// success every out parameter describes the table as found on the device;
+// on failure they are untouched and, when given, *detail explains why.
+static bool readValidGpt(HANDLE hRawDisk, unsigned long long sectorsize,
+                         unsigned long long devicesectors, QByteArray *primaryOut,
+                         QByteArray *entriesOut, unsigned long long *entrylbaOut,
+                         unsigned long long *entrysectorsOut, unsigned long long *numentriesOut,
+                         unsigned long long *entrysizeOut, unsigned long long *firstusableOut,
+                         QString *detail)
 {
-    if (sectorsize < 512 || devicesectors < 96 || alignsectors == 0)
+    if (sectorsize < 512 || devicesectors < 96)
     {
         return false;
     }
@@ -1126,17 +1208,102 @@ bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
         return false;
     }
 
+    *primaryOut = primary;
+    *entriesOut = entries;
+    *entrylbaOut = entrylba;
+    *entrysectorsOut = entrysectors;
+    *numentriesOut = numentries;
+    *entrysizeOut = entrysize;
+    *firstusableOut = firstusable;
+    return true;
+}
+
+// The partition name from a GPT entry (UTF-16LE, 36 code units, offset 56),
+// truncated at the first NUL.
+static QString gptEntryName(const unsigned char *e)
+{
+    QString name = QString::fromUtf16(reinterpret_cast<const char16_t *>(e + 56), 36);
+    int nul = name.indexOf(QChar(0));
+    if (nul >= 0)
+    {
+        name.truncate(nul);
+    }
+    return name;
+}
+
+bool listGptPartitions(HANDLE hRawDisk, unsigned long long sectorsize,
+                       unsigned long long devicesectors,
+                       QList<PartitionInfo> *partitions, QString *detail)
+{
+    QByteArray primary, entries;
+    unsigned long long entrylba, entrysectors, numentries, entrysize, firstusable;
+    if (!readValidGpt(hRawDisk, sectorsize, devicesectors, &primary, &entries,
+                      &entrylba, &entrysectors, &numentries, &entrysize, &firstusable, detail))
+    {
+        return false;
+    }
+
+    partitions->clear();
+    for (unsigned long long i = 0; i < numentries; ++i)
+    {
+        const unsigned char *e = (const unsigned char *)entries.constData() + i * entrysize;
+        if (!gptEntryInUse(e))
+        {
+            continue;
+        }
+        unsigned long long first = rd64(e, GPT_ENT_FIRSTLBA);
+        unsigned long long last  = rd64(e, GPT_ENT_LASTLBA);
+        if (last < first)
+        {
+            continue;
+        }
+        PartitionInfo info;
+        info.slot = (int)i;
+        info.sectors = last - first + 1;
+        info.name = gptEntryName(e);
+        partitions->append(info);
+    }
+    return true;
+}
+
+bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
+                   unsigned long long devicesectors, unsigned long long alignsectors,
+                   PartitionShrinkPlan *plan, QString *detail,
+                   const QList<int> *excludeSlots)
+{
+    if (alignsectors == 0)
+    {
+        return false;
+    }
+
+    QByteArray primary, entries;
+    unsigned long long entrylba, entrysectors, numentries, entrysize, firstusable;
+    if (!readValidGpt(hRawDisk, sectorsize, devicesectors, &primary, &entries,
+                      &entrylba, &entrysectors, &numentries, &entrysize, &firstusable, detail))
+    {
+        return false;
+    }
+    unsigned char *hdr = (unsigned char *)primary.data();
+    DWORD headersize = rd32(hdr, GPT_OFF_HEADERSIZE);
+    unsigned long long entrybytes = numentries * entrysize;
+
     // Every in-use partition, by its slot in the entry array, in the order it
     // currently starts -- packing follows that order, so nothing changes
     // relative to anything else, only the gaps between them disappear.
     QList<int> order;
     for (unsigned long long i = 0; i < numentries; ++i)
     {
-        const unsigned char *e = (const unsigned char *)entries.constData() + i * entrysize;
-        if (gptEntryInUse(e))
+        unsigned char *e = (unsigned char *)entries.data() + i * entrysize;
+        if (!gptEntryInUse(e))
         {
-            order.append((int)i);
+            continue;
         }
+        if (excludeSlots && excludeSlots->contains((int)i))
+        {
+            memset(e, 0, (size_t)entrysize);
+            continue;
+        }
+        order.append((int)i);
     }
     if (order.isEmpty())
     {

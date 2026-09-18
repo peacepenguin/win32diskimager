@@ -262,9 +262,15 @@ struct PartitionShrinkPlan
 // of any real sector or erase-block size, 4Kn included). Returns false, with
 // *plan untouched, if the device holds no usable GPT, a partition's range
 // makes no sense, or there is nothing to gain by repacking.
+// excludeSlots, when given, is the set of partition slots (GPT entry index,
+// or MBR primary entry index 0-3) to leave out of the repacked image
+// entirely -- its table entry is zeroed and its data is not copied, exactly
+// as if that space had never been partitioned. Passing NULL keeps every
+// in-use partition, matching the old behavior.
 bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
                    unsigned long long devicesectors, unsigned long long alignsectors,
-                   PartitionShrinkPlan *plan, QString *detail);
+                   PartitionShrinkPlan *plan, QString *detail,
+                   const QList<int> *excludeSlots = NULL);
 
 // The same idea for a legacy MBR: every unpartitioned gap goes -- after the
 // boot sector and before the first partition, between partitions, and after
@@ -273,10 +279,35 @@ bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
 // There being no backup table to build, plan->backupregion is left empty and
 // plan->backupsectors 0. Returns false, with *plan untouched, if the device
 // holds no MBR, an entry describes an impossible range, or there is nothing
-// to gain by repacking.
+// to gain by repacking. See planGptShrink() for excludeSlots.
 bool planMbrShrink(HANDLE hRawDisk, unsigned long long sectorsize,
                    unsigned long long devicesectors, unsigned long long alignsectors,
-                   PartitionShrinkPlan *plan, QString *detail);
+                   PartitionShrinkPlan *plan, QString *detail,
+                   const QList<int> *excludeSlots = NULL);
+
+// One partition as offered to the user for "choose partitions to read":
+// its slot (GPT entry index, or MBR primary entry index 0-3, matching
+// excludeSlots above), its size, and its name where the table format
+// carries one (GPT only; empty for MBR).
+struct PartitionInfo
+{
+    int slot;
+    unsigned long long sectors;
+    QString name;
+};
+
+// List every in-use partition on a GPT device, in table order (not sorted
+// by start LBA, so the slot the user picks lines up with excludeSlots).
+// Returns false if the device holds no usable GPT.
+bool listGptPartitions(HANDLE hRawDisk, unsigned long long sectorsize,
+                       unsigned long long devicesectors,
+                       QList<PartitionInfo> *partitions, QString *detail);
+
+// The MBR equivalent of listGptPartitions(), over the four primary entries
+// only. Returns false if the device holds no usable MBR.
+bool listMbrPartitions(HANDLE hRawDisk, unsigned long long sectorsize,
+                       unsigned long long devicesectors,
+                       QList<PartitionInfo> *partitions, QString *detail);
 
 bool flushDevice(HANDLE handle);
 bool setDiskOffline(HANDLE handle, bool offline);

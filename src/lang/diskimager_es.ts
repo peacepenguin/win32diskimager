@@ -48,6 +48,14 @@
         <translation>Comprime la imagen leída del dispositivo con xz</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>Elegir particiones a leer</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>Antes de leer, muestra las particiones del dispositivo y permite elegir cuáles incluir. Todo lo que se deje fuera se elimina de la imagen, igual que el espacio sin particionar -- esto siempre reduce la imagen, esté o no marcada también la opción «Reducir imagen al leer».</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>Salir de WinDiskImager</translation>
     </message>
@@ -772,6 +780,26 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 Extraiga el dispositivo AHORA y no vuelva a insertarlo aquí. Colóquelo directamente en el hardware de destino.</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>Elegir particiones</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>Elija qué particiones incluir en la imagen. Todo lo que quede sin marcar se elimina, igual que el espacio sin particionar.</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>Partición %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>Partición %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>Al menos una partición debe permanecer marcada.</translation>
+    </message>
+    <message>
         <source>Read Error</source>
         <translation>Error de lectura</translation>
     </message>
@@ -790,6 +818,14 @@ Extraiga el dispositivo AHORA y no vuelva a insertarlo aquí. Colóquelo directa
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>¿Está seguro de que quiere sobrescribir el archivo especificado?</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>No se encontró ninguna tabla de particiones en el dispositivo, así que no hay nada para elegir. Se leerá el dispositivo completo.</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>Lectura cancelada.</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>

@@ -48,6 +48,14 @@
         <translation>சாதனத்திலிருந்து படிக்கப்பட்ட படிமத்தை xz கொண்டு அமுக்குகிறது</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>படிக்க வேண்டிய பகிர்வுகளைத் தேர்வுசெய்</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>படிப்பதற்கு முன், சாதனத்தின் பகிர்வுகளைப் பட்டியலிட்டு, சேர்க்க வேண்டியவற்றைத் தேர்வுசெய்ய அனுமதிக்கிறது. விடுபட்டவை படிமத்திலிருந்து அகற்றப்படும், பகிரப்படாத இடம் போலவே -- "படித்தல் நேரத்தில் படிமத்தைச் சுருக்கு" தேர்வு செய்யப்பட்டிருந்தாலும் இல்லாவிட்டாலும், இது எப்போதும் படிமத்தைச் சுருக்கும்.</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>WinDiskImager-இலிருந்து வெளியேறு</translation>
     </message>
@@ -521,6 +529,26 @@ Continue Anyway?</source>
         <translation>பயன்படுத்த வேண்டிய படிமக் கோப்பைக் குறிப்பிடவும்.</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>பகிர்வுகளைத் தேர்வுசெய்</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>படிமத்தில் சேர்க்க வேண்டிய பகிர்வுகளைத் தேர்வுசெய். தேர்வு செய்யப்படாதவை, பகிரப்படாத இடம் போலவே அகற்றப்படும்.</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>பகிர்வு %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>பகிர்வு %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>குறைந்தது ஒரு பகிர்வு தேர்வு செய்யப்பட்டிருக்க வேண்டும்.</translation>
+    </message>
+    <message>
         <source>Read Error</source>
         <translation>படிப்பதில் பிழை</translation>
     </message>
@@ -720,6 +748,14 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension, or check &quot;Read to .img.gz&quot; or &quot;Read to .img.xz&quot;.</source>
         <translation>படிமங்களை அமுக்கப்படாமல் மட்டுமே மீண்டும் படிக்க முடியும். .gz அல்லது .xz நீட்டிப்பு இல்லாத கோப்புப் பெயரைத் தேர்ந்தெடுக்கவும், அல்லது &quot;.img.gz ஆகப் படி&quot; அல்லது &quot;.img.xz ஆகப் படி&quot; எனத் தேர்வுசெய்க.</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>சாதனத்தில் பகிர்வு அட்டவணை எதுவும் கண்டறியப்படவில்லை, எனவே தேர்வு செய்ய எதுவும் இல்லை. முழு சாதனமும் படிக்கப்படும்.</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>படித்தல் ரத்து செய்யப்பட்டது.</translation>
     </message>
     <message>
         <source>Verify cancelled.</source>

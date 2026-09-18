@@ -48,6 +48,14 @@
         <translation>使用 xz 压缩从设备读取的映像</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>选择要读取的分区</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>在读取之前列出设备的分区，供选择要包含哪些分区。未包含的分区将从映像中移除，与未分区空间一样 -- 无论是否同时勾选了"读取时缩小映像"，这都会缩小映像。</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>退出 WinDiskImager</translation>
     </message>
@@ -792,6 +800,26 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 请立即移除设备，不要再插入本机。直接插入目标硬件。</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>选择分区</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>选择要包含在映像中的分区。未勾选的分区将被移除，与未分区空间一样。</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>分区 %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>分区 %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>必须至少保留一个分区处于勾选状态。</translation>
+    </message>
+    <message>
         <source>Read Error</source>
         <translation>读取错误</translation>
     </message>
@@ -810,6 +838,14 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>确认覆盖已存在的文件?</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>在设备上未找到分区表，因此没有可供选择的内容。将读取整个设备。</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>读取已取消。</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>

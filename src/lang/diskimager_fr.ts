@@ -48,6 +48,14 @@
         <translation>Compresse l&apos;image lue depuis le périphérique avec xz</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>Choisir les partitions à lire</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>Avant la lecture, affiche les partitions du périphérique et permet de choisir lesquelles inclure. Tout ce qui est laissé de côté est retiré de l&apos;image, comme l&apos;espace non partitionné -- cela réduit toujours l&apos;image, que « Réduire l&apos;image à la lecture » soit également cochée ou non.</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>Fermer WinDiskImager</translation>
     </message>
@@ -772,6 +780,26 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 Retirez le périphérique MAINTENANT et ne le réinsérez pas ici. Placez-le directement dans le matériel cible.</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>Choisir les partitions</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>Choisissez les partitions à inclure dans l&apos;image. Tout ce qui reste décoché est retiré, comme l&apos;espace non partitionné.</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>Partition %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>Partition %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>Au moins une partition doit rester cochée.</translation>
+    </message>
+    <message>
         <source>Read Error</source>
         <translation>Erreur de lecture</translation>
     </message>
@@ -790,6 +818,14 @@ Retirez le périphérique MAINTENANT et ne le réinsérez pas ici. Placez-le dir
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Voulez-vous vraiment écraser le fichier spécifié ?</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>Aucune table de partitions n&apos;a été trouvée sur le périphérique, il n&apos;y a donc rien à choisir. L&apos;intégralité du périphérique sera lue.</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>Lecture annulée.</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>

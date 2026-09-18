@@ -48,6 +48,14 @@
         <translation>장치에서 읽은 이미지를 xz로 압축합니다</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>읽을 파티션 선택</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>읽기 전에 장치의 파티션을 나열하고 포함할 항목을 선택합니다. 제외된 항목은 파티션되지 않은 공간과 마찬가지로 이미지에서 제거됩니다 -- "읽기 시 이미지 축소"가 선택되어 있는지 여부와 관계없이 항상 이미지를 축소합니다.</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>WinDiskImager 종료</translation>
     </message>
@@ -792,6 +800,26 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 지금 장치를 제거하고 이 컴퓨터에 다시 꽂지 마십시오. 대상 하드웨어에 바로 꽂으십시오.</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>파티션 선택</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>이미지에 포함할 파티션을 선택하세요. 선택하지 않은 항목은 파티션되지 않은 공간과 마찬가지로 제거됩니다.</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>파티션 %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>파티션 %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>적어도 하나의 파티션은 선택된 상태로 유지해야 합니다.</translation>
+    </message>
+    <message>
         <source>Read Error</source>
         <translation>읽기 오류</translation>
     </message>
@@ -810,6 +838,14 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>지정된 파일을 덮어쓰시겠습니까?</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>장치에서 파티션 테이블을 찾을 수 없어 선택할 항목이 없습니다. 전체 장치를 읽습니다.</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>읽기가 취소되었습니다.</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>

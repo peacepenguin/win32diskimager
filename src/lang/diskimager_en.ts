@@ -48,6 +48,14 @@
         <translation>Compress the Image Read from the Device with xz</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>Choose partitions to read</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>Exit WinDiskImager</translation>
     </message>
@@ -784,6 +792,26 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 Remove the device NOW and do not re-insert it here. Put it straight into the target hardware.</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>Choose Partitions</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>Partition %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>Partition %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>At least one partition must stay checked.</translation>
+    </message>
+    <message>
         <source>Read Error</source>
         <translation>Read Error</translation>
     </message>
@@ -802,6 +830,14 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Are you sure you want to overwrite the specified file?</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>Read canceled.</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>

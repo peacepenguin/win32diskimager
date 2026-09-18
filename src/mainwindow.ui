@@ -311,6 +311,22 @@
         </property>
        </widget>
           </item>
+          <item>
+       <widget class="QCheckBox" name="choosePartitionsCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Choose partitions to read</string>
+        </property>
+        <property name="toolTip">
+         <string>Before reading, list the Device's partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not "Shrink image on Read" is also checked.</string>
+        </property>
+       </widget>
+          </item>
          </layout>
         </item>
        </layout>

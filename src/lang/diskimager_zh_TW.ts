@@ -48,6 +48,14 @@
         <translation>使用 xz 壓縮從裝置讀取的映像檔</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>選擇要讀取的磁碟分割</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>讀取前先列出裝置的磁碟分割，供您選擇要納入哪些。未納入的部分會從映像檔中移除，與未分割空間相同 -- 無論是否同時勾選「讀取時縮小映像檔」，都一律會縮小映像檔。</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>離開 WinDiskImager</translation>
     </message>
@@ -792,6 +800,26 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 請立即移除裝置，不要再插入本機。直接插入目標硬體。</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>選擇磁碟分割</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>選擇要納入映像檔的磁碟分割。未勾選的部分會被移除，與未分割空間相同。</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>磁碟分割 %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>磁碟分割 %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>必須至少保留一個磁碟分割處於勾選狀態。</translation>
+    </message>
+    <message>
         <source>Read Error</source>
         <translation>讀取錯誤</translation>
     </message>
@@ -810,6 +838,14 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>您確定要覆寫指定的檔案嗎？</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>裝置上未找到磁碟分割表，因此沒有可供選擇的內容。將讀取整個裝置。</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>讀取已取消。</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>

@@ -48,6 +48,14 @@
         <translation>デバイスから読み取ったイメージを xz で圧縮します</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>読み取るパーティションを選択</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>読み取りの前に、デバイスのパーティションを一覧表示し、含めるものを選択できます。除外したものはイメージから取り除かれます。これは未パーティション領域と同様で、「読み取り時にイメージを縮小」がチェックされているかどうかにかかわらず、常にイメージを縮小します。</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>WinDiskImagerを終了</translation>
     </message>
@@ -792,6 +800,26 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 今すぐデバイスを取り外し、このパソコンに再挿入しないでください。そのまま対象のハードウェアに差し込んでください。</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>パーティションの選択</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>イメージに含めるパーティションを選択してください。チェックを外したものは、未パーティション領域と同様に取り除かれます。</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>パーティション %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>パーティション %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>少なくとも1つのパーティションはチェックしたままにしてください。</translation>
+    </message>
+    <message>
         <source>Read Error</source>
         <translation>読み込みエラー</translation>
     </message>
@@ -810,6 +838,14 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>ファイルを上書きしてもよろしいですか？</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>デバイスにパーティションテーブルが見つからなかったため、選択できるものがありません。デバイス全体を読み取ります。</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>読み取りをキャンセルしました。</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>

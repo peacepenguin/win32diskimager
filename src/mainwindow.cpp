@@ -401,6 +401,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     shrinkOnReadCheckBox->setChecked(false);
     readGzCheckBox->setChecked(false);
     readXzCheckBox->setChecked(false);
+    choosePartitionsCheckBox->setChecked(false);
     showAllDevicesCheckBox->setChecked(false);
     // After the "show all devices" state is set, which the filter reads.
     //
@@ -1221,6 +1222,91 @@ static QString volumeDirectoryFor(const QString &file)
     return dir;
 }
 
+static QString formatDeviceSize(unsigned long long bytes)
+{
+    // Card and stick capacities are quoted in powers of ten, so match that.
+    static const char *units[] = { "KB", "MB", "GB", "TB" };
+    double value = (double)bytes;
+    int unit = -1;
+    while (value >= 1000.0 && unit < 3)
+    {
+        value /= 1000.0;
+        ++unit;
+    }
+    if (unit < 0)
+    {
+        return QString("%1 B").arg(bytes);
+    }
+    return QString("%1 %2").arg(value, 0, 'f', (value < 10.0) ? 1 : 0).arg(units[unit]);
+}
+
+// Lists the device's partitions with a checkbox per entry, defaulting to all
+// checked, and lets the user uncheck the ones to leave out of the image.
+// Loops on an empty result rather than accepting it, since an image with no
+// partitions at all is never what "choose partitions" was for. Returns false
+// if the user cancels instead.
+bool MainWindow::choosePartitionsDialog(const QList<PartitionInfo> &partitions,
+                                        unsigned long long sectorsize,
+                                        QList<int> *excluded)
+{
+    QDialog dialog(this);
+    dialog.setWindowTitle(tr("Choose Partitions"));
+    QVBoxLayout *layout = new QVBoxLayout(&dialog);
+    layout->addWidget(new QLabel(
+        tr("Choose which partitions to include in the image. Anything left "
+           "unchecked is removed, the same as unpartitioned space."), &dialog));
+
+    QListWidget *list = new QListWidget(&dialog);
+    for (const PartitionInfo &p : partitions)
+    {
+        QString sizeStr = formatDeviceSize(p.sectors * sectorsize);
+        QString text = p.name.isEmpty()
+            ? tr("Partition %1 -- %2").arg(p.slot + 1).arg(sizeStr)
+            : tr("Partition %1 -- %2 -- %3").arg(p.slot + 1).arg(sizeStr).arg(p.name);
+        QListWidgetItem *item = new QListWidgetItem(text, list);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        item->setCheckState(Qt::Checked);
+        item->setData(Qt::UserRole, p.slot);
+    }
+    layout->addWidget(list);
+
+    QDialogButtonBox *buttons = new QDialogButtonBox(
+        QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    layout->addWidget(buttons);
+    connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+    for (;;)
+    {
+        if (dialog.exec() != QDialog::Accepted)
+        {
+            return false;
+        }
+        QList<int> excludeSlots;
+        int checkedCount = 0;
+        for (int i = 0; i < list->count(); ++i)
+        {
+            QListWidgetItem *item = list->item(i);
+            if (item->checkState() == Qt::Checked)
+            {
+                ++checkedCount;
+            }
+            else
+            {
+                excludeSlots.append(item->data(Qt::UserRole).toInt());
+            }
+        }
+        if (checkedCount == 0)
+        {
+            QMessageBox::warning(&dialog, tr("Choose Partitions"),
+                tr("At least one partition must stay checked."));
+            continue;
+        }
+        *excluded = excludeSlots;
+        return true;
+    }
+}
+
 void MainWindow::on_bRead_clicked()
 {
     QString myFile;
@@ -1358,7 +1444,7 @@ void MainWindow::on_bRead_clicked()
         // an error.
         bool shrinkPlanned = false;
         PartitionShrinkPlan shrinkPlan;
-        if (shrinkOnReadCheckBox->isChecked())
+        if (shrinkOnReadCheckBox->isChecked() || choosePartitionsCheckBox->isChecked())
         {
             QString detail;
             unsigned long long alignsectors = (sectorsize >= 1048576ull) ? 1ull : (1048576ull / sectorsize);
@@ -1366,8 +1452,56 @@ void MainWindow::on_bRead_clicked()
             {
                 alignsectors = 1ull;
             }
-            if (planGptShrink(hRawDisk, sectorsize, numsectors, alignsectors, &shrinkPlan, &detail)
-                || planMbrShrink(hRawDisk, sectorsize, numsectors, alignsectors, &shrinkPlan, &detail))
+
+            // Choosing partitions always implies repacking, whether or not
+            // "Shrink image on Read" is separately checked: excluding a
+            // partition has to remove it from the image, and the only
+            // machinery that does that is the shrink plan's exclude filter.
+            QList<int> excludeSlots;
+            bool haveSelection = false;
+            bool selectionIsGpt = false;
+            if (choosePartitionsCheckBox->isChecked())
+            {
+                QList<PartitionInfo> partitions;
+                QString listdetail;
+                selectionIsGpt = listGptPartitions(hRawDisk, sectorsize, numsectors, &partitions, &listdetail);
+                if (!selectionIsGpt)
+                {
+                    listMbrPartitions(hRawDisk, sectorsize, numsectors, &partitions, &listdetail);
+                }
+                if (partitions.isEmpty())
+                {
+                    QMessageBox::information(this, tr("Choose Partitions"),
+                        tr("No partition table was found on the device, so "
+                           "there is nothing to choose from. The whole "
+                           "device will be read."));
+                }
+                else if (!choosePartitionsDialog(partitions, sectorsize, &excludeSlots))
+                {
+                    CloseHandle(hRawDisk);
+                    hRawDisk = INVALID_HANDLE_VALUE;
+                    locked.release();
+                    endRun(tr("Read canceled."));
+                    return;
+                }
+                else
+                {
+                    haveSelection = true;
+                }
+            }
+
+            // Once a selection has been made, only the table type it was
+            // listed from is tried: excludeSlots is indexed by that table's
+            // own slot numbering, and falling through to the other table
+            // type on an unexpected failure would apply it against the
+            // wrong entries.
+            bool planned = haveSelection
+                ? (selectionIsGpt
+                       ? planGptShrink(hRawDisk, sectorsize, numsectors, alignsectors, &shrinkPlan, &detail, &excludeSlots)
+                       : planMbrShrink(hRawDisk, sectorsize, numsectors, alignsectors, &shrinkPlan, &detail, &excludeSlots))
+                : (planGptShrink(hRawDisk, sectorsize, numsectors, alignsectors, &shrinkPlan, &detail)
+                       || planMbrShrink(hRawDisk, sectorsize, numsectors, alignsectors, &shrinkPlan, &detail));
+            if (planned)
             {
                 shrinkPlanned = true;
                 numsectors = shrinkPlan.totalsectors;
@@ -1921,24 +2055,6 @@ void MainWindow::on_bVerify_clicked()
     elapsed_timer->stop();
 }
 
-static QString formatDeviceSize(unsigned long long bytes)
-{
-    // Card and stick capacities are quoted in powers of ten, so match that.
-    static const char *units[] = { "KB", "MB", "GB", "TB" };
-    double value = (double)bytes;
-    int unit = -1;
-    while (value >= 1000.0 && unit < 3)
-    {
-        value /= 1000.0;
-        ++unit;
-    }
-    if (unit < 0)
-    {
-        return QString("%1 B").arg(bytes);
-    }
-    return QString("%1 %2").arg(value, 0, 'f', (value < 10.0) ? 1 : 0).arg(units[unit]);
-}
-
 // How long the interface is left running before a scan started by clicking
 // something blocks it. Long enough for the control to finish drawing itself;
 // see on_showAllDevicesCheckBox_toggled().
@@ -2113,6 +2229,15 @@ void MainWindow::on_readXzCheckBox_toggled(bool checked)
     {
         readGzCheckBox->setChecked(false);
     }
+}
+
+void MainWindow::on_choosePartitionsCheckBox_toggled(bool checked)
+{
+    // Any partition selection implies repacking, so this always forces
+    // "Shrink image on Read" on too, and locks it there so the user cannot
+    // uncheck it out from under the selection they just made.
+    shrinkOnReadCheckBox->setChecked(checked || shrinkOnReadCheckBox->isChecked());
+    shrinkOnReadCheckBox->setEnabled(!checked);
 }
 
 // register to receive notifications when USB devices are inserted or removed

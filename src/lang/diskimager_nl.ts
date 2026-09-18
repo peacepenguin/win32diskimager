@@ -48,6 +48,14 @@
         <translation>Comprimeert de van het apparaat gelezen image met xz</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>Te lezen partities kiezen</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>Toont voor het lezen de partities van het apparaat en laat kiezen welke worden opgenomen. Alles wat wordt weggelaten, wordt uit de image verwijderd, net als niet-gepartitioneerde ruimte -- dit verkleint de image altijd, ongeacht of "Image verkleinen bij lezen" ook is aangevinkt.</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>Sluit WinDiskImager af</translation>
     </message>
@@ -792,6 +800,26 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 Verwijder het apparaat NU en plaats het hier niet opnieuw. Steek het meteen in de doelhardware.</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>Partities kiezen</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>Kies welke partities in de image worden opgenomen. Alles wat niet is aangevinkt, wordt verwijderd, net als niet-gepartitioneerde ruimte.</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>Partitie %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>Partitie %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>Er moet minstens één partitie aangevinkt blijven.</translation>
+    </message>
+    <message>
         <source>Read Error</source>
         <translation>Leesfout</translation>
     </message>
@@ -810,6 +838,14 @@ Verwijder het apparaat NU en plaats het hier niet opnieuw. Steek het meteen in d
     <message>
         <source>Are you sure you want to overwrite the specified file?</source>
         <translation>Weet u zeker dat u dit bestand wilt overschrijven?</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>Er is geen partitietabel op het apparaat gevonden, dus er is niets om te kiezen. Het hele apparaat wordt gelezen.</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>Lezen geannuleerd.</translation>
     </message>
     <message>
         <source>Disk is not large enough for the specified image.</source>

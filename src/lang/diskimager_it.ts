@@ -44,6 +44,14 @@
         <translation>Comprime l&apos;immagine letta dal dispositivo con xz</translation>
     </message>
     <message>
+        <source>Choose partitions to read</source>
+        <translation>Scegli le partizioni da leggere</translation>
+    </message>
+    <message>
+        <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
+        <translation>Prima della lettura, elenca le partizioni del dispositivo e permette di scegliere quali includere. Tutto ciò che viene escluso è rimosso dall&apos;immagine, come lo spazio non partizionato -- questo riduce sempre l&apos;immagine, sia o meno selezionata anche l&apos;opzione "Riduci l&apos;immagine in lettura".</translation>
+    </message>
+    <message>
         <source>Exit WinDiskImager</source>
         <translation>Esci da WinDiskImager</translation>
     </message>
@@ -844,8 +852,36 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 Rimuovere il dispositivo ORA e non reinserirlo qui. Inserirlo direttamente nell&apos;hardware di destinazione.</translation>
     </message>
     <message>
+        <source>Choose Partitions</source>
+        <translation>Scegli partizioni</translation>
+    </message>
+    <message>
+        <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
+        <translation>Scegli quali partizioni includere nell&apos;immagine. Tutto ciò che resta deselezionato viene rimosso, come lo spazio non partizionato.</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2</source>
+        <translation>Partizione %1 -- %2</translation>
+    </message>
+    <message>
+        <source>Partition %1 -- %2 -- %3</source>
+        <translation>Partizione %1 -- %2 -- %3</translation>
+    </message>
+    <message>
+        <source>At least one partition must stay checked.</source>
+        <translation>Almeno una partizione deve restare selezionata.</translation>
+    </message>
+    <message>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension, or check &quot;Read to .img.gz&quot; or &quot;Read to .img.xz&quot;.</source>
         <translation>Le immagini possono essere rilette solo non compresse. Scegliere un nome file senza estensione .gz o .xz, oppure selezionare «Leggi in .img.gz» o «Leggi in .img.xz».</translation>
+    </message>
+    <message>
+        <source>No partition table was found on the device, so there is nothing to choose from. The whole device will be read.</source>
+        <translation>Sul dispositivo non è stata trovata alcuna tabella delle partizioni, quindi non c&apos;è nulla da scegliere. Verrà letto l&apos;intero dispositivo.</translation>
+    </message>
+    <message>
+        <source>Read canceled.</source>
+        <translation>Lettura annullata.</translation>
     </message>
     <message>
         <source>Reading...</source>
