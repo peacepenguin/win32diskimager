@@ -49,8 +49,11 @@ Every build lands in `build/`, whichever route it took.
 
 **On Linux:**
 
-- **`tools/make-test-images.sh`** → test images
-  - `sfdisk`, `mkfs.vfat`, gzip and xz
+- **`tools/make-test-images.sh`** → test images, and a `MANIFEST.txt`
+  describing them
+  - `sfdisk`, `mkfs.vfat`, gzip and xz -- raw/gzip/xz sets, the GPT-rewrite
+    pair (see [TESTING-GPT-BUG.md](TESTING-GPT-BUG.md)), and the
+    shrink-on-read set (see below)
 - **`tools/verify-flashed.sh`** → pass or fail
   - `cmp`, an image against a device
 
@@ -248,6 +251,40 @@ put half an image on a card.
 
 The fixtures are built by the harness itself with zlib and liblzma, so nothing
 compressed is checked in and neither `gzip` nor `xz` needs to be on the path.
+
+## Testing shrink-on-read
+
+"Shrink image on Read" repacks a GPT or MBR device to remove every
+unpartitioned gap — ahead of the first partition, between partitions, and
+after the last one — instead of reading the device byte for byte. It has no
+automated harness of its own; `tools/make-test-images.sh` (Linux only, see
+above) instead builds seven device images purpose-built to exercise it, each
+with a gap or region that must (or must not) survive the shrink stamped with
+its own ASCII tag rather than left as zeros, so a diff of the shrunk output
+against the original catches a dropped gap or lost data that comparing sizes
+alone would miss:
+
+```
+test-shrink-mbr.img            test-shrink-gpt.img
+test-shrink-mbr-tight.img      test-shrink-gpt-tight.img
+test-shrink-mbr-multi.img      test-shrink-gpt-multi.img
+                                test-shrink-gpt-reserved.img
+```
+
+`-tight` is the negative case (nothing to shrink; the box should be a no-op),
+`-multi` has three partitions to test gaps *between* partitions specifically,
+and `-reserved` raises `FirstUsableLBA` the way an ARM board's U-Boot region
+does. The script's own `MANIFEST.txt`, written alongside the images, spells
+out what each one expects and why -- read it before poking at any of them
+by hand, especially `test-shrink-gpt-reserved.img`: creating a volume in its
+reserved span in Disk Management is a good way to end up with a card stuck
+refusing writes until physically reseated (a Windows/VDS issue, not this
+app's).
+
+To exercise one: write it to a device, Read it back with the box checked
+(and optionally "Read to .img.gz"/".img.xz", which apply to any Read and have
+no fixture of their own), and confirm the result matches what the manifest
+says it should.
 
 ## Changing the icons
 

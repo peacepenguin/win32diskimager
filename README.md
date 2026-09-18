@@ -18,7 +18,10 @@ damaged data.
 
 **Write** a raw image file `.img` to a device. `.img.gz` or `.img.xz` is decompressed as it is read, so there is never an expanded copy on disk.
 
-**Read** a device back into an image file, as an uncompressed `.img` or with compression to `.img.gz` or `.img.xz`.
+**Read** a device back into an image file, as an uncompressed `.img` or with
+compression to `.img.gz` or `.img.xz`. **Shrink image on Read** repacks the
+partitions to remove unpartitioned gaps instead of copying the device byte for
+byte -- see [Shrink image on Read](#shrink-image-on-read).
 
 **Verify** a device against an image byte for byte, reading compressed images
 the same way writing does. Verify will inform if the GPT is different, but the partition data is identical in case it's been expanded by this tool or by windows.
@@ -43,41 +46,49 @@ non-removable. The disk Windows is running from is never listed. The list also
 refreshes on a timer, since a card going into a reader that presents no volume
 produces no device-arrival broadcast at all.
 
+## Shrink image on Read
+
+Reading a device normally copies it byte for byte, sector zero to the last
+one, whether or not anything is actually there. **Shrink image on Read**
+instead reads the device's MBR or GPT, works out where each partition
+actually starts and ends, and repacks them back to back -- closing the gap
+ahead of the first partition, any gap between partitions, and the gap after
+the last one -- so the image comes out only as large as the data it holds.
+Each partition is realigned to a 4K boundary as it moves, so the result
+works on both 512-byte and 4Kn media regardless of how the original was
+laid out. For a GPT device the backup table is rebuilt and relocated to the
+new end; for MBR, which has no backup table, only the partition entries
+themselves are updated.
+
+A device with no partition table, or one already packed this tight, is read
+in full instead -- silently, since neither is an error. Combine it with **Read
+to .img.gz** / **Read to .img.xz** to shrink and compress in the same pass.
+
 ## Partition tables
 
 Writing an image smaller than the card leaves the backup GPT where the *image*
-ends rather than where the *device* ends. Linux leaves that alone.
+ends rather than where the *device* ends. Linux leaves that alone; **Windows
+always rewrites it** the first time the disk is rescanned, which is every time
+such a card is plugged in.
 
-**Windows always rewrites it.** Any time it rescans a disk whose image was
-smaller than the disk - which is every time such a card is plugged in - it
-rewrites the partition table to match the device. That happens on every card,
-every time, and most of what it does is right and worth having: the backup GPT
-is moved to the end of the device and `AlternateLBA` and `LastUsableLBA` are
-updated to match, which is what `sgdisk -e` would do and what the card wanted
-anyway.
+Most of that rewrite is correct and welcome: the backup GPT is moved to the
+end of the device the way `sgdisk -e` would. **But while doing it, Windows
+also recomputes the primary header's `PartitionEntryLBA` as `FirstUsableLBA -
+32`** instead of leaving it pointing at the entry array. On an ordinary image
+`FirstUsableLBA` is 34, so the wrong formula happens to land on the right
+answer and nothing breaks -- which is why this went unnoticed for so long. An
+ARM board image that reserves space ahead of its first partition (rk3588 and
+similar keep idbloader and u-boot below LBA 2048) sets `FirstUsableLBA`
+higher, the formula then points at empty space, and the primary table is
+corrupted -- invisibly, since Windows validates the backup header it wrote
+correctly and shows a healthy disk regardless. No data sector is touched
+either way; only the table breaks, which is why the symptom is "the board
+stopped booting" rather than "the card is blank". Rufus triggers the same
+rewrite, so this is Windows behaviour, not a bug in any one imaging tool.
 
-**Sometimes it corrupts the table doing it.** While rewriting, Windows also
-recomputes the primary header's `PartitionEntryLBA` as `FirstUsableLBA - 32`,
-rather than leaving it pointing at the entry array, which has not moved.
-Whether that ruins the table depends entirely on the image:
-
-- **`FirstUsableLBA` is 34** - the ordinary case, and most desktop and
-  Raspberry Pi images. `34 - 32 = 2` is exactly where the entry array already
-  is, so the wrong formula arrives at the right answer and nothing breaks.
-  This is why the defect went unnoticed for so long.
-- **`FirstUsableLBA` is higher** - ARM board images reserve space ahead of the
-  first partition; rk3588 keeps idbloader and u-boot below LBA 2048. There
-  `2048 - 32 = 2016` points at empty space, `PartitionEntryArrayCRC32` no
-  longer describes what the header points at, and the primary table is
-  corrupt. `parted` says `Partition Table: unknown`, and a Rock 5B fails to
-  boot because U-Boot looks its partitions up by GPT name.
-
-No data sector is touched either way, and Windows validates the backup header -
-the half it wrote correctly - so Disk Management and Rufus still show a healthy
-disk even when the primary table is ruined. Rufus triggers the same rewrite, so
-this is Windows behaviour rather than a bug in any one imaging tool. The full
-analysis, and a 48 MB reproducer that shows the damage in about a minute, are
-in [TESTING-GPT-BUG.md](TESTING-GPT-BUG.md).
+The full mechanism, why it is invisible from Windows, and a 48 MB reproducer
+that shows the damage in about a minute with no SD card involved, are all in
+[TESTING-GPT-BUG.md](TESTING-GPT-BUG.md).
 
 ### Fix GPT after write
 

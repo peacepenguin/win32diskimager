@@ -45,7 +45,7 @@ Confirm the image is sound before blaming anything else later:
 
 ```
 sudo parted example.img unit s print
-sudo python3 win32diskimager/tools/gptdump.py example.img
+sudo python3 windiskimager/tools/gptdump.py example.img
 ```
 
 Expect `FirstUsableLBA 2048`, `PartEntryLBA 2`, and every CRC `OK`. Keep
@@ -95,7 +95,7 @@ sudo partprobe "$TARGET"
 ```
 sudo parted -l
 sudo sgdisk -v "$TARGET"
-sudo python3 win32diskimager/tools/gptdump.py "$TARGET" | tee before.txt
+sudo python3 windiskimager/tools/gptdump.py "$TARGET" | tee before.txt
 ```
 
 All three complain, and all three complaints are the healthy state — see
@@ -153,7 +153,7 @@ Dismount-DiskImage -ImagePath C:\vms\gpttest.vhdx
 ```
 sudo parted -l
 sudo sgdisk -v "$TARGET"
-sudo python3 win32diskimager/tools/gptdump.py "$TARGET" | tee after.txt
+sudo python3 windiskimager/tools/gptdump.py "$TARGET" | tee after.txt
 diff before.txt after.txt
 ```
 
