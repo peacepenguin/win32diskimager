@@ -54,11 +54,12 @@ instead reads the device's MBR or GPT, works out where each partition
 actually starts and ends, and repacks them back to back -- closing the gap
 ahead of the first partition, any gap between partitions, and the gap after
 the last one -- so the image comes out only as large as the data it holds.
-Each partition is realigned to a 4K boundary as it moves, so the result
-works on both 512-byte and 4Kn media regardless of how the original was
-laid out. For a GPT device the backup table is rebuilt and relocated to the
-new end; for MBR, which has no backup table, only the partition entries
-themselves are updated.
+Each partition is realigned to a 1MiB boundary as it moves -- the same
+default Windows, `parted` and `sgdisk` all align to, and 1MiB per partition
+is negligible next to the multi-hundred-MB gaps this is meant to remove. For
+a GPT device the backup table is rebuilt and relocated to the new end; for
+MBR, which has no backup table, only the partition entries themselves are
+updated.
 
 A device with no partition table, or one already packed this tight, is read
 in full instead -- silently, since neither is an error. Combine it with **Read

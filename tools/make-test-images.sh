@@ -340,9 +340,10 @@ check_firstusablelba() {
 # but the boot sector alone marks exactly the same amount of the device as
 # reserved -- one sector -- so "Shrink image on Read" repacks an MBR device
 # the same way it does a GPT one: both gaps here must be gone, and the
-# partition moved right after the boot sector. The partition start (102400)
-# is not a multiple of 8 sectors either, so this also exercises the 4Kn-
-# alignment repacking, the same as test-shrink-gpt.img does for GPT.
+# partition moved right after the boot sector. The 50/100/50 MB split lands
+# the partition on a 1MiB boundary either way, so unlike the -multi image
+# below, this one does not exercise the alignment rounding itself -- only
+# gap removal.
 make_shrink_mbr_image() {
     local path=$1
     local sector=512
@@ -396,8 +397,9 @@ EOF
 # Three MBR primary partitions rather than one, with a gap ahead of each of
 # the first two and none after the last -- "between partitions", which
 # test-shrink-mbr.img's single partition cannot exercise, and the MBR
-# counterpart to test-shrink-gpt-multi.img. No start is a multiple of 8
-# sectors. Geometry only, no filesystems: each partition gets its own stamp
+# counterpart to test-shrink-gpt-multi.img. No start is a multiple of 2048
+# sectors (1MiB), so this also exercises the alignment rounding, not just
+# gap removal. Geometry only, no filesystems: each partition gets its own stamp
 # instead, the same as the GPT multi-partition image.
 make_shrink_mbr_multi_image() {
     local path=$1
@@ -432,8 +434,8 @@ EOF
 # partition, then another 50 MB gap before the backup GPT. Both gaps must be
 # gone, and the backup GPT relocated right after the partition, once "Shrink
 # image on Read" has run. The partition start (102434) is not a multiple of
-# 8 sectors, so this also exercises the 4Kn-alignment repacking, not just
-# gap removal.
+# 2048 sectors (1MiB), so this also exercises the alignment repacking, not
+# just gap removal.
 make_shrink_gpt_image() {
     local path=$1
     local sector=512
@@ -538,7 +540,7 @@ EOF
 # Three partitions rather than one, with a gap ahead of each of the first two
 # and none after the last (the trailing case is already covered above) --
 # "between partitions" is what a single-partition image cannot exercise.
-# Every start is deliberately not a multiple of 8 sectors (4 KiB), so a
+# Every start is deliberately not a multiple of 2048 sectors (1MiB), so a
 # repack that failed to realign a partition would still move the right bytes
 # to the right place while landing it on the wrong boundary. No filesystems:
 # with three partitions and three gaps this is about the repacking math, so
@@ -626,7 +628,7 @@ fi
 )
 
 cat > "$OUTDIR/MANIFEST.txt" <<EOF
-win32diskimager raw / gzip / xz test images
+windiskimager raw / gzip / xz test images
 generated $(date -Iseconds) by tools/make-test-images.sh
 
 Each image below is a DOS-partitioned disk with one FAT volume (label TESTIMG)
@@ -675,9 +677,11 @@ in, or real data left out, that comparing sizes alone would miss.
                                reserves at minimum, so both gaps here (tagged
                                ...-MUST-BE-DROPPED) should be gone and the
                                partition moved to right after the boot sector.
-                               Its start is also not on a 4Kn boundary, so this
-                               exercises the alignment repacking too. Shrunk
-                               size: ~100 MB plus the boot sector.
+                               The 50/100/50 MB split lands it on a 1MiB
+                               boundary either way, so unlike -multi below this
+                               one does not exercise the alignment rounding
+                               itself. Shrunk size: ~100 MB plus the boot
+                               sector.
   test-shrink-mbr-tight.img    MBR, one partition already spanning from the
                                sector right after the boot sector to the end
                                of the device: nothing to shrink anywhere.
@@ -689,8 +693,9 @@ in, or real data left out, that comparing sizes alone would miss.
                                of each of the first two (tags GAP1-.../GAP2-
                                ...) and none after the last -- "between
                                partitions", which test-shrink-mbr.img's single
-                               partition cannot exercise. No start is on a 4Kn
-                               boundary. Geometry only, no filesystems (each
+                               partition cannot exercise. No start is on a
+                               1MiB boundary, so this also exercises the
+                               alignment rounding. Geometry only, no filesystems (each
                                partition is instead filled with its own
                                PART<n>-DATA tag), the same as its GPT
                                counterpart below.
@@ -699,7 +704,7 @@ in, or real data left out, that comparing sizes alone would miss.
                                (tagged ...-MUST-BE-DROPPED) should be gone and
                                the backup GPT relocated right after the
                                partition. The partition also does not start on
-                               a 4Kn boundary, so this exercises the alignment
+                               a 1MiB boundary, so this exercises the alignment
                                repacking as well as gap removal. Shrunk size:
                                ~100 MB plus one entry-array-and-header's worth
                                of sectors.
@@ -722,7 +727,7 @@ in, or real data left out, that comparing sizes alone would miss.
                                though it fails) has been observed to leave the
                                disk stuck: every subsequent write gets Access
                                Denied, and neither restarting
-                               win32diskimager nor toggling the disk
+                               windiskimager nor toggling the disk
                                online/offline clears it -- only physically
                                removing and reinserting the device does. That
                                points at Virtual Disk Service (the thing
@@ -743,7 +748,7 @@ in, or real data left out, that comparing sizes alone would miss.
                                of the first two (tags GAP1-.../GAP2-...) and
                                none after the last -- "between partitions",
                                which a single-partition image cannot exercise.
-                               No start is on a 4Kn boundary. Geometry only,
+                               No start is on a 1MiB boundary. Geometry only,
                                no filesystems (each partition is instead
                                filled with its own PART<n>-DATA tag), so
                                checking this one is a matter of confirming

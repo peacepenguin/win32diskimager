@@ -256,11 +256,12 @@ struct PartitionShrinkPlan
 // device -- between FirstUsableLBA and the first partition, between
 // partitions, and after the last one -- rather than only the trailing one.
 // Partitions are repacked in their original order and each is aligned to
-// alignsectors (pass 4096 / sectorsize, so an image made from a 512-byte-
-// sector device still starts every partition on a 4K boundary, matching what
-// 4Kn media needs). Returns false, with *plan untouched, if the device holds
-// no usable GPT, a partition's range makes no sense, or there is nothing to
-// gain by repacking.
+// alignsectors (pass 1048576 / sectorsize, so an image made from a 512-byte-
+// sector device still starts every partition on a 1MiB boundary -- the same
+// default Windows, parted and sgdisk all align to, and comfortably a multiple
+// of any real sector or erase-block size, 4Kn included). Returns false, with
+// *plan untouched, if the device holds no usable GPT, a partition's range
+// makes no sense, or there is nothing to gain by repacking.
 bool planGptShrink(HANDLE hRawDisk, unsigned long long sectorsize,
                    unsigned long long devicesectors, unsigned long long alignsectors,
                    PartitionShrinkPlan *plan, QString *detail);

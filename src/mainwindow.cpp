@@ -1350,16 +1350,18 @@ void MainWindow::on_bRead_clicked()
         // themselves, when asked to and the device's table allows it. Every
         // unpartitioned gap is closed -- ahead of the first partition,
         // between partitions, and after the last one -- by repacking each
-        // partition 4K-aligned, the same way for GPT and MBR alike; a GPT
-        // plan additionally rebuilds the backup table, which MBR has none of.
-        // A device with no usable table, or already this tight, is read in
-        // full instead -- silently, since neither is an error.
+        // partition 1MiB-aligned, the same way for GPT and MBR alike and the
+        // same default every mainstream partitioning tool (Windows, parted,
+        // sgdisk) uses; a GPT plan additionally rebuilds the backup table,
+        // which MBR has none of. A device with no usable table, or already
+        // this tight, is read in full instead -- silently, since neither is
+        // an error.
         bool shrinkPlanned = false;
         PartitionShrinkPlan shrinkPlan;
         if (shrinkOnReadCheckBox->isChecked())
         {
             QString detail;
-            unsigned long long alignsectors = (sectorsize >= 4096ull) ? 1ull : (4096ull / sectorsize);
+            unsigned long long alignsectors = (sectorsize >= 1048576ull) ? 1ull : (1048576ull / sectorsize);
             if (alignsectors == 0ull)
             {
                 alignsectors = 1ull;
@@ -1438,7 +1440,7 @@ void MainWindow::on_bRead_clicked()
         // dstpos is how far into the image the next write starts. A raw write
         // just seeks there; a compressed one has no seek at all, so every
         // write, including the zero-filled ones writeZeros() makes for a gap
-        // left by 4K alignment, has to happen in this exact order with
+        // left by alignment, has to happen in this exact order with
         // nothing skipped -- which planGptShrink() guarantees, and a plain
         // contiguous read never even has to ask for.
         unsigned long long dstpos = 0ull;
