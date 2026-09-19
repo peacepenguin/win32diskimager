@@ -121,7 +121,7 @@ private:
         // Lists partitions and lets the user check which to include; see
         // mainwindow.cpp. Returns false if the user canceled.
         bool choosePartitionsDialog(const QList<PartitionInfo> &partitions,
-                                    unsigned long long sectorsize,
+                                    unsigned long long sectorsize, int deviceID,
                                     QList<int> *excluded);
 
         HANDLE hFile;

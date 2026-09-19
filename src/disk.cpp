@@ -340,6 +340,91 @@ QString driveLettersOnDevice(ULONG deviceID)
     return found.join(", ");
 }
 
+QMap<unsigned long long, QString> driveLettersByOffset(ULONG deviceID)
+{
+    QMap<unsigned long long, QString> found;
+    unsigned long driveMask = GetLogicalDrives();
+    for (int i = 0; i < 26; ++i)
+    {
+        if (!(driveMask & (1ul << i)))
+        {
+            continue;
+        }
+        char letter = 'A' + i;
+        char volumename[] = "\\\\.\\A:";
+        volumename[4] = letter;
+        HANDLE h = CreateFile(volumename, 0, FILE_SHARE_READ | FILE_SHARE_WRITE,
+                              NULL, OPEN_EXISTING, 0, NULL);
+        if (h == INVALID_HANDLE_VALUE)
+        {
+            continue;
+        }
+        VOLUME_DISK_EXTENTS sd;
+        DWORD bytesreturned;
+        if (DeviceIoControl(h, IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS, NULL, 0,
+                            &sd, sizeof(sd), &bytesreturned, NULL)
+            && sd.NumberOfDiskExtents > 0
+            && sd.Extents[0].DiskNumber == deviceID)
+        {
+            found.insert((unsigned long long)sd.Extents[0].StartingOffset.QuadPart,
+                        QString("%1:").arg(QChar(letter)));
+        }
+        CloseHandle(h);
+    }
+    return found;
+}
+
+bool diskPartitionNumbers(HANDLE hRawDisk, unsigned long long sectorsize,
+                          QMap<unsigned long long, int> *numbersBySector)
+{
+    if (sectorsize == 0)
+    {
+        return false;
+    }
+    // The partition count is not known ahead of time, so this grows the
+    // buffer and retries until the ioctl stops asking for more room. 32
+    // entries covers any real device on the first try; the cap just keeps a
+    // pathological reply from growing forever.
+    DWORD size = sizeof(DRIVE_LAYOUT_INFORMATION_EX) + 32 * sizeof(PARTITION_INFORMATION_EX);
+    QByteArray buf(size, 0);
+    DWORD bytesreturned = 0;
+    for (;;)
+    {
+        if (DeviceIoControl(hRawDisk, IOCTL_DISK_GET_DRIVE_LAYOUT_EX, NULL, 0,
+                            buf.data(), size, &bytesreturned, NULL))
+        {
+            break;
+        }
+        if (GetLastError() != ERROR_INSUFFICIENT_BUFFER || size > 4u * 1024u * 1024u)
+        {
+            return false;
+        }
+        size *= 2;
+        buf.resize(size);
+    }
+
+    const DRIVE_LAYOUT_INFORMATION_EX *layout =
+        (const DRIVE_LAYOUT_INFORMATION_EX *)buf.constData();
+    numbersBySector->clear();
+    for (DWORD i = 0; i < layout->PartitionCount; ++i)
+    {
+        const PARTITION_INFORMATION_EX &p = layout->PartitionEntry[i];
+        // An unused table slot is reported with a partition number of 0
+        // (GPT) or an MBR type byte of 0; neither is a real partition.
+        if (p.PartitionNumber == 0)
+        {
+            continue;
+        }
+        if (p.PartitionStyle == PARTITION_STYLE_MBR && p.Mbr.PartitionType == 0)
+        {
+            continue;
+        }
+        unsigned long long sector = (unsigned long long)p.StartingOffset.QuadPart / sectorsize;
+        numbersBySector->insert(sector, (int)p.PartitionNumber);
+    }
+    return true;
+}
+
 // Disk that holds the running Windows installation, or -1 if unknown.
 static int systemDiskNumber()
 {
@@ -1037,12 +1122,24 @@ bool listMbrPartitions(HANDLE hRawDisk, unsigned long long sectorsize,
     {
         return false;
     }
+    // Table order is whatever slot the partition happens to occupy, which
+    // has nothing to do with where it sits on the disk -- a partition
+    // deleted and recreated later can land in an earlier slot than one
+    // physically ahead of it. List by starting sector instead, the same
+    // order Windows' own partition numbering (and diskpart) uses, so
+    // "Partition 2" here means the same partition "Partition 2" means
+    // there.
+    std::sort(order.begin(), order.end(), [](const MbrSlot &a, const MbrSlot &b)
+    {
+        return a.first < b.first;
+    });
 
     partitions->clear();
     for (const MbrSlot &s : order)
     {
         PartitionInfo info;
         info.slot = s.idx;
+        info.firstSector = s.first;
         info.sectors = s.count;
         partitions->append(info);
     }
@@ -1243,7 +1340,7 @@ bool listGptPartitions(HANDLE hRawDisk, unsigned long long sectorsize,
         return false;
     }
 
-    partitions->clear();
+    QList<QPair<unsigned long long, PartitionInfo>> found;
     for (unsigned long long i = 0; i < numentries; ++i)
     {
         const unsigned char *e = (const unsigned char *)entries.constData() + i * entrysize;
@@ -1259,9 +1356,28 @@ bool listGptPartitions(HANDLE hRawDisk, unsigned long long sectorsize,
         }
         PartitionInfo info;
         info.slot = (int)i;
+        info.firstSector = first;
         info.sectors = last - first + 1;
         info.name = gptEntryName(e);
-        partitions->append(info);
+        found.append(qMakePair(first, info));
+    }
+    // Entry-array order is whatever slot the partition happens to occupy,
+    // which has nothing to do with where it sits on the disk -- a partition
+    // deleted and recreated later can land in an earlier slot than one
+    // physically ahead of it. List by starting sector instead, the same
+    // order Windows' own partition numbering (and diskpart) uses, so
+    // "Partition 2" here means the same partition "Partition 2" means
+    // there.
+    std::sort(found.begin(), found.end(), [](const QPair<unsigned long long, PartitionInfo> &a,
+                                              const QPair<unsigned long long, PartitionInfo> &b)
+    {
+        return a.first < b.first;
+    });
+
+    partitions->clear();
+    for (const auto &pair : found)
+    {
+        partitions->append(pair.second);
     }
     return true;
 }

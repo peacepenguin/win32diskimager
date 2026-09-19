@@ -287,14 +287,37 @@ bool planMbrShrink(HANDLE hRawDisk, unsigned long long sectorsize,
 
 // One partition as offered to the user for "choose partitions to read":
 // its slot (GPT entry index, or MBR primary entry index 0-3, matching
-// excludeSlots above), its size, and its name where the table format
-// carries one (GPT only; empty for MBR).
+// excludeSlots above), its starting sector and size, and its name where the
+// table format carries one (GPT only; empty for MBR).
 struct PartitionInfo
 {
     int slot;
+    unsigned long long firstSector;
     unsigned long long sectors;
     QString name;
 };
+
+// Drive letters currently mounted on physical disk deviceID, keyed by each
+// volume's starting byte offset on the disk. A partition is only known by
+// this code as a table entry -- its own starting sector, not a volume --
+// so matching it back to the letter Windows mounted it as means going
+// through the one thing both share: where it starts on the disk. Uses the
+// same IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS driveLettersOnDevice() already
+// reads, just keeping the offset instead of discarding it.
+QMap<unsigned long long, QString> driveLettersByOffset(ULONG deviceID);
+
+// The partition number Windows itself assigns each partition on the device
+// -- the same one diskpart's "Partition ###" column shows -- keyed by
+// starting sector. This is *not* the same thing as a GPT entry's slot in
+// the table: this program numbers by raw slot index, one-based, but a
+// partition Windows created out of table order (say, into a slot freed by
+// an earlier deletion) keeps whatever number it was given, which can
+// disagree with its slot. Reading it back from Windows rather than
+// guessing from the table is what makes the two match. Returns false if
+// the device's layout cannot be read this way, in which case the caller's
+// own slot-based numbering is the only option left.
+bool diskPartitionNumbers(HANDLE hRawDisk, unsigned long long sectorsize,
+                          QMap<unsigned long long, int> *numbersBySector);
 
 // List every in-use partition on a GPT device, in table order (not sorted
 // by start LBA, so the slot the user picks lines up with excludeSlots).

@@ -1246,9 +1246,21 @@ static QString formatDeviceSize(unsigned long long bytes)
 // partitions at all is never what "choose partitions" was for. Returns false
 // if the user cancels instead.
 bool MainWindow::choosePartitionsDialog(const QList<PartitionInfo> &partitions,
-                                        unsigned long long sectorsize,
+                                        unsigned long long sectorsize, int deviceID,
                                         QList<int> *excluded)
 {
+    // Keyed by starting byte offset, the one thing a mounted volume and a
+    // partition table entry both agree on -- there is no other link between
+    // "this is drive D:" and "this is GPT entry 3" to follow.
+    QMap<unsigned long long, QString> driveLetters = driveLettersByOffset((ULONG)deviceID);
+    // The number Windows itself gave each partition, read back rather than
+    // assumed from its table slot -- a partition created into a slot freed
+    // by an earlier deletion keeps the number it was given, which does not
+    // always match "slot + 1". Falls back to the slot-based guess if the
+    // ioctl fails, which is what this program used before it could ask.
+    QMap<unsigned long long, int> partitionNumbers;
+    bool haveRealNumbers = diskPartitionNumbers(hRawDisk, sectorsize, &partitionNumbers);
+
     QDialog dialog(this);
     dialog.setWindowTitle(tr("Choose Partitions"));
     QVBoxLayout *layout = new QVBoxLayout(&dialog);
@@ -1262,12 +1274,27 @@ bool MainWindow::choosePartitionsDialog(const QList<PartitionInfo> &partitions,
     dialog.setMinimumWidth(300);
 
     QListWidget *list = new QListWidget(&dialog);
+    // partitions is already in on-disk position order (see
+    // listGptPartitions()/listMbrPartitions()), which is what diskpart's own
+    // listing sorts by too -- but diskpart's "Partition N" number is a
+    // stable identity, not tied to that display order, so a partition
+    // created out of position still keeps the number it was given (e.g.
+    // "Partition 4" sitting second on the disk). Only the row order here
+    // follows position; the number shown comes from Windows when available.
     for (const PartitionInfo &p : partitions)
     {
+        int number = haveRealNumbers ? partitionNumbers.value(p.firstSector, p.slot + 1)
+                                      : p.slot + 1;
         QString sizeStr = formatDeviceSize(p.sectors * sectorsize);
-        QString text = p.name.isEmpty()
-            ? tr("Partition %1 -- %2").arg(p.slot + 1).arg(sizeStr)
-            : tr("Partition %1 -- %2 -- %3").arg(p.slot + 1).arg(sizeStr).arg(p.name);
+        // A drive letter identifies the partition to the user better than
+        // its GPT name ever does -- "D:" is what they see in Explorer,
+        // while a name is often blank (always, for MBR) or a generic
+        // "Basic data partition" left over from whatever formatted it. Only
+        // fall back to the name when nothing is mounted there at all.
+        QString label3 = driveLetters.value(p.firstSector * sectorsize, p.name);
+        QString text = label3.isEmpty()
+            ? tr("Partition %1 -- %2").arg(number).arg(sizeStr)
+            : tr("Partition %1 -- %2 -- %3").arg(number).arg(sizeStr).arg(label3);
         QListWidgetItem *item = new QListWidgetItem(text, list);
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         item->setCheckState(Qt::Checked);
@@ -1481,7 +1508,7 @@ void MainWindow::on_bRead_clicked()
                            "there is nothing to choose from. The whole "
                            "device will be read."));
                 }
-                else if (!choosePartitionsDialog(partitions, sectorsize, &excludeSlots))
+                else if (!choosePartitionsDialog(partitions, sectorsize, deviceID, &excludeSlots))
                 {
                     CloseHandle(hRawDisk);
                     hRawDisk = INVALID_HANDLE_VALUE;
