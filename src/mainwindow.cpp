@@ -1252,9 +1252,15 @@ bool MainWindow::choosePartitionsDialog(const QList<PartitionInfo> &partitions,
     QDialog dialog(this);
     dialog.setWindowTitle(tr("Choose Partitions"));
     QVBoxLayout *layout = new QVBoxLayout(&dialog);
-    layout->addWidget(new QLabel(
+    QLabel *label = new QLabel(
         tr("Choose which partitions to include in the image. Anything left "
-           "unchecked is removed, the same as unpartitioned space."), &dialog));
+           "unchecked is removed, the same as unpartitioned space."), &dialog);
+    // Without word wrap, QLabel sizes itself to fit the whole sentence on
+    // one line, which is what was stretching the dialog far wider than the
+    // partition list actually needs.
+    label->setWordWrap(true);
+    layout->addWidget(label);
+    dialog.setMinimumWidth(300);
 
     QListWidget *list = new QListWidget(&dialog);
     for (const PartitionInfo &p : partitions)
