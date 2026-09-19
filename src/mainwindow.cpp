@@ -1538,6 +1538,22 @@ void MainWindow::on_bRead_clicked()
                 shrinkPlanned = true;
                 numsectors = shrinkPlan.totalsectors;
             }
+            else if (haveSelection)
+            {
+                // Unlike a plain "Shrink image on Read" failing -- where
+                // falling back to a full read is harmless, since nothing
+                // was promised to be left out -- the user explicitly chose
+                // to exclude a partition here. Reading the whole device
+                // anyway would put that partition's data in the image
+                // silently, which is exactly what this feature exists to
+                // prevent.
+                CloseHandle(hRawDisk);
+                hRawDisk = INVALID_HANDLE_VALUE;
+                locked.release();
+                QMessageBox::critical(this, tr("Read Error"), detail);
+                endRun(tr("Read failed."));
+                return;
+            }
         }
         bool compressing = compressGz || compressXz;
         ImageSink sink;
