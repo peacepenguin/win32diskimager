@@ -594,6 +594,10 @@ Continue Anyway?</source>
         <translation>パーティションテーブルを修復できませんでした: %1</translation>
     </message>
     <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>イメージに含めるパーティションを選択してください。</translation>
+    </message>
+    <message>
         <source>The device could not be read at sector %1.</source>
         <translation>セクタ %1 でデバイスを読み取れませんでした。</translation>
     </message>
@@ -805,7 +809,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>イメージに含めるパーティションを選択してください。チェックを外したものは、未パーティション領域と同様に取り除かれます。</translation>
+        <translation type="vanished">イメージに含めるパーティションを選択してください。チェックを外したものは、未パーティション領域と同様に取り除かれます。</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>

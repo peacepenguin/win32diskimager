@@ -797,7 +797,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</translation>
+        <translation type="vanished">Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>
@@ -922,6 +922,10 @@ Continue Anyway?</translation>
     <message>
         <source>Size Mismatch!</source>
         <translation>Size Mismatch!</translation>
+    </message>
+    <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>Select partitions to include in the Image.</translation>
     </message>
     <message>
         <source>Verify Failure</source>

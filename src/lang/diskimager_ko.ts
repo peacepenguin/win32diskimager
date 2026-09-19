@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
-        <translation>읽기 전에 장치의 파티션을 나열하고 포함할 항목을 선택합니다. 제외된 항목은 파티션되지 않은 공간과 마찬가지로 이미지에서 제거됩니다 -- "읽기 시 이미지 축소"가 선택되어 있는지 여부와 관계없이 항상 이미지를 축소합니다.</translation>
+        <translation>읽기 전에 장치의 파티션을 나열하고 포함할 항목을 선택합니다. 제외된 항목은 파티션되지 않은 공간과 마찬가지로 이미지에서 제거됩니다 -- &quot;읽기 시 이미지 축소&quot;가 선택되어 있는지 여부와 관계없이 항상 이미지를 축소합니다.</translation>
     </message>
     <message>
         <source>Exit WinDiskImager</source>
@@ -594,6 +594,10 @@ Continue Anyway?</source>
         <translation>파티션 테이블을 복구하지 못했습니다: %1</translation>
     </message>
     <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>이미지에 포함할 파티션을 선택하세요.</translation>
+    </message>
+    <message>
         <source>The device could not be read at sector %1.</source>
         <translation>섹터 %1에서 장치를 읽지 못했습니다.</translation>
     </message>
@@ -805,7 +809,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>이미지에 포함할 파티션을 선택하세요. 선택하지 않은 항목은 파티션되지 않은 공간과 마찬가지로 제거됩니다.</translation>
+        <translation type="vanished">이미지에 포함할 파티션을 선택하세요. 선택하지 않은 항목은 파티션되지 않은 공간과 마찬가지로 제거됩니다.</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>

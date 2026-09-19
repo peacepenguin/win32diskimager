@@ -602,6 +602,10 @@ Continuer quand même ?</translation>
         <translation>La table de partitions n&apos;a pas pu être réparée : %1</translation>
     </message>
     <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>Sélectionnez les partitions à inclure dans l&apos;image.</translation>
+    </message>
+    <message>
         <source>Image larger than device</source>
         <translation>Image plus grande que le périphérique</translation>
     </message>
@@ -785,7 +789,7 @@ Retirez le périphérique MAINTENANT et ne le réinsérez pas ici. Placez-le dir
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>Choisissez les partitions à inclure dans l&apos;image. Tout ce qui reste décoché est retiré, comme l&apos;espace non partitionné.</translation>
+        <translation type="vanished">Choisissez les partitions à inclure dans l&apos;image. Tout ce qui reste décoché est retiré, comme l&apos;espace non partitionné.</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>

@@ -602,6 +602,10 @@ Trotzdem fortfahren?</translation>
         <translation>Die Partitionstabelle konnte nicht repariert werden: %1</translation>
     </message>
     <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>Zu berücksichtigende Partitionen auswählen.</translation>
+    </message>
+    <message>
         <source>Image larger than device</source>
         <translation>Image größer als der Datenträger</translation>
     </message>
@@ -785,7 +789,7 @@ Entfernen Sie den Datenträger JETZT und stecken Sie ihn hier nicht wieder ein. 
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>Wählen Sie, welche Partitionen im Image enthalten sein sollen. Alles nicht Angehakte wird entfernt, genau wie nicht partitionierter Speicherplatz.</translation>
+        <translation type="vanished">Wählen Sie, welche Partitionen im Image enthalten sein sollen. Alles nicht Angehakte wird entfernt, genau wie nicht partitionierter Speicherplatz.</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>

@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
-        <translation>在读取之前列出设备的分区，供选择要包含哪些分区。未包含的分区将从映像中移除，与未分区空间一样 -- 无论是否同时勾选了"读取时缩小映像"，这都会缩小映像。</translation>
+        <translation>在读取之前列出设备的分区，供选择要包含哪些分区。未包含的分区将从映像中移除，与未分区空间一样 -- 无论是否同时勾选了&quot;读取时缩小映像&quot;，这都会缩小映像。</translation>
     </message>
     <message>
         <source>Exit WinDiskImager</source>
@@ -594,6 +594,10 @@ Continue Anyway?</source>
         <translation>无法修复分区表：%1</translation>
     </message>
     <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>选择要包含在映像中的分区。</translation>
+    </message>
+    <message>
         <source>The device could not be read at sector %1.</source>
         <translation>无法读取设备的扇区 %1。</translation>
     </message>
@@ -805,7 +809,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>选择要包含在映像中的分区。未勾选的分区将被移除，与未分区空间一样。</translation>
+        <translation type="vanished">选择要包含在映像中的分区。未勾选的分区将被移除，与未分区空间一样。</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>

@@ -594,6 +594,10 @@ Continue Anyway?</source>
         <translation>無法修復分割表：%1</translation>
     </message>
     <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>選擇要納入映像檔的磁碟分割。</translation>
+    </message>
+    <message>
         <source>The device could not be read at sector %1.</source>
         <translation>無法讀取裝置的磁區 %1。</translation>
     </message>
@@ -805,7 +809,7 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>選擇要納入映像檔的磁碟分割。未勾選的部分會被移除，與未分割空間相同。</translation>
+        <translation type="vanished">選擇要納入映像檔的磁碟分割。未勾選的部分會被移除，與未分割空間相同。</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>

@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
-        <translation>Prima della lettura, elenca le partizioni del dispositivo e permette di scegliere quali includere. Tutto ciò che viene escluso è rimosso dall&apos;immagine, come lo spazio non partizionato -- questo riduce sempre l&apos;immagine, sia o meno selezionata anche l&apos;opzione "Riduci l&apos;immagine in lettura".</translation>
+        <translation>Prima della lettura, elenca le partizioni del dispositivo e permette di scegliere quali includere. Tutto ciò che viene escluso è rimosso dall&apos;immagine, come lo spazio non partizionato -- questo riduce sempre l&apos;immagine, sia o meno selezionata anche l&apos;opzione &quot;Riduci l&apos;immagine in lettura&quot;.</translation>
     </message>
     <message>
         <source>Exit WinDiskImager</source>
@@ -857,7 +857,7 @@ Rimuovere il dispositivo ORA e non reinserirlo qui. Inserirlo direttamente nell&
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>Scegli quali partizioni includere nell&apos;immagine. Tutto ciò che resta deselezionato viene rimosso, come lo spazio non partizionato.</translation>
+        <translation type="vanished">Scegli quali partizioni includere nell&apos;immagine. Tutto ciò che resta deselezionato viene rimosso, come lo spazio non partizionato.</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>
@@ -914,6 +914,10 @@ Rimuovere il dispositivo ORA e non reinserirlo qui. Inserirlo direttamente nell&
     <message>
         <source>The partition table could not be repaired: %1</source>
         <translation>Non è stato possibile riparare la tabella delle partizioni: %1</translation>
+    </message>
+    <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>Seleziona le partizioni da includere nell&apos;immagine.</translation>
     </message>
     <message>
         <source>The image is larger than the device, so only the part that fits could be compared. Everything compared matched, but the device does not hold a complete image.

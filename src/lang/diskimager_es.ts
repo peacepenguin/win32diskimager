@@ -602,6 +602,10 @@ No se pudo comprobar si el espacio sobrante contiene datos, porque la imagen est
         <translation>No se pudo reparar la tabla de particiones: %1</translation>
     </message>
     <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>Seleccione las particiones a incluir en la imagen.</translation>
+    </message>
+    <message>
         <source>Image larger than device</source>
         <translation>Imagen mayor que el dispositivo</translation>
     </message>
@@ -785,7 +789,7 @@ Extraiga el dispositivo AHORA y no vuelva a insertarlo aquí. Colóquelo directa
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>Elija qué particiones incluir en la imagen. Todo lo que quede sin marcar se elimina, igual que el espacio sin particionar.</translation>
+        <translation type="vanished">Elija qué particiones incluir en la imagen. Todo lo que quede sin marcar se elimina, igual que el espacio sin particionar.</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>

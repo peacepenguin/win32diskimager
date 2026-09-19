@@ -595,6 +595,10 @@ Kontynuować mimo to?</translation>
         <translation>Nie udało się naprawić tablicy partycji: %1</translation>
     </message>
     <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>Wybierz partycje do uwzględnienia w obrazie.</translation>
+    </message>
+    <message>
         <source>The device could not be read at sector %1.</source>
         <translation>Nie udało się odczytać urządzenia na sektorze %1.</translation>
     </message>
@@ -806,7 +810,7 @@ Wyjmij urządzenie TERAZ i nie wkładaj go ponownie tutaj. Włóż je bezpośred
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>Wybierz, które partycje mają zostać uwzględnione w obrazie. Wszystko, co pozostanie niezaznaczone, zostanie usunięte, podobnie jak niespartycjonowana przestrzeń.</translation>
+        <translation type="vanished">Wybierz, które partycje mają zostać uwzględnione w obrazie. Wszystko, co pozostanie niezaznaczone, zostanie usunięte, podobnie jak niespartycjonowana przestrzeń.</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>

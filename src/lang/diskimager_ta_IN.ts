@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
-        <translation>படிப்பதற்கு முன், சாதனத்தின் பகிர்வுகளைப் பட்டியலிட்டு, சேர்க்க வேண்டியவற்றைத் தேர்வுசெய்ய அனுமதிக்கிறது. விடுபட்டவை படிமத்திலிருந்து அகற்றப்படும், பகிரப்படாத இடம் போலவே -- "படித்தல் நேரத்தில் படிமத்தைச் சுருக்கு" தேர்வு செய்யப்பட்டிருந்தாலும் இல்லாவிட்டாலும், இது எப்போதும் படிமத்தைச் சுருக்கும்.</translation>
+        <translation>படிப்பதற்கு முன், சாதனத்தின் பகிர்வுகளைப் பட்டியலிட்டு, சேர்க்க வேண்டியவற்றைத் தேர்வுசெய்ய அனுமதிக்கிறது. விடுபட்டவை படிமத்திலிருந்து அகற்றப்படும், பகிரப்படாத இடம் போலவே -- &quot;படித்தல் நேரத்தில் படிமத்தைச் சுருக்கு&quot; தேர்வு செய்யப்பட்டிருந்தாலும் இல்லாவிட்டாலும், இது எப்போதும் படிமத்தைச் சுருக்கும்.</translation>
     </message>
     <message>
         <source>Exit WinDiskImager</source>
@@ -534,7 +534,7 @@ Continue Anyway?</source>
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>படிமத்தில் சேர்க்க வேண்டிய பகிர்வுகளைத் தேர்வுசெய். தேர்வு செய்யப்படாதவை, பகிரப்படாத இடம் போலவே அகற்றப்படும்.</translation>
+        <translation type="vanished">படிமத்தில் சேர்க்க வேண்டிய பகிர்வுகளைத் தேர்வுசெய். தேர்வு செய்யப்படாதவை, பகிரப்படாத இடம் போலவே அகற்றப்படும்.</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>
@@ -744,6 +744,10 @@ Remove the device NOW and do not re-insert it here. Put it straight into the tar
 %1 %2
 %3
 சாதனத்தை இப்போதே அகற்றவும்; அதை மீண்டும் இங்கே செருகவேண்டாம். நேரடியாக இலக்கு வன்பொருளில் செருகவும்.</translation>
+    </message>
+    <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>படிமத்தில் சேர்க்க வேண்டிய பகிர்வுகளைத் தேர்ந்தெடுக்கவும்.</translation>
     </message>
     <message>
         <source>Images can only be read back uncompressed. Choose a file name without a .gz or .xz extension, or check &quot;Read to .img.gz&quot; or &quot;Read to .img.xz&quot;.</source>

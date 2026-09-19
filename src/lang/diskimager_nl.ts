@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Before reading, list the Device&apos;s partitions and choose which to include. Anything left out is removed from the image, the same as unpartitioned space -- this always shrinks the image, whether or not &quot;Shrink image on Read&quot; is also checked.</source>
-        <translation>Toont voor het lezen de partities van het apparaat en laat kiezen welke worden opgenomen. Alles wat wordt weggelaten, wordt uit de image verwijderd, net als niet-gepartitioneerde ruimte -- dit verkleint de image altijd, ongeacht of "Image verkleinen bij lezen" ook is aangevinkt.</translation>
+        <translation>Toont voor het lezen de partities van het apparaat en laat kiezen welke worden opgenomen. Alles wat wordt weggelaten, wordt uit de image verwijderd, net als niet-gepartitioneerde ruimte -- dit verkleint de image altijd, ongeacht of &quot;Image verkleinen bij lezen&quot; ook is aangevinkt.</translation>
     </message>
     <message>
         <source>Exit WinDiskImager</source>
@@ -594,6 +594,10 @@ Toch doorgaan?</translation>
         <translation>De partitietabel kon niet worden hersteld: %1</translation>
     </message>
     <message>
+        <source>Select partitions to include in the Image.</source>
+        <translation>Selecteer de partities die in de image moeten worden opgenomen.</translation>
+    </message>
+    <message>
         <source>The device could not be read at sector %1.</source>
         <translation>Het apparaat kon niet worden gelezen op sector %1.</translation>
     </message>
@@ -805,7 +809,7 @@ Verwijder het apparaat NU en plaats het hier niet opnieuw. Steek het meteen in d
     </message>
     <message>
         <source>Choose which partitions to include in the image. Anything left unchecked is removed, the same as unpartitioned space.</source>
-        <translation>Kies welke partities in de image worden opgenomen. Alles wat niet is aangevinkt, wordt verwijderd, net als niet-gepartitioneerde ruimte.</translation>
+        <translation type="vanished">Kies welke partities in de image worden opgenomen. Alles wat niet is aangevinkt, wordt verwijderd, net als niet-gepartitioneerde ruimte.</translation>
     </message>
     <message>
         <source>Partition %1 -- %2</source>
